@@ -1,0 +1,113 @@
+# biomed | 生物与医学 | Biology & Medicine | 人类寿命翻倍的秘密：看见病菌、读懂基因、设计药物
+## 公共卫生
+vaccine | 疫苗 | Vaccine | A | 1796 | 用无害或减弱的"假病原体"预先训练免疫系统，真病原体来时就能迅速消灭它。 | smallpox-eradication, mrna-vaccine, cold-chain | recognition, germ
+smallpox-eradication | 天花根除 | Smallpox eradication | C | 1980 | 通过全球疫苗接种和"环形接种"策略，天花成为第一个被人类彻底消灭的传染病。 | vaccine, epidemiology | germ, network
+epidemiology | 流行病学 | Epidemiology | C | 1854 | 用统计和地图追踪疾病在人群中的分布和原因；斯诺通过霍乱地图锁定了污染的水泵。 | sewer-system, clinical-trial | probability, germ
+pasteurization | 巴氏消毒 | Pasteurization | C | 1864 | 把牛奶等食品加热到 60–70°C 左右保持一段时间，杀死大部分病菌而不破坏风味。 | canning, germ-theory-applications | germ, heat
+germ-theory-applications | 细菌学与病原体检测 | Bacteriology & pathogen identification | C | 1882 | 科赫分离出结核杆菌等病原体并提出判定标准，医学开始"按病原对症"。 | antiseptic, vaccine, antibiotic | germ
+water-chlorination | 饮用水氯化消毒 | Water chlorination | C | 1908 | 向自来水中加入少量氯杀灭病菌，是 20 世纪最大的公共卫生成就之一。 | water-treatment, chlor-alkali | germ, redox
+oral-rehydration | 口服补液盐 | Oral rehydration therapy | C | 1968 | 用糖和盐按比例配水，就能让腹泻病人肠道重新吸收水分，挽救了数千万儿童。 | epidemiology | diffusion
+autoclave-sterilization | 高压蒸汽灭菌 | Autoclave sterilization | C | 1879 | 用高压把水加热到 121°C 以上，杀死包括芽孢在内的所有微生物。 | antiseptic, pasteurization | germ, phase
+n95-respirator | N95 口罩 | N95 respirator | C | 1995 | 利用带静电的熔喷无纺布吸附微粒，能过滤至少 95% 的细小颗粒。 | epidemiology, hepa-filter | charge, diffusion
+drug-regulation | 药物监管 | Drug regulation (thalidomide aftermath) | C | 1962 | 沙利度胺致畸事件后，各国要求新药上市前证明安全有效。 | clinical-trial, drug-discovery | probability
+polio-vaccine | 脊髓灰质炎疫苗 | Polio vaccine | C | 1955 | 索尔克灭活疫苗（1955）和萨宾口服疫苗（1960 年代初）让小儿麻痹症病例减少了 99% 以上，野生病毒只在极少数国家还有传播。 | vaccine, smallpox-eradication, cell-culture | recognition, germ
+vitamins-fortification | 维生素与食品强化 | Vitamins & food fortification | C | 1912 | 发现人体需要微量"维生素"后，往食盐里加碘、面粉里加铁和叶酸等，以极低成本预防了大规模营养缺乏病。 | food-additives, epidemiology | homeostasis
+ems-ambulance | 急救医疗体系 | Emergency medical services | C |  | 急救电话、救护车和院前急救组成的"移动急诊室"，核心是抢在黄金时间内开始救治。 | cpr, telemedicine, surgery-modern | network, homeostasis
+## 手术与器械
+anesthesia | 麻醉 | Anesthesia | B | 1846 | 让病人在手术中失去痛觉和意识，外科从"比速度"变成可以精细操作。 | antiseptic, surgery-modern | recognition
+antiseptic | 外科消毒与无菌术 | Antisepsis & asepsis | B | 1867 | 李斯特用石炭酸消毒手术器械和伤口，术后感染死亡率大幅下降。 | anesthesia, germ-theory-applications | germ
+surgery-modern | 现代外科 | Modern surgery | B |  | 麻醉、无菌、输血和抗生素四大支柱让开胸、开颅等大手术成为可能。 | anesthesia, antiseptic, blood-transfusion | germ
+syringe | 皮下注射器 | Hypodermic syringe | C | 1853 | 带空心针的注射器让药物可以直接打入体内，是疫苗大规模接种的工具。 | vaccine, insulin | fluid
+blood-transfusion | 输血与血型 | Blood transfusion & blood types | C | 1901 | 兰德施泰纳发现 ABO 血型，配型输血才变得安全；后来又建立了血库。 | surgery-modern | recognition
+heart-lung-machine | 心肺机 | Heart–lung machine | C | 1953 | 手术中暂时代替心脏和肺工作，让心脏直视手术成为可能。 | surgery-modern, organ-transplant | homeostasis
+dialysis | 透析 | Dialysis | C | 1943 | 让血液流过半透膜，把肾脏无法排出的废物和多余水分滤掉。 | organ-transplant | diffusion
+pacemaker | 心脏起搏器与除颤器 | Pacemaker & defibrillator | C | 1958 | 起搏器用电脉冲维持心跳节律，除颤器用强电击让乱颤的心脏恢复正常。 | ecg, battery | homeostasis, charge
+organ-transplant | 器官移植 | Organ transplantation | B | 1954 | 把健康器官移植给患者，配合抗排斥药物，肾、肝、心、肺都可移植。 | dialysis, immunosuppression | recognition
+immunosuppression | 免疫抑制剂 | Immunosuppressants | C | 1983 | 环孢素等药物抑制免疫系统攻击移植器官，让移植的长期存活率大幅提升。 | organ-transplant | recognition
+artificial-joint | 人工关节 | Joint replacement | C | 1962 | 用金属、塑料或陶瓷替换磨损的髋、膝关节，让患者重新行走。 | titanium, surgery-modern | stress
+minimally-invasive-surgery | 微创手术 | Minimally invasive surgery | C | 1987 | 通过几个小孔插入内窥镜和器械完成手术，创伤小、恢复快。 | endoscope, surgical-robot | optics
+surgical-robot | 手术机器人 | Surgical robot | C | 2000 | 医生操纵机械臂完成精细手术，可过滤手抖、放大视野。 | minimally-invasive-surgery, industrial-robot | feedback
+cochlear-implant | 人工耳蜗 | Cochlear implant | C | 1978 | 把声音转成电信号直接刺激听神经，让重度耳聋者重获听觉。 | brain-computer-interface, digital-signal-processing | sampling
+smart-prosthetics | 智能假肢 | Bionic prosthetics | C |  | 读取肌肉电信号控制的电动假肢，可实现抓握等精细动作。 | brain-computer-interface, sensors | feedback
+brain-computer-interface | 脑机接口 | Brain–computer interface (BCI) | B | 2004 | 读取大脑神经信号直接控制电脑或机械，帮助瘫痪患者打字和操控设备。 | eeg, smart-prosthetics, cochlear-implant | sampling, feedback
+ventilator | 呼吸机 | Mechanical ventilator | C | 1928 | 从"铁肺"到正压呼吸机，替病人完成呼吸，是重症监护的核心设备。 | surgery-modern | fluid, homeostasis
+hearing-aid | 助听器 | Hearing aid | C | 1952 | 把声音放大后送入耳道，晶体管让它小到可以藏在耳后。 | transistor, cochlear-implant | sampling
+angioplasty-stent | 血管介入与支架 | Angioplasty & stents | C | 1977 | 用导管把球囊送到堵塞的冠状动脉撑开，再放入支架，许多心梗不再需要开胸。 | minimally-invasive-surgery, shape-memory-alloy | stress
+tissue-engineering | 组织工程与生物打印 | Tissue engineering & bioprinting | C |  | 用支架、细胞和生长因子培育人工组织，3D 生物打印尝试直接"打印"器官。 | stem-cells, 3d-printing, organoid | dogma
+cpr | 心肺复苏与 AED | Cardiopulmonary resuscitation & AED | C | 1960 | 胸外按压让血液继续流向大脑，自动体外除颤器（AED）能自动判断心律并电击，旁观者学会就能救命。 | pacemaker, ems-ambulance | fluid, homeostasis
+bone-marrow-transplant | 造血干细胞移植 | Hematopoietic stem cell transplantation | C | 1958 | 把健康的造血干细胞输入患者体内，重建血液和免疫系统，用于治疗白血病等血液病。 | stem-cells, organ-transplant, blood-transfusion | recognition
+artificial-heart | 人工心脏与心室辅助装置 | Artificial heart & ventricular assist device | C | 1969 | 用机械泵部分或完全代替心脏泵血，多数用作等待心脏移植的"桥梁"。 | heart-lung-machine, organ-transplant, pacemaker | fluid
+wheelchair | 现代轮椅 | Wheelchair | C | 1933 | 折叠式钢管轮椅和电动轮椅让行动不便的人能自主出行，也推动了"无障碍设计"。 | smart-prosthetics, bldc-motor | leverage
+refractive-surgery | 人工晶体与激光矫视 | Intraocular lens & laser eye surgery | C | 1949 | 白内障手术用人工晶体替换浑浊的晶状体，准分子激光则重塑角膜来矫正近视。 | laser, minimally-invasive-surgery | optics
+modern-dentistry | 现代牙科 | Modern dentistry | C |  | 局部麻醉、高速牙钻、氟化物和种植牙，让牙科从"拔牙"变成"保牙"和"补牙"。 | anesthesia, titanium, x-ray | structure, stress
+## 诊断与影像
+stethoscope | 听诊器 | Stethoscope | C | 1816 | 雷奈克用一卷纸筒听心肺声音，开创了用仪器辅助诊断的时代。 | ecg | wave
+x-ray | X 射线 | X-ray | A | 1895 | 伦琴发现能穿透人体的射线，骨骼会挡住它留下影子，医生第一次"看进"活人体内。 | ct-scan, radiation-therapy, x-ray-crystallography | emwave
+ct-scan | CT 计算机断层扫描 | Computed tomography (CT) | B | 1971 | 从多个角度拍 X 光，再用计算机重建出身体横截面的图像。 | x-ray, mri | emwave, sampling
+mri | 磁共振成像 | Magnetic resonance imaging (MRI) | B | 1977 | 用强磁场和射频脉冲让体内氢原子"共鸣"，根据回波重建软组织图像，没有电离辐射。 | ct-scan, superconductivity | wave, levels
+medical-ultrasound | 超声成像 | Medical ultrasound | C | 1956 | 发射高频声波并接收回声成像，安全便宜，广泛用于产检。 | piezoelectric-effect, sonar | wave
+pet-scan | 正电子发射断层扫描 | Positron emission tomography (PET) | C | 1975 | 注射带放射性标记的葡萄糖，看哪里代谢旺盛，常用于发现肿瘤。 | ct-scan, particle-accelerator | decay, massenergy
+ecg | 心电图 | Electrocardiography (ECG) | C | 1903 | 记录心脏每次跳动时的电信号，用来诊断心律失常和心肌梗死。 | pacemaker, wearable-device | charge
+eeg | 脑电图 | Electroencephalography (EEG) | C | 1924 | 在头皮上记录大脑神经元的集体电活动，用于诊断癫痫和睡眠研究。 | brain-computer-interface | charge
+endoscope | 内窥镜 | Endoscope | C | 1957 | 用光纤或微型摄像头深入消化道等腔道直接观察和取样。 | fiber-optic, minimally-invasive-surgery | optics
+pulse-oximeter | 脉搏血氧仪 | Pulse oximeter | C | 1972 | 用两种颜色的光穿过指尖，根据吸收差算出血氧饱和度。 | wearable-device, led | optics, levels
+rapid-diagnostic-test | 快速检测试纸 | Lateral flow rapid test | C | 1988 | 样本沿试纸流动、遇到抗体就显色，十几分钟出结果，如验孕棒和抗原检测。 | monoclonal-antibody, pcr | recognition
+continuous-glucose-monitor | 连续血糖监测 | Continuous glucose monitor (CGM) | C | 1999 | 皮下微小传感器每隔几分钟测一次血糖，配合胰岛素泵形成"人工胰腺"。 | insulin, wearable-device | homeostasis, feedback
+electronic-health-record | 电子病历 | Electronic health record (EHR) | C |  | 把病历数字化并在医院之间共享，是医疗 AI 的数据基础。 | database, telemedicine | info
+telemedicine | 远程医疗 | Telemedicine | C |  | 通过视频、远程监测设备看病，疫情期间迅速普及。 | video-conferencing, wearable-device | network
+dna-profiling | DNA 指纹鉴定 | DNA profiling | C | 1984 | 比较个体 DNA 中高度可变的片段识别身份，革新了刑侦和亲子鉴定。 | pcr, gel-electrophoresis | dogma, probability
+gel-electrophoresis | 凝胶电泳 | Gel electrophoresis | C |  | 在电场中让带负电的 DNA 片段穿过凝胶，小片段跑得快，从而按大小分开。 | dna-sequencing, dna-profiling | charge
+clinical-lab-test | 血液检验与检验自动化 | Clinical laboratory testing | C | 1953 | 血常规、生化等检验用仪器自动测定血液中的细胞和分子，是现代诊断最常用的依据之一。 | rapid-diagnostic-test, electronic-health-record, continuous-glucose-monitor | ohm, optics
+sphygmomanometer | 血压计与体温计 | Sphygmomanometer & clinical thermometer | C | 1896 | 用袖带压住动脉再慢慢放气测血压、用体温计测体温，把"生命体征"变成可记录、可比较的数字。 | stethoscope, wearable-device | fluid, homeostasis
+cancer-screening | 癌症筛查 | Cancer screening | C | 1941 | 在没有症状时用宫颈涂片、乳腺 X 光、肠镜、低剂量 CT 等查出早期癌症；获益要和过度诊断一起权衡。 | x-ray, endoscope, genetic-testing | probability
+## 药物与疗法
+aspirin | 阿司匹林 | Aspirin | C | 1897 | 拜耳化学家合成的稳定水杨酸衍生物，是最早的大规模生产合成药之一。 | drug-discovery | recognition
+antibiotic | 抗生素 | Antibiotics (penicillin) | A | 1928 | 弗莱明发现青霉菌能杀菌，弗洛里和钱恩在 1940 年代将青霉素做成药，细菌感染从此可治。 | antibiotic-resistance, sulfa-drugs, fermentation-bioreactor | germ, recognition
+sulfa-drugs | 磺胺药 | Sulfonamides | C | 1935 | 第一类能系统性治疗细菌感染的合成药，比青霉素更早投入临床。 | antibiotic | recognition
+antibiotic-resistance | 抗生素耐药 | Antibiotic resistance | B |  | 滥用抗生素筛选出耐药细菌，"超级细菌"可能让普通感染重新致命。 | antibiotic | evolution
+insulin | 胰岛素 | Insulin | B | 1922 | 班廷和贝斯特提取胰岛素治疗糖尿病，1 型糖尿病从绝症变为可控。 | recombinant-dna, continuous-glucose-monitor | homeostasis
+drug-discovery | 药物研发 | Drug discovery & development | A |  | 从找靶点、筛化合物到三期临床，新药平均要十年以上、花费十亿美元级别。 | clinical-trial, ai-for-science, targeted-therapy | recognition, probability
+clinical-trial | 随机对照试验 | Randomized controlled trial | B | 1948 | 随机把患者分到治疗组和对照组比较结果，是判断疗法是否有效的金标准。 | drug-discovery, epidemiology | probability
+oral-contraceptive | 口服避孕药 | Combined oral contraceptive pill | C | 1960 | 用合成激素抑制排卵，深刻改变了女性的教育、职业和社会地位。 | drug-discovery | homeostasis
+chemotherapy | 化疗 | Chemotherapy | C | 1946 | 用药物杀死快速分裂的细胞来治疗癌症，副作用来自它也伤害正常分裂细胞。 | targeted-therapy, radiation-therapy | recognition
+radiation-therapy | 放射治疗 | Radiation therapy | C | 1896 | 用高能射线破坏肿瘤细胞的 DNA，现代设备能精确聚焦、减少对正常组织的伤害。 | x-ray, particle-accelerator, chemotherapy | decay, emwave
+statin | 他汀类药物 | Statins | C | 1987 | 抑制肝脏合成胆固醇的药物，是预防心血管病最常用的药之一。 | drug-discovery | recognition, catalysis
+antiretroviral-therapy | 抗病毒药与艾滋病治疗 | Antiretroviral therapy (HIV) | C | 1996 | 多种抗病毒药联合使用，让艾滋病从绝症变为可长期控制的慢性病。 | drug-discovery, clinical-trial | evolution, recognition
+monoclonal-antibody | 单克隆抗体 | Monoclonal antibody | B | 1975 | 大量制造只识别单一靶点的抗体，可做诊断试剂，也可做精准药物。 | immunotherapy, rapid-diagnostic-test, targeted-therapy | recognition
+targeted-therapy | 靶向药 | Targeted therapy | C | 2001 | 针对癌细胞特有的突变蛋白设计的药物，如治疗慢性粒细胞白血病的格列卫。 | drug-discovery, monoclonal-antibody, dna-sequencing | recognition
+immunotherapy | 肿瘤免疫疗法 | Cancer immunotherapy | B | 2011 | 解除癌细胞对免疫系统的"刹车"（如 PD-1 抑制剂），让身体自己的免疫细胞攻击肿瘤。 | car-t, monoclonal-antibody | recognition
+car-t | CAR-T 细胞疗法 | CAR-T cell therapy | C | 2017 | 把患者的 T 细胞改造成能识别癌细胞的"导弹"再输回体内。 | immunotherapy, gene-therapy | recognition, dogma
+mrna-vaccine | mRNA 疫苗 | mRNA vaccine | A | 2020 | 把病毒蛋白的"图纸"（mRNA）送入细胞，让身体自己生产抗原；新冠疫苗中首次大规模使用。 | vaccine, lipid-nanoparticle, recombinant-dna | dogma, recognition
+lipid-nanoparticle | 脂质纳米颗粒 | Lipid nanoparticle (LNP) | C |  | 用脂肪微球包裹脆弱的 mRNA 和药物，保护它们并送入细胞。 | mrna-vaccine, gene-therapy | diffusion
+glp1-drugs | GLP-1 类药物 | GLP-1 receptor agonists | B | 2005 | 模仿肠道激素 GLP-1 调节血糖和食欲，司美格鲁肽等成为降糖和减重的重磅药。 | insulin, drug-discovery | homeostasis, recognition
+artemisinin | 青蒿素 | Artemisinin | C | 1972 | 屠呦呦团队从青蒿中提取的抗疟药，挽救了数百万生命，2015 年获诺贝尔奖。 | drug-discovery, antiretroviral-therapy | recognition
+evidence-based-medicine | 循证医学 | Evidence-based medicine | C | 1991 | 用系统收集的研究证据而不是个人经验来决定治疗；随机试验和系统综述处在证据等级的顶端。 | clinical-trial, epidemiology, drug-regulation | probability
+opioids | 吗啡与阿片类药物 | Morphine & opioids | C | 1804 | 从鸦片中提纯的吗啡是第一种被分离出来的植物有效成分；阿片类药物镇痛最强，也最易成瘾。 | drug-discovery, anesthesia | recognition
+psychiatric-drugs | 精神类药物 | Psychiatric medications | C | 1952 | 氯丙嗪（1952）开启了用药物治疗精神疾病的时代，此后有了抗抑郁药、抗焦虑药和情绪稳定剂。 | drug-discovery, clinical-trial | recognition
+## 基因与生物技术
+dna-double-helix | DNA 双螺旋 | DNA double helix | A | 1953 | 沃森和克里克（基于富兰克林的 X 射线照片）提出 DNA 是双螺旋，碱基配对解释了遗传如何复制。 | genetic-code, x-ray-crystallography, dna-sequencing | dogma, structure
+genetic-code | 遗传密码 | Genetic code | C | 1966 | 每三个碱基对应一个氨基酸，64 个密码子在几乎所有生物中通用。 | dna-double-helix, recombinant-dna | dogma, info
+restriction-enzyme | 限制性内切酶 | Restriction enzyme | C | 1970 | 细菌用来剪切入侵病毒 DNA 的"分子剪刀"，成为基因工程的基本工具。 | recombinant-dna, crispr | recognition
+recombinant-dna | 重组 DNA 与基因工程 | Recombinant DNA & genetic engineering | A | 1973 | 把一种生物的基因剪下来接到另一种生物的 DNA 里，让细菌替人生产胰岛素等蛋白质。 | restriction-enzyme, biotech-industry, gmo-crops | dogma
+biotech-industry | 生物技术产业 | Biotechnology industry | C | 1976 | 基因泰克等公司把基因工程变成生意，1982 年重组人胰岛素成为首个基因工程药物。 | recombinant-dna, insulin, monoclonal-antibody | scale
+pcr | 聚合酶链式反应 | Polymerase chain reaction (PCR) | A | 1983 | 通过反复加热冷却让 DNA 指数级复制，几小时就能把一个分子扩增到数十亿份。 | dna-sequencing, rapid-diagnostic-test | exponential, dogma
+dna-sequencing | DNA 测序 | DNA sequencing | A | 1977 | 读出 DNA 上 A、T、C、G 的排列顺序；每个人类基因组的测序成本 20 年下降了十万倍以上。 | ngs, human-genome-project, pcr | dogma, scale
+human-genome-project | 人类基因组计划 | Human Genome Project | B | 2003 | 多国合作测出人类约 30 亿个碱基对的序列，1990 年启动、2003 年完成。 | dna-sequencing, bioinformatics | division, scale
+ngs | 高通量测序 | Next-generation sequencing (NGS) | B | 2005 | 同时并行读取数百万到数十亿个 DNA 片段，让个人基因组测序降到千美元级。 | dna-sequencing, genetic-testing | division, scale
+genetic-testing | 基因检测 | Genetic testing | C |  | 检测基因变异来诊断遗传病、指导用药或做产前筛查。 | ngs, targeted-therapy | probability
+bioinformatics | 生物信息学 | Bioinformatics | C |  | 用计算机分析海量基因和蛋白质数据，是现代生物学的"显微镜"。 | human-genome-project, ai-for-science | info, complexity
+crispr | CRISPR 基因编辑 | CRISPR gene editing | A | 2012 | 用一段向导 RNA 带着 Cas9"剪刀"精确找到并剪开目标 DNA，基因编辑变得简单便宜。 | gene-therapy, base-editing, restriction-enzyme | dogma, recognition
+base-editing | 碱基编辑 | Base editing | C | 2016 | 不切断 DNA 双链，直接把一个碱基改成另一个，更精准更安全。 | crispr | dogma
+gene-therapy | 基因治疗 | Gene therapy | B | 1990 | 把正常基因送入患者细胞或修复缺陷基因，治疗遗传病；2023 年首个 CRISPR 疗法获批。 | crispr, car-t, lipid-nanoparticle | dogma
+cloning | 克隆 | Cloning (Dolly the sheep) | C | 1996 | 把体细胞核移入去核卵细胞培育出遗传上相同的个体，多莉羊是首个体细胞克隆哺乳动物。 | stem-cells | dogma
+stem-cells | 干细胞与 iPS 细胞 | Stem cells & iPS cells | B | 2006 | 能分化为多种细胞的"种子细胞"；山中伸弥用 4 个基因把普通细胞重新编程为干细胞。 | cloning, organoid | dogma
+organoid | 类器官 | Organoid | C | 2009 | 用干细胞在培养皿中长出的微型器官，用于研究疾病和测试药物。 | stem-cells, drug-discovery | dogma
+ivf | 试管婴儿 | In vitro fertilization (IVF) | B | 1978 | 在体外让卵子受精、培养成胚胎后移回子宫；第一个试管婴儿于 1978 年诞生。 | stem-cells, genetic-testing | homeostasis
+synthetic-biology | 合成生物学 | Synthetic biology | B | 2000 | 像设计电路一样设计基因线路，让微生物生产药物、材料和燃料。 | recombinant-dna, fermentation-bioreactor, precision-fermentation | dogma, abstraction
+fermentation-bioreactor | 发酵工程与生物反应器 | Industrial fermentation & bioreactors | C |  | 在大罐中培养微生物或细胞，量产抗生素、疫苗、酶和蛋白药。 | antibiotic, synthetic-biology | scale
+protein-structure | 蛋白质结构解析 | Protein structure determination | B | 1958 | 从 X 射线晶体学到冷冻电镜，再到 AlphaFold 预测，看清蛋白质的三维形状才能设计药物。 | x-ray-crystallography, electron-microscope, ai-for-science | structure, recognition
+microbiome | 人体微生物组 | Human microbiome | C | 2007 | 人体内外数以万亿计的微生物参与消化、免疫和代谢，测序技术让我们第一次看清它们。 | ngs, synthetic-biology | evolution
+optogenetics | 光遗传学 | Optogenetics | C | 2005 | 把感光蛋白基因装入神经元，用光精确开关特定神经细胞。 | brain-computer-interface, recombinant-dna | dogma, levels
+cell-culture | 细胞培养与 HeLa 细胞 | Cell culture & HeLa cells | C | 1951 | 让细胞在体外培养皿中持续生长；1951 年建立的 HeLa 细胞系是第一株人类"永生"细胞系，支撑了疫苗生产和无数研究。 | polio-vaccine, stem-cells, organoid | homeostasis, dogma
+rna-interference | RNA 干扰与核酸药物 | RNA interference & nucleic-acid drugs | C | 1998 | 一小段双链 RNA 能让细胞销毁对应的信使 RNA，从而"关掉"一个基因；2018 年首个 RNAi 药物获批。 | crispr, lipid-nanoparticle, gene-therapy | dogma, recognition
+directed-evolution | 定向进化与蛋白质工程 | Directed evolution & protein engineering | C | 1993 | 给酶制造随机突变、挑出表现最好的再突变，像育种一样在试管里"进化"出新蛋白；2018 年获诺贝尔化学奖。 | synthetic-biology, protein-structure, ai-for-science | evolution

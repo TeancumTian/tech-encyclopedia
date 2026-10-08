@@ -1,0 +1,41 @@
+# environment | 环境与气候技术 | Environment & Climate Technology | 测量、减排、清除、适应：技术如何修补它自己留下的账
+## 认识气候
+greenhouse-effect | 温室效应 | Greenhouse effect | A | 1856 | 二氧化碳等气体让阳光进来、却挡住地面向外散发的红外热，地球因此变暖。 | climate-model, keeling-curve | heat, emwave
+keeling-curve | 基林曲线 | Keeling Curve | C | 1958 | 夏威夷莫纳罗亚山连续测量的大气二氧化碳浓度曲线，从约 315 ppm 升到 420 ppm 以上。 | greenhouse-effect, climate-model | probability
+climate-model | 气候模型 | Climate model | B | 1967 | 把大气、海洋、冰和陆地的物理方程放进超算模拟未来气候；真锅淑郎因此获诺贝尔奖。 | supercomputer, scientific-computing, remote-sensing | energy, heat
+lifecycle-assessment | 生命周期评价与碳足迹 | Life-cycle assessment & carbon footprint | C |  | 计算一个产品从原料、生产、使用到废弃全过程的资源消耗和排放。 | carbon-pricing, recycling | energy
+numerical-weather-prediction | 数值天气预报 | Numerical weather prediction | B | 1950 | 用大气物理方程在计算机上推算未来天气；1950 年 ENIAC 完成首次数值预报。 | climate-model, supercomputer, weather-satellite | energy, probability
+ice-core | 冰芯与古气候 | Ice cores & paleoclimate | C |  | 南极和格陵兰冰层里封存的气泡和同位素，记录了几十万年来的大气成分和温度。 | greenhouse-effect, keeling-curve | phase, probability
+ocean-observing | Argo 浮标与海洋观测 | Argo floats & ocean observing | C | 2000 | 数千个自动浮标在全球海洋中沉浮，测量温度和盐度；海洋吸收了全球变暖绝大部分多余热量。 | climate-model, remote-sensing | heat, sampling
+ghg-monitoring | 温室气体与甲烷监测 | Greenhouse-gas & methane monitoring | C | 2009 | 用卫星和地面光谱仪测量二氧化碳和甲烷浓度，定位"超级排放源"。 | keeling-curve, remote-sensing, spectroscopy | levels, emwave
+ipcc | IPCC 气候评估 | Intergovernmental Panel on Climate Change (IPCC) | C | 1988 | 联合国下属的气候科学评估机构，定期汇总全球研究，是气候谈判的科学依据。 | climate-model, net-zero | probability
+early-warning-systems | 灾害预警系统 | Early warning systems | C |  | 地震、海啸、台风和洪水预警抢在灾害到来前发出警报，是最划算的气候适应措施之一。 | numerical-weather-prediction, seismometer, weather-satellite | probability, feedback
+## 减排与能源转型
+energy-transition | 能源转型 | Energy transition | B |  | 从化石能源转向风、光、核、储能和电气化的系统性变革。 | solar-pv, wind-turbine, electric-vehicle | scale, energy
+net-zero | 碳中和与净零 | Carbon neutrality & net zero | C | 2015 | 让人为排放与清除相抵；《巴黎协定》后各国纷纷提出净零目标，中国目标为 2060 年前碳中和。 | energy-transition, carbon-pricing | incentives
+carbon-pricing | 碳定价与碳交易 | Carbon pricing & emissions trading | B | 2005 | 给碳排放标价（碳税或总量交易），让污染者付费、让减排有利可图。 | net-zero, carbon-capture | incentives
+carbon-capture | 碳捕集与封存 | Carbon capture & storage (CCS) | B | 1972 | 从烟气中分离二氧化碳，压缩后注入地下岩层封存。 | direct-air-capture, coal-power | diffusion, bond
+direct-air-capture | 直接空气捕集 | Direct air capture (DAC) | C |  | 直接从空气中吸取二氧化碳，空气中浓度极低，所以能耗和成本都很高。 | carbon-capture | diffusion, entropy
+green-steel | 绿色钢铁与低碳水泥 | Green steel & low-carbon cement | C |  | 用氢代替焦炭还原铁矿石，或改良水泥配方，减少重工业排放。 | hydrogen-energy, steel, portland-cement | redox
+sustainable-aviation-fuel | 可持续航空燃料 | Sustainable aviation fuel (SAF) | C |  | 用废油、生物质或绿氢合成的航油，可直接用于现有飞机。 | biofuel, jetliner | energydensity, bond
+carbon-dioxide-removal | 碳移除 | Carbon dioxide removal (CDR) | C |  | 用造林、生物炭、增强风化、BECCS 和直接空气捕集等办法，把已经排放的二氧化碳从大气中拿回来。 | direct-air-capture, carbon-capture, net-zero | photosynthesis, bond
+## 污染治理
+electrostatic-precipitator | 静电除尘 | Electrostatic precipitator | C | 1907 | 让烟尘颗粒带电后被电极吸住，去除电厂和工厂烟气中的大部分粉尘。 | flue-gas-desulfurization, coal-power | charge
+flue-gas-desulfurization | 烟气脱硫 | Flue-gas desulfurization | C |  | 用石灰浆吸收烟气中的二氧化硫，治理酸雨。 | electrostatic-precipitator, coal-power | redox
+catalytic-converter | 三元催化器 | Catalytic converter | C | 1975 | 用铂、钯、铑等催化剂把汽车尾气中的一氧化碳、碳氢化合物和氮氧化物转为无害物。 | leaded-gasoline-phaseout, automobile | catalysis
+leaded-gasoline-phaseout | 淘汰含铅汽油 | Phase-out of leaded gasoline | C | 2021 | 含铅汽油曾广泛用于防爆震，但铅损害神经；2021 年全球最终停止使用。 | catalytic-converter | catalysis
+montreal-protocol | 臭氧层保护 | Ozone layer protection (Montreal Protocol) | C | 1987 | 全球淘汰破坏臭氧层的氟利昂，是最成功的国际环境协议之一。 | refrigeration | catalysis, incentives
+wastewater-treatment | 污水处理 | Wastewater treatment | B | 1914 | 用活性污泥中的微生物"吃掉"污水中的有机物，再沉淀、消毒后排放或回用。 | sewer-system, water-treatment | germ, diffusion
+desalination | 海水淡化 | Desalination | B | 1960 | 用反渗透膜把海水中的盐分挡住，只让水分子通过，或用蒸馏法淡化。 | water-treatment, irrigation | diffusion, entropy
+eutrophication | 水体富营养化治理 | Eutrophication control | C |  | 化肥和污水中的氮磷让藻类疯长、水体缺氧，需控制源头排放。 | chemical-fertilizer, wastewater-treatment | photosynthesis
+hepa-filter | HEPA 与空气净化 | HEPA filters & air purification | C | 1940 | 高效空气过滤器能拦截 99.97% 的 0.3 微米颗粒，用于洁净室、医院和家用净化器。 | cleanroom, n95-respirator | diffusion
+scr-denox | 烟气脱硝 | Selective catalytic reduction (SCR) | C |  | 向烟气或柴油车尾气中喷入氨或尿素，在催化剂上把氮氧化物还原成氮气和水。 | flue-gas-desulfurization, catalytic-converter | catalysis, redox
+air-quality-monitoring | 空气质量监测 | Air-quality monitoring | C |  | 用自动监测站和低成本传感器实时测量 PM2.5、臭氧等污染物，数据公开推动了治理。 | hepa-filter, sensors | probability, sampling
+bioremediation | 环境修复与生物修复 | Environmental remediation & bioremediation | C |  | 用微生物、植物或工程手段清除土壤和地下水中的石油、重金属等污染。 | wastewater-treatment, synthetic-biology | redox, diffusion
+## 循环经济
+recycling | 资源回收 | Recycling | C |  | 把废金属、纸、玻璃和塑料分拣再生；回收铝只需原生铝约 5% 的能量。 | plastic-recycling, aluminum-smelting | energy, entropy
+plastic-recycling | 塑料回收与微塑料 | Plastic recycling & microplastics | C |  | 塑料回收率低、易降级；碎成的微塑料已遍布海洋和人体。 | plastics, bioplastics, recycling | polymer, entropy
+waste-to-energy | 垃圾焚烧发电 | Waste-to-energy | C |  | 高温焚烧城市垃圾减容并发电，需要严格控制二噁英等污染。 | recycling, steam-turbine | bond
+geoengineering | 地球工程 | Geoengineering | C |  | 主动大规模干预气候，如向平流层喷洒气溶胶反射阳光，风险和治理问题巨大。 | climate-model, direct-air-capture | heat
+biogas | 沼气与厌氧消化 | Biogas & anaerobic digestion | C |  | 微生物在无氧条件下分解粪便和有机垃圾产生甲烷，可用于发电和炊事。 | waste-to-energy, biofuel | bond
+sanitary-landfill | 卫生填埋 | Sanitary landfill | C |  | 把垃圾分层压实、每天覆土，底部铺防渗层并收集渗滤液和填埋气，避免污染地下水。 | waste-to-energy, biogas, recycling | diffusion, bond

@@ -1,0 +1,45 @@
+# space | 航天与空间 | Spaceflight & Space Technology | 离开地球的方法只有一个：把东西往后扔得足够快
+## 火箭
+rocket | 火箭 | Rocket | A | 1926 | 自带燃料和氧化剂、靠向后高速喷出燃气获得推力，在真空中也能工作。 | rocket-equation, liquid-rocket-engine, multistage-rocket | momentum, energydensity
+rocket-equation | 火箭方程 | Tsiolkovsky rocket equation | A | 1903 | 火箭能达到的速度由喷气速度和"满载/空载质量比"的对数决定——这是航天的根本约束。 | rocket, multistage-rocket, reusable-rocket | momentum
+liquid-rocket-engine | 液体火箭发动机 | Liquid-propellant rocket engine | B | 1926 | 用泵把液态燃料和液氧送入燃烧室，推力可调、可关机重启。 | rocket, air-separation | momentum, bond
+solid-rocket | 固体火箭 | Solid-propellant rocket | C |  | 燃料和氧化剂预先混合浇注成药柱，结构简单、随时可发射，但点燃后难以关机。 | rocket, icbm | momentum
+v2-rocket | V-2 火箭 | V-2 rocket | C | 1942 | 纳粹德国研制的弹道导弹，第一个进入太空的人造物体，战后成为美苏航天的起点。 | rocket, icbm, space-race | momentum
+multistage-rocket | 多级火箭 | Multistage rocket | C |  | 把火箭分成几级，用完一级就扔掉一级"空壳"，绕过火箭方程的限制。 | rocket-equation, rocket | momentum
+reusable-rocket | 可回收火箭 | Reusable launch vehicle | A | 2015 | 让火箭第一级反推着陆后再次使用；SpaceX 猎鹰 9 号 2015 年首次成功回收。 | rocket, commercial-spaceflight, starship | momentum, scale
+starship | 星舰 | Starship | C | 2023 | SpaceX 研制的完全可重复使用超重型运载火箭，目标是大幅降低发射成本并登陆火星。 | reusable-rocket, commercial-spaceflight | scale, momentum
+ion-thruster | 电推进 | Electric propulsion (ion thruster) | C | 1964 | 用电场把离子加速到极高速度喷出，推力很小但非常省燃料，适合深空和卫星。 | rocket-equation, space-probe | momentum, charge
+## 轨道与卫星
+orbit | 轨道与宇宙速度 | Orbits & cosmic velocities | A |  | 速度约 7.9 km/s 时，物体一直绕地球"下落"而不落地；11.2 km/s 可以摆脱地球引力。 | satellite, geostationary-orbit, gravity-assist | gravity, newton
+sputnik | 斯普特尼克 1 号 | Sputnik 1 | B | 1957 | 苏联发射的第一颗人造卫星，引发美国震惊并开启太空竞赛。 | space-race, satellite | gravity
+space-race | 太空竞赛 | Space Race | C | 1957 | 美苏在冷战中以航天成就比拼国力，从首颗卫星一路竞赛到登月。 | sputnik, apollo, gagarin | incentives
+satellite | 人造卫星 | Artificial satellite | B |  | 绕地球运行的航天器，用于通信、导航、气象、遥感和科研。 | orbit, communication-satellite, remote-sensing | gravity
+geostationary-orbit | 地球静止轨道 | Geostationary orbit | C | 1964 | 赤道上空约 35786 公里处，卫星绕地一圈恰好一天，看起来静止在天上。 | communication-satellite, orbit | gravity
+cubesat | 立方星与小卫星 | CubeSat & small satellites | C | 1999 | 以 10 厘米立方体为单元的标准化小卫星，让大学和创业公司也能上太空。 | satellite, commercial-spaceflight | standard, scale
+gnss | 卫星导航 | Global navigation satellite systems (GPS, BeiDou) | A | 1978 | 接收机测量来自 4 颗以上卫星的信号时间差算出自己的位置，必须修正相对论效应。 | atomic-clock, satellite, ride-hailing | relativity, gravity
+remote-sensing | 遥感与对地观测 | Remote sensing & Earth observation | B | 1972 | 卫星从太空拍摄地球的可见光、红外和雷达图像，监测农业、灾害、城市和气候。 | satellite, weather-satellite, climate-model | emwave
+weather-satellite | 气象卫星 | Weather satellite | C | 1960 | 从太空连续观测云图和大气，让台风预报提前数天。 | remote-sensing, climate-model | emwave
+spy-satellite | 侦察卫星 | Reconnaissance satellite | C | 1960 | 从轨道上拍摄军事目标；早期用胶片舱返回地面冲洗。 | remote-sensing, satellite | optics
+space-debris | 太空垃圾 | Space debris | C |  | 废弃卫星和碎片以每秒数公里的速度绕地飞行，碰撞可能连锁产生更多碎片。 | satellite-internet, satellite | momentum
+## 载人航天
+gagarin | 首次载人航天 | First human spaceflight (Vostok 1) | C | 1961 | 加加林乘东方 1 号绕地球一圈，成为第一个进入太空的人。 | space-race, human-spaceflight | gravity
+human-spaceflight | 载人航天 | Human spaceflight | B |  | 把人送上太空并安全返回，需要解决生命保障、再入防热和逃逸救生。 | life-support, reentry-heat-shield, space-station | gravity, heat
+apollo | 阿波罗登月 | Apollo program | A | 1969 | 1969 年 7 月阿波罗 11 号首次载人登月，共 12 人踏上月球。 | space-race, human-spaceflight, lunar-return | gravity, momentum
+space-shuttle | 航天飞机 | Space Shuttle | C | 1981 | 部分可重复使用的有翼航天器，执行 135 次任务，两次事故造成 14 人遇难。 | reusable-rocket, space-station | momentum
+space-station | 空间站 | Space station (ISS, Tiangong) | B | 1971 | 长期在轨的载人实验室；国际空间站和中国天宫空间站是当前代表。 | human-spaceflight, life-support | gravity
+life-support | 生命保障系统 | Life support system | C |  | 在密闭舱内提供氧气、水、温度和气压，并清除二氧化碳，尽量循环利用。 | space-station, human-spaceflight | homeostasis
+reentry-heat-shield | 再入与防热 | Atmospheric reentry & heat shield | C |  | 航天器以极高速度返回大气层时把动能变成热，防热罩通过烧蚀或隔热保护舱体。 | human-spaceflight, advanced-ceramics | heat, energy
+chinese-space-program | 中国航天 | Chinese space program | B | 1970 | 从东方红一号（1970）到神舟载人、嫦娥探月、天问探火和天宫空间站。 | space-station, lunar-return, gnss | scale
+spacesuit | 航天服 | Space suit | C | 1965 | 一件可穿的"微型飞船"，提供气压、氧气、温控和防护，让人能出舱行走。 | life-support, human-spaceflight | homeostasis
+soyuz | 联盟号飞船 | Soyuz spacecraft | C | 1967 | 苏联/俄罗斯的载人飞船，服役半个多世纪，是史上使用最久的载人飞船。 | space-station, human-spaceflight | gravity
+space-tourism | 太空旅游 | Space tourism | C | 2001 | 普通人付费进入太空；从搭乘联盟号到亚轨道飞行和私人轨道任务。 | commercial-spaceflight, reusable-rocket | incentives
+## 深空探测
+space-probe | 空间探测器 | Space probe | B | 1977 | 飞向其他天体的无人航天器；旅行者 1 号已飞出日球层进入星际空间。 | gravity-assist, nuclear-rtg, mars-rover | gravity
+gravity-assist | 引力弹弓 | Gravity assist | C |  | 探测器掠过行星时"借"行星的速度加速或转向，不用额外燃料。 | space-probe, orbit | gravity, momentum
+nuclear-rtg | 放射性同位素电池 | Radioisotope thermoelectric generator (RTG) | C | 1961 | 用钚-238 衰变的热量通过热电偶发电，供远离太阳的探测器使用几十年。 | space-probe, thermoelectric-effect | decay, heat
+mars-rover | 火星车 | Mars rover | C | 1997 | 在火星表面行驶、采样和分析的机器人；中国祝融号于 2021 年着陆。 | space-probe, chinese-space-program | feedback
+space-telescope | 太空望远镜 | Space telescope (Hubble, JWST) | B | 1990 | 在大气层外观测宇宙，不受大气扰动和吸收；韦布望远镜看红外宇宙。 | radio-telescope, adaptive-optics | optics, emwave
+lunar-return | 重返月球 | Return to the Moon (Artemis, Chang'e) | C | 2019 | 嫦娥四号首次在月背着陆，嫦娥五号、六号采样返回；各国计划建月球基地。 | apollo, chinese-space-program | gravity
+planetary-defense | 行星防御 | Planetary defense (DART) | C | 2022 | 用航天器撞击小行星改变其轨道；DART 任务在 2022 年首次验证。 | space-probe | momentum
+## 商业航天
+commercial-spaceflight | 商业航天 | Commercial spaceflight | B | 2008 | 私营公司承担发射、卫星和载人任务，竞争与复用让发射成本大幅下降。 | reusable-rocket, satellite-internet, cubesat | scale, incentives

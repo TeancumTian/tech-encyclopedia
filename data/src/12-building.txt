@@ -1,0 +1,38 @@
+# building | 建筑与城市 | Buildings & Cities | 城市是人类最大的机器：钢筋混凝土、电梯和下水道
+## 结构与材料
+portland-cement | 波特兰水泥 | Portland cement | B | 1824 | 把石灰石和黏土烧成熟料再磨粉，加水后硬化成"人造石"；它也是主要碳排放来源之一。 | reinforced-concrete, green-steel | bond
+reinforced-concrete | 钢筋混凝土 | Reinforced concrete | A | 1867 | 混凝土抗压、钢筋抗拉，两者热膨胀系数接近，结合在一起取长补短。 | portland-cement, prestressed-concrete, composite-material | stress, structure
+prestressed-concrete | 预应力混凝土 | Prestressed concrete | C | 1928 | 浇筑前或后拉紧钢筋，预先给混凝土加压，让它能跨越更长距离。 | reinforced-concrete, suspension-bridge | stress
+steel-frame | 钢结构 | Steel frame | B | 1885 | 用钢梁钢柱组成骨架承重，外墙只是"挂"上去的，建筑得以向高空发展。 | skyscraper, steel | stress
+skyscraper | 摩天大楼 | Skyscraper | A | 1885 | 钢结构 + 安全电梯 + 抗风设计，让城市向天空要空间。 | steel-frame, elevator, glass-curtain-wall | stress, squarecube
+elevator | 安全电梯 | Safety elevator | B | 1854 | 奥的斯发明钢缆断裂时自动卡住的安全装置，人们才敢乘电梯上高楼。 | skyscraper, electric-motor | gravity, feedback
+glass-curtain-wall | 玻璃幕墙 | Glass curtain wall | C |  | 不承重、挂在结构外的玻璃外墙，是现代写字楼的标志。 | float-glass, steel-frame | optics, heat
+prefabrication | 装配式建筑 | Prefabricated construction | C |  | 在工厂预制墙板、楼板甚至整个房间模块，到现场像搭积木一样拼装。 | mass-production, bim | standard, scale
+seismic-design | 抗震与隔震设计 | Seismic design & base isolation | C |  | 让建筑在地震中能变形耗能而不倒塌，隔震支座能把地面晃动与楼体隔开。 | skyscraper, reinforced-concrete | newton, wave
+bim | 建筑信息模型 | Building information modeling (BIM) | C |  | 在三维模型里集成建筑的所有构件和数据，设计、施工和运维共用一套模型。 | cad-cam, digital-twin | abstraction
+construction-machinery | 工程机械 | Construction machinery | C |  | 挖掘机、塔吊、盾构机等用液压和钢铁放大人力，让大型工程快速完成。 | hydraulic-press, tunnel-boring-machine | leverage, fluid
+engineered-wood | 工程木 | Engineered wood (CLT) | C |  | 把木板交错胶合成大型承重构件，可以建造十几层高的木结构建筑。 | prefabrication, composite-material | structure
+finite-element-method | 有限元分析 | Finite element method (FEM) | C | 1956 | 把复杂结构切成成千上万个小单元分别计算受力再拼回整体，是现代结构设计的计算基础。 | scientific-computing, bim, seismic-design | stress, abstraction
+foundation-engineering | 地基与深基础 | Foundations: piles & caissons | C |  | 用桩基和沉箱把高楼和大桥的重量传到深处坚硬的土层或岩层上。 | skyscraper, suspension-bridge | stress, gravity
+long-span-structures | 大跨度空间结构 | Long-span structures | C |  | 网架、穹顶、壳体和张拉膜结构让体育场、机场和展馆不用中间立柱就能覆盖巨大空间。 | steel-frame, glass-curtain-wall | stress, squarecube
+escalator | 自动扶梯 | Escalator | C | 1896 | 循环运转的阶梯输送带，能连续不断地运送大量人流，是地铁站和商场的标配。 | elevator, subway | leverage, energy
+## 大型基础设施
+suspension-bridge | 悬索桥与斜拉桥 | Suspension & cable-stayed bridges | B | 1883 | 用高强度钢缆把桥面挂起来，单跨可超过 2000 米。 | steel, prestressed-concrete | stress
+tunnel-boring-machine | 盾构与隧道掘进机 | Tunnel boring machine & tunnelling shield | B | 1825 | 前端刀盘切削岩土、后方同步拼装管片，在城市地下安全掘进。 | subway, construction-machinery | stress, leverage
+dam | 现代大坝 | Modern dams | B | 1936 | 混凝土大坝拦水发电、防洪和灌溉，如胡佛大坝和三峡大坝。 | hydropower, reinforced-concrete | gravity, fluid
+flood-control | 现代防洪 | Modern flood control | C | 1958 | 堤坝、闸门和蓄滞洪区组成的系统，荷兰三角洲工程是代表。 | dam, climate-model | gravity, fluid
+sea-crossing-link | 跨海通道 | Sea-crossing links | C | 1994 | 英法海底隧道（1994）、港珠澳大桥（2018）等把桥、岛、隧组合跨越海峡。 | suspension-bridge, tunnel-boring-machine | stress
+iron-bridge | 铸铁桥与桁架桥 | Iron bridges & truss bridges | C | 1779 | 1779 年英国建成第一座铸铁拱桥；桁架用三角形把荷载分解成杆件的拉与压，让铁路桥跨越河谷。 | suspension-bridge, steel, railway | stress
+land-reclamation | 填海造地与疏浚 | Land reclamation & dredging | C |  | 用挖泥船疏浚航道、吹填泥沙造出新陆地，许多港口、机场和新城区都建在填海土地上。 | flood-control, dam | gravity, fluid
+## 城市系统
+sewer-system | 现代下水道 | Modern sewerage | B | 1865 | 用地下管网把污水排出城市，伦敦在 1858 年"大恶臭"后修建了现代下水道。 | water-treatment, wastewater-treatment, epidemiology | germ, gravity
+water-treatment | 自来水处理 | Drinking water treatment | C | 1804 | 经混凝、沉淀、过滤和消毒把河水变成可饮用的自来水，通过管网送到千家万户。 | water-chlorination, sewer-system | germ, diffusion
+flush-toilet | 抽水马桶 | Flush toilet | C | 1775 | 带 S 形存水弯的马桶用一段水封挡住下水道臭气。 | sewer-system | fluid
+central-heating | 集中供暖 | Central heating | C |  | 由锅炉或热电厂集中产热，通过管道把热水或蒸汽送到各个房间。 | cogeneration, heat-pump | heat
+fire-sprinkler | 自动喷淋灭火 | Fire sprinkler system | C | 1874 | 温度升高时喷头自动打开洒水，让高层建筑的火灾死亡大幅减少。 | skyscraper | heat, phase
+green-building | 绿色建筑与被动房 | Green building & passive house | C |  | 靠保温、气密、遮阳和热回收让建筑几乎不需要主动供暖制冷。 | heat-pump, energy-transition | heat
+urban-planning | 现代城市规划 | Modern urban planning | C |  | 规划功能分区、交通和公共空间；"15 分钟城市"等理念强调步行可达。 | smart-city, subway, highway | network
+smart-city | 智慧城市 | Smart city | C |  | 用传感器、数据和 AI 管理交通、能源、安防等城市运行。 | iot, urban-planning, traffic-signal | feedback, network
+stormwater-management | 雨洪管理与海绵城市 | Stormwater management & sponge cities | C |  | 用透水铺装、绿地和调蓄池让城市像海绵一样吸收和缓释雨水，减轻内涝。 | sewer-system, flood-control, urban-planning | fluid, gravity
+smoke-detector | 烟雾报警器 | Smoke detector | C | 1965 | 探测到烟雾颗粒就发出警报，让人在火势变大前醒来逃生；1965 年出现首款低价家用型。 | fire-sprinkler, sensors | charge, photoelectric
+gis | 地理信息系统 | Geographic information system (GIS) | C |  | 把地图和各种空间数据分层叠放在计算机里分析，是城市规划、导航和应急管理的基础工具。 | digital-maps, remote-sensing, urban-planning | abstraction, sampling

@@ -1,0 +1,134 @@
+# computing | 计算与软件 | Computing & Software | 把思考拆成开关的开与合：从齿轮计算机到云
+## 计算的源头
+difference-engine | 差分机与分析机 | Difference Engine & Analytical Engine | B | 1822 | 巴贝奇设计的机械计算机；分析机已具备存储、运算、条件跳转，洛夫莱斯为它写下第一个程序。 | punched-card, turing-machine, programming-language | computability
+punched-card | 穿孔卡片 | Punched card | B | 1890 | 用卡片上孔的有无记录信息，先控制提花织机，后用于人口普查制表，开创了数据处理业。 | difference-engine, mainframe, jacquard-loom | boolean
+turing-machine | 图灵机 | Turing machine | A | 1936 | 一条纸带、一个读写头和一张规则表组成的抽象机器，定义了"什么是可计算的"。 | halting-problem, von-neumann-architecture, programming-language | computability
+early-electronic-computers | 早期电子计算机 | Early computers (Z3, ABC, EDSAC, UNIVAC) | C | 1941 | Z3、ABC、曼彻斯特"宝贝"、EDSAC、UNIVAC 等机器先后实现了程序控制、电子运算、存储程序和商用化。 | eniac, von-neumann-architecture, colossus | boolean
+colossus | 巨人计算机 | Colossus | C | 1944 | 二战中英国用于破译德军洛伦兹密码的电子计算机，长期保密。 | enigma-codebreaking, eniac | boolean
+eniac | ENIAC | ENIAC | B | 1945 | 第一台通用可编程电子计算机之一，用约 1.8 万个真空管，最初靠插线编程。 | vacuum-tube, von-neumann-architecture, colossus | boolean
+von-neumann-architecture | 冯·诺依曼结构 | Von Neumann architecture | A | 1945 | 程序和数据存放在同一个存储器里，由 CPU 逐条取出执行——今天几乎所有计算机都这样工作。 | turing-machine, cpu, memory-hierarchy | abstraction, computability
+mainframe | 大型机 | Mainframe computer | B | 1964 | 供整个机构共用的大型计算机；IBM System/360 首次让一系列机型兼容同一套软件。 | instruction-set-architecture, time-sharing, minicomputer | standard, scale
+minicomputer | 小型机 | Minicomputer | C | 1965 | 价格降到实验室和中小企业买得起的计算机，Unix 就诞生在它上面。 | mainframe, unix, personal-computer | scale
+personal-computer | 个人电脑 | Personal computer (PC) | A | 1977 | 一人一台、放在桌上的计算机；1977 年的 Apple II 等和 1981 年的 IBM PC 让它走进家庭和办公室。 | microprocessor, gui, spreadsheet | scale, standard, scurve
+## 硬件
+bit-byte | 比特与字节 | Bit & byte | B | 1948 | 比特是信息的最小单位（0 或 1），8 个比特组成 1 个字节，可表示 256 种状态。 | logic-gate, unicode, floating-point | info, boolean
+boolean-algebra | 布尔代数 | Boolean algebra | C | 1854 | 用 0/1 和与或非来演算逻辑的数学；香农 1937 年指出它可以直接用开关电路实现。 | logic-gate, bit-byte | boolean
+logic-gate | 逻辑门 | Logic gate | A |  | 实现与、或、非等布尔运算的电路；把它们层层组合，就能做加法、存数据、执行程序。 | transistor, cpu, boolean-algebra | boolean, abstraction
+flip-flop | 触发器与寄存器 | Flip-flop & register | C | 1918 | 把两个逻辑门首尾交叉相连就能"记住"一个比特，寄存器和内存由此而来。 | logic-gate, cpu, dram | boolean, feedback
+cpu | 中央处理器 | Central processing unit (CPU) | A |  | 计算机的"大脑"：不断地取指令、译码、执行、写回，每秒数十亿次。 | microprocessor, instruction-set-architecture, pipeline | boolean, abstraction
+microprocessor | 微处理器 | Microprocessor | B | 1971 | 把整个 CPU 做进一颗芯片；Intel 4004 只有约 2300 个晶体管。 | cpu, integrated-circuit, personal-computer | scale, exponential
+instruction-set-architecture | 指令集架构 | Instruction set architecture (ISA) | B |  | 软件和硬件之间的"合同"，规定 CPU 认识哪些指令；x86、ARM、RISC-V 是三大家族。 | risc, arm-architecture, risc-v | abstraction, standard
+risc | 精简指令集 | RISC vs. CISC | B | 1980 | 用少量简单、等长的指令换取更快的流水线；如今的高性能 CPU 内部大多是 RISC 风格。 | instruction-set-architecture, arm-architecture, pipeline | complexity
+arm-architecture | ARM 架构 | ARM architecture | C | 1985 | 以低功耗著称的 RISC 架构，靠授权模式统治了手机，并进入服务器和 Mac。 | risc, smartphone, instruction-set-architecture | division
+risc-v | RISC-V | RISC-V | C | 2010 | 加州大学伯克利分校发起的开放指令集，任何人都可免授权费使用。 | instruction-set-architecture, open-source | standard
+pipeline | 时钟与流水线 | Clock & pipelining | B |  | 把一条指令拆成多个阶段，像流水线一样让多条指令重叠执行，时钟每"滴答"一次推进一格。 | cpu, risc, multicore | division
+multicore | 多核与并行 | Multicore & parallelism | B | 2005 | 单核提速撞上功耗墙后，芯片改为放多个核心并行干活，软件也必须学会并行。 | dennard-scaling, concurrency, gpu | division, heat
+gpu | 图形处理器 | Graphics processing unit (GPU) | A | 1999 | 拥有成千上万个小核心、擅长同时做大量相同运算的处理器，从画游戏画面走向训练 AI。 | multicore, ai-accelerator, deep-learning | division, scale
+memory-hierarchy | 存储层次 | Memory hierarchy | A |  | 寄存器、缓存、内存、硬盘由快到慢、由贵到便宜排成金字塔，用局部性让整体又快又大。 | cache, dram, ssd | locality
+cache | 缓存 | Cache | B | 1968 | 在快的部件旁放一小块更快的存储，保存最近用过的数据；从 CPU 到 CDN 处处都是缓存。 | memory-hierarchy, cdn, cpu | locality
+dram | 动态随机存储器 | DRAM | B | 1966 | 用一个晶体管加一个电容存一个比特，便宜密集但要不断"刷新"，是电脑的内存条。 | memory-hierarchy, flash-memory, hbm | charge
+hbm | 高带宽内存 | High-bandwidth memory (HBM) | C | 2013 | 把多层 DRAM 竖着堆叠并紧贴处理器封装，为 GPU 和 AI 芯片提供超高带宽。 | dram, gpu, chiplet | locality
+flash-memory | 闪存 | Flash memory | B | 1984 | 把电荷困在绝缘层包围的"浮栅"里存数据，断电不丢，用于 U 盘、SSD 和手机。 | ssd, dram | tunneling, charge
+ssd | 固态硬盘 | Solid-state drive (SSD) | C |  | 用闪存代替旋转磁盘的硬盘，没有机械部件，随机读写快上百倍。 | flash-memory, hard-disk-drive, memory-hierarchy | locality
+hard-disk-drive | 机械硬盘 | Hard disk drive (HDD) | B | 1956 | 磁头在高速旋转的磁盘上方几纳米处读写磁化方向；每比特成本仍然最低。 | ssd, magnetic-tape, spintronics | lorentz
+floppy-disk | 软盘 | Floppy disk | C | 1971 | 可插拔的磁性存储盘，曾是软件分发和文件交换的主要媒介；"保存"图标至今是它的样子。 | hard-disk-drive, flash-memory | lorentz
+magnetic-tape | 磁带存储 | Magnetic tape storage | C | 1951 | 顺序读写、极其便宜耐久，至今用于数据中心的冷备份。 | hard-disk-drive, magnetic-recording | locality
+optical-disc | 光盘 | Optical disc (CD / DVD / Blu-ray) | C | 1982 | 用激光读取盘面上微小凹坑的反射差异，配合纠错码，划伤也能正常播放。 | laser, digital-audio | redundancy, optics
+usb | USB 通用串行总线 | Universal Serial Bus (USB) | C | 1996 | 统一电脑外设接口和充电的标准，从键盘到手机充电都用它。 | personal-computer | standard
+laptop-tablet | 笔记本与平板电脑 | Laptop & tablet computers | C | 1981 | 把电脑装进可携带的机身，电池和低功耗芯片决定了它们的形态。 | personal-computer, lithium-ion, arm-architecture | energydensity
+embedded-system | 嵌入式系统 | Embedded system | C |  | 藏在洗衣机、汽车、路由器里的专用小电脑，通常要求实时、省电、可靠。 | microprocessor, iot, firmware | abstraction
+supercomputer | 超级计算机 | Supercomputer | B | 1964 | 把成千上万个处理器联网并行，用于气候、核物理、药物模拟等最重的计算。 | scientific-computing, exascale-computing, cray | division, scale
+cray | Cray-1 与向量计算机 | Cray-1 & vector computers | C | 1976 | 西摩·克雷设计的经典超级计算机，一条指令同时处理一整串数据。 | supercomputer, gpu | division
+## 程序与算法
+algorithm | 算法 | Algorithm | A |  | 解决一类问题的明确、有限的步骤；好的算法比更快的机器更重要。 | data-structure, big-o, sorting-searching | complexity, computability
+data-structure | 数据结构 | Data structure | B |  | 组织数据的方式（数组、链表、树、哈希表、图），决定了哪些操作快、哪些慢。 | algorithm, hashing, database | complexity, locality
+big-o | 复杂度与大 O 记号 | Big O notation | B |  | 用 O(n)、O(n log n)、O(n²) 描述算法耗时随数据规模增长的速度，忽略常数看趋势。 | algorithm, p-vs-np | complexity, exponential
+sorting-searching | 排序与查找 | Sorting & searching | C |  | 最经典的算法问题：快速排序、归并排序、二分查找让海量数据可以被快速定位。 | algorithm, big-o, database | complexity
+recursion | 递归 | Recursion | C |  | 函数调用自己、把大问题化为同样形式的小问题，是分治算法和树形数据的天然写法。 | algorithm, lisp, functional-programming | computability
+graph-algorithms | 图算法与最短路径 | Graph algorithms & shortest paths | C | 1959 | 把城市、网页、人际关系抽象成点和边，用迪杰斯特拉等算法求最短路线。 | algorithm, gnss, router | complexity
+dynamic-programming | 动态规划 | Dynamic programming | C |  | 把问题拆成重叠的子问题、记住每个子问题的答案避免重复计算。 | algorithm, recursion | complexity, locality
+regular-expression | 正则表达式 | Regular expression | C | 1951 | 用一行简洁的模式描述一类字符串，用于搜索、校验和文本处理。 | algorithm, command-line | computability
+programming-language | 编程语言 | Programming language | A |  | 让人用接近自然语言和数学的方式写指令，再翻译成机器能执行的代码。 | compiler, assembly-language, python | abstraction, computability
+assembly-language | 机器码与汇编 | Machine code & assembly | C | 1947 | 机器码是 CPU 直接执行的二进制指令，汇编给每条指令起了人能读的助记名。 | compiler, instruction-set-architecture | abstraction
+compiler | 编译器 | Compiler | A | 1952 | 把高级语言程序翻译成机器码的程序，让程序员不用再手写机器指令。 | programming-language, fortran, assembly-language | abstraction
+interpreter | 解释器 | Interpreter | C |  | 边读源代码边执行，不需要先整体编译，方便交互和调试，Python 和 JavaScript 都依赖它。 | compiler, python, javascript | abstraction
+fortran | FORTRAN | FORTRAN | C | 1957 | 第一种被广泛使用的高级语言，为科学计算而生，至今仍在超算上运行。 | compiler, scientific-computing | abstraction
+lisp | Lisp | Lisp | C | 1958 | 以表处理和递归为核心的语言，首创了垃圾回收，曾是早期 AI 研究的主力。 | garbage-collection, functional-programming, symbolic-ai | computability
+cobol | COBOL | COBOL | C | 1959 | 面向商业数据处理、语法接近英语的语言，银行和政府系统里至今还有大量 COBOL 代码。 | mainframe, y2k | abstraction
+basic-language | BASIC 语言 | BASIC | C | 1964 | 为初学者设计的语言，随早期个人电脑普及，让一代人学会编程。 | personal-computer, programming-language | abstraction
+c-language | C 语言 | C (programming language) | B | 1972 | 贝尔实验室为重写 Unix 设计的语言，贴近硬件又可移植，是操作系统和嵌入式的基石。 | unix, operating-system, compiler | abstraction
+structured-programming | 结构化编程 | Structured programming | C | 1968 | 用顺序、分支、循环三种结构代替随意跳转（goto），让程序可读、可证明。 | software-engineering, programming-language | abstraction
+object-oriented-programming | 面向对象编程 | Object-oriented programming (OOP) | B | 1967 | 把数据和操作它的代码打包成"对象"，用类、继承、封装组织大型程序。 | java, programming-language | abstraction
+functional-programming | 函数式编程 | Functional programming | C |  | 把程序看成数学函数的组合，避免可变状态，更易推理和并行。 | lisp, concurrency | computability
+type-system | 类型系统 | Type system | C |  | 给数据贴上"整数""字符串"等标签，让编译器在运行前就抓出一大类错误。 | compiler, programming-language | abstraction
+garbage-collection | 垃圾回收 | Garbage collection | C | 1959 | 运行时自动找出不再使用的内存并回收，程序员不再需要手动释放。 | lisp, java | locality
+python | Python | Python | C | 1991 | 语法简洁、库极其丰富的语言，成为数据科学和 AI 的通用语。 | programming-language, machine-learning | abstraction
+java | Java 与虚拟机 | Java & the JVM | C | 1995 | 编译成字节码在虚拟机上运行，"一次编写、到处运行"，统治了企业后端和安卓。 | object-oriented-programming, android, garbage-collection | abstraction, standard
+javascript | JavaScript | JavaScript | C | 1995 | 10 天内设计出来的网页脚本语言，后来成为浏览器和全栈开发的唯一通用语言。 | web-browser, world-wide-web | abstraction
+floating-point | 浮点数 | Floating-point arithmetic | C | 1985 | 用"有效数字 × 2 的幂"表示小数，IEEE 754 标准让所有电脑算出相同的结果。 | bit-byte, scientific-computing | standard
+## 系统软件
+operating-system | 操作系统 | Operating system (OS) | A |  | 管理硬件、调度程序、提供文件和网络服务的"大管家"，让应用不必直接和硬件打交道。 | unix, process-thread, virtual-memory | abstraction
+time-sharing | 分时系统 | Time-sharing | C | 1961 | 让 CPU 在多个用户之间飞快轮转，每人都觉得自己独占一台计算机。 | operating-system, mainframe, unix | division
+unix | Unix | Unix | B | 1969 | 贝尔实验室开发的操作系统，"一切皆文件、小工具组合"的思想影响了此后几乎所有系统。 | c-language, linux, operating-system | abstraction
+process-thread | 进程与线程 | Process & thread | B |  | 进程是运行中的程序及其独立资源，线程是进程内可并行的执行流。 | operating-system, concurrency, multicore | abstraction
+virtual-memory | 虚拟内存 | Virtual memory | B | 1962 | 给每个程序一个独立的"假"地址空间，由系统映射到真实内存或硬盘，既隔离又能用得更多。 | operating-system, memory-hierarchy | abstraction, locality
+file-system | 文件系统 | File system | C |  | 把硬盘上的一堆字节组织成目录和文件，并记录它们存在哪里。 | operating-system, hard-disk-drive | abstraction
+device-driver | 驱动程序 | Device driver | C |  | 操作系统和具体硬件之间的"翻译官"，让同一系统能使用成千上万种设备。 | operating-system, usb | abstraction
+concurrency | 并发与锁 | Concurrency & locks | C |  | 多个任务同时访问同一数据时会互相踩踏，用锁、事务等机制保证结果正确。 | process-thread, multicore, transaction-acid | division
+firmware | 固件与 BIOS | Firmware & BIOS | C | 1975 | 写在芯片里、开机最先运行的底层程序，负责唤醒硬件并加载操作系统。 | operating-system, embedded-system | abstraction
+windows | Windows | Microsoft Windows | C | 1985 | 微软的图形化操作系统，1990 年代起统治个人电脑。 | personal-computer, gui | network, standard
+linux | Linux | Linux | B | 1991 | 林纳斯·托瓦兹发起的开源操作系统内核，运行着绝大多数服务器、超算和安卓手机。 | unix, open-source, android | incentives, abstraction
+apple-os | macOS 与 iOS | macOS & iOS | C | 2001 | 苹果基于 Unix 血统的操作系统家族，iOS 定义了现代智能手机的交互方式。 | unix, smartphone, gui | abstraction
+android | 安卓 | Android | C | 2008 | 基于 Linux 的开源移动操作系统，全球装机量最大的操作系统。 | linux, smartphone, app-store | network
+virtualization | 虚拟化 | Virtualization | B | 1972 | 在一台物理机上模拟出多台虚拟机，各自运行独立的操作系统，是云计算的地基。 | cloud-computing, container, operating-system | abstraction
+container | 容器与 Docker | Containers & Docker | B | 2013 | 把应用和它依赖的一切打包成标准"集装箱"，在任何机器上以同样方式运行。 | virtualization, kubernetes, devops | standard, abstraction
+kubernetes | Kubernetes | Kubernetes | C | 2014 | 谷歌开源的容器编排系统，自动部署、扩缩和修复成千上万个容器。 | container, cloud-computing, microservices | feedback, abstraction
+## 数据
+database | 数据库 | Database | A |  | 可靠地存储、查询和更新大量结构化数据的系统，是几乎所有应用的后台。 | relational-database, transaction-acid, nosql | abstraction, locality
+relational-database | 关系数据库与 SQL | Relational database & SQL | B | 1970 | 用表格和关系代数组织数据，用 SQL 声明"要什么"而不是"怎么找"。 | database, transaction-acid, data-warehouse | abstraction
+transaction-acid | 事务与 ACID | Transactions & ACID | C |  | 一组操作要么全部成功要么全部撤销，保证转账这类操作不会只做一半。 | relational-database, concurrency, consensus-algorithm | redundancy
+nosql | NoSQL 数据库 | NoSQL databases | C | 2009 | 放弃部分关系约束换取横向扩展和灵活结构，如键值、文档、列族、图数据库。 | database, distributed-system, big-data | scale
+big-data | 大数据 | Big data (MapReduce & Hadoop) | B | 2004 | 把海量数据切块分给成百上千台廉价机器并行处理，再汇总结果。 | distributed-system, data-warehouse, cloud-computing | division, scale
+data-warehouse | 数据仓库与数据湖 | Data warehouse & data lake | C |  | 把各业务系统的数据集中起来专门用于分析和报表。 | big-data, relational-database | abstraction
+data-compression | 数据压缩 | Data compression | B | 1952 | 去掉数据中的冗余和人感知不到的细节，让同样内容占更少空间。 | mp3, jpeg, hashing | info, entropy
+hashing | 哈希 | Hashing | B | 1953 | 把任意长度的数据映射成固定长度的"指纹"，用于快速查找、校验和密码学。 | data-structure, blockchain, public-key-crypto | oneway
+unicode | 字符编码与 Unicode | Character encoding & Unicode | C | 1991 | 给世界上每个字符分配唯一编号，让中文、表情符号和英文可以在同一文本里共存。 | bit-byte, world-wide-web | standard
+error-correcting-code | 纠错码 | Error-correcting code | C | 1950 | 汉明码等编码加入少量校验位，能自动发现并修正传输和存储中翻转的比特。 | data-compression, optical-disc, qr-code | redundancy, info
+backup-raid | 备份与 RAID | Backup & RAID | C | 1988 | 把数据复制到多块硬盘或多个地点，任何一处损坏都能恢复。 | hard-disk-drive, distributed-system | redundancy
+## 软件工程
+software-engineering | 软件工程 | Software engineering | B | 1968 | 用工程方法管理大型软件的需求、设计、测试和维护，源于 1960 年代的"软件危机"。 | version-control, agile, software-testing | abstraction, division
+debugging | 调试与 Bug | Debugging & bugs | C | 1947 | 找出并修复程序错误的过程；1947 年哈佛 Mark II 里被夹住的飞蛾让"bug"一词广为人知。 | software-testing, software-engineering | feedback
+software-testing | 软件测试 | Software testing | C |  | 用自动化的单元测试、集成测试在上线前发现错误，并防止改动破坏旧功能。 | debugging, devops | feedback, redundancy
+version-control | 版本控制与 Git | Version control & Git | B | 2005 | 记录代码每一次修改、支持多人并行开发和合并；Git 是事实标准。 | open-source, devops, software-engineering | redundancy
+open-source | 开源软件 | Open-source software | A | 1998 | 源代码公开、任何人都能使用修改和分发的软件，Linux 和互联网基础设施大多是开源的。 | linux, version-control, gnu | incentives, network
+gnu | GNU 与自由软件运动 | GNU & the free software movement | C | 1983 | 斯托曼发起的自由软件运动，GPL 许可证要求衍生作品也必须开源。 | open-source, linux | incentives
+agile | 敏捷开发 | Agile software development | C | 2001 | 以短周期迭代、频繁交付和快速反馈代替一次性的大规划。 | software-engineering, devops | feedback
+devops | DevOps 与 CI/CD | DevOps & CI/CD | C |  | 让开发和运维合一，代码每次提交都自动构建、测试和部署。 | software-testing, container, version-control | feedback
+api | 应用程序接口 | Application programming interface (API) | B |  | 软件之间约定好的调用方式，像插座一样让不同程序互相连接。 | microservices, software-engineering, cloud-computing | abstraction, standard
+microservices | 微服务 | Microservices | C |  | 把大应用拆成许多通过 API 通信、可独立部署的小服务。 | api, container, kubernetes | division, abstraction
+distributed-system | 分布式系统 | Distributed system | B |  | 多台计算机通过网络协作完成一件事；任何一台随时可能出错，网络可能中断。 | consensus-algorithm, cap-theorem, cloud-computing | redundancy, division
+cap-theorem | CAP 定理 | CAP theorem | C | 2000 | 网络分区发生时，分布式系统只能在一致性和可用性之间二选一。 | distributed-system, nosql | complexity
+consensus-algorithm | 共识算法 | Consensus algorithms (Paxos, Raft) | C | 1989 | 让多台可能出错的机器对同一个值达成一致的协议，是分布式数据库和区块链的核心。 | distributed-system, blockchain, transaction-acid | redundancy, incentives
+## 交互与应用
+command-line | 命令行 | Command-line interface | C |  | 用文字命令操作计算机的界面，可组合、可脚本化，开发者至今离不开。 | unix, gui | abstraction
+gui | 图形用户界面 | Graphical user interface (GUI) | A | 1973 | 用窗口、图标、菜单和鼠标指针操作计算机；施乐 Alto 首创，Macintosh 将其普及。 | mouse, personal-computer, windows | abstraction
+mouse | 鼠标 | Computer mouse | C | 1964 | 恩格尔巴特发明的指点设备，1968 年"演示之母"中首次公开。 | gui, hypertext | feedback
+spreadsheet | 电子表格 | Spreadsheet | C | 1979 | VisiCalc 让个人电脑第一次有了"非买不可"的理由，Excel 至今是最普及的编程工具。 | personal-computer, word-processor | abstraction
+word-processor | 文字处理软件 | Word processor | C | 1976 | 所见即所得地编辑排版文字，取代打字机。 | personal-computer, typewriter | abstraction
+computer-graphics | 计算机图形学 | Computer graphics | B | 1963 | 用数学描述形状、光照和材质，让计算机生成图像；光线追踪模拟光的真实路径。 | gpu, video-game, cad-cam | optics
+video-game | 电子游戏 | Video game | B | 1972 | 从《Pong》到开放世界，游戏一直推动着图形芯片和交互技术进步。 | computer-graphics, gpu, game-engine | feedback
+game-engine | 游戏引擎 | Game engine | C | 1993 | 封装了渲染、物理、声音的通用开发平台，如今也用于影视、建筑和数字孪生。 | video-game, digital-twin | abstraction
+app-store | 应用商店 | App store | C | 2008 | 统一分发和收费的软件市场，让个人开发者能把应用卖给全球用户。 | smartphone, android, mobile-internet | network
+y2k | 千年虫 | Year 2000 problem (Y2K) | C | 2000 | 旧程序只用两位数存年份，2000 年会被当成 1900 年；全球花了巨资提前修复。 | cobol, software-engineering | standard
+## 云与现代计算
+client-server | 客户端—服务器模式 | Client–server model | C |  | 一方提供服务、另一方发请求，网页、App 和数据库几乎都是这种结构。 | world-wide-web, api, cloud-computing | division
+data-center | 数据中心 | Data center | B |  | 集中摆放成千上万台服务器的建筑，供电和散热是最大的工程挑战。 | cloud-computing, air-conditioning, ai-accelerator | heat, scale
+cloud-computing | 云计算 | Cloud computing | A | 2006 | 像用水电一样按需租用计算、存储和软件，不再自建机房；AWS 2006 年开启了这个时代。 | virtualization, data-center, saas | scale, abstraction
+saas | 软件即服务 | Software as a service (SaaS) | C | 1999 | 软件不再装在本地，而是通过浏览器订阅使用，由厂商统一升级维护。 | cloud-computing, api | scale
+serverless | 无服务器计算 | Serverless computing | C | 2014 | 开发者只写函数，服务器的分配和扩缩全部交给云平台，按调用次数计费。 | cloud-computing, container | abstraction
+edge-computing | 边缘计算 | Edge computing | C |  | 把计算放到离数据产生地更近的地方，降低延迟和带宽成本。 | cloud-computing, iot, cdn | locality
+scientific-computing | 科学计算与数值模拟 | Scientific computing & simulation | B | 1946 | 用计算机解方程、做蒙特卡洛随机模拟，让"计算"成为实验和理论之外的第三种科学方法。 | supercomputer, fortran, climate-model | probability
+## 计算理论
+halting-problem | 停机问题 | Halting problem | B | 1936 | 不存在一个通用程序能判断任意程序是否会停下——计算机能力有严格的边界。 | turing-machine, p-vs-np | computability
+p-vs-np | P 与 NP 问题 | P versus NP | B | 1971 | "答案容易验证的问题，是否也一定容易求解？"计算机科学最著名的未解难题。 | big-o, public-key-crypto, halting-problem | complexity, oneway
+technological-singularity | 技术奇点 | Technological singularity | C | 1993 | 一种设想：AI 能自我改进后技术进步将失控加速；它是推测而非定论。 | agi, scaling-laws | exponential

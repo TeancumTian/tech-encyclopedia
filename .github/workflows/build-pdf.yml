@@ -1,0 +1,60 @@
+name: Build PDF
+
+on:
+  push:
+    branches: [main]
+    tags: ['v*']
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install CJK fonts and WeasyPrint system libs
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends \
+            fonts-noto-cjk fonts-noto-cjk-extra fonts-noto-core \
+            libpango-1.0-0 libpangoft2-1.0-0 libharfbuzz-subset0 poppler-utils
+          fc-cache -f
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+          cache: pip
+
+      - name: Install Python deps
+        run: pip install -r requirements.txt
+
+      - name: Check sources
+        run: make check PYTHON=python
+
+      - name: Build full PDF
+        run: make pdf PYTHON=python
+
+      - name: Name the PDF
+        id: name
+        run: |
+          if [[ "$GITHUB_REF" == refs/tags/* ]]; then VER="${GITHUB_REF_NAME}"; else VER="${GITHUB_SHA::7}"; fi
+          mkdir -p dist
+          cp "build/近现代科技百科全书-全书.pdf" "dist/tech-encyclopedia-$VER.pdf"
+          echo "file=dist/tech-encyclopedia-$VER.pdf" >> "$GITHUB_OUTPUT"
+          pdfinfo "dist/tech-encyclopedia-$VER.pdf" | grep -E 'Pages|File size'
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: tech-encyclopedia-pdf
+          path: dist/*.pdf
+          retention-days: 30
+
+      - name: Attach PDF to GitHub Release
+        if: startsWith(github.ref, 'refs/tags/v')
+        uses: softprops/action-gh-release@v2
+        with:
+          files: ${{ steps.name.outputs.file }}
+          generate_release_notes: true

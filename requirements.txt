@@ -1,0 +1,5 @@
+# 出 PDF 所需 Python 包（版本为实测可用版本）
+# 另需系统字体：Noto Serif CJK SC + Noto Sans CJK SC（Debian/Ubuntu: fonts-noto-cjk）
+weasyprint==70.0
+markdown-it-py==4.2.0
+pypinyin==0.55.0  # 只有 tools/make_index_keys.py 需要（构建本身不需要，用的是已生成的 data/index_keys.json）

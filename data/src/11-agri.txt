@@ -1,0 +1,39 @@
+# agri | 农业与食品 | Agriculture & Food | 用更少的地和人，养活 80 亿人
+## 农业机械
+seed-drill | 条播机 | Seed drill | C | 1701 | 塔尔发明的条播机把种子按行按深度播下，出苗率更高。 | crop-rotation, tractor | standard
+crop-rotation | 诺福克轮作制 | Norfolk four-course rotation | C | 1730 | 小麦、芜菁、大麦、苜蓿四年轮种，豆科植物固氮，田地不必休耕。 | chemical-fertilizer | photosynthesis
+mechanical-reaper | 机械收割机 | Mechanical reaper | C | 1831 | 麦考密克收割机让一个人一天能收割的面积成倍增加。 | combine-harvester, tractor | leverage
+barbed-wire | 铁丝网 | Barbed wire | C | 1874 | 便宜的带刺铁丝让大面积圈地放牧成为可能，改变了美国西部，也被用于战争。 | steel | stress
+tractor | 拖拉机 | Tractor | B | 1892 | 用内燃机代替牛马拉犁，农业劳动力需求大幅下降。 | internal-combustion-engine, combine-harvester | energy, leverage
+combine-harvester | 联合收割机 | Combine harvester | C |  | 一台机器同时完成收割、脱粒和清选。 | tractor, mechanical-reaper | division
+## 化肥、农药与育种
+chemical-fertilizer | 化肥 | Chemical fertilizer | A |  | 直接给作物补充氮、磷、钾；合成氨氮肥支撑了 20 世纪的人口增长。 | haber-bosch, green-revolution, eutrophication | photosynthesis, bond
+pesticide | 农药 | Pesticides | B | 1939 | 杀灭害虫、杂草和病菌的化学品；DDT 曾挽救无数生命，也因生态危害被禁用。 | integrated-pest-management, chemical-fertilizer | recognition, evolution
+integrated-pest-management | 综合虫害管理 | Integrated pest management | C | 1959 | 结合天敌、轮作、监测和精准用药控制害虫，减少农药用量和抗药性。 | pesticide, precision-agriculture | evolution, feedback
+plant-breeding | 现代育种 | Modern plant breeding | B | 1900 | 孟德尔遗传定律被重新发现后，育种从凭经验变成按规律杂交选择。 | hybrid-corn, hybrid-rice, gmo-crops | evolution, dogma
+hybrid-corn | 杂交玉米 | Hybrid maize | C | 1930 | 利用杂种优势，两个纯系杂交后代的产量显著高于双亲。 | plant-breeding, hybrid-rice | evolution
+green-revolution | 绿色革命 | Green Revolution | A | 1960 | 矮秆高产品种 + 化肥 + 灌溉 + 农药，让发展中国家粮食产量在几十年内翻倍。 | plant-breeding, chemical-fertilizer, irrigation | photosynthesis, evolution
+hybrid-rice | 杂交水稻 | Hybrid rice | B | 1973 | 袁隆平团队利用雄性不育系实现三系配套，水稻单产大幅提高。 | green-revolution, plant-breeding | evolution
+gmo-crops | 转基因作物 | Genetically modified crops | B | 1996 | 转入抗虫（Bt）或耐除草剂基因的作物，1996 年起大面积商业种植。 | recombinant-dna, gene-edited-crops | dogma
+gene-edited-crops | 基因编辑作物 | Gene-edited crops | C |  | 用 CRISPR 等工具精准改动作物自身基因，不一定引入外源基因。 | crispr, gmo-crops | dogma
+conservation-agriculture | 保护性耕作与有机农业 | Conservation & organic agriculture | C |  | 免耕、覆盖作物和有机肥等做法减少水土流失和化学投入。 | crop-rotation, pesticide | photosynthesis
+livestock-breeding | 人工授精与家畜育种 | Artificial insemination & livestock breeding | C |  | 用人工授精、冷冻精液和基因组选择，让一头优秀种公牛的后代遍布各地牧场。 | plant-breeding, factory-farming | evolution, dogma
+seed-bank | 种子库 | Seed banks | C | 2008 | 在低温干燥条件下长期保存作物种子和遗传多样性，斯瓦尔巴全球种子库 2008 年启用。 | plant-breeding, gene-edited-crops | evolution
+## 现代农场
+irrigation | 现代灌溉与滴灌 | Modern irrigation & drip irrigation | B | 1965 | 滴灌把水和肥直接送到根部，比漫灌节水 30–60%。 | precision-agriculture, desalination | diffusion
+precision-agriculture | 精准农业 | Precision agriculture | C |  | 用卫星导航、遥感和传感器按每块地的实际需要施肥、播种和打药。 | gnss, remote-sensing, agricultural-drone | feedback
+agricultural-drone | 植保无人机 | Agricultural drone | C |  | 用无人机喷洒农药和播种，效率比人工高数十倍。 | drone, precision-agriculture | fluid
+controlled-environment-agriculture | 设施农业与垂直农场 | Greenhouses & vertical farming | C |  | 在温室或室内用 LED、无土栽培控制光照温湿度，全年生产蔬菜。 | led, hydroponics | photosynthesis, feedback
+hydroponics | 无土栽培 | Hydroponics | C | 1929 | 不用土壤，把植物根系泡在营养液或基质中种植。 | controlled-environment-agriculture | diffusion
+aquaculture | 水产养殖 | Aquaculture | C |  | 人工养殖鱼虾贝藻，如今全球一半以上的水产品来自养殖。 | controlled-environment-agriculture | photosynthesis
+factory-farming | 集约化养殖 | Intensive animal farming | C |  | 用标准化饲料、圈舍和兽药规模化饲养畜禽，肉价下降但引发动物福利和耐药问题。 | antibiotic-resistance, cold-chain | scale
+## 食品加工与新食品
+canning | 罐头 | Canning | B | 1810 | 把食物密封后加热杀菌，可常温保存数年，最初是为了给军队供粮。 | pasteurization, cold-chain | germ, heat
+frozen-food | 速冻食品 | Frozen food | C | 1925 | 伯兹艾快速冷冻让冰晶细小、口感保留，配合冷柜进入家庭。 | refrigeration, cold-chain | phase
+cold-chain | 冷链物流 | Cold chain | B |  | 从产地到餐桌全程保持低温运输储存，让生鲜和疫苗跨越千里。 | refrigeration, vaccine, container-shipping | heat
+instant-noodles | 方便面 | Instant noodles | C | 1958 | 安藤百福用油炸脱水让面条加热水即食，成为全球最普及的方便食品之一。 | canning | phase
+cultured-meat | 细胞培养肉 | Cultivated meat | C | 2013 | 在生物反应器里培养动物细胞得到肉，不用养殖和屠宰，成本仍是难题。 | fermentation-bioreactor, plant-based-meat | dogma
+plant-based-meat | 植物肉 | Plant-based meat | C |  | 用大豆、豌豆蛋白等模拟肉的口感和风味。 | cultured-meat, precision-fermentation | structure
+precision-fermentation | 精密发酵 | Precision fermentation | C |  | 让工程微生物生产特定蛋白（如乳清蛋白、血红素），用于替代动物原料。 | synthetic-biology, fermentation-bioreactor | dogma
+food-additives | 食品添加剂与代糖 | Food additives & sweeteners | C | 1879 | 防腐剂、乳化剂、代糖等让加工食品更耐储存、口感更稳定，用量受法规严格限制。 | canning, petrochemicals | bond
+haccp | 食品安全体系 HACCP | Hazard analysis and critical control points (HACCP) | C |  | 找出食品生产中最容易出问题的环节重点监控，最初是为了给宇航员做安全的太空食品。 | canning, cold-chain | germ, feedback

@@ -1,0 +1,60 @@
+# materials | 材料与化工 | Materials & Chemical Industry | 现代世界是用钢、塑料、硅和氨"做"出来的
+## 金属与冶金
+blast-furnace | 高炉与焦炭炼铁 | Blast furnace & coke smelting | B | 1709 | 用焦炭代替木炭在高炉中还原铁矿石，让铁的产量摆脱森林限制。 | steel, bessemer-process | redox, heat
+bessemer-process | 转炉炼钢 | Bessemer process | B | 1856 | 向熔融生铁吹空气烧掉多余的碳，第一次让钢可以廉价大量生产。 | steel, blast-furnace, railway | redox
+open-hearth-furnace | 平炉炼钢 | Open-hearth furnace | C | 1865 | 利用余热回收的平炉可以精确控制成分，曾长期是世界主要炼钢法。 | bessemer-process, steel | heat
+steel | 钢 | Steel | A |  | 含碳约 0.02–2% 的铁合金，强度高、韧性好、价格低，是现代文明的骨架。 | bessemer-process, stainless-steel, steel-frame | structure, stress
+electric-arc-furnace | 电弧炉炼钢 | Electric arc furnace | C | 1907 | 用电弧熔化废钢再炼成新钢，流程短、排放低，适合循环利用。 | steel, green-steel, recycling | ohm, heat
+stainless-steel | 不锈钢 | Stainless steel | C | 1913 | 加入铬后表面形成致密氧化膜，自己"防锈"。 | steel, alloy | redox, structure
+aluminum-smelting | 电解铝 | Aluminium smelting (Hall–Héroult) | B | 1886 | 把氧化铝溶在熔融冰晶石中通电电解，铝从昂贵的贵金属变成日用品。 | alloy, airplane, recycling | redox
+titanium | 钛与钛合金 | Titanium & titanium alloys | C | 1940 | 强度接近钢而重量轻近一半、耐腐蚀，用于飞机、人工关节和高端手机。 | alloy, superalloy, artificial-joint | structure
+alloy | 合金 | Alloy | C |  | 把两种以上金属（或非金属）熔在一起，得到比纯金属更强、更耐用的材料。 | steel, superalloy, shape-memory-alloy | structure
+superalloy | 高温合金 | Superalloy | C | 1940 | 在上千度高温下仍能保持强度的镍基合金，是喷气发动机涡轮叶片的材料。 | jet-engine, gas-turbine, alloy | structure, heat
+shape-memory-alloy | 形状记忆合金 | Shape-memory alloy | C | 1962 | 变形后一加热就恢复原状的合金，如镍钛合金，用于血管支架和牙箍。 | alloy, minimally-invasive-surgery | structure, phase
+galvanization | 镀锌防腐 | Galvanization | C | 1837 | 给钢铁镀一层锌，锌先被腐蚀从而保护钢。 | steel | redox
+rare-earth | 稀土与永磁 | Rare earths & permanent magnets | B | 1984 | 钕铁硼等稀土永磁体是最强的永磁材料，用于电动车电机和风力发电机。 | electric-motor, wind-turbine, critical-minerals | structure, lorentz
+basic-oxygen-steelmaking | 氧气顶吹转炉 | Basic oxygen steelmaking | C | 1952 | 用纯氧代替空气吹炼，几十分钟炼一炉钢，如今全球约七成钢由它生产。 | bessemer-process, air-separation, steel | redox
+## 采矿与资源
+mining-technology | 现代采矿 | Modern mining technology | C |  | 从炸药爆破、大型矿用卡车到自动化矿山，决定了金属和能源的供应。 | explosives, froth-flotation, critical-minerals | leverage
+froth-flotation | 泡沫浮选 | Froth flotation | C | 1905 | 利用矿物表面亲水或疏水的差异，让有用矿物附着气泡浮起来分离。 | mining-technology | structure, diffusion
+critical-minerals | 关键矿产 | Critical minerals | C |  | 锂、钴、镍、稀土、镓等对新能源和芯片至关重要、供应高度集中的矿产。 | lithium-extraction, rare-earth, semiconductor-geopolitics | division
+lithium-extraction | 锂资源提取 | Lithium extraction | C |  | 从盐湖卤水蒸发浓缩或从锂辉石矿中提炼锂，是电池产业链的源头。 | lithium-ion, critical-minerals | diffusion
+## 基础化工
+haber-bosch | 哈伯—博施合成氨 | Haber–Bosch process | A | 1913 | 在高温高压和铁催化剂下把空气中的氮变成氨，养活了全球约一半人口。 | chemical-fertilizer, catalysis-industrial, green-revolution | catalysis, bond
+sulfuric-acid | 硫酸与接触法 | Sulfuric acid (contact process) | C | 1831 | 产量最大的化学品之一，用于化肥、冶金和电池，曾被视为工业实力的指标。 | chemical-fertilizer, lead-acid-battery | catalysis
+chlor-alkali | 氯碱工业 | Chlor-alkali process | C | 1892 | 电解食盐水同时得到氯气、烧碱和氢气，是 PVC、造纸和水消毒的原料。 | electrolysis, water-chlorination | redox
+solvay-process | 制碱法（索尔维法与侯氏法） | Solvay process & Hou's process | C | 1861 | 用食盐、石灰石和氨生产纯碱；侯德榜改进为联合制碱法，同时产出化肥氯化铵。 | sulfuric-acid, float-glass | bond
+synthetic-dye | 合成染料 | Synthetic dyes | C | 1856 | 珀金意外合成苯胺紫，开启了从煤焦油制造化学品的现代有机化学工业。 | petrochemicals, drug-discovery | bond
+air-separation | 空气分离 | Air separation | C | 1895 | 把空气液化后按沸点分出氧、氮、氩，供炼钢、医疗、芯片和火箭使用。 | liquid-rocket-engine, steel | phase
+catalysis-industrial | 工业催化 | Industrial catalysis | B |  | 绝大多数化工产品的生产都要用催化剂加速反应、降低能耗。 | haber-bosch, catalytic-cracking, catalytic-converter | catalysis
+catalytic-cracking | 催化裂化 | Catalytic cracking | C | 1937 | 用催化剂把重油大分子"剪"成汽油小分子，大幅提高汽油产量。 | petroleum-refining, catalysis-industrial | catalysis, bond
+petrochemicals | 石油化工 | Petrochemicals | B |  | 以石油和天然气为原料生产乙烯、丙烯等基础化学品，再做成塑料、纤维和橡胶。 | plastics, petroleum-refining, synthetic-rubber | bond, polymer
+chemical-engineering | 化学工程 | Chemical engineering | C | 1888 | 把实验室反应放大成连续、安全、经济的工厂流程的工程学科。 | petrochemicals, haber-bosch | scale
+detergent | 合成洗涤剂 | Synthetic detergent | C | 1946 | 分子一头亲水一头亲油，把油污包起来带进水里；硬水中也不像肥皂那样结垢。 | petrochemicals, washing-machine | structure
+## 高分子
+polymer | 高分子 | Polymer | A | 1920 | 由成千上万个重复单元连成的长链分子；施陶丁格证明了它的存在。 | plastics, nylon, synthetic-rubber | polymer, structure
+vulcanization | 橡胶硫化 | Vulcanization | C | 1839 | 在天然橡胶中加硫加热，让分子链交联，橡胶从黏软变得坚韧耐用。 | synthetic-rubber, pneumatic-tire | polymer
+celluloid | 赛璐珞 | Celluloid | C | 1870 | 第一种商业化的人造塑料，用于台球、梳子和电影胶片。 | plastics, film-roll | polymer
+bakelite | 酚醛塑料（电木） | Bakelite | C | 1907 | 第一种完全人工合成的塑料，耐热绝缘，用于早期电话和电器外壳。 | plastics, polymer | polymer
+plastics | 塑料 | Plastics | A |  | 可塑形的合成高分子材料，轻、便宜、耐用，改变了包装、医疗和消费品，也带来污染问题。 | polyethylene, injection-molding, plastic-recycling | polymer
+polyethylene | 聚乙烯 | Polyethylene | C | 1933 | 产量最大的塑料，用于塑料袋、薄膜和管道。 | plastics, ziegler-natta | polymer
+ziegler-natta | 齐格勒—纳塔催化剂 | Ziegler–Natta catalyst | C | 1953 | 能在常压下把乙烯、丙烯规整聚合的催化剂，让塑料大规模便宜生产。 | polyethylene, catalysis-industrial | catalysis, polymer
+nylon | 尼龙 | Nylon | B | 1935 | 第一种合成纤维，比蚕丝更结实，最先用于丝袜和降落伞。 | polymer, synthetic-fiber | polymer
+synthetic-fiber | 合成纤维 | Synthetic fibers (polyester etc.) | C | 1941 | 涤纶、腈纶等化学纤维，如今占全球纤维产量的大多数。 | nylon, kevlar | polymer
+ptfe | 聚四氟乙烯 | PTFE (Teflon) | C | 1938 | 几乎什么都粘不上、耐腐蚀的塑料，用于不粘锅和化工管道。 | plastics | polymer, bond
+synthetic-rubber | 合成橡胶 | Synthetic rubber | C | 1929 | 从石油化学品合成的橡胶，二战中因天然橡胶供应中断而大规模发展。 | vulcanization, pneumatic-tire, petrochemicals | polymer
+kevlar | 芳纶 | Aramid (Kevlar) | C | 1965 | 强度约为同重量钢的五倍的纤维，用于防弹衣和光缆加强。 | synthetic-fiber, body-armor | polymer, structure
+bioplastics | 生物基与可降解塑料 | Bioplastics | C |  | 用植物原料制造或能被微生物分解的塑料，如 PLA。 | plastics, plastic-recycling | polymer
+## 无机与先进材料
+float-glass | 浮法玻璃 | Float glass | C | 1959 | 让熔融玻璃漂在熔融锡液面上自然摊平，得到廉价平整的大块玻璃。 | glass-curtain-wall, touchscreen | phase
+advanced-ceramics | 先进陶瓷 | Advanced ceramics | C |  | 氧化铝、氮化硅等耐高温、耐磨、绝缘的陶瓷，用于芯片基板和发动机。 | superalloy, reentry-heat-shield | structure, bond
+carbon-fiber | 碳纤维 | Carbon fiber | B | 1958 | 由碳原子排列成的极细纤维，比钢强、比铝轻，用于飞机、赛车和风机叶片。 | composite-material, airplane, wind-turbine | structure
+composite-material | 复合材料 | Composite material | B |  | 把两种以上材料组合取长补短，如钢筋混凝土、玻璃钢、碳纤维复合材料。 | carbon-fiber, reinforced-concrete | structure, stress
+nanotechnology | 纳米技术 | Nanotechnology | B | 1959 | 在 1–100 纳米尺度上操纵物质；尺寸小到这个程度，材料性质会出现新变化。 | graphene, carbon-nanotube, quantum-dot | structure, squarecube
+fullerene | 富勒烯 | Fullerene | C | 1985 | 60 个碳原子组成的足球状分子，开启了碳纳米材料研究。 | carbon-nanotube, graphene | structure
+carbon-nanotube | 碳纳米管 | Carbon nanotube | C | 1991 | 石墨片卷成的纳米管，强度和导电性都极好，规模化应用仍有限。 | graphene, nanotechnology | structure
+graphene | 石墨烯 | Graphene | B | 2004 | 只有一个原子厚的碳层，用胶带从石墨上剥离获得，导电导热极佳。 | carbon-nanotube, nanotechnology | structure
+aerogel | 气凝胶 | Aerogel | C | 1931 | 90% 以上是空气的固体，极轻且隔热性极好。 | advanced-ceramics | heat, structure
+metamaterial | 超材料 | Metamaterial | C | 2000 | 用人工设计的微结构而非化学成分实现自然界没有的性质，如负折射。 | stealth-technology, phased-array | structure, wave
+materials-genome | 材料计算与高通量筛选 | Computational materials discovery | C | 2011 | 用计算模拟和 AI 预测成千上万种候选材料的性质，再挑出最有希望的去合成。 | ai-for-science, scientific-computing | optimization
+fiberglass | 玻璃纤维 | Glass fiber (fiberglass) | C | 1938 | 把玻璃拉成细丝，用于隔热棉、玻璃钢和电路板基材。 | composite-material, pcb | structure

@@ -1,0 +1,20 @@
+# build outputs (PDFs go to GitHub Releases, not git)
+build/
+*.pdf
+*.html
+!docs/**/*.html
+
+# python / node
+__pycache__/
+*.pyc
+.venv/
+venv/
+node_modules/
+
+# editors / OS
+.DS_Store
+.idea/
+.vscode/
+*.swp
+*~
+*.log

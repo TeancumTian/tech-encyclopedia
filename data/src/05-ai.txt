@@ -1,0 +1,90 @@
+# ai | 人工智能 | Artificial Intelligence | 让机器从数据中学会看、听、说和推理
+## 思想源头
+artificial-intelligence | 人工智能 | Artificial intelligence (AI) | A | 1956 | 让机器完成通常需要人类智能的任务；1956 年达特茅斯会议正式提出这个名字。 | machine-learning, symbolic-ai, turing-test | computability, optimization
+turing-test | 图灵测试 | Turing test | B | 1950 | 如果人通过文字对话分辨不出对方是人还是机器，就可以说机器在"思考"。 | artificial-intelligence, chatbot | computability
+symbolic-ai | 符号主义 AI | Symbolic AI | B |  | 用人写的规则和逻辑符号表示知识并推理，早期 AI 的主流路线。 | expert-system, lisp, knowledge-graph | boolean, abstraction
+expert-system | 专家系统 | Expert system | C | 1965 | 把领域专家的经验写成成百上千条"如果……就……"规则，曾在医疗诊断和化学分析中应用。 | symbolic-ai, ai-winter | boolean
+search-planning | 搜索与规划 | Search & planning (A*) | C | 1968 | 在所有可能的步骤组成的"树"中聪明地找到最优路径，用于导航、游戏和机器人。 | algorithm, deep-blue | complexity
+ai-winter | AI 寒冬 | AI winter | C | 1974 | 过高期望落空后资金和兴趣骤降的时期，历史上出现过两次。 | expert-system, perceptron | incentives
+chatbot | 聊天机器人 | Chatbot | C | 1966 | 从只会模式匹配的 ELIZA 到能真正对话的大模型助手。 | turing-test, chatgpt, nlp | probability
+## 机器学习
+machine-learning | 机器学习 | Machine learning | A | 1959 | 不写规则，而是给机器大量例子，让它自己从数据中总结规律。 | supervised-learning, neural-network, overfitting | probability, optimization
+supervised-learning | 监督学习 | Supervised learning | B |  | 用带"标准答案"的例子训练模型，学会从输入预测输出，如看图识猫。 | machine-learning, data-labeling, regression-classification | optimization
+unsupervised-learning | 无监督学习 | Unsupervised learning | C |  | 没有标签，让模型自己在数据中找结构，如把用户自动分群。 | machine-learning, self-supervised-learning | probability
+self-supervised-learning | 自监督学习 | Self-supervised learning | C |  | 从数据本身造题目（如遮住一个词让模型猜），无需人工标注就能学习海量数据。 | llm, pretraining-finetuning | probability
+reinforcement-learning | 强化学习 | Reinforcement learning | B |  | 让智能体在环境中试错，做对了给奖励，逐渐学会最大化长期回报的策略。 | alphago, rlhf, robotics-learning | optimization, feedback
+regression-classification | 回归与分类 | Regression & classification | C |  | 机器学习的两类基本任务：预测一个数值（房价）或判断属于哪一类（垃圾邮件）。 | supervised-learning, decision-tree | probability, optimization
+decision-tree | 决策树与随机森林 | Decision tree & random forest | C | 2001 | 用一连串是非问题做判断；把许多棵树的投票合起来就是随机森林。 | regression-classification, machine-learning | probability
+svm | 支持向量机 | Support vector machine (SVM) | C | 1995 | 寻找能把两类数据分得最开的那条边界，深度学习兴起前的明星算法。 | regression-classification, machine-learning | optimization
+bayesian-methods | 贝叶斯方法 | Bayesian methods | C | 1763 | 用新证据不断更新对事物概率的判断，垃圾邮件过滤就是经典应用。 | machine-learning, clinical-trial | probability
+overfitting | 过拟合与泛化 | Overfitting & generalization | B |  | 模型把训练数据"背"得太熟反而不会举一反三；目标是在没见过的数据上表现好。 | train-test-split, machine-learning, ai-benchmarks | probability
+train-test-split | 训练、验证与测试集 | Training, validation & test sets | C |  | 把数据分成三份：一份学习、一份调参、一份最后考试，防止自欺欺人。 | overfitting, ai-benchmarks | probability
+loss-function | 损失函数 | Loss function | C |  | 衡量模型预测离正确答案有多远的分数，训练就是让它尽量小。 | gradient-descent, backpropagation | optimization
+gradient-descent | 梯度下降 | Gradient descent | B | 1847 | 像蒙眼下山一样，每一步都沿着最陡的下坡方向调整参数，让损失越来越小。 | backpropagation, loss-function, neural-network | optimization
+## 神经网络与深度学习
+perceptron | 感知机 | Perceptron | B | 1958 | 模仿神经元的最简单学习单元：加权求和后过一个阈值，能学会线性分类。 | neural-network, ai-winter | optimization
+neural-network | 人工神经网络 | Artificial neural network | A | 1943 | 由大量"人工神经元"层层相连组成，通过调整连接权重学习复杂的输入—输出关系。 | perceptron, backpropagation, deep-learning | optimization, abstraction
+backpropagation | 反向传播 | Backpropagation | A | 1986 | 从输出误差出发，用链式法则一层层往回算出每个权重该改多少，是训练神经网络的核心算法。 | gradient-descent, neural-network, deep-learning | optimization
+deep-learning | 深度学习 | Deep learning | A | 2012 | 用很多层的神经网络从原始数据中自动学习特征；2012 年 AlexNet 在 ImageNet 上的胜利点燃了浪潮。 | imagenet, cnn, gpu | optimization, scale
+cnn | 卷积神经网络 | Convolutional neural network (CNN) | B | 1989 | 用小"滑动窗口"在图像上扫描提取边缘、纹理到物体的层级特征。 | computer-vision, imagenet, deep-learning | locality, abstraction
+rnn-lstm | 循环神经网络与 LSTM | RNN & LSTM | C | 1997 | 带"记忆"的网络，按顺序处理文字和语音；LSTM 解决了长距离记忆难题。 | transformer-model, speech-recognition | feedback
+resnet | 残差网络 | Residual network (ResNet) | C | 2015 | 给每层加一条"抄近道"的连接，让上百层的网络也能训练起来。 | cnn, deep-learning | optimization
+imagenet | ImageNet 与 AlexNet | ImageNet & AlexNet | B | 2009 | 李飞飞团队标注的千万级图像数据集；2012 年 AlexNet 用 GPU 训练的深度网络大幅夺冠。 | deep-learning, cnn, data-labeling | scale
+word-embedding | 词向量 | Word embedding | C | 2013 | 把每个词变成一串数字，意思相近的词在空间中靠得近，"国王−男人+女人≈女王"。 | nlp, transformer-model | abstraction
+attention-mechanism | 注意力机制 | Attention mechanism | B | 2014 | 让模型在处理每个词时，动态决定该重点"看"输入的哪些部分。 | transformer-model, machine-translation | optimization
+transformer-model | Transformer | Transformer (neural network) | A | 2017 | 完全基于注意力、可大规模并行训练的网络结构，几乎所有大模型都建立在它之上。 | attention-mechanism, llm, gpt | division, scale
+gan | 生成对抗网络 | Generative adversarial network (GAN) | C | 2014 | 让"造假者"和"鉴定者"两个网络互相对抗，逼出以假乱真的图像。 | diffusion-model, deepfake, generative-ai | incentives, optimization
+diffusion-model | 扩散模型 | Diffusion model | B | 2020 | 先学会把噪声一步步去掉，再从纯噪声"雕刻"出全新的图像或视频。 | generative-ai, gan | entropy, probability
+## 大模型时代
+llm | 大语言模型 | Large language model (LLM) | A | 2018 | 在海量文本上训练"预测下一个词"的超大 Transformer，涌现出对话、写作、编程和推理能力。 | transformer-model, gpt, pretraining-finetuning | probability, scale
+gpt | GPT 系列 | GPT series | B | 2018 | OpenAI 的生成式预训练模型系列；GPT-3（2020）展示了规模带来的能力跃升。 | llm, chatgpt, scaling-laws | scale
+chatgpt | ChatGPT | ChatGPT | B | 2022 | 2022 年 11 月发布的对话式 AI 产品，两个月用户破亿，让大模型进入大众视野。 | gpt, rlhf, chatbot | network
+scaling-laws | 缩放定律 | Neural scaling laws | B | 2020 | 模型越大、数据越多、算力越足，性能就按可预测的幂律变好。 | llm, ai-accelerator, gpt | exponential, scale
+pretraining-finetuning | 预训练与微调 | Pretraining & fine-tuning | B | 2018 | 先在海量通用数据上学"常识"，再用少量专门数据教它特定任务。 | llm, self-supervised-learning, rlhf | optimization
+tokenization | 分词与 Token | Tokenization & tokens | C |  | 把文字切成模型能处理的小片段；模型的输入长度和计费都以 token 计。 | llm, context-window | info
+context-window | 上下文窗口 | Context window | C |  | 模型一次能"看到"的文本长度，相当于它的工作记忆。 | tokenization, rag, llm | locality
+rlhf | 人类反馈强化学习 | Reinforcement learning from human feedback (RLHF) | C | 2017 | 让人给模型回答打分，训练一个"评分模型"，再用强化学习让模型更有用、更安全。 | reinforcement-learning, chatgpt, ai-alignment | optimization, feedback
+prompt-engineering | 提示工程 | Prompt engineering | C |  | 通过精心设计的指令和示例引导模型给出更好的回答。 | llm, chain-of-thought | abstraction
+chain-of-thought | 思维链与推理模型 | Chain-of-thought & reasoning models | C | 2022 | 让模型先写出中间推理步骤再作答；2024 年起出现专门训练"想得更久"的推理模型。 | prompt-engineering, reinforcement-learning, llm | optimization
+rag | 检索增强生成 | Retrieval-augmented generation (RAG) | C | 2020 | 先从资料库中检索相关内容，再让模型基于它们作答，减少胡编并能引用最新信息。 | llm, search-engine, hallucination | locality
+ai-agent | AI 智能体 | AI agent | B |  | 能自己规划步骤、调用工具、操作软件来完成多步任务的 AI 系统。 | llm, reinforcement-learning, ai-coding | feedback, abstraction
+multimodal-model | 多模态模型 | Multimodal model | C |  | 同时理解和生成文字、图像、语音、视频的模型。 | llm, computer-vision, speech-recognition | abstraction
+mixture-of-experts | 混合专家模型 | Mixture of experts (MoE) | C |  | 模型由许多"专家"子网络组成，每次只激活其中几个，参数多但计算省。 | llm, ai-inference | division
+open-weight-models | 开放权重模型 | Open-weight models | C | 2023 | 公开发布模型参数供任何人下载、部署和微调，如 Llama、DeepSeek、Qwen。 | llm, open-source | incentives
+model-compression | 蒸馏与量化 | Distillation & quantization | C |  | 让小模型模仿大模型（蒸馏）或用更少位数存参数（量化），让模型跑得更快更省。 | ai-inference, llm | info
+ai-inference | 推理部署与成本 | Inference & serving costs | C |  | 训练好的模型回答每个请求都要算力；推理成本决定了 AI 能否普及。 | ai-accelerator, model-compression, data-center | scale
+hallucination | 幻觉 | Hallucination | C |  | 模型一本正经地编造不存在的事实，因为它学的是"像真的"而非"是真的"。 | rag, llm, ai-alignment | probability
+generative-ai | 生成式 AI | Generative AI | B | 2022 | 能根据文字提示生成文本、图像、音乐、视频和代码的 AI。 | diffusion-model, llm, deepfake | probability
+world-model | 世界模型 | World model | C |  | 让 AI 学会预测"如果这样做，世界会变成什么样"，被视为通向机器人和通用智能的关键。 | embodied-ai, reinforcement-learning | probability
+## 算力与数据
+ai-accelerator | AI 加速芯片 | AI accelerators (GPU, TPU) | B | 2016 | 专门优化矩阵乘法的芯片，如英伟达 GPU 和谷歌 TPU，是大模型时代的"电力"。 | gpu, asic, data-center | division, scale
+data-labeling | 数据标注 | Data labeling | C |  | 由人给图片、文本、语音打上标签，为监督学习提供"标准答案"。 | supervised-learning, imagenet | division
+ai-benchmarks | 评测基准 | AI benchmarks | C |  | 用标准题库衡量和比较模型能力；题目一旦被"刷穿"就需要更难的新基准。 | overfitting, train-test-split | probability
+federated-learning | 联邦学习 | Federated learning | C | 2016 | 数据留在各自手机或机构里，只上传模型更新，在保护隐私的同时联合训练。 | machine-learning, ai-privacy | division
+## 感知与语言
+computer-vision | 计算机视觉 | Computer vision | B |  | 让机器从图像和视频中识别物体、理解场景，应用于安防、医疗影像和自动驾驶。 | cnn, face-recognition, autonomous-vehicle | abstraction
+face-recognition | 人脸识别 | Facial recognition | C |  | 提取人脸特征并比对身份，用于手机解锁、支付和安防，也引发隐私争议。 | computer-vision, biometrics | probability
+ocr | 光学字符识别 | Optical character recognition (OCR) | C | 1974 | 把图片中的印刷或手写文字识别成可编辑文本。 | computer-vision, cnn | probability
+nlp | 自然语言处理 | Natural language processing (NLP) | B |  | 让计算机理解和生成人类语言，包括翻译、问答、摘要、情感分析。 | llm, machine-translation, word-embedding | probability
+machine-translation | 机器翻译 | Machine translation | B | 1954 | 从规则翻译到统计翻译再到神经网络翻译，质量在 2016 年后大幅跃升。 | nlp, attention-mechanism, transformer-model | probability
+speech-recognition | 语音识别 | Speech recognition | B |  | 把语音转成文字，深度学习让识别率接近人类，催生了语音助手。 | rnn-lstm, smart-home, digital-signal-processing | probability, sampling
+speech-synthesis | 语音合成 | Speech synthesis (TTS) | C |  | 把文字转成自然的语音，如今能模仿特定人的声音。 | speech-recognition, deepfake | sampling
+recommender-system | 推荐系统 | Recommender system | B | 2006 | 根据你和相似用户的行为猜你喜欢什么，驱动电商、视频和信息流。 | short-video, e-commerce, machine-learning | probability, optimization
+knowledge-graph | 知识图谱 | Knowledge graph | C | 2012 | 把实体和它们之间的关系连成一张大网，让搜索能直接回答"谁是谁的谁"。 | symbolic-ai, search-engine | network
+virtual-assistant | 语音助手 | Virtual assistant | C | 2011 | Siri、小爱同学等用语音交互的助手，正被大模型升级为能办事的智能体。 | speech-recognition, ai-agent, smart-home | probability
+## 里程碑与应用
+deep-blue | 深蓝 | Deep Blue | C | 1997 | IBM 的国际象棋计算机击败世界冠军卡斯帕罗夫，靠的是暴力搜索加专家评估。 | search-planning, alphago | complexity
+alphago | AlphaGo | AlphaGo | B | 2016 | DeepMind 结合深度学习和蒙特卡洛树搜索，击败围棋世界冠军李世石。 | reinforcement-learning, deep-blue, deep-learning | optimization, probability
+ai-for-science | AI for Science | AI for Science (AlphaFold) | B | 2020 | 用 AI 加速科学发现；AlphaFold 基本解决了蛋白质结构预测问题，获 2024 年诺贝尔化学奖。 | protein-structure, drug-discovery, scientific-computing | optimization
+ai-coding | AI 编程 | AI coding assistants | C | 2021 | 能补全、编写、调试甚至自主修改整个代码库的 AI 工具。 | llm, ai-agent, software-engineering | abstraction
+embodied-ai | 具身智能 | Embodied AI | C |  | 让 AI 拥有身体，在真实物理世界中感知和行动，如人形机器人。 | humanoid-robot, robotics-learning, world-model | feedback
+robotics-learning | 机器人学习 | Robot learning | C |  | 用模仿学习和强化学习让机器人自己学会抓取、行走等技能。 | reinforcement-learning, industrial-robot, embodied-ai | optimization, feedback
+deepfake | 深度伪造 | Deepfake | C | 2017 | 用 AI 换脸、仿声生成以假乱真的音视频，带来诈骗和虚假信息风险。 | gan, generative-ai, speech-synthesis | probability
+medical-ai | 医疗 AI | AI in medicine | C | 2018 | AI 读片、辅助诊断和药物发现；2018 年美国首次批准可自主给出诊断结论的 AI 设备。 | computer-vision, ai-for-science, drug-discovery | probability
+## 安全与治理
+ai-alignment | AI 安全与对齐 | AI safety & alignment | B |  | 确保 AI 系统的目标和行为符合人类意图和价值观，能力越强越重要。 | rlhf, hallucination, agi | incentives, feedback
+ai-bias | 算法偏见与公平 | Algorithmic bias & fairness | C |  | 训练数据中的偏见会被模型继承甚至放大，影响招聘、信贷、司法等决定。 | machine-learning, ai-regulation | probability
+explainable-ai | 可解释性 | Explainable AI | C |  | 弄清模型为什么做出某个判断，对医疗、金融等高风险场景尤为重要。 | ai-alignment, neural-network | abstraction
+ai-privacy | AI 与数据隐私 | AI & data privacy | C |  | 模型训练需要大量数据，如何在使用数据和保护个人隐私之间平衡。 | federated-learning, ai-regulation | info
+ai-regulation | AI 监管 | AI regulation | C | 2024 | 各国开始为 AI 立规，欧盟《人工智能法》2024 年生效，按风险等级分类管理。 | ai-alignment, ai-bias | incentives
+agi | 通用人工智能 | Artificial general intelligence (AGI) | C |  | 在几乎所有认知任务上达到或超过人类水平的 AI，何时实现、如何定义仍有争议。 | ai-alignment, llm | exponential

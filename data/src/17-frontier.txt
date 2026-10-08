@@ -1,0 +1,34 @@
+# frontier | 量子与前沿 | Quantum & Frontier Technologies | 正在从实验室走向工厂的下一批技术
+## 量子技术
+quantum-computer | 量子计算机 | Quantum computer | A | 1981 | 用量子比特的叠加和纠缠并行探索大量可能，对特定问题可能指数级加速。 | qubit, shor-algorithm, quantum-error-correction | superposition
+qubit | 量子比特 | Qubit | B |  | 可以同时处于 0 和 1 叠加态的信息单元，可由超导电路、离子、光子等实现。 | quantum-computer, quantum-hardware | superposition
+shor-algorithm | Shor 算法 | Shor's algorithm | C | 1994 | 能在量子计算机上高效分解大整数，理论上可破解今天的 RSA 加密。 | quantum-computer, public-key-crypto, post-quantum-crypto | superposition, oneway
+quantum-hardware | 量子计算技术路线 | Quantum computing platforms | C |  | 超导、离子阱、中性原子、光量子、拓扑等路线各有长短，尚无定论。 | qubit, superconductivity | superposition
+quantum-error-correction | 量子纠错 | Quantum error correction | C | 1995 | 用许多物理比特编码一个更可靠的逻辑比特，是实用量子计算机的必经之路。 | quantum-computer, qubit | redundancy, superposition
+quantum-advantage | 量子优越性 | Quantum advantage | C | 2019 | 量子计算机在某个特定任务上明显超越最强经典计算机的里程碑。 | quantum-computer | complexity
+quantum-communication | 量子通信 | Quantum communication & QKD | B | 1984 | 用单光子的量子态分发密钥，任何窃听都会留下痕迹；中国"墨子号"卫星实现了星地量子密钥分发。 | post-quantum-crypto, cryptography | superposition
+quantum-sensing | 量子传感 | Quantum sensing | C |  | 利用量子态对外界极其敏感的特点，测量磁场、重力、时间达到前所未有的精度。 | atomic-clock, gnss | superposition, levels
+post-quantum-crypto | 后量子密码 | Post-quantum cryptography | C | 2024 | 能抵抗量子计算机攻击的新型公钥算法，美国 NIST 于 2024 年发布首批标准。 | public-key-crypto, shor-algorithm | oneway
+quantum-simulation | 量子模拟 | Quantum simulation | C | 1982 | 用一个可控的量子系统去模拟另一个难以计算的量子系统，这正是费曼提出量子计算的初衷。 | quantum-computer, cold-atoms | superposition, complexity
+## 物理前沿装置
+superconductivity | 超导 | Superconductivity | B | 1911 | 某些材料冷却到临界温度以下电阻完全消失，可制造强磁体和量子比特。 | mri, maglev, tokamak | band, superposition
+particle-accelerator | 粒子加速器 | Particle accelerator | B | 1931 | 用电场把粒子加速到接近光速再撞击，探索物质最深层结构，也用于医疗和芯片。 | radiation-therapy, synchrotron-light-source | lorentz, relativity
+synchrotron-light-source | 同步辐射光源 | Synchrotron light source | C | 1947 | 电子在环形加速器中转弯时发出极亮的 X 光，用于看清材料和蛋白质结构。 | particle-accelerator, protein-structure | emwave, lorentz
+gravitational-wave-detector | 引力波探测器 | Gravitational-wave detector (LIGO) | C | 2015 | 用数公里长的激光干涉仪测出比质子还小千倍的长度变化，2015 年首次直接探测到引力波。 | laser, adaptive-optics | wave, relativity
+high-temperature-superconductor | 高温超导 | High-temperature superconductors | C | 1986 | 铜氧化物等材料在液氮温度以上就能超导，让超导磁体和电缆的冷却便宜得多。 | superconductivity, tokamak, maglev | band, structure
+cold-atoms | 激光冷却与冷原子 | Laser cooling & ultracold atoms | C | 1995 | 用激光把原子减速到接近绝对零度；1995 年首次实现玻色—爱因斯坦凝聚，是原子钟和中性原子量子计算的基础。 | atomic-clock, quantum-hardware, quantum-sensing | levels, momentum
+ultrafast-laser | 超快激光与阿秒脉冲 | Ultrafast lasers & attosecond pulses | C | 1985 | 啁啾脉冲放大让激光脉冲又短又强，阿秒脉冲短到能"拍下"电子的运动。 | laser, laser-processing | wave
+## 计算与材料前沿
+neuromorphic-computing | 类脑计算 | Neuromorphic computing | C |  | 模仿大脑神经元和突触的芯片，用"脉冲"传递信息，追求极低功耗。 | neural-network, ai-accelerator | division
+photonic-computing | 硅光与光计算 | Silicon photonics & optical computing | C |  | 用光代替电在芯片内外传输甚至计算数据，速度快、发热少。 | fiber-optic, data-center | optics
+spintronics | 自旋电子学 | Spintronics | C | 1988 | 利用电子的自旋而非电荷存储信息；巨磁阻效应让硬盘容量暴增。 | hard-disk-drive, mram | levels
+mram | 磁阻存储器 | Magnetoresistive RAM (MRAM) | C |  | 用磁性隧道结存数据的非易失内存，速度接近 DRAM。 | spintronics, dram | tunneling
+quantum-dot | 量子点 | Quantum dot | C | 1981 | 纳米级半导体颗粒，尺寸决定发光颜色，用于 QLED 显示，2023 年获诺贝尔化学奖。 | nanotechnology, led | levels
+dna-data-storage | DNA 存储 | DNA data storage | C | 2012 | 把数据编码成 DNA 碱基序列，1 克 DNA 理论上能存约数百 PB，可保存上千年。 | dna-sequencing, synthetic-biology | info
+exascale-computing | E 级超算 | Exascale computing | C | 2022 | 每秒百亿亿次（10¹⁸）浮点运算的超级计算机，2022 年美国 Frontier 首次正式达到。 | supercomputer, scientific-computing | division, scale
+self-driving-lab | 自动化实验室 | Self-driving laboratories | C |  | 机器人做实验、AI 决定下一步做什么，让材料和药物发现日夜不停地迭代。 | ai-for-science, materials-genome | feedback, optimization
+molecular-machine | 分子机器 | Molecular machines | C | 2016 | 由几个分子组成、能在外界刺激下转动或移动的纳米结构，获 2016 年诺贝尔化学奖。 | nanotechnology, self-driving-lab | structure
+memristor | 忆阻器与存内计算 | Memristors & in-memory computing | C | 2008 | 电阻值能"记住"历史的器件，可在存储单元里直接做矩阵乘法，绕开冯·诺依曼瓶颈。 | neuromorphic-computing, von-neumann-architecture, ai-accelerator | ohm, locality
+mof | 金属有机框架 | Metal–organic frameworks (MOF) | C | 1999 | 金属离子和有机分子搭成的多孔晶体，一克的内表面积可达数千平方米，用于吸附气体；2025 年获诺贝尔化学奖。 | direct-air-capture, materials-genome | structure, diffusion
+topological-materials | 拓扑材料 | Topological materials | C |  | 表面导电、内部绝缘等性质由电子结构的"拓扑"决定，不怕杂质干扰，被寄望用于低功耗电子和拓扑量子比特。 | quantum-hardware, spintronics | band, superposition
+artificial-photosynthesis | 人工光合作用 | Artificial photosynthesis | C |  | 用光催化剂或光电化学电池模仿植物，直接把阳光、水和二氧化碳变成氢气或燃料。 | hydrogen-energy, electrolysis, solar-pv | photosynthesis, catalysis

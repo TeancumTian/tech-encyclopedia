@@ -1,0 +1,57 @@
+# transport | 交通运输 | Transportation | 把人和货物更快、更便宜地送到任何地方
+## 铁路
+locomotive | 蒸汽机车 | Steam locomotive | B | 1804 | 把蒸汽机装上车轮在铁轨上奔跑；斯蒂芬森的"火箭号"（1829）奠定了基本构造。 | railway, steam-engine | energy, newton
+railway | 铁路 | Railway | A | 1825 | 钢轮钢轨摩擦小、可编组长列车，让陆上运输成本骤降，重塑了经济地理。 | locomotive, high-speed-rail, standard-gauge | newton, scale
+standard-gauge | 标准轨距与铁路时间 | Standard gauge & railway time | C | 1846 | 统一轨距让火车跨线直通；铁路时刻表还催生了统一的标准时间和时区。 | railway, interchangeable-parts | standard
+subway | 地铁 | Metro (subway) | B | 1863 | 把铁路建到城市地下，伦敦大都会铁路是第一条，后来改用电力。 | electric-railway, railway, tunnel-boring-machine | scale
+electric-railway | 电气化铁路 | Electric railway | C | 1879 | 由接触网或第三轨供电的电力牵引，比蒸汽和内燃更强劲、更干净。 | subway, high-speed-rail, electric-motor | lorentz
+high-speed-rail | 高速铁路 | High-speed rail | A | 1964 | 时速 250 公里以上的铁路系统；日本新干线首开，中国建成了世界最大的高铁网。 | railway, maglev, electric-railway | newton, fluid
+maglev | 磁悬浮列车 | Maglev | C | 2004 | 用电磁力让列车悬浮并推进，没有轮轨摩擦；上海磁浮是首条商业高速线。 | high-speed-rail, superconductivity | lorentz
+## 道路与汽车
+bicycle | 自行车 | Bicycle | C | 1885 | 链条传动、前后同大轮子的"安全自行车"成型于 1880 年代，是能效最高的交通工具之一。 | pneumatic-tire, micromobility | leverage
+automobile | 汽车 | Automobile | A | 1886 | 由内燃机驱动的个人交通工具；本茨的三轮车被视为第一辆现代汽车。 | internal-combustion-engine, model-t, electric-vehicle | energy, newton
+model-t | 福特 T 型车 | Ford Model T | C | 1908 | 第一款真正的大众汽车，流水线让基本款售价从 825 美元一路降到 260 美元。 | assembly-line, automobile | scale
+pneumatic-tire | 充气轮胎 | Pneumatic tire | C | 1888 | 用空气垫缓冲震动，让车辆更舒适、更快。 | bicycle, automobile, vulcanization | fluid
+motorcycle | 摩托车 | Motorcycle | C | 1885 | 装上发动机的两轮车，在亚洲等地是最普及的机动交通工具。 | automobile, internal-combustion-engine | energy
+car-safety | 汽车安全技术 | Automotive safety (seat belt, airbag, ABS) | C | 1959 | 三点式安全带、安全气囊、防抱死制动等让车祸死亡率大幅下降。 | automobile, adas | momentum, feedback
+highway | 高速公路 | Highway / motorway | B | 1932 | 全封闭、立体交叉的快速公路，塑造了郊区化和公路货运。 | automobile, asphalt-road | scale
+asphalt-road | 现代路面 | Modern road surfaces (macadam & asphalt) | C | 1820 | 碎石分层压实再覆盖沥青，让道路平整防水。 | highway | stress
+traffic-signal | 交通信号灯 | Traffic light | C | 1914 | 用红黄绿灯分配路口通行权，早期用煤气灯，后来改用电灯并联网协调。 | highway, smart-city | feedback
+electric-vehicle | 电动汽车 | Electric vehicle (EV) | A | 2008 | 用电池和电机驱动的汽车，能效约为燃油车的 3 倍，锂电池降价让它成为主流。 | lithium-ion, inverter, charging-infrastructure | energy, scale, scurve
+hybrid-vehicle | 混合动力汽车 | Hybrid vehicle | C | 1997 | 发动机加电机协同工作并回收制动能量，丰田普锐斯开创了量产。 | electric-vehicle, internal-combustion-engine | energy
+charging-infrastructure | 充电网络 | EV charging infrastructure | C |  | 公共快充、家用充电桩和换电站组成的"新加油站"。 | electric-vehicle, power-grid | ohm
+autonomous-vehicle | 自动驾驶汽车 | Autonomous vehicle | A | 2004 | 用摄像头、雷达、激光雷达和 AI 感知环境并自主驾驶；DARPA 挑战赛是起点。 | lidar, adas, computer-vision | feedback, probability
+adas | 驾驶辅助系统 | Advanced driver-assistance systems (ADAS) | C |  | 自适应巡航、车道保持、自动紧急制动等，介于人驾和自动驾驶之间。 | autonomous-vehicle, car-safety | feedback
+lidar | 激光雷达 | Lidar | C |  | 发射激光并测量回波时间，生成周围环境的三维点云。 | autonomous-vehicle, laser, remote-sensing | optics
+ride-hailing | 网约车与共享出行 | Ride-hailing & shared mobility | C | 2009 | 用手机定位和匹配算法即时连接乘客与司机。 | mobile-internet, gnss, platform-economy | network, optimization
+micromobility | 共享单车与微出行 | Micromobility | C | 2015 | 共享单车、电动滑板车等短途交通，解决"最后一公里"。 | bicycle, iot | network
+truck | 卡车与公路货运 | Trucks & road freight | C |  | 柴油卡车承担了大部分陆上货运，"门到门"灵活性是铁路比不了的。 | diesel-engine, highway, container-shipping | energy, scale
+bus-transit | 公交与快速公交 | Buses & bus rapid transit | C | 1974 | 专用道上的快速公交以较低成本获得接近地铁的运量，起源于巴西库里蒂巴。 | subway, urban-planning | scale
+tram | 有轨电车与轻轨 | Tram & light rail | C | 1881 | 在街道上行驶的电力轨道车，曾遍布城市，后在许多地方复兴为轻轨。 | electric-railway, subway | lorentz
+hyperloop | 超级高铁 | Hyperloop | C | 2013 | 让舱体在低压管道中高速运行的设想，多家公司已倒闭，至今没有商业线路。 | maglev, high-speed-rail | fluid
+## 航运
+steamship | 蒸汽船 | Steamship | B | 1807 | 用蒸汽机驱动的船，摆脱了对风的依赖，后来发展为钢铁船体和螺旋桨推进。 | screw-propeller, steam-engine, container-shipping | energy, momentum
+screw-propeller | 螺旋桨推进 | Screw propeller | C | 1836 | 水下旋转的螺旋桨把水向后推，比明轮更高效，成为船舶标准推进方式。 | steamship | momentum, fluid
+canals | 现代运河 | Modern canals (Suez, Panama) | C | 1869 | 苏伊士运河（1869）和巴拿马运河（1914）大幅缩短全球航线。 | container-shipping | scale
+container-shipping | 集装箱运输 | Containerization | A | 1956 | 用标准尺寸的铁箱装货，船、火车、卡车直接换装，海运成本暴跌，造就了全球化。 | standard-gauge, logistics-automation, diesel-engine | standard, scale, squarecube
+submersible | 载人深潜器 | Crewed submersible | C | 1960 | 能下潜到深海的耐压舱；中国"奋斗者号"2020 年坐底马里亚纳海沟。 | submarine | fluid, stress
+marine-chronometer | 航海天文钟 | Marine chronometer | C | 1761 | 哈里森的精密钟表让船员能在海上准确测定经度。 | quartz-watch, gnss | standard
+## 航空
+hot-air-balloon | 热气球 | Hot-air balloon | C | 1783 | 蒙戈尔菲耶兄弟用热空气比冷空气轻的原理首次载人升空。 | airship | fluid
+airship | 飞艇 | Airship | C | 1900 | 用轻于空气的气体浮起、带发动机可操控的飞行器，因兴登堡号事故而衰落。 | hot-air-balloon, airplane | fluid
+airplane | 飞机 | Airplane | A | 1903 | 莱特兄弟首次实现有动力、可操纵的持续飞行；关键是三轴控制。 | aerodynamics, jet-engine, jetliner | fluid, newton
+aerodynamics | 空气动力学 | Aerodynamics | B |  | 研究空气流过物体时产生的升力和阻力，风洞是它最重要的实验工具。 | airplane, wind-turbine | fluid
+helicopter | 直升机 | Helicopter | C | 1939 | 用旋转的主旋翼产生升力，可垂直起降和悬停。 | airplane, drone | fluid
+jet-engine | 喷气发动机 | Jet engine | A | 1939 | 吸入空气压缩、燃烧后高速喷出产生推力；惠特尔和冯·奥海恩分别独立发明。 | gas-turbine, turbofan, jetliner | momentum, carnot
+turbofan | 涡扇发动机 | Turbofan | C |  | 大风扇把大部分空气从发动机外侧推过，更安静、更省油，是现代客机的标配。 | jet-engine, jetliner | momentum
+jetliner | 喷气客机 | Jet airliner | B | 1952 | 用喷气发动机的客机，飞得更高更快；波音 707 和 747 让航空旅行大众化。 | jet-engine, turbofan, air-traffic-control | scale
+supersonic-airliner | 超音速客机 | Supersonic airliner (Concorde) | C | 1969 | 协和式飞机以两倍音速飞行，但油耗和音爆限制了它的商业成功。 | jetliner | fluid
+autopilot | 自动驾驶仪 | Autopilot | C | 1912 | 用陀螺仪感知姿态、自动修正舵面，让飞机保持航向和高度。 | fly-by-wire, gyrocompass | feedback
+fly-by-wire | 电传飞控 | Fly-by-wire | C | 1972 | 驾驶杆的指令变成电信号由计算机执行，计算机还能防止飞机进入危险状态。 | autopilot, control-theory | feedback
+air-traffic-control | 空中交通管制 | Air traffic control | C | 1920 | 用雷达、无线电和规则把天空划分成航路，避免飞机相撞。 | radar, gnss | feedback
+evtol | 电动垂直起降飞行器 | eVTOL | C |  | 用多个电动旋翼垂直起降的"空中出租车"，属于低空经济。 | drone, electric-vehicle, lithium-ion | energydensity, fluid
+drone | 无人机 | Drone (UAV) | B |  | 由遥控或自主飞行的无人飞行器，广泛用于航拍、植保、物流和军事。 | bldc-motor, gnss, military-drone | fluid, feedback
+gyrocompass | 陀螺罗经与惯性导航 | Gyrocompass & inertial navigation | C | 1908 | 利用高速旋转陀螺保持方向不变的特性导航，不依赖外部信号。 | autopilot, icbm, mems | momentum
+## 物流
+pallet-forklift | 托盘与叉车 | Pallet & forklift | C |  | 把货物码在标准托盘上用叉车整体搬运，是仓储物流的"集装箱"。 | container-shipping, logistics-automation | standard, leverage
+pipeline-transport | 管道运输 | Pipeline transport | C | 1879 | 用泵把石油、天然气和水通过管道连续输送，运量大、成本低。 | natural-gas, oil-drilling | fluid

@@ -1,0 +1,67 @@
+# 第一性原理索引（根原理）。格式：id | 中文 | English | 一句话（大白话） | 典型应用（词条 id）
+## 力、能量与热
+energy | 能量守恒 | Conservation of energy | 能量不会凭空产生或消失，只会从一种形式变成另一种；任何机器都只是"能量搬运工"。 | steam-engine, electric-generator, battery
+entropy | 熵增与热力学第二定律 | Entropy & the second law | 孤立系统总会从有序走向混乱；热量自发从热处流向冷处，要反过来就得额外付出功。 | refrigeration, heat-pump, data-compression
+carnot | 卡诺效率极限 | Carnot efficiency limit | 热机效率的上限只由高温端和低温端的温差决定：温差越大，能转成功的热越多。 | combined-cycle, steam-turbine, internal-combustion-engine
+newton | 牛顿运动定律 | Newton's laws of motion | 力改变物体的运动：F=ma；不受力就保持原状态；作用力与反作用力成对出现。 | automobile, airplane, industrial-robot
+momentum | 动量守恒 | Conservation of momentum | 一个系统向后抛出质量，自己就获得向前的动量——火箭和喷气发动机都靠"往后扔东西"前进。 | rocket, jet-engine, rocket-equation
+gravity | 万有引力与轨道 | Gravitation & orbital mechanics | 质量相互吸引；水平速度足够大时，物体一直在"往下掉"却永远掉不到地面，这就是轨道。 | orbit, satellite, gravity-assist
+fluid | 流体压力与升力 | Fluid pressure & lift | 压力在密闭液体中处处传递（帕斯卡）；流速快的地方压力低，把气流向下推就能获得升力。 | airplane, hydraulic-press, wind-turbine
+stress | 应力与材料强度 | Stress, strain & strength | 材料受力会变形；每种材料能承受的单位面积力有上限，结构设计就是让每处应力低于这个上限。 | steel-frame, suspension-bridge, reinforced-concrete
+squarecube | 平方—立方定律 | Square–cube law | 尺寸放大 k 倍，面积变 k² 倍、体积和重量变 k³ 倍；所以大东西更难支撑、小东西散热更快。 | skyscraper, container-shipping, wind-turbine
+heat | 传热的三种方式 | Heat transfer | 热靠传导、对流、辐射三条路移动；想保温就堵路，想散热就开路。 | air-conditioning, reentry-heat-shield, data-center
+phase | 相变与潜热 | Phase change & latent heat | 物质在固、液、气之间转变时会吸收或放出大量热，而温度几乎不变。 | refrigeration, steam-engine, air-conditioning
+energydensity | 能量密度 | Energy density | 单位重量或体积能储存多少能量，决定了一种能源能不能装进车、船、飞机和手机。 | lithium-ion, rocket, hydrogen-energy
+leverage | 机械增益 | Mechanical advantage | 用更长的距离换更大的力（杠杆、齿轮、滑轮、液压）；功不变，力和距离此消彼长。 | hydraulic-press, construction-machinery, lathe-machine-tools
+## 电磁与光
+charge | 电荷与电场 | Electric charge & field | 同性相斥、异性相吸；电荷周围有电场，电压就是推动电荷移动的"压力差"。 | capacitor-resistor-inductor, lightning-rod, photocopier
+ohm | 欧姆定律与电路 | Ohm's law & circuits | 电流 = 电压 ÷ 电阻；电流在闭合回路中流动，节点处流入等于流出（基尔霍夫）。 | power-grid, pcb, transformer-electrical
+induction | 电磁感应 | Electromagnetic induction | 变化的磁场会在导线中产生电压——让磁铁和线圈相对运动就能发电。 | electric-generator, transformer-electrical, wireless-charging
+lorentz | 电磁力 | Lorentz force | 磁场中的电流会受到力；把这个力排成一圈，就是电动机。 | electric-motor, crt, particle-accelerator
+emwave | 电磁波 | Electromagnetic waves | 变化的电场产生磁场、变化的磁场产生电场，二者交替向外传播；无线电、光、X 射线都是同一种波，只是频率不同。 | radio, x-ray, microwave-oven
+wave | 干涉、衍射与共振 | Interference, diffraction & resonance | 波相遇时会相加或抵消；频率匹配时能量会被放大（共振）。 | holography, mri, crystal-oscillator
+optics | 反射与折射 | Reflection & refraction | 光在不同介质交界处会拐弯或反弹；角度够大时会全部反射回来（全反射）。 | fiber-optic, photography, photolithography
+## 量子与原子
+levels | 量子化能级 | Quantized energy levels | 原子里的电子只能待在特定"台阶"上；跳台阶时吸收或放出固定颜色（频率）的光。 | laser, led, atomic-clock
+band | 能带与半导体 | Band theory & semiconductors | 固体中电子的能级连成"带"；半导体的禁带不宽不窄，掺一点杂质就能精确控制导电性。 | transistor, pn-junction, solar-pv
+photoelectric | 光电效应 | Photoelectric effect | 光以一份份光子的形式到来，能量够大的光子能把电子打出来——光可以直接变成电信号。 | solar-pv, image-sensor, digital-camera
+massenergy | 质能等价与结合能 | Mass–energy equivalence | E=mc²：极少的质量对应巨大的能量；原子核分裂或聚合时丢失的一点质量就变成能量。 | nuclear-fission-reactor, nuclear-weapon, fusion-power
+decay | 放射性衰变 | Radioactive decay | 不稳定原子核按固定半衰期自发衰变并放出射线；半衰期像时钟一样稳定。 | radiocarbon-dating, radiation-therapy, nuclear-rtg
+superposition | 量子叠加与纠缠 | Superposition & entanglement | 量子系统可以同时处于多个状态的叠加；纠缠的粒子无论相距多远，测量结果都相互关联。 | quantum-computer, quantum-communication, qubit
+tunneling | 量子隧穿 | Quantum tunneling | 微观粒子有一定概率"穿墙"越过本来越不过的能量壁垒。 | flash-memory, stm, process-node
+relativity | 相对论效应 | Relativity | 速度和引力都会改变时间流逝的快慢；精确到纳秒的系统必须修正它。 | gnss, atomic-clock, particle-accelerator
+## 化学与材料
+bond | 化学键与化学能 | Chemical bonds & chemical energy | 原子靠化学键结合；断键吸能、成键放能，燃烧就是把弱键换成强键并放出差额。 | internal-combustion-engine, petroleum-refining, haber-bosch
+redox | 氧化还原与电化学 | Redox & electrochemistry | 化学反应就是电子转移；让电子绕道外电路走，化学能就变成电能（反之亦然）。 | battery, fuel-cell, aluminum-smelting
+catalysis | 催化 | Catalysis | 催化剂降低反应的"门槛"（活化能），让反应更快、更省能，自己却不被消耗。 | haber-bosch, catalytic-converter, catalytic-cracking
+polymer | 聚合 | Polymerization | 把成千上万个小分子像串珠子一样连成长链，就得到塑料、纤维和橡胶。 | plastics, nylon, polyethylene
+structure | 结构决定性质 | Structure determines properties | 同样的原子，排列方式不同，性质天差地别（石墨与金刚石）；材料科学就是设计排列。 | graphene, steel, carbon-fiber
+diffusion | 扩散与膜分离 | Diffusion & membranes | 粒子会自发从浓处往稀处走；给它加一层只放行特定分子的膜，就能分离、过滤和提纯。 | desalination, dialysis, doping
+## 生命
+evolution | 自然选择 | Natural selection | 可遗传的变异 + 筛选 = 适应；细菌耐药和"定向进化"育种都是它。 | antibiotic-resistance, green-revolution, plant-breeding
+dogma | 中心法则 | Central dogma | 遗传信息从 DNA 抄写到 RNA，再翻译成蛋白质；改信息就能改生命的"零件"。 | recombinant-dna, mrna-vaccine, crispr
+recognition | 分子识别 | Molecular recognition | 生物分子靠形状和电荷互补"锁与钥匙"般结合；药物、抗体、疫苗都在设计"钥匙"。 | drug-discovery, monoclonal-antibody, vaccine
+germ | 病原体学说 | Germ theory | 许多疾病由微生物引起；切断传播途径或杀死病原体就能预防和治疗。 | antiseptic, antibiotic, water-chlorination
+photosynthesis | 光合作用与能量流 | Photosynthesis & energy flow | 植物把阳光、水和二氧化碳变成糖；农业本质上是在管理阳光、水、氮的转化效率。 | chemical-fertilizer, green-revolution, biofuel
+homeostasis | 稳态与负反馈 | Homeostasis | 身体用负反馈把体温、血糖等维持在一个区间；许多疗法就是帮身体恢复这个调节。 | insulin, pacemaker, continuous-glucose-monitor
+## 数学、信息与计算
+info | 信息论 | Information theory | 信息可以用比特度量；任何信道在给定带宽和噪声下都有传输速率上限（香农极限）。 | data-compression, cellular-network, fiber-optic
+boolean | 布尔逻辑与二进制 | Boolean logic & binary | 一切逻辑都能用"与、或、非"组合出来，而它们只需要能表示 0 和 1 的开关。 | logic-gate, transistor, cpu
+computability | 可计算性 | Computability | 只要能写成明确步骤的问题，一台足够简单的通用机器都能算；但有些问题任何机器都算不了。 | turing-machine, halting-problem, programming-language
+complexity | 计算复杂度 | Computational complexity | 算法的代价随问题规模增长的速度比机器快慢更重要：n² 和 n log n 在大数据下是天壤之别。 | algorithm, big-o, p-vs-np
+abstraction | 抽象与分层 | Abstraction & layering | 把复杂系统切成层，每层只暴露简单接口、隐藏内部细节；人才能驾驭百万行代码和十亿个晶体管。 | operating-system, osi-layers, api
+sampling | 采样与数字化 | Sampling & digitization | 连续信号只要以高于最高频率两倍的速度采样，就能被数字完整还原（奈奎斯特—香农）。 | adc, mp3, digital-camera
+feedback | 反馈与控制 | Feedback & control | 测量结果与目标比较，用差值修正动作；负反馈让系统稳定，正反馈让系统放大。 | control-theory, autopilot, feedback-amplifier
+probability | 概率与统计推断 | Probability & statistical inference | 用样本推断整体、用证据更新信念（贝叶斯）；不确定性可以被量化和管理。 | machine-learning, clinical-trial, quality-control
+optimization | 优化与梯度下降 | Optimization & gradient descent | 把"好坏"写成一个可计算的分数，然后沿着让分数变好的方向一步步调参数。 | backpropagation, neural-network, logistics-automation
+oneway | 单向函数 | One-way functions | 有些运算正着算很容易、倒推却极难（如大数分解）；现代密码学就建立在这种不对称上。 | public-key-crypto, hashing, bitcoin
+redundancy | 冗余与纠错 | Redundancy & error correction | 多加一些精心设计的冗余位，就能在噪声中发现甚至修正错误。 | qr-code, optical-disc, quantum-error-correction
+locality | 局部性与缓存 | Locality & caching | 刚用过的、挨着的数据很可能马上再用；把它们放在更近更快的地方，整体就快很多。 | cache, memory-hierarchy, cdn
+## 经济与系统
+scale | 规模效应与学习曲线 | Economies of scale & learning curves | 产量越大单位成本越低；累计产量每翻一倍，成本按固定比例下降（莱特定律）。 | solar-pv, lithium-ion, assembly-line
+network | 网络效应 | Network effects | 用户越多，每个用户得到的价值越大（梅特卡夫定律）；所以通信和平台容易赢家通吃。 | telephone, social-media, mobile-payment
+exponential | 指数增长 | Exponential growth | 每隔固定时间翻一番，几十次后就是百万倍；人脑总是低估它。 | moores-law, scaling-laws, cellular-network
+standard | 标准化与可互换性 | Standardization & interchangeability | 统一尺寸、接口和协议，零件就能互换、系统就能互联，成本随之崩塌。 | interchangeable-parts, container-shipping, tcp-ip
+division | 分工与专业化 | Division of labor | 把一件复杂的事拆成许多简单工序，每人或每台机器只做一道，总效率成倍提高。 | assembly-line, foundry-model, factory-system
+incentives | 激励与博弈 | Incentives & game theory | 系统怎样分配奖惩，参与者就会怎样行动；好的机制让自私的个体合起来做对的事。 | bitcoin, carbon-pricing, open-source
+scurve | 技术 S 曲线与扩散 | Technology S-curve & diffusion | 新技术先慢后快再饱和：早期贵而少人用，越过拐点后成本和普及互相推动，最后被下一条 S 曲线取代。 | smartphone, electric-vehicle, solar-pv

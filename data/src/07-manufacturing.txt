@@ -1,0 +1,51 @@
+# manufacturing | 制造与自动化 | Manufacturing & Automation | 从纺纱机到黑灯工厂：人类如何学会"批量造东西"
+## 工业革命
+industrial-revolution | 工业革命 | Industrial Revolution | A | 1760 | 以蒸汽动力、机器纺织和工厂为标志的生产方式变革，人均产出开始持续增长。 | steam-engine, factory-system, second-industrial-revolution | scale, division
+jacquard-loom | 提花织机 | Jacquard loom | C | 1804 | 用穿孔卡片控制花纹的织机，是"可编程机器"的鼻祖。 | punched-card, power-loom | boolean
+spinning-jenny | 珍妮纺纱机 | Spinning jenny | C | 1764 | 一人可同时纺多根纱的手摇纺纱机，拉开了纺织机械化的序幕。 | water-frame, industrial-revolution | leverage, division
+water-frame | 水力纺纱机 | Water frame | C | 1769 | 阿克赖特用水力驱动的纺纱机，催生了第一批真正的工厂。 | factory-system, spinning-jenny | energy
+power-loom | 动力织布机 | Power loom | C | 1785 | 用水力或蒸汽驱动的织布机，让织布速度追上纺纱。 | water-frame, jacquard-loom | division
+cotton-gin | 轧棉机 | Cotton gin | C | 1793 | 快速把棉籽从棉纤维中分离出来，极大提高了棉花产量，也强化了美国南方奴隶制。 | industrial-revolution | leverage
+sewing-machine | 缝纫机 | Sewing machine | C | 1846 | 让衣服可以批量缝制，是最早普及到家庭的复杂机器之一。 | interchangeable-parts | leverage
+factory-system | 工厂制度 | Factory system | B | 1771 | 把工人和机器集中在一个屋檐下、按时间和分工组织生产。 | industrial-revolution, assembly-line | division, scale
+second-industrial-revolution | 第二次工业革命 | Second Industrial Revolution | B | 1870 | 以电力、钢铁、化工、内燃机和大规模生产为标志，诞生了现代大企业。 | electrification, steel, assembly-line | scale, network
+## 生产方式
+interchangeable-parts | 可互换零件 | Interchangeable parts | B |  | 按统一公差制造零件，任意一件都能装进任意一台机器，是大规模生产的前提。 | precision-measurement, assembly-line, screw-thread-standard | standard
+screw-thread-standard | 螺纹标准化 | Screw thread standardization | C | 1841 | 惠特沃思提出统一螺纹规格，任何厂家的螺丝和螺母都能互配。 | interchangeable-parts | standard
+scientific-management | 科学管理 | Scientific management (Taylorism) | C | 1911 | 泰勒用秒表研究每个动作并标准化，以提高工人效率。 | assembly-line, mass-production | division
+assembly-line | 流水装配线 | Assembly line | A | 1913 | 让工件在传送带上移动、工人站定只做一道工序，福特 T 型车的装配时间从 12 小时降到约 1.5 小时。 | mass-production, model-t, interchangeable-parts | division, scale
+mass-production | 大规模生产 | Mass production | B |  | 用标准化、专用机器和流水线高速生产同一产品，单件成本大幅下降。 | assembly-line, toyota-production-system | scale, standard
+toyota-production-system | 丰田生产方式与精益 | Toyota Production System & lean | B | 1950 | 准时化（JIT）和自働化，只在需要时生产需要的量，持续消除浪费。 | mass-production, six-sigma | feedback, division
+quality-control | 统计质量控制 | Statistical quality control | C | 1924 | 用控制图监测生产过程的波动，在出次品之前发现问题。 | six-sigma, toyota-production-system | probability, feedback
+six-sigma | 六西格玛 | Six Sigma | C | 1986 | 把缺陷率压到百万分之 3.4 的质量管理方法。 | quality-control | probability
+erp | 企业资源计划 | Enterprise resource planning (ERP) | C | 1972 | 用一套软件统一管理采购、库存、生产、财务和人力。 | database, saas | abstraction
+## 机床与工艺
+lathe-machine-tools | 机床 | Machine tools (lathe, mill) | B | 1800 | 用来"造机器的机器"；莫兹利的螺纹车床让精密金属零件可以复制。 | cnc, precision-measurement | leverage, standard
+precision-measurement | 精密测量与公差 | Precision measurement & tolerances | C |  | 零件尺寸允许的误差范围；测得准才能做得准。 | interchangeable-parts, lathe-machine-tools | standard
+hydraulic-press | 液压机 | Hydraulic press | C | 1795 | 小活塞上的小力通过液体传到大活塞变成巨大压力，用于锻压和成形。 | casting-forging, construction-machinery | fluid, leverage
+casting-forging | 铸造与锻造 | Casting & forging | C |  | 铸造把熔融金属倒进模具成形，锻造用压力让金属变形并变得更致密结实。 | hydraulic-press, steel | structure, phase
+welding | 焊接 | Welding | C | 1881 | 用电弧、激光等高温把金属局部熔化连接在一起。 | steel-frame, industrial-robot | heat
+injection-molding | 注塑成型 | Injection molding | C | 1872 | 把熔化的塑料高压注入模具冷却成形，几秒钟就能做出一个零件。 | plastics, mass-production | polymer, phase
+cnc | 数控机床 | Computer numerical control (CNC) | B | 1952 | 用程序代替人手控制刀具轨迹，能重复加工出复杂精密的零件。 | lathe-machine-tools, cad-cam | feedback, abstraction
+cad-cam | 计算机辅助设计与制造 | CAD / CAM | B | 1963 | 在电脑上画三维模型、做仿真，再直接生成加工程序。 | cnc, 3d-printing, computer-graphics | abstraction
+3d-printing | 3D 打印 | 3D printing (additive manufacturing) | A | 1984 | 把三维模型切成薄层、一层层堆叠材料成形，适合复杂结构和小批量定制。 | cad-cam, injection-molding | abstraction
+laser-processing | 激光加工 | Laser cutting & processing | C |  | 用聚焦激光切割、焊接、打标金属和其他材料，精度高、无接触。 | laser, cnc | levels, heat
+paper-machine | 连续造纸机 | Paper machine (Fourdrinier) | C | 1799 | 把纸浆铺在移动的网带上连续成纸，让纸张和印刷品变得便宜。 | rotary-printing | scale
+ball-bearing | 滚动轴承 | Rolling-element bearing | C | 1907 | 用钢球或滚子把滑动摩擦变为滚动摩擦，几乎所有旋转机械都离不开它。 | lathe-machine-tools, electric-motor | stress, newton
+## 自动化与控制
+control-theory | 自动控制与 PID | Control theory & PID | B | 1922 | 根据误差的大小、累积和变化速度来调整控制量，是工业控制的通用公式。 | centrifugal-governor, plc, autopilot | feedback
+centrifugal-governor | 离心调速器 | Centrifugal governor | C | 1788 | 瓦特用转速越快飞球张得越开、进汽越少的装置稳定蒸汽机转速，是自动控制的经典起点。 | steam-engine, control-theory | feedback
+plc | 可编程逻辑控制器 | Programmable logic controller (PLC) | C | 1969 | 代替大量继电器的工业专用计算机，控制生产线的每个动作。 | control-theory, scada, relay | boolean, feedback
+scada | 工业控制系统 | SCADA & industrial control systems | C |  | 远程监控电网、管道、水厂等大型设施的系统，也是网络攻击的目标。 | plc, stuxnet, power-grid | feedback
+machine-vision | 机器视觉 | Machine vision | C |  | 用相机和算法在生产线上检测缺陷、读码和引导机器人。 | computer-vision, industrial-robot | sampling
+digital-twin | 数字孪生 | Digital twin | C | 2002 | 为实物建立实时同步的虚拟模型，在电脑里预测和优化它的运行。 | iot, scientific-computing, industry-4-0 | feedback
+industry-4-0 | 工业 4.0 与智能制造 | Industry 4.0 & smart manufacturing | B | 2011 | 用物联网、数据和 AI 把工厂里的设备、物料和系统连起来，实现柔性和自优化生产。 | iot, digital-twin, industrial-robot | network, feedback
+cybernetics | 控制论 | Cybernetics | C | 1948 | 维纳提出的研究动物和机器中控制与通信的学科，"反馈"成为跨学科的通用概念。 | control-theory, neural-network | feedback, info
+systems-engineering | 系统工程 | Systems engineering | C | 1950 | 把复杂项目拆成分系统、管理接口和风险，是阿波罗、高铁和芯片项目背后的方法论。 | apollo, software-engineering | abstraction, division
+## 机器人
+industrial-robot | 工业机器人 | Industrial robot | A | 1961 | 可编程的机械臂，第一台 Unimate 在通用汽车搬运压铸件，如今主要用于焊接、喷涂和装配。 | cobot, servo-motor, machine-vision | newton, feedback
+servo-motor | 伺服系统 | Servo motor & drive | C |  | 带位置反馈的电机，能精确转到指定角度，是机器人关节和数控机床的执行器。 | industrial-robot, cnc, electric-motor | feedback
+cobot | 协作机器人 | Collaborative robot (cobot) | C | 2008 | 能感知碰撞、可以和人在同一空间安全协作的轻型机械臂。 | industrial-robot | feedback
+mobile-robot | 自主移动机器人 | Autonomous mobile robot (AMR) | C |  | 能自己导航的移动机器人，用于仓储搬运、配送和扫地。 | logistics-automation, lidar | feedback
+humanoid-robot | 人形机器人 | Humanoid robot | B |  | 模仿人体结构的机器人，希望能直接在为人设计的环境中工作，正借 AI 快速发展。 | embodied-ai, industrial-robot, servo-motor | feedback, newton
+logistics-automation | 智能仓储与物流自动化 | Warehouse & logistics automation | C | 2012 | 用机器人、分拣系统和算法让仓库自动存取和分拣包裹。 | mobile-robot, e-commerce, container-shipping | optimization

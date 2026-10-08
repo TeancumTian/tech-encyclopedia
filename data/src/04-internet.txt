@@ -1,0 +1,90 @@
+# internet | 互联网与通信 | Internet & Telecommunications | 让信息以光速跑遍地球：从电报到 5G 和星链
+## 有线通信时代
+telegraph | 电报 | Electrical telegraph | A | 1837 | 用导线中电流的通断远距离传送字母，信息第一次跑得比马和船快。 | morse-code, transatlantic-cable, relay | lorentz, info
+morse-code | 摩尔斯电码 | Morse code | C | 1838 | 用长短信号组合表示字母，常用字母用短码——一种朴素的压缩编码。 | telegraph, data-compression | info
+transatlantic-cable | 跨大西洋电报电缆 | Transatlantic telegraph cable | C | 1866 | 横跨大西洋海底的电报线，把欧美通信从约 10 天缩短到几分钟。 | telegraph, submarine-cable | ohm
+telephone | 电话 | Telephone | A | 1876 | 把声音的振动变成电流的起伏再还原成声音，让人可以远距离直接对话。 | telephone-exchange, mobile-phone, microphone-speaker | induction, network
+telephone-exchange | 电话交换机 | Telephone exchange | C | 1878 | 把任意两部电话临时接通的设备，从人工接线员到自动交换再到程控数字交换。 | telephone, packet-switching | network
+fax | 传真 | Fax | C | 1843 | 逐行扫描纸面黑白并通过电话线传送，曾是办公室的标配。 | telephone, photocopier | sampling
+## 无线电与卫星
+radio | 无线电 | Radio | A | 1895 | 用电磁波而不是导线传递信号；马可尼 1901 年实现跨大西洋无线电通信。 | antenna, modulation, radio-broadcasting | emwave
+antenna | 天线 | Antenna | C | 1887 | 在导线中的振荡电流和空间中的电磁波之间互相转换的装置。 | radio, mimo, radar | emwave, wave
+modulation | 调制与解调 | Modulation & demodulation | B |  | 把要传的信息"骑"在高频载波上（改它的幅度、频率或相位），接收端再取下来。 | am-fm, radio, cellular-network | emwave, info
+am-fm | 调幅与调频 | AM & FM | B | 1933 | 调幅改变波的强弱，调频改变波的快慢；调频抗干扰强、音质好。 | modulation, radio-broadcasting | emwave
+radio-broadcasting | 无线电广播 | Radio broadcasting | C | 1920 | 一个电台同时向无数收音机播出，第一种真正的大众电子媒体。 | radio, television, transistor-radio | network, emwave
+multiplexing | 复用 | Multiplexing | C |  | 让许多路信号共享同一条线路或频段：按时间、频率、码或波长切分。 | fiber-optic, cellular-network | info
+microwave-relay | 微波中继 | Microwave relay | C | 1951 | 用一串相距几十公里的微波铁塔接力传送电话和电视信号。 | communication-satellite, television | emwave
+communication-satellite | 通信卫星 | Communications satellite | B | 1962 | 在太空中转发信号的"高塔"；静止轨道卫星能覆盖地球三分之一。 | geostationary-orbit, satellite-internet, television | gravity, emwave
+satellite-internet | 卫星互联网 | Satellite internet constellation | B | 2019 | 用数千颗低轨卫星组网提供全球宽带，星链（Starlink）是代表。 | communication-satellite, reusable-rocket, phased-array | network, scale
+phased-array | 相控阵天线 | Phased-array antenna | C |  | 控制许多小天线发射的时间差，让波束不转动天线就能电子扫描。 | radar, satellite-internet, mimo | wave
+superheterodyne | 超外差接收机 | Superheterodyne receiver | C | 1918 | 先把各种频率的信号变到一个固定的中频再放大，让收音机灵敏又好调台，至今仍是接收机的基本结构。 | radio, modulation | wave
+## 光纤与骨干网
+fiber-optic | 光纤通信 | Fiber-optic communication | A | 1970 | 激光在比头发还细的玻璃丝里靠全反射传输，一根光纤可承载数百万路通话。 | laser, submarine-cable, multiplexing | optics, info
+submarine-cable | 海底光缆 | Submarine communications cable | C | 1988 | 铺在海底的光缆承载了绝大部分洲际数据流量，远多于卫星。 | fiber-optic, transatlantic-cable | optics
+broadband | 宽带接入 | Broadband access | C | 1999 | 从拨号上网到 DSL、有线电视网再到光纤入户，家庭网速提升了上万倍。 | fiber-optic, internet | info
+optical-amplifier | 光纤放大器 | Optical amplifier (EDFA) | C | 1987 | 在光纤里掺入铒元素，用泵浦激光直接放大微弱的光信号，不必先转成电，让跨洋光缆成为可能。 | fiber-optic, submarine-cable, laser | levels, optics
+## 移动通信
+mobile-phone | 移动电话 | Mobile phone | A | 1973 | 摩托罗拉的库珀打出第一通手持移动电话，电话从"拴在墙上"变为"随身携带"。 | cellular-network, smartphone, sms | emwave
+cellular-network | 蜂窝网络 | Cellular network | A | 1979 | 把地区划成许多小"蜂窝"，相隔够远的小区重复使用同一频率，容量随之倍增。 | mobile-phone, 5g, spectrum | emwave, info, scale
+gsm-2g | 2G 与 GSM | 2G & GSM | C | 1991 | 第一代数字移动网络标准，带来短信和全球漫游。 | cellular-network, sms, 3g | standard
+sms | 短信 | Short Message Service (SMS) | C | 1992 | 利用信令通道顺带传送的 160 字符短消息，意外成为全球最流行的通信方式之一。 | gsm-2g, instant-messaging | info
+3g | 3G | 3G | C | 2001 | 让手机真正能上网的移动网络，开启移动数据时代。 | gsm-2g, 4g-lte, mobile-internet | info
+4g-lte | 4G 与 LTE | 4G LTE | C | 2009 | 全 IP 化的高速移动网络，让手机看视频、移动支付、网约车成为日常。 | 3g, 5g, mobile-internet | info
+5g | 5G | 5G | B | 2019 | 更高速率、更低延迟、更多连接的移动网络，面向工业和物联网。 | 4g-lte, mimo, iot | info, wave
+6g | 6G | 6G | C |  | 正在研究的下一代移动网络，探索太赫兹、通感一体和天地一体化。 | 5g, satellite-internet | emwave
+mimo | MIMO 与波束成形 | MIMO & beamforming | C |  | 用多根天线同时收发、把信号像手电筒一样对准用户，在同一频段塞进更多数据。 | 5g, wifi, phased-array | wave, info
+spectrum | 频谱资源 | Radio spectrum | C |  | 无线电频率是有限的公共资源，由政府分配或拍卖，越低频传得越远、越高频带宽越大。 | cellular-network, 5g | emwave
+smartphone | 智能手机 | Smartphone | A | 2007 | 把电脑、相机、GPS、传感器装进一块触摸屏，iPhone（2007）开启了移动互联网时代。 | touchscreen, mobile-internet, app-store | network, scale, scurve
+wifi | Wi-Fi | Wi-Fi | B | 1997 | 基于 IEEE 802.11 标准的无线局域网，让设备无需网线接入网络。 | ethernet, mimo | emwave, standard
+bluetooth | 蓝牙 | Bluetooth | C | 1999 | 短距离、低功耗的无线连接标准，用于耳机、手表和外设。 | wifi, wearable-device | emwave, standard
+rfid-nfc | RFID 与 NFC | RFID & NFC | C |  | 读写器发出电磁场给无源标签供电并读取信息，用于门禁卡、交通卡和手机支付。 | mobile-payment, barcode | induction
+sim-card | SIM 卡 | SIM card | C | 1991 | 存放用户身份和密钥的小芯片，让手机号码和手机本身分离。 | gsm-2g, public-key-crypto | oneway
+## 互联网基础
+packet-switching | 分组交换 | Packet switching | A | 1965 | 把数据切成小包各自寻路、到达后再重组，比独占线路的电路交换更高效、更抗毁。 | arpanet, tcp-ip, router | redundancy, division
+arpanet | 阿帕网 | ARPANET | B | 1969 | 美国国防部资助的第一个分组交换网络，1969 年 10 月发出第一条消息，是互联网的前身。 | packet-switching, tcp-ip, email | network
+tcp-ip | TCP/IP 协议 | TCP/IP | A | 1974 | 互联网的"普通话"：IP 负责把包送到地址，TCP 负责确认、重传和排序。 | packet-switching, internet, osi-layers | standard, redundancy
+internet | 互联网 | Internet | A | 1983 | 用统一协议把无数独立网络连成的"网络之网"，没有中心、任何网络都能加入。 | tcp-ip, world-wide-web, dns | network, standard
+osi-layers | 网络分层模型 | Network layer models (OSI / TCP/IP) | B |  | 把通信拆成物理、链路、网络、传输、应用等层，每层只管自己的事。 | tcp-ip, ethernet, api | abstraction
+ethernet | 以太网 | Ethernet | B | 1973 | 局域网的标准接线方式，从办公室到数据中心无处不在。 | wifi, router | standard
+ip-address | IP 地址与 IPv6 | IP address & IPv6 | C |  | 互联网上每台设备的门牌号；IPv4 只有约 43 亿个，IPv6 几乎用之不尽。 | tcp-ip, dns, router | info
+dns | 域名系统 | Domain Name System (DNS) | B | 1983 | 把好记的网址翻译成 IP 地址的全球分布式"电话簿"。 | ip-address, world-wide-web | abstraction, redundancy
+router | 路由器与路由 | Router & routing | B |  | 在网络交叉口查看每个数据包的目的地址，决定把它往哪个方向转发。 | packet-switching, bgp, ip-address | network
+bgp | BGP 边界网关协议 | Border Gateway Protocol (BGP) | C | 1989 | 各大网络之间交换"我能到达哪些地址"的协议，相当于互联网的全球路线图。 | router, internet | network
+cdn | 内容分发网络 | Content delivery network (CDN) | B | 1998 | 把网页和视频复制到离用户最近的服务器上，让全球访问都快。 | cache, streaming-media, edge-computing | locality
+modem | 调制解调器 | Modem | C | 1962 | 把数字信号调制成能在电话线上传输的声音再还原，拨号上网的"吱吱"声就是它。 | modulation, broadband | sampling
+vpn | 虚拟专用网 | Virtual private network (VPN) | C | 1996 | 在公共互联网上建一条加密"隧道"，像在同一个内网里一样安全通信。 | https-tls, zero-trust | oneway
+tor | 洋葱路由与暗网 | Tor & the dark web | C | 2002 | 把流量层层加密后经多个中继转发，隐藏用户的真实位置。 | vpn, cryptography | oneway
+ddos | 拒绝服务攻击 | Denial-of-service (DDoS) attack | C | 2000 | 操控大量被感染的设备同时访问目标，把服务器挤垮。 | malware, cdn, cybersecurity | scale
+computer-network | 计算机网络 | Computer network | C |  | 两台以上计算机通过线缆或无线连接、按共同协议交换数据；按范围分为局域网、城域网和广域网。 | ethernet, internet, router, wifi | network, abstraction
+## Web 与应用
+email | 电子邮件 | Email | B | 1971 | 汤姆林森首次用 @ 把信发到另一台计算机上的用户，是互联网最早的杀手级应用。 | arpanet, instant-messaging | network
+hypertext | 超文本 | Hypertext | C | 1965 | 可以点击跳转的文本；尼尔森造了这个词，它是万维网的核心思想。 | world-wide-web, mouse | network
+world-wide-web | 万维网 | World Wide Web | A | 1989 | 蒂姆·伯纳斯-李在 CERN 提出用超链接把全球文档连起来，1991 年对外开放。 | http-html, web-browser, hypertext | network, standard
+http-html | HTTP 与 HTML | HTTP & HTML | B | 1991 | HTML 描述网页内容和结构，HTTP 规定浏览器如何向服务器请求网页。 | world-wide-web, web-browser, https-tls | standard
+web-browser | 浏览器 | Web browser | B | 1993 | 把网页渲染成图文界面的程序；Mosaic 让普通人第一次轻松上网。 | world-wide-web, javascript, http-html | abstraction
+https-tls | HTTPS 与 TLS | HTTPS & TLS | B | 1995 | 在网页传输外面加一层加密和身份验证，让网购和网银变得安全。 | public-key-crypto, http-html, digital-signature | oneway
+search-engine | 搜索引擎 | Search engine | A |  | 爬取全网网页、建立倒排索引并按相关性排序，让人能在海量信息中找到答案。 | pagerank, world-wide-web, online-advertising | complexity, network
+pagerank | PageRank | PageRank | C | 1998 | 把链接当投票，被重要网页链接的网页更重要，奠定了谷歌的排名算法。 | search-engine | network, probability
+e-commerce | 电子商务 | E-commerce | B | 1995 | 在网上浏览、下单和支付商品，配合物流重塑了零售业。 | online-payment, logistics-automation, recommender-system | network, scale
+online-advertising | 互联网广告 | Online advertising | C | 1994 | 按关键词、人群和点击精准投放的广告，是许多免费互联网服务的主要收入。 | search-engine, social-media, web-cookies | incentives
+web-cookies | Cookie 与网络隐私 | Cookies & online privacy | C | 1994 | 网站存在浏览器里的小文件，用来记住登录状态，也被用来跨站追踪用户。 | online-advertising, web-browser | info
+social-media | 社交媒体 | Social media | B | 2004 | 让每个人都能发布内容、关注他人、形成社交关系网的平台。 | web-2-0, recommender-system, short-video | network
+web-2-0 | Web 2.0 与用户生成内容 | Web 2.0 & user-generated content | C | 2004 | 网络从"只读"变为"可读写"，博客、维基、视频网站让用户成为内容生产者。 | social-media, wikipedia | network
+wikipedia | 维基百科 | Wikipedia | C | 2001 | 任何人都能编辑的免费百科全书，证明了大规模志愿协作的力量。 | web-2-0, open-source | network, incentives
+p2p | 点对点网络 | Peer-to-peer (P2P) | C | 1999 | 不依赖中心服务器、每台电脑既下载也上传的网络，BitTorrent 是代表。 | distributed-system, blockchain | network, redundancy
+instant-messaging | 即时通讯 | Instant messaging | C | 1996 | 实时文字聊天，从 ICQ、QQ 到微信，后者发展成集支付、小程序于一体的超级应用。 | sms, mobile-internet, mobile-payment | network
+voip | 网络电话 | Voice over IP (VoIP) | C | 1995 | 把语音切成数据包走互联网，让长途和国际通话几乎免费。 | packet-switching, video-conferencing | sampling
+video-conferencing | 视频会议 | Video conferencing | C |  | 实时传输多方的音视频，疫情期间成为远程办公和上课的基础设施。 | voip, video-codec | sampling, info
+streaming-media | 流媒体 | Streaming media | B | 1995 | 边下边播的音视频服务，按网速动态调整清晰度。 | video-codec, cdn, recommender-system | info, locality
+short-video | 短视频与算法分发 | Short video & algorithmic feeds | C | 2016 | 以几十秒竖屏视频为主、由推荐算法而非关注关系决定内容的平台，如抖音和 TikTok。 | recommender-system, social-media, streaming-media | optimization, network
+mobile-internet | 移动互联网 | Mobile internet | B | 2007 | 智能手机加 3G/4G 让上网从书桌搬到口袋，催生了网约车、外卖和移动支付。 | smartphone, app-store, 4g-lte | network, scurve
+platform-economy | 平台经济 | Platform economy | C |  | 连接买卖双方或多方的数字平台，依靠网络效应快速扩张，也带来垄断争议。 | e-commerce, ride-hailing, social-media | network, scale
+iot | 物联网 | Internet of Things (IoT) | B | 1999 | 让各种物品联网，自动感知、上报数据并接受远程控制。 | sensors, 5g, smart-home | network
+smart-home | 智能家居 | Smart home | C |  | 联网的灯、门锁、空调和音箱，可远程或用语音控制。 | iot, speech-recognition | feedback
+net-neutrality | 网络中立 | Net neutrality | C | 2003 | 主张网络运营商应平等对待所有数据流量，不得按内容或来源区别对待。 | internet, isp | incentives
+isp | 互联网服务提供商 | Internet service provider (ISP) | C |  | 把用户接入互联网的公司，如电信运营商。 | broadband, internet | network
+digital-signal-processing | 数字信号处理 | Digital signal processing (DSP) | B |  | 用数学运算对数字化的声音、图像和无线信号进行滤波、压缩和增强。 | adc, mp3, modulation | sampling, info
+bbs-forum | BBS 与网络论坛 | BBS, Usenet & online forums | C | 1978 | 拨号公告板和新闻组是最早的网络社区，后来演变为论坛和贴吧。 | social-media, email | network
+podcast | 播客 | Podcast | C | 2004 | 可订阅、可随时收听的网络音频节目。 | streaming-media, mp3 | network
+emoji | 表情符号 | Emoji | C | 1999 | 日本手机上诞生的小图标，被纳入 Unicode 后成为全球通用的"图画文字"。 | unicode, instant-messaging | standard
+digital-maps | 数字地图与导航 | Digital maps & navigation apps | C | 2005 | 卫星导航 + 实时路况 + 路径算法，让手机成为人人可用的导航仪。 | gnss, graph-algorithms, ride-hailing | optimization

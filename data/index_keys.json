@@ -1,0 +1,3990 @@
+{
+"steam-engine": {
+"key": "zheng qi ji",
+"letter": "Z"
+},
+"steam-turbine": {
+"key": "qi lun ji",
+"letter": "Q"
+},
+"internal-combustion-engine": {
+"key": "nei ran ji",
+"letter": "N"
+},
+"diesel-engine": {
+"key": "chai you ji",
+"letter": "C"
+},
+"gas-turbine": {
+"key": "ran qi lun ji",
+"letter": "R"
+},
+"stirling-engine": {
+"key": "si te lin fa dong ji",
+"letter": "S"
+},
+"water-turbine": {
+"key": "shui lun ji",
+"letter": "S"
+},
+"heat-pump": {
+"key": "re beng",
+"letter": "R"
+},
+"refrigeration": {
+"key": "zheng qi ya suo zhi leng",
+"letter": "Z"
+},
+"air-conditioning": {
+"key": "kong tiao",
+"letter": "K"
+},
+"cogeneration": {
+"key": "re dian lian chan",
+"letter": "R"
+},
+"coal-power": {
+"key": "ran mei fa dian",
+"letter": "R"
+},
+"oil-drilling": {
+"key": "shi you zuan tan",
+"letter": "S"
+},
+"petroleum-refining": {
+"key": "shi you lian zhi",
+"letter": "S"
+},
+"hydraulic-fracturing": {
+"key": "shui li ya lie",
+"letter": "S"
+},
+"natural-gas": {
+"key": "tian ran qi",
+"letter": "T"
+},
+"lng": {
+"key": "ye hua tian ran qi",
+"letter": "Y"
+},
+"combined-cycle": {
+"key": "lian he xun huan dian chang",
+"letter": "L"
+},
+"fossil-fuel": {
+"key": "hua shi ran liao",
+"letter": "H"
+},
+"power-grid": {
+"key": "dian wang",
+"letter": "D"
+},
+"war-of-currents": {
+"key": "jiao zhi liu zhi zheng",
+"letter": "J"
+},
+"hvdc": {
+"key": "gao ya zhi liu shu dian",
+"letter": "G"
+},
+"uhv-transmission": {
+"key": "te gao ya shu dian",
+"letter": "T"
+},
+"smart-grid": {
+"key": "zhi neng dian wang",
+"letter": "Z"
+},
+"load-balancing": {
+"key": "fu he ping heng yu diao feng",
+"letter": "F"
+},
+"microgrid": {
+"key": "wei dian wang",
+"letter": "W"
+},
+"virtual-power-plant": {
+"key": "xu ni dian chang",
+"letter": "X"
+},
+"lcoe": {
+"key": "ping zhun hua du dian cheng ben",
+"letter": "P"
+},
+"demand-response": {
+"key": "xu qiu xiang ying",
+"letter": "X"
+},
+"electricity-market": {
+"key": "dian li shi chang",
+"letter": "D"
+},
+"capacity-factor": {
+"key": "rong liang yin zi",
+"letter": "R"
+},
+"eroi": {
+"key": "neng yuan tou zi hui bao lv",
+"letter": "N"
+},
+"nuclear-fission-reactor": {
+"key": "he lie bian fan ying dui",
+"letter": "H"
+},
+"pwr": {
+"key": "ya shui dui",
+"letter": "Y"
+},
+"breeder-reactor": {
+"key": "kuai zhong zi zeng zhi dui",
+"letter": "K"
+},
+"molten-salt-reactor": {
+"key": "rong yan dui yu tu ji he neng",
+"letter": "R"
+},
+"smr": {
+"key": "xiao xing mo kuai hua fan ying dui",
+"letter": "X"
+},
+"nuclear-fuel-cycle": {
+"key": "he ran liao xun huan yu fa ran liao",
+"letter": "H"
+},
+"uranium-enrichment": {
+"key": "you nong suo",
+"letter": "Y"
+},
+"nuclear-safety": {
+"key": "he an quan yu he shi gu",
+"letter": "H"
+},
+"fusion-power": {
+"key": "he ju bian fa dian",
+"letter": "H"
+},
+"tokamak": {
+"key": "tuo ka ma ke",
+"letter": "T"
+},
+"inertial-confinement-fusion": {
+"key": "guan xing yue shu ju bian",
+"letter": "G"
+},
+"hydropower": {
+"key": "shui li fa dian",
+"letter": "S"
+},
+"pumped-storage": {
+"key": "chou shui xu neng",
+"letter": "C"
+},
+"wind-turbine": {
+"key": "feng li fa dian ji",
+"letter": "F"
+},
+"offshore-wind": {
+"key": "hai shang feng dian",
+"letter": "H"
+},
+"solar-pv": {
+"key": "guang fu fa dian",
+"letter": "G"
+},
+"perovskite-solar": {
+"key": "gai tai kuang tai yang neng dian chi",
+"letter": "G"
+},
+"concentrated-solar-power": {
+"key": "guang re fa dian",
+"letter": "G"
+},
+"geothermal": {
+"key": "di re neng",
+"letter": "D"
+},
+"ocean-energy": {
+"key": "chao xi yu bo lang neng",
+"letter": "C"
+},
+"biofuel": {
+"key": "sheng wu ran liao",
+"letter": "S"
+},
+"hydrogen-energy": {
+"key": "qing neng",
+"letter": "Q"
+},
+"electrolysis": {
+"key": "dian jie shui zhi qing",
+"letter": "D"
+},
+"fuel-cell": {
+"key": "ran liao dian chi",
+"letter": "R"
+},
+"battery": {
+"key": "dian chi",
+"letter": "D"
+},
+"lead-acid-battery": {
+"key": "qian suan dian chi",
+"letter": "Q"
+},
+"lithium-ion": {
+"key": "li li zi dian chi",
+"letter": "L"
+},
+"lfp-battery": {
+"key": "lin suan tie li dian chi",
+"letter": "L"
+},
+"solid-state-battery": {
+"key": "gu tai dian chi",
+"letter": "G"
+},
+"sodium-ion-battery": {
+"key": "na li zi dian chi",
+"letter": "N"
+},
+"flow-battery": {
+"key": "ye liu dian chi",
+"letter": "Y"
+},
+"grid-storage": {
+"key": "dian wang ji chu neng",
+"letter": "D"
+},
+"supercapacitor": {
+"key": "chao ji dian rong qi",
+"letter": "C"
+},
+"gas-lighting": {
+"key": "mei qi deng",
+"letter": "M"
+},
+"incandescent-bulb": {
+"key": "bai chi deng",
+"letter": "B"
+},
+"fluorescent-lamp": {
+"key": "ying guang deng",
+"letter": "Y"
+},
+"lightning-rod": {
+"key": "bi lei zhen",
+"letter": "B"
+},
+"electron-discovery": {
+"key": "dian zi de fa xian",
+"letter": "D"
+},
+"electromagnet": {
+"key": "dian ci tie",
+"letter": "D"
+},
+"relay": {
+"key": "ji dian qi",
+"letter": "J"
+},
+"electric-generator": {
+"key": "fa dian ji",
+"letter": "F"
+},
+"electric-motor": {
+"key": "dian dong ji",
+"letter": "D"
+},
+"induction-motor": {
+"key": "gan ying dian ji",
+"letter": "G"
+},
+"bldc-motor": {
+"key": "wu shua zhi liu dian ji",
+"letter": "W"
+},
+"transformer-electrical": {
+"key": "bian ya qi",
+"letter": "B"
+},
+"alternating-current": {
+"key": "jiao liu dian",
+"letter": "J"
+},
+"three-phase-power": {
+"key": "san xiang dian",
+"letter": "S"
+},
+"grounding-safety": {
+"key": "duan lu qi yu dian qi an quan",
+"letter": "D"
+},
+"electrification": {
+"key": "dian qi hua",
+"letter": "D"
+},
+"power-electronics": {
+"key": "dian li dian zi",
+"letter": "D"
+},
+"inverter": {
+"key": "ni bian qi",
+"letter": "N"
+},
+"igbt": {
+"key": "i g b t",
+"letter": "I"
+},
+"wide-bandgap-semiconductor": {
+"key": "tan hua gui yu dan hua jia",
+"letter": "T"
+},
+"switching-power-supply": {
+"key": "kai guan dian yuan",
+"letter": "K"
+},
+"vacuum-tube": {
+"key": "zhen kong guan",
+"letter": "Z"
+},
+"capacitor-resistor-inductor": {
+"key": "dian zu 、 dian rong 、 dian gan",
+"letter": "D"
+},
+"feedback-amplifier": {
+"key": "fu fan kui fang da qi",
+"letter": "F"
+},
+"op-amp": {
+"key": "yun suan fang da qi",
+"letter": "Y"
+},
+"crystal-oscillator": {
+"key": "jing ti zhen dang qi",
+"letter": "J"
+},
+"pcb": {
+"key": "yin shua dian lu ban",
+"letter": "Y"
+},
+"semiconductor": {
+"key": "ban dao ti",
+"letter": "B"
+},
+"pn-junction": {
+"key": "p n jie yu er ji guan",
+"letter": "P"
+},
+"transistor": {
+"key": "jing ti guan",
+"letter": "J"
+},
+"mosfet": {
+"key": "m o s f e t",
+"letter": "M"
+},
+"cmos": {
+"key": "c m o s",
+"letter": "C"
+},
+"integrated-circuit": {
+"key": "ji cheng dian lu",
+"letter": "J"
+},
+"planar-process": {
+"key": "ping mian gong yi",
+"letter": "P"
+},
+"moores-law": {
+"key": "mo er ding lv",
+"letter": "M"
+},
+"dennard-scaling": {
+"key": "deng na de suo fang",
+"letter": "D"
+},
+"soc": {
+"key": "pian shang xi tong",
+"letter": "P"
+},
+"silicon-wafer": {
+"key": "dan jing gui yu jing yuan",
+"letter": "D"
+},
+"photolithography": {
+"key": "guang ke",
+"letter": "G"
+},
+"euv-lithography": {
+"key": "ji zi wai guang ke",
+"letter": "J"
+},
+"cleanroom": {
+"key": "jie jing shi",
+"letter": "J"
+},
+"doping": {
+"key": "can za yu li zi zhu ru",
+"letter": "C"
+},
+"etching-deposition": {
+"key": "ke shi yu bao mo chen ji",
+"letter": "K"
+},
+"finfet": {
+"key": "f i n f e t yu g a a",
+"letter": "F"
+},
+"process-node": {
+"key": "gong yi jie dian",
+"letter": "G"
+},
+"foundry-model": {
+"key": "jing yuan dai gong mo shi",
+"letter": "J"
+},
+"eda": {
+"key": "dian zi she ji zi dong hua",
+"letter": "D"
+},
+"chiplet": {
+"key": "xiao xin pian yu xian jin feng zhuang",
+"letter": "X"
+},
+"semiconductor-geopolitics": {
+"key": "ban dao ti gong ying lian yu chu kou guan zhi",
+"letter": "B"
+},
+"analog-digital": {
+"key": "mo ni yu shu zi xin hao",
+"letter": "M"
+},
+"adc": {
+"key": "mo shu yu shu mo zhuan huan",
+"letter": "M"
+},
+"fpga": {
+"key": "f p g a ke bian cheng luo ji xin pian",
+"letter": "F"
+},
+"asic": {
+"key": "zhuan yong ji cheng dian lu",
+"letter": "Z"
+},
+"oscilloscope": {
+"key": "shi bo qi",
+"letter": "S"
+},
+"crt": {
+"key": "yin ji she xian guan",
+"letter": "Y"
+},
+"lcd": {
+"key": "ye jing xian shi",
+"letter": "Y"
+},
+"led": {
+"key": "fa guang er ji guan",
+"letter": "F"
+},
+"oled": {
+"key": "you ji fa guang er ji guan",
+"letter": "Y"
+},
+"microled": {
+"key": "m i c r o l e d",
+"letter": "M"
+},
+"touchscreen": {
+"key": "chu mo ping",
+"letter": "C"
+},
+"e-ink": {
+"key": "dian zi mo shui",
+"letter": "D"
+},
+"image-sensor": {
+"key": "tu xiang chuan gan qi",
+"letter": "T"
+},
+"mems": {
+"key": "wei ji dian xi tong",
+"letter": "W"
+},
+"sensors": {
+"key": "chuan gan qi",
+"letter": "C"
+},
+"hall-sensor": {
+"key": "huo er chuan gan qi",
+"letter": "H"
+},
+"piezoelectric-effect": {
+"key": "ya dian xiao ying",
+"letter": "Y"
+},
+"thermoelectric-effect": {
+"key": "re dian xiao ying",
+"letter": "R"
+},
+"microwave-oven": {
+"key": "wei bo lu",
+"letter": "W"
+},
+"magnetron": {
+"key": "ci kong guan",
+"letter": "C"
+},
+"transistor-radio": {
+"key": "jing ti guan shou yin ji",
+"letter": "J"
+},
+"electronic-calculator": {
+"key": "dian zi ji suan qi",
+"letter": "D"
+},
+"quartz-watch": {
+"key": "shi ying biao",
+"letter": "S"
+},
+"wearable-device": {
+"key": "ke chuan dai she bei",
+"letter": "K"
+},
+"open-hardware": {
+"key": "kai yuan ying jian",
+"letter": "K"
+},
+"wireless-charging": {
+"key": "wu xian chong dian",
+"letter": "W"
+},
+"remote-control": {
+"key": "yao kong qi",
+"letter": "Y"
+},
+"home-refrigerator": {
+"key": "jia yong bing xiang",
+"letter": "J"
+},
+"washing-machine": {
+"key": "xi yi ji",
+"letter": "X"
+},
+"vacuum-cleaner": {
+"key": "xi chen qi",
+"letter": "X"
+},
+"induction-cooker": {
+"key": "dian ci lu",
+"letter": "D"
+},
+"rice-cooker": {
+"key": "dian fan bao",
+"letter": "D"
+},
+"thermostat": {
+"key": "heng wen qi",
+"letter": "H"
+},
+"difference-engine": {
+"key": "cha fen ji yu fen xi ji",
+"letter": "C"
+},
+"punched-card": {
+"key": "chuan kong ka pian",
+"letter": "C"
+},
+"turing-machine": {
+"key": "tu ling ji",
+"letter": "T"
+},
+"early-electronic-computers": {
+"key": "zao qi dian zi ji suan ji",
+"letter": "Z"
+},
+"colossus": {
+"key": "ju ren ji suan ji",
+"letter": "J"
+},
+"eniac": {
+"key": "e n i a c",
+"letter": "E"
+},
+"von-neumann-architecture": {
+"key": "feng · nuo yi man jie gou",
+"letter": "F"
+},
+"mainframe": {
+"key": "da xing ji",
+"letter": "D"
+},
+"minicomputer": {
+"key": "xiao xing ji",
+"letter": "X"
+},
+"personal-computer": {
+"key": "ge ren dian nao",
+"letter": "G"
+},
+"bit-byte": {
+"key": "bi te yu zi jie",
+"letter": "B"
+},
+"boolean-algebra": {
+"key": "bu er dai shu",
+"letter": "B"
+},
+"logic-gate": {
+"key": "luo ji men",
+"letter": "L"
+},
+"flip-flop": {
+"key": "chu fa qi yu ji cun qi",
+"letter": "C"
+},
+"cpu": {
+"key": "zhong yang chu li qi",
+"letter": "Z"
+},
+"microprocessor": {
+"key": "wei chu li qi",
+"letter": "W"
+},
+"instruction-set-architecture": {
+"key": "zhi ling ji jia gou",
+"letter": "Z"
+},
+"risc": {
+"key": "jing jian zhi ling ji",
+"letter": "J"
+},
+"arm-architecture": {
+"key": "a r m jia gou",
+"letter": "A"
+},
+"risc-v": {
+"key": "r i s c - v",
+"letter": "R"
+},
+"pipeline": {
+"key": "shi zhong yu liu shui xian",
+"letter": "S"
+},
+"multicore": {
+"key": "duo he yu bing xing",
+"letter": "D"
+},
+"gpu": {
+"key": "tu xing chu li qi",
+"letter": "T"
+},
+"memory-hierarchy": {
+"key": "cun chu ceng ci",
+"letter": "C"
+},
+"cache": {
+"key": "huan cun",
+"letter": "H"
+},
+"dram": {
+"key": "dong tai sui ji cun chu qi",
+"letter": "D"
+},
+"hbm": {
+"key": "gao dai kuan nei cun",
+"letter": "G"
+},
+"flash-memory": {
+"key": "shan cun",
+"letter": "S"
+},
+"ssd": {
+"key": "gu tai ying pan",
+"letter": "G"
+},
+"hard-disk-drive": {
+"key": "ji xie ying pan",
+"letter": "J"
+},
+"floppy-disk": {
+"key": "ruan pan",
+"letter": "R"
+},
+"magnetic-tape": {
+"key": "ci dai cun chu",
+"letter": "C"
+},
+"optical-disc": {
+"key": "guang pan",
+"letter": "G"
+},
+"usb": {
+"key": "u s b tong yong chuan xing zong xian",
+"letter": "U"
+},
+"laptop-tablet": {
+"key": "bi ji ben yu ping ban dian nao",
+"letter": "B"
+},
+"embedded-system": {
+"key": "qian ru shi xi tong",
+"letter": "Q"
+},
+"supercomputer": {
+"key": "chao ji ji suan ji",
+"letter": "C"
+},
+"cray": {
+"key": "c r a y - 1 yu xiang liang ji suan ji",
+"letter": "C"
+},
+"algorithm": {
+"key": "suan fa",
+"letter": "S"
+},
+"data-structure": {
+"key": "shu ju jie gou",
+"letter": "S"
+},
+"big-o": {
+"key": "fu za du yu da o ji hao",
+"letter": "F"
+},
+"sorting-searching": {
+"key": "pai xu yu cha zhao",
+"letter": "P"
+},
+"recursion": {
+"key": "di gui",
+"letter": "D"
+},
+"graph-algorithms": {
+"key": "tu suan fa yu zui duan lu jing",
+"letter": "T"
+},
+"dynamic-programming": {
+"key": "dong tai gui hua",
+"letter": "D"
+},
+"regular-expression": {
+"key": "zheng ze biao da shi",
+"letter": "Z"
+},
+"programming-language": {
+"key": "bian cheng yu yan",
+"letter": "B"
+},
+"assembly-language": {
+"key": "ji qi ma yu hui bian",
+"letter": "J"
+},
+"compiler": {
+"key": "bian yi qi",
+"letter": "B"
+},
+"interpreter": {
+"key": "jie shi qi",
+"letter": "J"
+},
+"fortran": {
+"key": "f o r t r a n",
+"letter": "F"
+},
+"lisp": {
+"key": "l i s p",
+"letter": "L"
+},
+"cobol": {
+"key": "c o b o l",
+"letter": "C"
+},
+"basic-language": {
+"key": "b a s i c yu yan",
+"letter": "B"
+},
+"c-language": {
+"key": "c yu yan",
+"letter": "C"
+},
+"structured-programming": {
+"key": "jie gou hua bian cheng",
+"letter": "J"
+},
+"object-oriented-programming": {
+"key": "mian xiang dui xiang bian cheng",
+"letter": "M"
+},
+"functional-programming": {
+"key": "han shu shi bian cheng",
+"letter": "H"
+},
+"type-system": {
+"key": "lei xing xi tong",
+"letter": "L"
+},
+"garbage-collection": {
+"key": "la ji hui shou",
+"letter": "L"
+},
+"python": {
+"key": "p y t h o n",
+"letter": "P"
+},
+"java": {
+"key": "j a v a yu xu ni ji",
+"letter": "J"
+},
+"javascript": {
+"key": "j a v a s c r i p t",
+"letter": "J"
+},
+"floating-point": {
+"key": "fu dian shu",
+"letter": "F"
+},
+"operating-system": {
+"key": "cao zuo xi tong",
+"letter": "C"
+},
+"time-sharing": {
+"key": "fen shi xi tong",
+"letter": "F"
+},
+"unix": {
+"key": "u n i x",
+"letter": "U"
+},
+"process-thread": {
+"key": "jin cheng yu xian cheng",
+"letter": "J"
+},
+"virtual-memory": {
+"key": "xu ni nei cun",
+"letter": "X"
+},
+"file-system": {
+"key": "wen jian xi tong",
+"letter": "W"
+},
+"device-driver": {
+"key": "qu dong cheng xu",
+"letter": "Q"
+},
+"concurrency": {
+"key": "bing fa yu suo",
+"letter": "B"
+},
+"firmware": {
+"key": "gu jian yu b i o s",
+"letter": "G"
+},
+"windows": {
+"key": "w i n d o w s",
+"letter": "W"
+},
+"linux": {
+"key": "l i n u x",
+"letter": "L"
+},
+"apple-os": {
+"key": "m a c o s yu i o s",
+"letter": "M"
+},
+"android": {
+"key": "an zhuo",
+"letter": "A"
+},
+"virtualization": {
+"key": "xu ni hua",
+"letter": "X"
+},
+"container": {
+"key": "rong qi yu d o c k e r",
+"letter": "R"
+},
+"kubernetes": {
+"key": "k u b e r n e t e s",
+"letter": "K"
+},
+"database": {
+"key": "shu ju ku",
+"letter": "S"
+},
+"relational-database": {
+"key": "guan xi shu ju ku yu s q l",
+"letter": "G"
+},
+"transaction-acid": {
+"key": "shi wu yu a c i d",
+"letter": "S"
+},
+"nosql": {
+"key": "n o s q l shu ju ku",
+"letter": "N"
+},
+"big-data": {
+"key": "da shu ju",
+"letter": "D"
+},
+"data-warehouse": {
+"key": "shu ju cang ku yu shu ju hu",
+"letter": "S"
+},
+"data-compression": {
+"key": "shu ju ya suo",
+"letter": "S"
+},
+"hashing": {
+"key": "ha xi",
+"letter": "H"
+},
+"unicode": {
+"key": "zi fu bian ma yu u n i c o d e",
+"letter": "Z"
+},
+"error-correcting-code": {
+"key": "jiu cuo ma",
+"letter": "J"
+},
+"backup-raid": {
+"key": "bei fen yu r a i d",
+"letter": "B"
+},
+"software-engineering": {
+"key": "ruan jian gong cheng",
+"letter": "R"
+},
+"debugging": {
+"key": "tiao shi yu b u g",
+"letter": "T"
+},
+"software-testing": {
+"key": "ruan jian ce shi",
+"letter": "R"
+},
+"version-control": {
+"key": "ban ben kong zhi yu g i t",
+"letter": "B"
+},
+"open-source": {
+"key": "kai yuan ruan jian",
+"letter": "K"
+},
+"gnu": {
+"key": "g n u yu zi you ruan jian yun dong",
+"letter": "G"
+},
+"agile": {
+"key": "min jie kai fa",
+"letter": "M"
+},
+"devops": {
+"key": "d e v o p s yu c i / c d",
+"letter": "D"
+},
+"api": {
+"key": "ying yong cheng xu jie kou",
+"letter": "Y"
+},
+"microservices": {
+"key": "wei fu wu",
+"letter": "W"
+},
+"distributed-system": {
+"key": "fen bu shi xi tong",
+"letter": "F"
+},
+"cap-theorem": {
+"key": "c a p ding li",
+"letter": "C"
+},
+"consensus-algorithm": {
+"key": "gong shi suan fa",
+"letter": "G"
+},
+"command-line": {
+"key": "ming ling xing",
+"letter": "M"
+},
+"gui": {
+"key": "tu xing yong hu jie mian",
+"letter": "T"
+},
+"mouse": {
+"key": "shu biao",
+"letter": "S"
+},
+"spreadsheet": {
+"key": "dian zi biao ge",
+"letter": "D"
+},
+"word-processor": {
+"key": "wen zi chu li ruan jian",
+"letter": "W"
+},
+"computer-graphics": {
+"key": "ji suan ji tu xing xue",
+"letter": "J"
+},
+"video-game": {
+"key": "dian zi you xi",
+"letter": "D"
+},
+"game-engine": {
+"key": "you xi yin qing",
+"letter": "Y"
+},
+"app-store": {
+"key": "ying yong shang dian",
+"letter": "Y"
+},
+"y2k": {
+"key": "qian nian chong",
+"letter": "Q"
+},
+"client-server": {
+"key": "ke hu duan — fu wu qi mo shi",
+"letter": "K"
+},
+"data-center": {
+"key": "shu ju zhong xin",
+"letter": "S"
+},
+"cloud-computing": {
+"key": "yun ji suan",
+"letter": "Y"
+},
+"saas": {
+"key": "ruan jian ji fu wu",
+"letter": "R"
+},
+"serverless": {
+"key": "wu fu wu qi ji suan",
+"letter": "W"
+},
+"edge-computing": {
+"key": "bian yuan ji suan",
+"letter": "B"
+},
+"scientific-computing": {
+"key": "ke xue ji suan yu shu zhi mo ni",
+"letter": "K"
+},
+"halting-problem": {
+"key": "ting ji wen ti",
+"letter": "T"
+},
+"p-vs-np": {
+"key": "p yu n p wen ti",
+"letter": "P"
+},
+"technological-singularity": {
+"key": "ji shu qi dian",
+"letter": "J"
+},
+"telegraph": {
+"key": "dian bao",
+"letter": "D"
+},
+"morse-code": {
+"key": "mo er si dian ma",
+"letter": "M"
+},
+"transatlantic-cable": {
+"key": "kua da xi yang dian bao dian lan",
+"letter": "K"
+},
+"telephone": {
+"key": "dian hua",
+"letter": "D"
+},
+"telephone-exchange": {
+"key": "dian hua jiao huan ji",
+"letter": "D"
+},
+"fax": {
+"key": "chuan zhen",
+"letter": "C"
+},
+"radio": {
+"key": "wu xian dian",
+"letter": "W"
+},
+"antenna": {
+"key": "tian xian",
+"letter": "T"
+},
+"modulation": {
+"key": "tiao zhi yu jie tiao",
+"letter": "T"
+},
+"am-fm": {
+"key": "tiao fu yu tiao pin",
+"letter": "T"
+},
+"radio-broadcasting": {
+"key": "wu xian dian guang bo",
+"letter": "W"
+},
+"multiplexing": {
+"key": "fu yong",
+"letter": "F"
+},
+"microwave-relay": {
+"key": "wei bo zhong ji",
+"letter": "W"
+},
+"communication-satellite": {
+"key": "tong xin wei xing",
+"letter": "T"
+},
+"satellite-internet": {
+"key": "wei xing hu lian wang",
+"letter": "W"
+},
+"phased-array": {
+"key": "xiang kong zhen tian xian",
+"letter": "X"
+},
+"superheterodyne": {
+"key": "chao wai cha jie shou ji",
+"letter": "C"
+},
+"fiber-optic": {
+"key": "guang xian tong xin",
+"letter": "G"
+},
+"submarine-cable": {
+"key": "hai di guang lan",
+"letter": "H"
+},
+"broadband": {
+"key": "kuan dai jie ru",
+"letter": "K"
+},
+"optical-amplifier": {
+"key": "guang xian fang da qi",
+"letter": "G"
+},
+"mobile-phone": {
+"key": "yi dong dian hua",
+"letter": "Y"
+},
+"cellular-network": {
+"key": "feng wo wang luo",
+"letter": "F"
+},
+"gsm-2g": {
+"key": "2 g yu g s m",
+"letter": "#"
+},
+"sms": {
+"key": "duan xin",
+"letter": "D"
+},
+"3g": {
+"key": "3 g",
+"letter": "#"
+},
+"4g-lte": {
+"key": "4 g yu l t e",
+"letter": "#"
+},
+"5g": {
+"key": "5 g",
+"letter": "#"
+},
+"6g": {
+"key": "6 g",
+"letter": "#"
+},
+"mimo": {
+"key": "m i m o yu bo shu cheng xing",
+"letter": "M"
+},
+"spectrum": {
+"key": "pin pu zi yuan",
+"letter": "P"
+},
+"smartphone": {
+"key": "zhi neng shou ji",
+"letter": "Z"
+},
+"wifi": {
+"key": "w i - f i",
+"letter": "W"
+},
+"bluetooth": {
+"key": "lan ya",
+"letter": "L"
+},
+"rfid-nfc": {
+"key": "r f i d yu n f c",
+"letter": "R"
+},
+"sim-card": {
+"key": "s i m ka",
+"letter": "S"
+},
+"packet-switching": {
+"key": "fen zu jiao huan",
+"letter": "F"
+},
+"arpanet": {
+"key": "a pa wang",
+"letter": "A"
+},
+"tcp-ip": {
+"key": "t c p / i p xie yi",
+"letter": "T"
+},
+"internet": {
+"key": "hu lian wang",
+"letter": "H"
+},
+"osi-layers": {
+"key": "wang luo fen ceng mo xing",
+"letter": "W"
+},
+"ethernet": {
+"key": "yi tai wang",
+"letter": "Y"
+},
+"ip-address": {
+"key": "i p di zhi yu i p v 6",
+"letter": "I"
+},
+"dns": {
+"key": "yu ming xi tong",
+"letter": "Y"
+},
+"router": {
+"key": "lu you qi yu lu you",
+"letter": "L"
+},
+"bgp": {
+"key": "b g p bian jie wang guan xie yi",
+"letter": "B"
+},
+"cdn": {
+"key": "nei rong fen fa wang luo",
+"letter": "N"
+},
+"modem": {
+"key": "tiao zhi jie tiao qi",
+"letter": "T"
+},
+"vpn": {
+"key": "xu ni zhuan yong wang",
+"letter": "X"
+},
+"tor": {
+"key": "yang cong lu you yu an wang",
+"letter": "Y"
+},
+"ddos": {
+"key": "ju jue fu wu gong ji",
+"letter": "J"
+},
+"computer-network": {
+"key": "ji suan ji wang luo",
+"letter": "J"
+},
+"email": {
+"key": "dian zi you jian",
+"letter": "D"
+},
+"hypertext": {
+"key": "chao wen ben",
+"letter": "C"
+},
+"world-wide-web": {
+"key": "wan wei wang",
+"letter": "W"
+},
+"http-html": {
+"key": "h t t p yu h t m l",
+"letter": "H"
+},
+"web-browser": {
+"key": "liu lan qi",
+"letter": "L"
+},
+"https-tls": {
+"key": "h t t p s yu t l s",
+"letter": "H"
+},
+"search-engine": {
+"key": "sou suo yin qing",
+"letter": "S"
+},
+"pagerank": {
+"key": "p a g e r a n k",
+"letter": "P"
+},
+"e-commerce": {
+"key": "dian zi shang wu",
+"letter": "D"
+},
+"online-advertising": {
+"key": "hu lian wang guang gao",
+"letter": "H"
+},
+"web-cookies": {
+"key": "c o o k i e yu wang luo yin si",
+"letter": "C"
+},
+"social-media": {
+"key": "she jiao mei ti",
+"letter": "S"
+},
+"web-2-0": {
+"key": "w e b 2 . 0 yu yong hu sheng cheng nei rong",
+"letter": "W"
+},
+"wikipedia": {
+"key": "wei ji bai ke",
+"letter": "W"
+},
+"p2p": {
+"key": "dian dui dian wang luo",
+"letter": "D"
+},
+"instant-messaging": {
+"key": "ji shi tong xun",
+"letter": "J"
+},
+"voip": {
+"key": "wang luo dian hua",
+"letter": "W"
+},
+"video-conferencing": {
+"key": "shi pin hui yi",
+"letter": "S"
+},
+"streaming-media": {
+"key": "liu mei ti",
+"letter": "L"
+},
+"short-video": {
+"key": "duan shi pin yu suan fa fen fa",
+"letter": "D"
+},
+"mobile-internet": {
+"key": "yi dong hu lian wang",
+"letter": "Y"
+},
+"platform-economy": {
+"key": "ping tai jing ji",
+"letter": "P"
+},
+"iot": {
+"key": "wu lian wang",
+"letter": "W"
+},
+"smart-home": {
+"key": "zhi neng jia ju",
+"letter": "Z"
+},
+"net-neutrality": {
+"key": "wang luo zhong li",
+"letter": "W"
+},
+"isp": {
+"key": "hu lian wang fu wu ti gong shang",
+"letter": "H"
+},
+"digital-signal-processing": {
+"key": "shu zi xin hao chu li",
+"letter": "S"
+},
+"bbs-forum": {
+"key": "b b s yu wang luo lun tan",
+"letter": "B"
+},
+"podcast": {
+"key": "bo ke",
+"letter": "B"
+},
+"emoji": {
+"key": "biao qing fu hao",
+"letter": "B"
+},
+"digital-maps": {
+"key": "shu zi di tu yu dao hang",
+"letter": "S"
+},
+"artificial-intelligence": {
+"key": "ren gong zhi neng",
+"letter": "R"
+},
+"turing-test": {
+"key": "tu ling ce shi",
+"letter": "T"
+},
+"symbolic-ai": {
+"key": "fu hao zhu yi a i",
+"letter": "F"
+},
+"expert-system": {
+"key": "zhuan jia xi tong",
+"letter": "Z"
+},
+"search-planning": {
+"key": "sou suo yu gui hua",
+"letter": "S"
+},
+"ai-winter": {
+"key": "a i han dong",
+"letter": "A"
+},
+"chatbot": {
+"key": "liao tian ji qi ren",
+"letter": "L"
+},
+"machine-learning": {
+"key": "ji qi xue xi",
+"letter": "J"
+},
+"supervised-learning": {
+"key": "jian du xue xi",
+"letter": "J"
+},
+"unsupervised-learning": {
+"key": "wu jian du xue xi",
+"letter": "W"
+},
+"self-supervised-learning": {
+"key": "zi jian du xue xi",
+"letter": "Z"
+},
+"reinforcement-learning": {
+"key": "qiang hua xue xi",
+"letter": "Q"
+},
+"regression-classification": {
+"key": "hui gui yu fen lei",
+"letter": "H"
+},
+"decision-tree": {
+"key": "jue ce shu yu sui ji sen lin",
+"letter": "J"
+},
+"svm": {
+"key": "zhi chi xiang liang ji",
+"letter": "Z"
+},
+"bayesian-methods": {
+"key": "bei ye si fang fa",
+"letter": "B"
+},
+"overfitting": {
+"key": "guo ni he yu fan hua",
+"letter": "G"
+},
+"train-test-split": {
+"key": "xun lian 、 yan zheng yu ce shi ji",
+"letter": "X"
+},
+"loss-function": {
+"key": "sun shi han shu",
+"letter": "S"
+},
+"gradient-descent": {
+"key": "ti du xia jiang",
+"letter": "T"
+},
+"perceptron": {
+"key": "gan zhi ji",
+"letter": "G"
+},
+"neural-network": {
+"key": "ren gong shen jing wang luo",
+"letter": "R"
+},
+"backpropagation": {
+"key": "fan xiang chuan bo",
+"letter": "F"
+},
+"deep-learning": {
+"key": "shen du xue xi",
+"letter": "S"
+},
+"cnn": {
+"key": "juan ji shen jing wang luo",
+"letter": "J"
+},
+"rnn-lstm": {
+"key": "xun huan shen jing wang luo yu l s t m",
+"letter": "X"
+},
+"resnet": {
+"key": "can cha wang luo",
+"letter": "C"
+},
+"imagenet": {
+"key": "i m a g e n e t yu a l e x n e t",
+"letter": "I"
+},
+"word-embedding": {
+"key": "ci xiang liang",
+"letter": "C"
+},
+"attention-mechanism": {
+"key": "zhu yi li ji zhi",
+"letter": "Z"
+},
+"transformer-model": {
+"key": "t r a n s f o r m e r",
+"letter": "T"
+},
+"gan": {
+"key": "sheng cheng dui kang wang luo",
+"letter": "S"
+},
+"diffusion-model": {
+"key": "kuo san mo xing",
+"letter": "K"
+},
+"llm": {
+"key": "da yu yan mo xing",
+"letter": "D"
+},
+"gpt": {
+"key": "g p t xi lie",
+"letter": "G"
+},
+"chatgpt": {
+"key": "c h a t g p t",
+"letter": "C"
+},
+"scaling-laws": {
+"key": "suo fang ding lv",
+"letter": "S"
+},
+"pretraining-finetuning": {
+"key": "yu xun lian yu wei diao",
+"letter": "Y"
+},
+"tokenization": {
+"key": "fen ci yu t o k e n",
+"letter": "F"
+},
+"context-window": {
+"key": "shang xia wen chuang kou",
+"letter": "S"
+},
+"rlhf": {
+"key": "ren lei fan kui qiang hua xue xi",
+"letter": "R"
+},
+"prompt-engineering": {
+"key": "ti shi gong cheng",
+"letter": "T"
+},
+"chain-of-thought": {
+"key": "si wei lian yu tui li mo xing",
+"letter": "S"
+},
+"rag": {
+"key": "jian suo zeng qiang sheng cheng",
+"letter": "J"
+},
+"ai-agent": {
+"key": "a i zhi neng ti",
+"letter": "A"
+},
+"multimodal-model": {
+"key": "duo mo tai mo xing",
+"letter": "D"
+},
+"mixture-of-experts": {
+"key": "hun he zhuan jia mo xing",
+"letter": "H"
+},
+"open-weight-models": {
+"key": "kai fang quan zhong mo xing",
+"letter": "K"
+},
+"model-compression": {
+"key": "zheng liu yu liang hua",
+"letter": "Z"
+},
+"ai-inference": {
+"key": "tui li bu shu yu cheng ben",
+"letter": "T"
+},
+"hallucination": {
+"key": "huan jue",
+"letter": "H"
+},
+"generative-ai": {
+"key": "sheng cheng shi a i",
+"letter": "S"
+},
+"world-model": {
+"key": "shi jie mo xing",
+"letter": "S"
+},
+"ai-accelerator": {
+"key": "a i jia su xin pian",
+"letter": "A"
+},
+"data-labeling": {
+"key": "shu ju biao zhu",
+"letter": "S"
+},
+"ai-benchmarks": {
+"key": "ping ce ji zhun",
+"letter": "P"
+},
+"federated-learning": {
+"key": "lian bang xue xi",
+"letter": "L"
+},
+"computer-vision": {
+"key": "ji suan ji shi jue",
+"letter": "J"
+},
+"face-recognition": {
+"key": "ren lian shi bie",
+"letter": "R"
+},
+"ocr": {
+"key": "guang xue zi fu shi bie",
+"letter": "G"
+},
+"nlp": {
+"key": "zi ran yu yan chu li",
+"letter": "Z"
+},
+"machine-translation": {
+"key": "ji qi fan yi",
+"letter": "J"
+},
+"speech-recognition": {
+"key": "yu yin shi bie",
+"letter": "Y"
+},
+"speech-synthesis": {
+"key": "yu yin he cheng",
+"letter": "Y"
+},
+"recommender-system": {
+"key": "tui jian xi tong",
+"letter": "T"
+},
+"knowledge-graph": {
+"key": "zhi shi tu pu",
+"letter": "Z"
+},
+"virtual-assistant": {
+"key": "yu yin zhu shou",
+"letter": "Y"
+},
+"deep-blue": {
+"key": "shen lan",
+"letter": "S"
+},
+"alphago": {
+"key": "a l p h a g o",
+"letter": "A"
+},
+"ai-for-science": {
+"key": "a i f o r s c i e n c e",
+"letter": "A"
+},
+"ai-coding": {
+"key": "a i bian cheng",
+"letter": "A"
+},
+"embodied-ai": {
+"key": "ju shen zhi neng",
+"letter": "J"
+},
+"robotics-learning": {
+"key": "ji qi ren xue xi",
+"letter": "J"
+},
+"deepfake": {
+"key": "shen du wei zao",
+"letter": "S"
+},
+"medical-ai": {
+"key": "yi liao a i",
+"letter": "Y"
+},
+"ai-alignment": {
+"key": "a i an quan yu dui qi",
+"letter": "A"
+},
+"ai-bias": {
+"key": "suan fa pian jian yu gong ping",
+"letter": "S"
+},
+"explainable-ai": {
+"key": "ke jie shi xing",
+"letter": "K"
+},
+"ai-privacy": {
+"key": "a i yu shu ju yin si",
+"letter": "A"
+},
+"ai-regulation": {
+"key": "a i jian guan",
+"letter": "A"
+},
+"agi": {
+"key": "tong yong ren gong zhi neng",
+"letter": "T"
+},
+"blast-furnace": {
+"key": "gao lu yu jiao tan lian tie",
+"letter": "G"
+},
+"bessemer-process": {
+"key": "zhuan lu lian gang",
+"letter": "Z"
+},
+"open-hearth-furnace": {
+"key": "ping lu lian gang",
+"letter": "P"
+},
+"steel": {
+"key": "gang",
+"letter": "G"
+},
+"electric-arc-furnace": {
+"key": "dian hu lu lian gang",
+"letter": "D"
+},
+"stainless-steel": {
+"key": "bu xiu gang",
+"letter": "B"
+},
+"aluminum-smelting": {
+"key": "dian jie lv",
+"letter": "D"
+},
+"titanium": {
+"key": "tai yu tai he jin",
+"letter": "T"
+},
+"alloy": {
+"key": "he jin",
+"letter": "H"
+},
+"superalloy": {
+"key": "gao wen he jin",
+"letter": "G"
+},
+"shape-memory-alloy": {
+"key": "xing zhuang ji yi he jin",
+"letter": "X"
+},
+"galvanization": {
+"key": "du xin fang fu",
+"letter": "D"
+},
+"rare-earth": {
+"key": "xi tu yu yong ci",
+"letter": "X"
+},
+"basic-oxygen-steelmaking": {
+"key": "yang qi ding chui zhuan lu",
+"letter": "Y"
+},
+"mining-technology": {
+"key": "xian dai cai kuang",
+"letter": "X"
+},
+"froth-flotation": {
+"key": "pao mo fu xuan",
+"letter": "P"
+},
+"critical-minerals": {
+"key": "guan jian kuang chan",
+"letter": "G"
+},
+"lithium-extraction": {
+"key": "li zi yuan ti qu",
+"letter": "L"
+},
+"haber-bosch": {
+"key": "ha bo — bo shi he cheng an",
+"letter": "H"
+},
+"sulfuric-acid": {
+"key": "liu suan yu jie chu fa",
+"letter": "L"
+},
+"chlor-alkali": {
+"key": "lv jian gong ye",
+"letter": "L"
+},
+"solvay-process": {
+"key": "zhi jian fa （ suo er wei fa yu hou shi fa ）",
+"letter": "Z"
+},
+"synthetic-dye": {
+"key": "he cheng ran liao",
+"letter": "H"
+},
+"air-separation": {
+"key": "kong qi fen li",
+"letter": "K"
+},
+"catalysis-industrial": {
+"key": "gong ye cui hua",
+"letter": "G"
+},
+"catalytic-cracking": {
+"key": "cui hua lie hua",
+"letter": "C"
+},
+"petrochemicals": {
+"key": "shi you hua gong",
+"letter": "S"
+},
+"chemical-engineering": {
+"key": "hua xue gong cheng",
+"letter": "H"
+},
+"detergent": {
+"key": "he cheng xi di ji",
+"letter": "H"
+},
+"polymer": {
+"key": "gao fen zi",
+"letter": "G"
+},
+"vulcanization": {
+"key": "xiang jiao liu hua",
+"letter": "X"
+},
+"celluloid": {
+"key": "sai lu luo",
+"letter": "S"
+},
+"bakelite": {
+"key": "fen quan su liao （ dian mu ）",
+"letter": "F"
+},
+"plastics": {
+"key": "su liao",
+"letter": "S"
+},
+"polyethylene": {
+"key": "ju yi xi",
+"letter": "J"
+},
+"ziegler-natta": {
+"key": "qi ge lei — na ta cui hua ji",
+"letter": "Q"
+},
+"nylon": {
+"key": "ni long",
+"letter": "N"
+},
+"synthetic-fiber": {
+"key": "he cheng xian wei",
+"letter": "H"
+},
+"ptfe": {
+"key": "ju si fu yi xi",
+"letter": "J"
+},
+"synthetic-rubber": {
+"key": "he cheng xiang jiao",
+"letter": "H"
+},
+"kevlar": {
+"key": "fang lun",
+"letter": "F"
+},
+"bioplastics": {
+"key": "sheng wu ji yu ke jiang jie su liao",
+"letter": "S"
+},
+"float-glass": {
+"key": "fu fa bo li",
+"letter": "F"
+},
+"advanced-ceramics": {
+"key": "xian jin tao ci",
+"letter": "X"
+},
+"carbon-fiber": {
+"key": "tan xian wei",
+"letter": "T"
+},
+"composite-material": {
+"key": "fu he cai liao",
+"letter": "F"
+},
+"nanotechnology": {
+"key": "na mi ji shu",
+"letter": "N"
+},
+"fullerene": {
+"key": "fu lei xi",
+"letter": "F"
+},
+"carbon-nanotube": {
+"key": "tan na mi guan",
+"letter": "T"
+},
+"graphene": {
+"key": "shi mo xi",
+"letter": "S"
+},
+"aerogel": {
+"key": "qi ning jiao",
+"letter": "Q"
+},
+"metamaterial": {
+"key": "chao cai liao",
+"letter": "C"
+},
+"materials-genome": {
+"key": "cai liao ji suan yu gao tong liang shai xuan",
+"letter": "C"
+},
+"fiberglass": {
+"key": "bo li xian wei",
+"letter": "B"
+},
+"industrial-revolution": {
+"key": "gong ye ge ming",
+"letter": "G"
+},
+"jacquard-loom": {
+"key": "ti hua zhi ji",
+"letter": "T"
+},
+"spinning-jenny": {
+"key": "zhen ni fang sha ji",
+"letter": "Z"
+},
+"water-frame": {
+"key": "shui li fang sha ji",
+"letter": "S"
+},
+"power-loom": {
+"key": "dong li zhi bu ji",
+"letter": "D"
+},
+"cotton-gin": {
+"key": "ya mian ji",
+"letter": "Y"
+},
+"sewing-machine": {
+"key": "feng ren ji",
+"letter": "F"
+},
+"factory-system": {
+"key": "gong chang zhi du",
+"letter": "G"
+},
+"second-industrial-revolution": {
+"key": "di er ci gong ye ge ming",
+"letter": "D"
+},
+"interchangeable-parts": {
+"key": "ke hu huan ling jian",
+"letter": "K"
+},
+"screw-thread-standard": {
+"key": "luo wen biao zhun hua",
+"letter": "L"
+},
+"scientific-management": {
+"key": "ke xue guan li",
+"letter": "K"
+},
+"assembly-line": {
+"key": "liu shui zhuang pei xian",
+"letter": "L"
+},
+"mass-production": {
+"key": "da gui mo sheng chan",
+"letter": "D"
+},
+"toyota-production-system": {
+"key": "feng tian sheng chan fang shi yu jing yi",
+"letter": "F"
+},
+"quality-control": {
+"key": "tong ji zhi liang kong zhi",
+"letter": "T"
+},
+"six-sigma": {
+"key": "liu xi ge ma",
+"letter": "L"
+},
+"erp": {
+"key": "qi ye zi yuan ji hua",
+"letter": "Q"
+},
+"lathe-machine-tools": {
+"key": "ji chuang",
+"letter": "J"
+},
+"precision-measurement": {
+"key": "jing mi ce liang yu gong cha",
+"letter": "J"
+},
+"hydraulic-press": {
+"key": "ye ya ji",
+"letter": "Y"
+},
+"casting-forging": {
+"key": "zhu zao yu duan zao",
+"letter": "Z"
+},
+"welding": {
+"key": "han jie",
+"letter": "H"
+},
+"injection-molding": {
+"key": "zhu su cheng xing",
+"letter": "Z"
+},
+"cnc": {
+"key": "shu kong ji chuang",
+"letter": "S"
+},
+"cad-cam": {
+"key": "ji suan ji fu zhu she ji yu zhi zao",
+"letter": "J"
+},
+"3d-printing": {
+"key": "3 d da yin",
+"letter": "#"
+},
+"laser-processing": {
+"key": "ji guang jia gong",
+"letter": "J"
+},
+"paper-machine": {
+"key": "lian xu zao zhi ji",
+"letter": "L"
+},
+"ball-bearing": {
+"key": "gun dong zhou cheng",
+"letter": "G"
+},
+"control-theory": {
+"key": "zi dong kong zhi yu p i d",
+"letter": "Z"
+},
+"centrifugal-governor": {
+"key": "li xin diao su qi",
+"letter": "L"
+},
+"plc": {
+"key": "ke bian cheng luo ji kong zhi qi",
+"letter": "K"
+},
+"scada": {
+"key": "gong ye kong zhi xi tong",
+"letter": "G"
+},
+"machine-vision": {
+"key": "ji qi shi jue",
+"letter": "J"
+},
+"digital-twin": {
+"key": "shu zi luan sheng",
+"letter": "S"
+},
+"industry-4-0": {
+"key": "gong ye 4 . 0 yu zhi neng zhi zao",
+"letter": "G"
+},
+"cybernetics": {
+"key": "kong zhi lun",
+"letter": "K"
+},
+"systems-engineering": {
+"key": "xi tong gong cheng",
+"letter": "X"
+},
+"industrial-robot": {
+"key": "gong ye ji qi ren",
+"letter": "G"
+},
+"servo-motor": {
+"key": "ci fu xi tong",
+"letter": "C"
+},
+"cobot": {
+"key": "xie zuo ji qi ren",
+"letter": "X"
+},
+"mobile-robot": {
+"key": "zi zhu yi dong ji qi ren",
+"letter": "Z"
+},
+"humanoid-robot": {
+"key": "ren xing ji qi ren",
+"letter": "R"
+},
+"logistics-automation": {
+"key": "zhi neng cang chu yu wu liu zi dong hua",
+"letter": "Z"
+},
+"locomotive": {
+"key": "zheng qi ji che",
+"letter": "Z"
+},
+"railway": {
+"key": "tie lu",
+"letter": "T"
+},
+"standard-gauge": {
+"key": "biao zhun gui ju yu tie lu shi jian",
+"letter": "B"
+},
+"subway": {
+"key": "di tie",
+"letter": "D"
+},
+"electric-railway": {
+"key": "dian qi hua tie lu",
+"letter": "D"
+},
+"high-speed-rail": {
+"key": "gao su tie lu",
+"letter": "G"
+},
+"maglev": {
+"key": "ci xuan fu lie che",
+"letter": "C"
+},
+"bicycle": {
+"key": "zi xing che",
+"letter": "Z"
+},
+"automobile": {
+"key": "qi che",
+"letter": "Q"
+},
+"model-t": {
+"key": "fu te t xing che",
+"letter": "F"
+},
+"pneumatic-tire": {
+"key": "chong qi lun tai",
+"letter": "C"
+},
+"motorcycle": {
+"key": "mo tuo che",
+"letter": "M"
+},
+"car-safety": {
+"key": "qi che an quan ji shu",
+"letter": "Q"
+},
+"highway": {
+"key": "gao su gong lu",
+"letter": "G"
+},
+"asphalt-road": {
+"key": "xian dai lu mian",
+"letter": "X"
+},
+"traffic-signal": {
+"key": "jiao tong xin hao deng",
+"letter": "J"
+},
+"electric-vehicle": {
+"key": "dian dong qi che",
+"letter": "D"
+},
+"hybrid-vehicle": {
+"key": "hun he dong li qi che",
+"letter": "H"
+},
+"charging-infrastructure": {
+"key": "chong dian wang luo",
+"letter": "C"
+},
+"autonomous-vehicle": {
+"key": "zi dong jia shi qi che",
+"letter": "Z"
+},
+"adas": {
+"key": "jia shi fu zhu xi tong",
+"letter": "J"
+},
+"lidar": {
+"key": "ji guang lei da",
+"letter": "J"
+},
+"ride-hailing": {
+"key": "wang yue che yu gong xiang chu xing",
+"letter": "W"
+},
+"micromobility": {
+"key": "gong xiang dan che yu wei chu xing",
+"letter": "G"
+},
+"truck": {
+"key": "ka che yu gong lu huo yun",
+"letter": "K"
+},
+"bus-transit": {
+"key": "gong jiao yu kuai su gong jiao",
+"letter": "G"
+},
+"tram": {
+"key": "you gui dian che yu qing gui",
+"letter": "Y"
+},
+"hyperloop": {
+"key": "chao ji gao tie",
+"letter": "C"
+},
+"steamship": {
+"key": "zheng qi chuan",
+"letter": "Z"
+},
+"screw-propeller": {
+"key": "luo xuan jiang tui jin",
+"letter": "L"
+},
+"canals": {
+"key": "xian dai yun he",
+"letter": "X"
+},
+"container-shipping": {
+"key": "ji zhuang xiang yun shu",
+"letter": "J"
+},
+"submersible": {
+"key": "zai ren shen qian qi",
+"letter": "Z"
+},
+"marine-chronometer": {
+"key": "hang hai tian wen zhong",
+"letter": "H"
+},
+"hot-air-balloon": {
+"key": "re qi qiu",
+"letter": "R"
+},
+"airship": {
+"key": "fei ting",
+"letter": "F"
+},
+"airplane": {
+"key": "fei ji",
+"letter": "F"
+},
+"aerodynamics": {
+"key": "kong qi dong li xue",
+"letter": "K"
+},
+"helicopter": {
+"key": "zhi sheng ji",
+"letter": "Z"
+},
+"jet-engine": {
+"key": "pen qi fa dong ji",
+"letter": "P"
+},
+"turbofan": {
+"key": "wo shan fa dong ji",
+"letter": "W"
+},
+"jetliner": {
+"key": "pen qi ke ji",
+"letter": "P"
+},
+"supersonic-airliner": {
+"key": "chao yin su ke ji",
+"letter": "C"
+},
+"autopilot": {
+"key": "zi dong jia shi yi",
+"letter": "Z"
+},
+"fly-by-wire": {
+"key": "dian chuan fei kong",
+"letter": "D"
+},
+"air-traffic-control": {
+"key": "kong zhong jiao tong guan zhi",
+"letter": "K"
+},
+"evtol": {
+"key": "dian dong chui zhi qi jiang fei xing qi",
+"letter": "D"
+},
+"drone": {
+"key": "wu ren ji",
+"letter": "W"
+},
+"gyrocompass": {
+"key": "tuo luo luo jing yu guan xing dao hang",
+"letter": "T"
+},
+"pallet-forklift": {
+"key": "tuo pan yu cha che",
+"letter": "T"
+},
+"pipeline-transport": {
+"key": "guan dao yun shu",
+"letter": "G"
+},
+"rocket": {
+"key": "huo jian",
+"letter": "H"
+},
+"rocket-equation": {
+"key": "huo jian fang cheng",
+"letter": "H"
+},
+"liquid-rocket-engine": {
+"key": "ye ti huo jian fa dong ji",
+"letter": "Y"
+},
+"solid-rocket": {
+"key": "gu ti huo jian",
+"letter": "G"
+},
+"v2-rocket": {
+"key": "v - 2 huo jian",
+"letter": "V"
+},
+"multistage-rocket": {
+"key": "duo ji huo jian",
+"letter": "D"
+},
+"reusable-rocket": {
+"key": "ke hui shou huo jian",
+"letter": "K"
+},
+"starship": {
+"key": "xing jian",
+"letter": "X"
+},
+"ion-thruster": {
+"key": "dian tui jin",
+"letter": "D"
+},
+"orbit": {
+"key": "gui dao yu yu zhou su du",
+"letter": "G"
+},
+"sputnik": {
+"key": "si pu te ni ke 1 hao",
+"letter": "S"
+},
+"space-race": {
+"key": "tai kong jing sai",
+"letter": "T"
+},
+"satellite": {
+"key": "ren zao wei xing",
+"letter": "R"
+},
+"geostationary-orbit": {
+"key": "di qiu jing zhi gui dao",
+"letter": "D"
+},
+"cubesat": {
+"key": "li fang xing yu xiao wei xing",
+"letter": "L"
+},
+"gnss": {
+"key": "wei xing dao hang",
+"letter": "W"
+},
+"remote-sensing": {
+"key": "yao gan yu dui di guan ce",
+"letter": "Y"
+},
+"weather-satellite": {
+"key": "qi xiang wei xing",
+"letter": "Q"
+},
+"spy-satellite": {
+"key": "zhen cha wei xing",
+"letter": "Z"
+},
+"space-debris": {
+"key": "tai kong la ji",
+"letter": "T"
+},
+"gagarin": {
+"key": "shou ci zai ren hang tian",
+"letter": "S"
+},
+"human-spaceflight": {
+"key": "zai ren hang tian",
+"letter": "Z"
+},
+"apollo": {
+"key": "a bo luo deng yue",
+"letter": "A"
+},
+"space-shuttle": {
+"key": "hang tian fei ji",
+"letter": "H"
+},
+"space-station": {
+"key": "kong jian zhan",
+"letter": "K"
+},
+"life-support": {
+"key": "sheng ming bao zhang xi tong",
+"letter": "S"
+},
+"reentry-heat-shield": {
+"key": "zai ru yu fang re",
+"letter": "Z"
+},
+"chinese-space-program": {
+"key": "zhong guo hang tian",
+"letter": "Z"
+},
+"spacesuit": {
+"key": "hang tian fu",
+"letter": "H"
+},
+"soyuz": {
+"key": "lian meng hao fei chuan",
+"letter": "L"
+},
+"space-tourism": {
+"key": "tai kong lv you",
+"letter": "T"
+},
+"space-probe": {
+"key": "kong jian tan ce qi",
+"letter": "K"
+},
+"gravity-assist": {
+"key": "yin li dan gong",
+"letter": "Y"
+},
+"nuclear-rtg": {
+"key": "fang she xing tong wei su dian chi",
+"letter": "F"
+},
+"mars-rover": {
+"key": "huo xing che",
+"letter": "H"
+},
+"space-telescope": {
+"key": "tai kong wang yuan jing",
+"letter": "T"
+},
+"lunar-return": {
+"key": "chong fan yue qiu",
+"letter": "C"
+},
+"planetary-defense": {
+"key": "xing xing fang yu",
+"letter": "X"
+},
+"commercial-spaceflight": {
+"key": "shang ye hang tian",
+"letter": "S"
+},
+"vaccine": {
+"key": "yi miao",
+"letter": "Y"
+},
+"smallpox-eradication": {
+"key": "tian hua gen chu",
+"letter": "T"
+},
+"epidemiology": {
+"key": "liu xing bing xue",
+"letter": "L"
+},
+"pasteurization": {
+"key": "ba shi xiao du",
+"letter": "B"
+},
+"germ-theory-applications": {
+"key": "xi jun xue yu bing yuan ti jian ce",
+"letter": "X"
+},
+"water-chlorination": {
+"key": "yin yong shui lv hua xiao du",
+"letter": "Y"
+},
+"oral-rehydration": {
+"key": "kou fu bu ye yan",
+"letter": "K"
+},
+"autoclave-sterilization": {
+"key": "gao ya zheng qi mie jun",
+"letter": "G"
+},
+"n95-respirator": {
+"key": "n 9 5 kou zhao",
+"letter": "N"
+},
+"drug-regulation": {
+"key": "yao wu jian guan",
+"letter": "Y"
+},
+"polio-vaccine": {
+"key": "ji sui hui zhi yan yi miao",
+"letter": "J"
+},
+"vitamins-fortification": {
+"key": "wei sheng su yu shi pin qiang hua",
+"letter": "W"
+},
+"ems-ambulance": {
+"key": "ji jiu yi liao ti xi",
+"letter": "J"
+},
+"anesthesia": {
+"key": "ma zui",
+"letter": "M"
+},
+"antiseptic": {
+"key": "wai ke xiao du yu wu jun shu",
+"letter": "W"
+},
+"surgery-modern": {
+"key": "xian dai wai ke",
+"letter": "X"
+},
+"syringe": {
+"key": "pi xia zhu she qi",
+"letter": "P"
+},
+"blood-transfusion": {
+"key": "shu xue yu xue xing",
+"letter": "S"
+},
+"heart-lung-machine": {
+"key": "xin fei ji",
+"letter": "X"
+},
+"dialysis": {
+"key": "tou xi",
+"letter": "T"
+},
+"pacemaker": {
+"key": "xin zang qi bo qi yu chu chan qi",
+"letter": "X"
+},
+"organ-transplant": {
+"key": "qi guan yi zhi",
+"letter": "Q"
+},
+"immunosuppression": {
+"key": "mian yi yi zhi ji",
+"letter": "M"
+},
+"artificial-joint": {
+"key": "ren gong guan jie",
+"letter": "R"
+},
+"minimally-invasive-surgery": {
+"key": "wei chuang shou shu",
+"letter": "W"
+},
+"surgical-robot": {
+"key": "shou shu ji qi ren",
+"letter": "S"
+},
+"cochlear-implant": {
+"key": "ren gong er wo",
+"letter": "R"
+},
+"smart-prosthetics": {
+"key": "zhi neng jia zhi",
+"letter": "Z"
+},
+"brain-computer-interface": {
+"key": "nao ji jie kou",
+"letter": "N"
+},
+"ventilator": {
+"key": "hu xi ji",
+"letter": "H"
+},
+"hearing-aid": {
+"key": "zhu ting qi",
+"letter": "Z"
+},
+"angioplasty-stent": {
+"key": "xue guan jie ru yu zhi jia",
+"letter": "X"
+},
+"tissue-engineering": {
+"key": "zu zhi gong cheng yu sheng wu da yin",
+"letter": "Z"
+},
+"cpr": {
+"key": "xin fei fu su yu a e d",
+"letter": "X"
+},
+"bone-marrow-transplant": {
+"key": "zao xue gan xi bao yi zhi",
+"letter": "Z"
+},
+"artificial-heart": {
+"key": "ren gong xin zang yu xin shi fu zhu zhuang zhi",
+"letter": "R"
+},
+"wheelchair": {
+"key": "xian dai lun yi",
+"letter": "X"
+},
+"refractive-surgery": {
+"key": "ren gong jing ti yu ji guang jiao shi",
+"letter": "R"
+},
+"modern-dentistry": {
+"key": "xian dai ya ke",
+"letter": "X"
+},
+"stethoscope": {
+"key": "ting zhen qi",
+"letter": "T"
+},
+"x-ray": {
+"key": "x she xian",
+"letter": "X"
+},
+"ct-scan": {
+"key": "c t ji suan ji duan ceng sao miao",
+"letter": "C"
+},
+"mri": {
+"key": "ci gong zhen cheng xiang",
+"letter": "C"
+},
+"medical-ultrasound": {
+"key": "chao sheng cheng xiang",
+"letter": "C"
+},
+"pet-scan": {
+"key": "zheng dian zi fa she duan ceng sao miao",
+"letter": "Z"
+},
+"ecg": {
+"key": "xin dian tu",
+"letter": "X"
+},
+"eeg": {
+"key": "nao dian tu",
+"letter": "N"
+},
+"endoscope": {
+"key": "nei kui jing",
+"letter": "N"
+},
+"pulse-oximeter": {
+"key": "mai bo xue yang yi",
+"letter": "M"
+},
+"rapid-diagnostic-test": {
+"key": "kuai su jian ce shi zhi",
+"letter": "K"
+},
+"continuous-glucose-monitor": {
+"key": "lian xu xue tang jian ce",
+"letter": "L"
+},
+"electronic-health-record": {
+"key": "dian zi bing li",
+"letter": "D"
+},
+"telemedicine": {
+"key": "yuan cheng yi liao",
+"letter": "Y"
+},
+"dna-profiling": {
+"key": "d n a zhi wen jian ding",
+"letter": "D"
+},
+"gel-electrophoresis": {
+"key": "ning jiao dian yong",
+"letter": "N"
+},
+"clinical-lab-test": {
+"key": "xue ye jian yan yu jian yan zi dong hua",
+"letter": "X"
+},
+"sphygmomanometer": {
+"key": "xue ya ji yu ti wen ji",
+"letter": "X"
+},
+"cancer-screening": {
+"key": "ai zheng shai cha",
+"letter": "A"
+},
+"aspirin": {
+"key": "a si pi lin",
+"letter": "A"
+},
+"antibiotic": {
+"key": "kang sheng su",
+"letter": "K"
+},
+"sulfa-drugs": {
+"key": "huang an yao",
+"letter": "H"
+},
+"antibiotic-resistance": {
+"key": "kang sheng su nai yao",
+"letter": "K"
+},
+"insulin": {
+"key": "yi dao su",
+"letter": "Y"
+},
+"drug-discovery": {
+"key": "yao wu yan fa",
+"letter": "Y"
+},
+"clinical-trial": {
+"key": "sui ji dui zhao shi yan",
+"letter": "S"
+},
+"oral-contraceptive": {
+"key": "kou fu bi yun yao",
+"letter": "K"
+},
+"chemotherapy": {
+"key": "hua liao",
+"letter": "H"
+},
+"radiation-therapy": {
+"key": "fang she zhi liao",
+"letter": "F"
+},
+"statin": {
+"key": "ta ting lei yao wu",
+"letter": "T"
+},
+"antiretroviral-therapy": {
+"key": "kang bing du yao yu ai zi bing zhi liao",
+"letter": "K"
+},
+"monoclonal-antibody": {
+"key": "dan ke long kang ti",
+"letter": "D"
+},
+"targeted-therapy": {
+"key": "ba xiang yao",
+"letter": "B"
+},
+"immunotherapy": {
+"key": "zhong liu mian yi liao fa",
+"letter": "Z"
+},
+"car-t": {
+"key": "c a r - t xi bao liao fa",
+"letter": "C"
+},
+"mrna-vaccine": {
+"key": "m r n a yi miao",
+"letter": "M"
+},
+"lipid-nanoparticle": {
+"key": "zhi zhi na mi ke li",
+"letter": "Z"
+},
+"glp1-drugs": {
+"key": "g l p - 1 lei yao wu",
+"letter": "G"
+},
+"artemisinin": {
+"key": "qing hao su",
+"letter": "Q"
+},
+"evidence-based-medicine": {
+"key": "xun zheng yi xue",
+"letter": "X"
+},
+"opioids": {
+"key": "ma fei yu a pian lei yao wu",
+"letter": "M"
+},
+"psychiatric-drugs": {
+"key": "jing shen lei yao wu",
+"letter": "J"
+},
+"dna-double-helix": {
+"key": "d n a shuang luo xuan",
+"letter": "D"
+},
+"genetic-code": {
+"key": "yi chuan mi ma",
+"letter": "Y"
+},
+"restriction-enzyme": {
+"key": "xian zhi xing nei qie mei",
+"letter": "X"
+},
+"recombinant-dna": {
+"key": "chong zu d n a yu ji yin gong cheng",
+"letter": "C"
+},
+"biotech-industry": {
+"key": "sheng wu ji shu chan ye",
+"letter": "S"
+},
+"pcr": {
+"key": "ju he mei lian shi fan ying",
+"letter": "J"
+},
+"dna-sequencing": {
+"key": "d n a ce xu",
+"letter": "D"
+},
+"human-genome-project": {
+"key": "ren lei ji yin zu ji hua",
+"letter": "R"
+},
+"ngs": {
+"key": "gao tong liang ce xu",
+"letter": "G"
+},
+"genetic-testing": {
+"key": "ji yin jian ce",
+"letter": "J"
+},
+"bioinformatics": {
+"key": "sheng wu xin xi xue",
+"letter": "S"
+},
+"crispr": {
+"key": "c r i s p r ji yin bian ji",
+"letter": "C"
+},
+"base-editing": {
+"key": "jian ji bian ji",
+"letter": "J"
+},
+"gene-therapy": {
+"key": "ji yin zhi liao",
+"letter": "J"
+},
+"cloning": {
+"key": "ke long",
+"letter": "K"
+},
+"stem-cells": {
+"key": "gan xi bao yu i p s xi bao",
+"letter": "G"
+},
+"organoid": {
+"key": "lei qi guan",
+"letter": "L"
+},
+"ivf": {
+"key": "shi guan ying er",
+"letter": "S"
+},
+"synthetic-biology": {
+"key": "he cheng sheng wu xue",
+"letter": "H"
+},
+"fermentation-bioreactor": {
+"key": "fa jiao gong cheng yu sheng wu fan ying qi",
+"letter": "F"
+},
+"protein-structure": {
+"key": "dan bai zhi jie gou jie xi",
+"letter": "D"
+},
+"microbiome": {
+"key": "ren ti wei sheng wu zu",
+"letter": "R"
+},
+"optogenetics": {
+"key": "guang yi chuan xue",
+"letter": "G"
+},
+"cell-culture": {
+"key": "xi bao pei yang yu h e l a xi bao",
+"letter": "X"
+},
+"rna-interference": {
+"key": "r n a gan rao yu he suan yao wu",
+"letter": "R"
+},
+"directed-evolution": {
+"key": "ding xiang jin hua yu dan bai zhi gong cheng",
+"letter": "D"
+},
+"seed-drill": {
+"key": "tiao bo ji",
+"letter": "T"
+},
+"crop-rotation": {
+"key": "nuo fu ke lun zuo zhi",
+"letter": "N"
+},
+"mechanical-reaper": {
+"key": "ji xie shou ge ji",
+"letter": "J"
+},
+"barbed-wire": {
+"key": "tie si wang",
+"letter": "T"
+},
+"tractor": {
+"key": "tuo la ji",
+"letter": "T"
+},
+"combine-harvester": {
+"key": "lian he shou ge ji",
+"letter": "L"
+},
+"chemical-fertilizer": {
+"key": "hua fei",
+"letter": "H"
+},
+"pesticide": {
+"key": "nong yao",
+"letter": "N"
+},
+"integrated-pest-management": {
+"key": "zong he chong hai guan li",
+"letter": "Z"
+},
+"plant-breeding": {
+"key": "xian dai yu zhong",
+"letter": "X"
+},
+"hybrid-corn": {
+"key": "za jiao yu mi",
+"letter": "Z"
+},
+"green-revolution": {
+"key": "lv se ge ming",
+"letter": "L"
+},
+"hybrid-rice": {
+"key": "za jiao shui dao",
+"letter": "Z"
+},
+"gmo-crops": {
+"key": "zhuan ji yin zuo wu",
+"letter": "Z"
+},
+"gene-edited-crops": {
+"key": "ji yin bian ji zuo wu",
+"letter": "J"
+},
+"conservation-agriculture": {
+"key": "bao hu xing geng zuo yu you ji nong ye",
+"letter": "B"
+},
+"livestock-breeding": {
+"key": "ren gong shou jing yu jia chu yu zhong",
+"letter": "R"
+},
+"seed-bank": {
+"key": "zhong zi ku",
+"letter": "Z"
+},
+"irrigation": {
+"key": "xian dai guan gai yu di guan",
+"letter": "X"
+},
+"precision-agriculture": {
+"key": "jing zhun nong ye",
+"letter": "J"
+},
+"agricultural-drone": {
+"key": "zhi bao wu ren ji",
+"letter": "Z"
+},
+"controlled-environment-agriculture": {
+"key": "she shi nong ye yu chui zhi nong chang",
+"letter": "S"
+},
+"hydroponics": {
+"key": "wu tu zai pei",
+"letter": "W"
+},
+"aquaculture": {
+"key": "shui chan yang zhi",
+"letter": "S"
+},
+"factory-farming": {
+"key": "ji yue hua yang zhi",
+"letter": "J"
+},
+"canning": {
+"key": "guan tou",
+"letter": "G"
+},
+"frozen-food": {
+"key": "su dong shi pin",
+"letter": "S"
+},
+"cold-chain": {
+"key": "leng lian wu liu",
+"letter": "L"
+},
+"instant-noodles": {
+"key": "fang bian mian",
+"letter": "F"
+},
+"cultured-meat": {
+"key": "xi bao pei yang rou",
+"letter": "X"
+},
+"plant-based-meat": {
+"key": "zhi wu rou",
+"letter": "Z"
+},
+"precision-fermentation": {
+"key": "jing mi fa jiao",
+"letter": "J"
+},
+"food-additives": {
+"key": "shi pin tian jia ji yu dai tang",
+"letter": "S"
+},
+"haccp": {
+"key": "shi pin an quan ti xi h a c c p",
+"letter": "S"
+},
+"portland-cement": {
+"key": "bo te lan shui ni",
+"letter": "B"
+},
+"reinforced-concrete": {
+"key": "gang jin hun ning tu",
+"letter": "G"
+},
+"prestressed-concrete": {
+"key": "yu ying li hun ning tu",
+"letter": "Y"
+},
+"steel-frame": {
+"key": "gang jie gou",
+"letter": "G"
+},
+"skyscraper": {
+"key": "mo tian da lou",
+"letter": "M"
+},
+"elevator": {
+"key": "an quan dian ti",
+"letter": "A"
+},
+"glass-curtain-wall": {
+"key": "bo li mu qiang",
+"letter": "B"
+},
+"prefabrication": {
+"key": "zhuang pei shi jian zhu",
+"letter": "Z"
+},
+"seismic-design": {
+"key": "kang zhen yu ge zhen she ji",
+"letter": "K"
+},
+"bim": {
+"key": "jian zhu xin xi mo xing",
+"letter": "J"
+},
+"construction-machinery": {
+"key": "gong cheng ji xie",
+"letter": "G"
+},
+"engineered-wood": {
+"key": "gong cheng mu",
+"letter": "G"
+},
+"finite-element-method": {
+"key": "you xian yuan fen xi",
+"letter": "Y"
+},
+"foundation-engineering": {
+"key": "di ji yu shen ji chu",
+"letter": "D"
+},
+"long-span-structures": {
+"key": "da kua du kong jian jie gou",
+"letter": "D"
+},
+"escalator": {
+"key": "zi dong fu ti",
+"letter": "Z"
+},
+"suspension-bridge": {
+"key": "xuan suo qiao yu xie la qiao",
+"letter": "X"
+},
+"tunnel-boring-machine": {
+"key": "dun gou yu sui dao jue jin ji",
+"letter": "D"
+},
+"dam": {
+"key": "xian dai da ba",
+"letter": "X"
+},
+"flood-control": {
+"key": "xian dai fang hong",
+"letter": "X"
+},
+"sea-crossing-link": {
+"key": "kua hai tong dao",
+"letter": "K"
+},
+"iron-bridge": {
+"key": "zhu tie qiao yu heng jia qiao",
+"letter": "Z"
+},
+"land-reclamation": {
+"key": "tian hai zao di yu shu jun",
+"letter": "T"
+},
+"sewer-system": {
+"key": "xian dai xia shui dao",
+"letter": "X"
+},
+"water-treatment": {
+"key": "zi lai shui chu li",
+"letter": "Z"
+},
+"flush-toilet": {
+"key": "chou shui ma tong",
+"letter": "C"
+},
+"central-heating": {
+"key": "ji zhong gong nuan",
+"letter": "J"
+},
+"fire-sprinkler": {
+"key": "zi dong pen lin mie huo",
+"letter": "Z"
+},
+"green-building": {
+"key": "lv se jian zhu yu bei dong fang",
+"letter": "L"
+},
+"urban-planning": {
+"key": "xian dai cheng shi gui hua",
+"letter": "X"
+},
+"smart-city": {
+"key": "zhi hui cheng shi",
+"letter": "Z"
+},
+"stormwater-management": {
+"key": "yu hong guan li yu hai mian cheng shi",
+"letter": "Y"
+},
+"smoke-detector": {
+"key": "yan wu bao jing qi",
+"letter": "Y"
+},
+"gis": {
+"key": "di li xin xi xi tong",
+"letter": "D"
+},
+"rifled-firearms": {
+"key": "xian tang qiang yu hou zhuang qiang",
+"letter": "X"
+},
+"assault-rifle": {
+"key": "tu ji bu qiang",
+"letter": "T"
+},
+"machine-gun": {
+"key": "ji qiang",
+"letter": "J"
+},
+"explosives": {
+"key": "xian dai zha yao",
+"letter": "X"
+},
+"smokeless-powder": {
+"key": "wu yan huo yao",
+"letter": "W"
+},
+"chemical-weapons": {
+"key": "hua xue wu qi",
+"letter": "H"
+},
+"tank": {
+"key": "tan ke",
+"letter": "T"
+},
+"aircraft-carrier": {
+"key": "hang kong mu jian",
+"letter": "H"
+},
+"submarine": {
+"key": "qian ting",
+"letter": "Q"
+},
+"sonar": {
+"key": "sheng na",
+"letter": "S"
+},
+"radar": {
+"key": "lei da",
+"letter": "L"
+},
+"torpedo": {
+"key": "yu lei",
+"letter": "Y"
+},
+"dreadnought": {
+"key": "tie jia jian yu wu wei jian",
+"letter": "T"
+},
+"fighter-aircraft": {
+"key": "zhan dou ji",
+"letter": "Z"
+},
+"awacs": {
+"key": "yu jing ji",
+"letter": "Y"
+},
+"biological-weapons": {
+"key": "sheng wu wu qi",
+"letter": "S"
+},
+"nonproliferation": {
+"key": "he bu kuo san",
+"letter": "H"
+},
+"nuclear-weapon": {
+"key": "he wu qi",
+"letter": "H"
+},
+"hydrogen-bomb": {
+"key": "qing dan",
+"letter": "Q"
+},
+"icbm": {
+"key": "zhou ji dan dao dao dan",
+"letter": "Z"
+},
+"cruise-missile": {
+"key": "xun hang dao dan",
+"letter": "X"
+},
+"precision-guided-munition": {
+"key": "jing que zhi dao wu qi",
+"letter": "J"
+},
+"missile-defense": {
+"key": "dao dan fang yu",
+"letter": "D"
+},
+"hypersonic-weapon": {
+"key": "gao chao sheng su wu qi",
+"letter": "G"
+},
+"stealth-technology": {
+"key": "yin shen ji shu",
+"letter": "Y"
+},
+"night-vision": {
+"key": "ye shi",
+"letter": "Y"
+},
+"electronic-warfare": {
+"key": "dian zi zhan",
+"letter": "D"
+},
+"military-drone": {
+"key": "jun yong wu ren ji",
+"letter": "J"
+},
+"directed-energy-weapon": {
+"key": "ding xiang neng wu qi",
+"letter": "D"
+},
+"body-armor": {
+"key": "fang dan yi",
+"letter": "F"
+},
+"enigma-codebreaking": {
+"key": "en ni ge ma yu mi ma po yi",
+"letter": "E"
+},
+"cryptography": {
+"key": "mi ma xue",
+"letter": "M"
+},
+"symmetric-encryption": {
+"key": "dui chen jia mi",
+"letter": "D"
+},
+"public-key-crypto": {
+"key": "gong yao mi ma",
+"letter": "G"
+},
+"digital-signature": {
+"key": "shu zi qian ming yu zheng shu",
+"letter": "S"
+},
+"authentication": {
+"key": "shen fen ren zheng",
+"letter": "S"
+},
+"biometrics": {
+"key": "sheng wu shi bie",
+"letter": "S"
+},
+"cybersecurity": {
+"key": "wang luo an quan",
+"letter": "W"
+},
+"malware": {
+"key": "e yi ruan jian",
+"letter": "E"
+},
+"ransomware": {
+"key": "le suo ruan jian",
+"letter": "L"
+},
+"vulnerability": {
+"key": "lou dong yu ling ri gong ji",
+"letter": "L"
+},
+"firewall": {
+"key": "fang huo qiang",
+"letter": "F"
+},
+"zero-trust": {
+"key": "ling xin ren jia gou",
+"letter": "L"
+},
+"stuxnet": {
+"key": "zhen wang bing du",
+"letter": "Z"
+},
+"video-surveillance": {
+"key": "shi pin jian kong",
+"letter": "S"
+},
+"rsa": {
+"key": "r s a suan fa",
+"letter": "R"
+},
+"end-to-end-encryption": {
+"key": "duan dao duan jia mi",
+"letter": "D"
+},
+"phishing": {
+"key": "wang luo diao yu yu she hui gong cheng",
+"letter": "W"
+},
+"cash-register": {
+"key": "shou yin ji",
+"letter": "S"
+},
+"stock-ticker": {
+"key": "gu piao bao jia ji",
+"letter": "G"
+},
+"barcode": {
+"key": "tiao xing ma",
+"letter": "T"
+},
+"qr-code": {
+"key": "er wei ma",
+"letter": "E"
+},
+"vending-machine": {
+"key": "zi dong shou huo ji",
+"letter": "Z"
+},
+"pos-terminal": {
+"key": "shua ka zhong duan p o s",
+"letter": "S"
+},
+"edi": {
+"key": "dian zi shu ju jiao huan",
+"letter": "D"
+},
+"self-checkout": {
+"key": "zi zhu shou yin yu wu ren shang dian",
+"letter": "Z"
+},
+"banknote-security": {
+"key": "chao piao fang wei ji shu",
+"letter": "C"
+},
+"credit-card": {
+"key": "xin yong ka",
+"letter": "X"
+},
+"card-network": {
+"key": "yin hang ka qing suan wang luo",
+"letter": "Y"
+},
+"atm": {
+"key": "zi dong gui yuan ji",
+"letter": "Z"
+},
+"emv-chip": {
+"key": "xin pian ka",
+"letter": "X"
+},
+"swift": {
+"key": "s w i f t yu kua jing zhi fu",
+"letter": "S"
+},
+"online-banking": {
+"key": "wang shang yin hang",
+"letter": "W"
+},
+"online-payment": {
+"key": "zai xian zhi fu",
+"letter": "Z"
+},
+"mobile-payment": {
+"key": "yi dong zhi fu",
+"letter": "Y"
+},
+"m-pesa": {
+"key": "m - p e s a shou ji qian bao",
+"letter": "M"
+},
+"real-time-payments": {
+"key": "shi shi zhi fu xi tong",
+"letter": "S"
+},
+"credit-scoring": {
+"key": "xin yong ping fen",
+"letter": "X"
+},
+"fraud-detection": {
+"key": "feng kong yu fan qi zha",
+"letter": "F"
+},
+"open-banking": {
+"key": "kai fang yin hang",
+"letter": "K"
+},
+"bank-computerization": {
+"key": "yin hang dian zi hua yu ci mo shui zi fu",
+"letter": "Y"
+},
+"clearing-settlement": {
+"key": "qing suan yu jie suan xi tong",
+"letter": "Q"
+},
+"electronic-trading": {
+"key": "dian zi jiao yi",
+"letter": "D"
+},
+"quantitative-finance": {
+"key": "liang hua jin rong",
+"letter": "L"
+},
+"high-frequency-trading": {
+"key": "gao pin jiao yi",
+"letter": "G"
+},
+"robo-advisor": {
+"key": "zhi neng tou gu",
+"letter": "Z"
+},
+"crowdfunding": {
+"key": "zhong chou yu wang luo jie dai",
+"letter": "Z"
+},
+"bitcoin": {
+"key": "bi te bi",
+"letter": "B"
+},
+"blockchain": {
+"key": "qu kuai lian",
+"letter": "Q"
+},
+"proof-of-work": {
+"key": "gong zuo liang zheng ming yu quan yi zheng ming",
+"letter": "G"
+},
+"smart-contract": {
+"key": "zhi neng he yue yu yi tai fang",
+"letter": "Z"
+},
+"stablecoin": {
+"key": "wen ding bi",
+"letter": "W"
+},
+"defi": {
+"key": "qu zhong xin hua jin rong",
+"letter": "Q"
+},
+"nft": {
+"key": "fei tong zhi hua dai bi",
+"letter": "F"
+},
+"cbdc": {
+"key": "yang hang shu zi huo bi",
+"letter": "Y"
+},
+"greenhouse-effect": {
+"key": "wen shi xiao ying",
+"letter": "W"
+},
+"keeling-curve": {
+"key": "ji lin qu xian",
+"letter": "J"
+},
+"climate-model": {
+"key": "qi hou mo xing",
+"letter": "Q"
+},
+"lifecycle-assessment": {
+"key": "sheng ming zhou qi ping jia yu tan zu ji",
+"letter": "S"
+},
+"numerical-weather-prediction": {
+"key": "shu zhi tian qi yu bao",
+"letter": "S"
+},
+"ice-core": {
+"key": "bing xin yu gu qi hou",
+"letter": "B"
+},
+"ocean-observing": {
+"key": "a r g o fu biao yu hai yang guan ce",
+"letter": "A"
+},
+"ghg-monitoring": {
+"key": "wen shi qi ti yu jia wan jian ce",
+"letter": "W"
+},
+"ipcc": {
+"key": "i p c c qi hou ping gu",
+"letter": "I"
+},
+"early-warning-systems": {
+"key": "zai hai yu jing xi tong",
+"letter": "Z"
+},
+"energy-transition": {
+"key": "neng yuan zhuan xing",
+"letter": "N"
+},
+"net-zero": {
+"key": "tan zhong he yu jing ling",
+"letter": "T"
+},
+"carbon-pricing": {
+"key": "tan ding jia yu tan jiao yi",
+"letter": "T"
+},
+"carbon-capture": {
+"key": "tan bu ji yu feng cun",
+"letter": "T"
+},
+"direct-air-capture": {
+"key": "zhi jie kong qi bu ji",
+"letter": "Z"
+},
+"green-steel": {
+"key": "lv se gang tie yu di tan shui ni",
+"letter": "L"
+},
+"sustainable-aviation-fuel": {
+"key": "ke chi xu hang kong ran liao",
+"letter": "K"
+},
+"carbon-dioxide-removal": {
+"key": "tan yi chu",
+"letter": "T"
+},
+"electrostatic-precipitator": {
+"key": "jing dian chu chen",
+"letter": "J"
+},
+"flue-gas-desulfurization": {
+"key": "yan qi tuo liu",
+"letter": "Y"
+},
+"catalytic-converter": {
+"key": "san yuan cui hua qi",
+"letter": "S"
+},
+"leaded-gasoline-phaseout": {
+"key": "tao tai han qian qi you",
+"letter": "T"
+},
+"montreal-protocol": {
+"key": "chou yang ceng bao hu",
+"letter": "C"
+},
+"wastewater-treatment": {
+"key": "wu shui chu li",
+"letter": "W"
+},
+"desalination": {
+"key": "hai shui dan hua",
+"letter": "H"
+},
+"eutrophication": {
+"key": "shui ti fu ying yang hua zhi li",
+"letter": "S"
+},
+"hepa-filter": {
+"key": "h e p a yu kong qi jing hua",
+"letter": "H"
+},
+"scr-denox": {
+"key": "yan qi tuo xiao",
+"letter": "Y"
+},
+"air-quality-monitoring": {
+"key": "kong qi zhi liang jian ce",
+"letter": "K"
+},
+"bioremediation": {
+"key": "huan jing xiu fu yu sheng wu xiu fu",
+"letter": "H"
+},
+"recycling": {
+"key": "zi yuan hui shou",
+"letter": "Z"
+},
+"plastic-recycling": {
+"key": "su liao hui shou yu wei su liao",
+"letter": "S"
+},
+"waste-to-energy": {
+"key": "la ji fen shao fa dian",
+"letter": "L"
+},
+"geoengineering": {
+"key": "di qiu gong cheng",
+"letter": "D"
+},
+"biogas": {
+"key": "zhao qi yu yan yang xiao hua",
+"letter": "Z"
+},
+"sanitary-landfill": {
+"key": "wei sheng tian mai",
+"letter": "W"
+},
+"photography": {
+"key": "she ying",
+"letter": "S"
+},
+"film-roll": {
+"key": "jiao juan yu ping jia xiang ji",
+"letter": "J"
+},
+"color-photography": {
+"key": "cai se she ying",
+"letter": "C"
+},
+"digital-camera": {
+"key": "shu ma xiang ji",
+"letter": "S"
+},
+"camera-phone": {
+"key": "shou ji she ying yu ji suan she ying",
+"letter": "S"
+},
+"thermal-imaging": {
+"key": "hong wai re cheng xiang",
+"letter": "H"
+},
+"pixel": {
+"key": "xiang su yu shu zi tu xiang",
+"letter": "X"
+},
+"phonograph": {
+"key": "liu sheng ji",
+"letter": "L"
+},
+"microphone-speaker": {
+"key": "mai ke feng yu yang sheng qi",
+"letter": "M"
+},
+"magnetic-recording": {
+"key": "ci xing lu yin",
+"letter": "C"
+},
+"portable-audio": {
+"key": "sui shen ting yu bian xie yin yue",
+"letter": "S"
+},
+"digital-audio": {
+"key": "shu zi yin pin yu c d",
+"letter": "S"
+},
+"mp3": {
+"key": "m p 3 yu yin pin ya suo",
+"letter": "M"
+},
+"motion-picture": {
+"key": "dian ying",
+"letter": "D"
+},
+"sound-film": {
+"key": "you sheng dian ying",
+"letter": "Y"
+},
+"television": {
+"key": "dian shi",
+"letter": "D"
+},
+"color-television": {
+"key": "cai se dian shi",
+"letter": "C"
+},
+"vcr": {
+"key": "lu xiang ji",
+"letter": "L"
+},
+"video-codec": {
+"key": "shi pin bian ma",
+"letter": "S"
+},
+"jpeg": {
+"key": "j p e g tu xiang ya suo",
+"letter": "J"
+},
+"vr-ar": {
+"key": "xu ni xian shi yu zeng qiang xian shi",
+"letter": "X"
+},
+"digital-tv": {
+"key": "shu zi dian shi",
+"letter": "S"
+},
+"metaverse": {
+"key": "yuan yu zhou",
+"letter": "Y"
+},
+"rotary-printing": {
+"key": "zheng qi yin shua yu lun zhuan yin shua ji",
+"letter": "Z"
+},
+"typewriter": {
+"key": "da zi ji",
+"letter": "D"
+},
+"computer-keyboard": {
+"key": "jian pan yu shu ru fa",
+"letter": "J"
+},
+"photocopier": {
+"key": "fu yin ji",
+"letter": "F"
+},
+"laser-printer": {
+"key": "ji guang yu pen mo da yin",
+"letter": "J"
+},
+"inkjet-printing": {
+"key": "pen mo da yin",
+"letter": "P"
+},
+"e-reader": {
+"key": "dian zi shu yu yue du qi",
+"letter": "D"
+},
+"digital-typography": {
+"key": "shu zi pai ban yu zi ti",
+"letter": "S"
+},
+"laser": {
+"key": "ji guang",
+"letter": "J"
+},
+"holography": {
+"key": "quan xi shu",
+"letter": "Q"
+},
+"spectroscopy": {
+"key": "guang pu xue",
+"letter": "G"
+},
+"x-ray-crystallography": {
+"key": "x she xian jing ti xue",
+"letter": "X"
+},
+"electron-microscope": {
+"key": "dian zi xian wei jing",
+"letter": "D"
+},
+"stm": {
+"key": "sao miao sui dao xian wei jing",
+"letter": "S"
+},
+"radio-telescope": {
+"key": "she dian wang yuan jing",
+"letter": "S"
+},
+"adaptive-optics": {
+"key": "zi shi ying guang xue",
+"letter": "Z"
+},
+"atomic-clock": {
+"key": "yuan zi zhong",
+"letter": "Y"
+},
+"si-units": {
+"key": "guo ji dan wei zhi",
+"letter": "G"
+},
+"radiocarbon-dating": {
+"key": "fang she xing tan ding nian",
+"letter": "F"
+},
+"optical-microscopy": {
+"key": "xian dai guang xue xian wei shu",
+"letter": "X"
+},
+"large-optical-telescope": {
+"key": "da xing guang xue wang yuan jing",
+"letter": "D"
+},
+"geiger-counter": {
+"key": "gai ge ji shu qi",
+"letter": "G"
+},
+"seismometer": {
+"key": "di zhen yi",
+"letter": "D"
+},
+"time-standard": {
+"key": "biao zhun shi jian yu shi qu",
+"letter": "B"
+},
+"quantum-computer": {
+"key": "liang zi ji suan ji",
+"letter": "L"
+},
+"qubit": {
+"key": "liang zi bi te",
+"letter": "L"
+},
+"shor-algorithm": {
+"key": "s h o r suan fa",
+"letter": "S"
+},
+"quantum-hardware": {
+"key": "liang zi ji suan ji shu lu xian",
+"letter": "L"
+},
+"quantum-error-correction": {
+"key": "liang zi jiu cuo",
+"letter": "L"
+},
+"quantum-advantage": {
+"key": "liang zi you yue xing",
+"letter": "L"
+},
+"quantum-communication": {
+"key": "liang zi tong xin",
+"letter": "L"
+},
+"quantum-sensing": {
+"key": "liang zi chuan gan",
+"letter": "L"
+},
+"post-quantum-crypto": {
+"key": "hou liang zi mi ma",
+"letter": "H"
+},
+"quantum-simulation": {
+"key": "liang zi mo ni",
+"letter": "L"
+},
+"superconductivity": {
+"key": "chao dao",
+"letter": "C"
+},
+"particle-accelerator": {
+"key": "li zi jia su qi",
+"letter": "L"
+},
+"synchrotron-light-source": {
+"key": "tong bu fu she guang yuan",
+"letter": "T"
+},
+"gravitational-wave-detector": {
+"key": "yin li bo tan ce qi",
+"letter": "Y"
+},
+"high-temperature-superconductor": {
+"key": "gao wen chao dao",
+"letter": "G"
+},
+"cold-atoms": {
+"key": "ji guang leng que yu leng yuan zi",
+"letter": "J"
+},
+"ultrafast-laser": {
+"key": "chao kuai ji guang yu a miao mai chong",
+"letter": "C"
+},
+"neuromorphic-computing": {
+"key": "lei nao ji suan",
+"letter": "L"
+},
+"photonic-computing": {
+"key": "gui guang yu guang ji suan",
+"letter": "G"
+},
+"spintronics": {
+"key": "zi xuan dian zi xue",
+"letter": "Z"
+},
+"mram": {
+"key": "ci zu cun chu qi",
+"letter": "C"
+},
+"quantum-dot": {
+"key": "liang zi dian",
+"letter": "L"
+},
+"dna-data-storage": {
+"key": "d n a cun chu",
+"letter": "D"
+},
+"exascale-computing": {
+"key": "e ji chao suan",
+"letter": "E"
+},
+"self-driving-lab": {
+"key": "zi dong hua shi yan shi",
+"letter": "Z"
+},
+"molecular-machine": {
+"key": "fen zi ji qi",
+"letter": "F"
+},
+"memristor": {
+"key": "yi zu qi yu cun nei ji suan",
+"letter": "Y"
+},
+"mof": {
+"key": "jin shu you ji kuang jia",
+"letter": "J"
+},
+"topological-materials": {
+"key": "tuo pu cai liao",
+"letter": "T"
+},
+"artificial-photosynthesis": {
+"key": "ren gong guang he zuo yong",
+"letter": "R"
+}
+}

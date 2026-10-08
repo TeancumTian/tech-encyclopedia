@@ -1,0 +1,89 @@
+# electronics | 电与电子 | Electricity & Electronics | 从驯服闪电到在指甲盖上放下几百亿个开关
+## 电的驯服
+lightning-rod | 避雷针 | Lightning rod | C | 1752 | 用接地导线把雷电引入大地，是人类第一次用电学知识保护自己。 | grounding-safety | charge
+electron-discovery | 电子的发现 | Discovery of the electron | C | 1897 | 汤姆孙证明阴极射线是带负电的微粒，电子学从此有了"主角"。 | vacuum-tube, crt | charge
+electromagnet | 电磁铁 | Electromagnet | C | 1824 | 线圈通电就有磁性、断电就消失，是继电器、电机和磁悬浮的基础。 | relay, electric-motor, maglev | lorentz
+relay | 继电器 | Relay | C | 1835 | 用小电流控制电磁铁去开关大电流，是电报和早期计算机的"开关"。 | telegraph, electromagnet, logic-gate | lorentz, boolean
+electric-generator | 发电机 | Electric generator | A | 1831 | 让线圈在磁场中旋转产生电流，把机械能变成电能，几乎所有电力都来自它。 | electric-motor, steam-turbine, power-grid | induction, energy
+electric-motor | 电动机 | Electric motor | A | 1834 | 让通电线圈在磁场中受力旋转，把电能变成机械能，驱动从风扇到高铁的一切。 | electric-generator, induction-motor, electric-vehicle | lorentz
+induction-motor | 感应电机 | Induction motor | B | 1888 | 用三相交流电产生旋转磁场，"拖着"转子转，无需电刷，结实耐用。 | three-phase-power, electric-motor | induction, lorentz
+bldc-motor | 无刷直流电机 | Brushless DC motor | C |  | 用电子电路代替电刷换向的电机，高效安静，用于无人机、硬盘和电动车。 | electric-motor, power-electronics, drone | lorentz
+transformer-electrical | 变压器 | Transformer | A | 1885 | 两组线圈共用一个铁芯，靠电磁感应把交流电升压或降压。 | alternating-current, power-grid, war-of-currents | induction
+alternating-current | 交流电 | Alternating current (AC) | B |  | 方向周期性来回变化的电流，最大优点是能用变压器轻松改变电压。 | transformer-electrical, three-phase-power, war-of-currents | induction
+three-phase-power | 三相电 | Three-phase power | C | 1891 | 三路相位错开 120° 的交流电，输电省铜，天然产生旋转磁场驱动电机。 | induction-motor, power-grid | induction
+grounding-safety | 断路器与电气安全 | Circuit breakers & electrical safety | C |  | 保险丝、断路器和漏电保护在电流异常时自动断电，防止火灾和触电。 | power-grid, lightning-rod | ohm
+electrification | 电气化 | Electrification | B |  | 用电网把电送进工厂和家庭，让动力可以按需分配，重塑了生产和生活。 | power-grid, second-industrial-revolution, electric-motor | network, scale
+## 电力电子
+power-electronics | 电力电子 | Power electronics | B |  | 用高速开关的半导体把电"切碎再拼接"，自由变换电压、频率和交直流。 | inverter, igbt, wide-bandgap-semiconductor | ohm
+inverter | 逆变器 | Inverter | B |  | 把直流电变成交流电，是光伏、电池储能和电动车驱动的关键部件。 | power-electronics, solar-pv, electric-vehicle | ohm
+igbt | IGBT | Insulated-gate bipolar transistor (IGBT) | C | 1982 | 兼具 MOSFET 易驱动和双极管耐大电流特点的功率开关，被称作电力电子的"CPU"。 | power-electronics, high-speed-rail, electric-vehicle | band
+wide-bandgap-semiconductor | 碳化硅与氮化镓 | Wide-bandgap semiconductors (SiC, GaN) | C |  | 禁带更宽的半导体耐压、耐热、开关更快，让快充头和电动车电驱更小更省电。 | power-electronics, igbt, led | band
+switching-power-supply | 开关电源 | Switched-mode power supply | C |  | 用每秒几万到几百万次的通断来变压，比老式变压器电源小而高效。 | power-electronics, transformer-electrical | induction
+## 电子元件
+vacuum-tube | 真空管 | Vacuum tube | A | 1904 | 在真空中用电压控制电子流，第一次实现了电信号的放大和开关。 | transistor, radio, eniac | charge
+capacitor-resistor-inductor | 电阻、电容、电感 | Resistors, capacitors & inductors | B |  | 三种最基本的被动元件：电阻限流、电容存电荷、电感存磁能，组合起来能滤波、定时、选频。 | pcb, crystal-oscillator | ohm, charge, induction
+feedback-amplifier | 负反馈放大器 | Negative-feedback amplifier | C | 1927 | 把一部分输出反向送回输入，牺牲一点增益换来稳定和低失真，是电子学最重要的技巧之一。 | op-amp, vacuum-tube, control-theory | feedback
+op-amp | 运算放大器 | Operational amplifier | C | 1947 | 增益极高的通用放大器，配几个电阻电容就能加减、积分、滤波。 | feedback-amplifier, analog-digital | feedback
+crystal-oscillator | 晶体振荡器 | Crystal oscillator | C | 1921 | 利用石英片的压电共振产生极稳定的频率，是电脑、手机和石英表的"心跳"。 | quartz-watch, piezoelectric-effect, cpu | wave
+pcb | 印刷电路板 | Printed circuit board (PCB) | B | 1936 | 用蚀刻铜箔代替手工飞线连接元件，让电子产品可以大规模制造。 | capacitor-resistor-inductor, integrated-circuit | ohm, standard
+## 半导体与芯片
+semiconductor | 半导体 | Semiconductor | A |  | 导电性介于导体和绝缘体之间、能被精确调控的材料，硅是其中的主角。 | pn-junction, transistor, silicon-wafer | band
+pn-junction | PN结与二极管 | p–n junction & diode | A | 1940 | 把 P 型和 N 型半导体贴在一起，电流只能单向通过；它是二极管、LED、太阳能电池的核心。 | semiconductor, led, solar-pv | band
+transistor | 晶体管 | Transistor | A | 1947 | 用一个小信号控制大电流的半导体开关和放大器，是现代电子学的基本单元。 | vacuum-tube, mosfet, integrated-circuit | band, boolean
+mosfet | MOSFET | Metal–oxide–semiconductor field-effect transistor | A | 1959 | 用栅极电压在硅表面"打开"一条导电沟道的晶体管，几乎所有芯片都由它构成。 | transistor, cmos, process-node | band, charge
+cmos | CMOS | Complementary MOS (CMOS) | B | 1963 | 把 N 型和 P 型 MOSFET 成对使用，静止时几乎不耗电，成为数字芯片的标准工艺。 | mosfet, logic-gate, image-sensor | band, boolean
+integrated-circuit | 集成电路 | Integrated circuit (IC) | A | 1958 | 把晶体管、电阻和连线一次性做在同一块硅片上，开启了芯片时代。 | transistor, planar-process, moores-law | scale, abstraction
+planar-process | 平面工艺 | Planar process | C | 1959 | 用氧化层保护硅表面、层层光刻扩散制造器件，让集成电路可以批量生产。 | integrated-circuit, photolithography | structure
+moores-law | 摩尔定律 | Moore's law | A | 1965 | 芯片上的晶体管数量大约每两年翻一番——它是经验规律和行业目标，而非物理定律。 | dennard-scaling, process-node, integrated-circuit | exponential, scale
+dennard-scaling | 登纳德缩放 | Dennard scaling | B | 1974 | 晶体管缩小时电压和电流同比缩小，功率密度不变；约 2005 年失效后 CPU 转向多核。 | moores-law, multicore, cpu | heat, scale
+soc | 片上系统 | System on a chip (SoC) | B |  | 把 CPU、GPU、内存控制器、基带、AI 单元等整个系统做进一颗芯片，是手机的心脏。 | integrated-circuit, smartphone, arm-architecture | division, scale
+## 芯片制造
+silicon-wafer | 单晶硅与晶圆 | Silicon wafer | B | 1916 | 把高纯硅熔化拉成单晶硅棒再切成薄圆片，芯片就"印"在这张圆片上。 | semiconductor, photolithography | structure
+photolithography | 光刻 | Photolithography | A |  | 像照相一样用光把电路图案投影到涂了光刻胶的晶圆上，是芯片制造最关键的一步。 | euv-lithography, silicon-wafer, process-node | optics, wave
+euv-lithography | 极紫外光刻 | Extreme ultraviolet (EUV) lithography | B | 2019 | 用 13.5 纳米波长的极紫外光刻出更细的线条；目前只有荷兰 ASML 能造整机。 | photolithography, process-node, semiconductor-geopolitics | wave, optics
+cleanroom | 洁净室 | Cleanroom | C |  | 每立方米空气中尘埃颗粒被严格控制的车间，一粒灰尘就可能毁掉一颗芯片。 | photolithography, silicon-wafer | diffusion
+doping | 掺杂与离子注入 | Doping & ion implantation | C |  | 向硅中加入微量硼或磷，精确改变它导电的方式和强弱。 | semiconductor, pn-junction | band, diffusion
+etching-deposition | 刻蚀与薄膜沉积 | Etching & thin-film deposition | C |  | 一层层"长膜"再按图形"挖掉"，重复几十上百次堆出芯片的立体结构。 | photolithography, finfet | bond
+finfet | FinFET 与 GAA | FinFET & gate-all-around | B | 2011 | 把晶体管沟道立成"鳍"或"纳米片"，让栅极从多面包住它，以抑制漏电继续微缩。 | mosfet, process-node | tunneling, band
+process-node | 工艺节点 | Process node | B |  | "7nm、3nm"等是工艺代际的商业名称，已不再等于任何实际尺寸，但越小代表越密越省电。 | moores-law, finfet, foundry-model | scale, tunneling
+foundry-model | 晶圆代工模式 | Foundry model | B | 1987 | 台积电开创"只制造、不设计"的代工模式，让无晶圆厂芯片公司大量涌现。 | eda, process-node, semiconductor-geopolitics | division, scale
+eda | 电子设计自动化 | Electronic design automation (EDA) | B |  | 用软件设计、仿真和验证有数十亿晶体管的芯片，没有它现代芯片无法被设计出来。 | foundry-model, integrated-circuit | abstraction
+chiplet | 小芯片与先进封装 | Chiplets & advanced packaging | B |  | 把大芯片拆成几块小芯片再紧密封装在一起，良率更高，也能混用不同工艺。 | integrated-circuit, gpu, process-node | division, scale
+semiconductor-geopolitics | 半导体供应链与出口管制 | Semiconductor supply chain & export controls | C | 2022 | 芯片供应链高度集中在少数国家和公司，已成为大国科技竞争的焦点。 | foundry-model, euv-lithography | division
+## 信号与电路
+analog-digital | 模拟与数字信号 | Analog vs. digital signals | B |  | 模拟信号连续变化、容易受噪声影响；数字信号只取 0 和 1，可以无损复制和纠错。 | adc, digital-signal-processing | sampling, redundancy
+adc | 模数与数模转换 | ADC / DAC | C |  | 把连续的电压按时间采样、按大小量化成数字，或反过来还原成电压。 | analog-digital, mp3, image-sensor | sampling
+fpga | FPGA 可编程逻辑芯片 | Field-programmable gate array (FPGA) | B | 1985 | 出厂后还能反复"重新接线"的芯片，用于原型验证、通信和低延迟计算。 | asic, logic-gate | boolean, abstraction
+asic | 专用集成电路 | Application-specific integrated circuit (ASIC) | C |  | 为单一任务定制的芯片，效率最高但设计贵、改不了，比特币矿机和 AI 芯片都属于此类。 | fpga, ai-accelerator | scale
+oscilloscope | 示波器 | Oscilloscope | C | 1897 | 把电压随时间的变化画成波形，是电子工程师的"眼睛"。 | crt, analog-digital | sampling
+## 显示与传感
+crt | 阴极射线管 | Cathode-ray tube (CRT) | B | 1897 | 用磁场偏转电子束扫描荧光屏发光，统治电视和显示器半个多世纪。 | television, electron-discovery | lorentz
+lcd | 液晶显示 | Liquid-crystal display (LCD) | B | 1968 | 用电压扭转液晶分子来控制背光能否透过，让显示器变得又薄又省电。 | oled, crt, touchscreen | optics, structure
+led | 发光二极管 | Light-emitting diode (LED) | A | 1962 | 电子与空穴在 PN 结复合时直接发光；蓝光 LED 突破后诞生了白光照明。 | pn-junction, oled, incandescent-bulb | levels, band
+oled | 有机发光二极管 | OLED | B | 1987 | 每个像素自己发光的有机材料显示，黑色更纯、可以弯折。 | lcd, led, microled | levels
+microled | Micro LED | Micro LED | C |  | 用微米级 LED 当像素，亮度高寿命长，量产难度大。 | led, oled | levels
+touchscreen | 触摸屏 | Touchscreen | B | 1965 | 电容屏感知手指引起的微小电容变化来定位触点，使手机可以全屏交互。 | smartphone, lcd | charge
+e-ink | 电子墨水 | Electronic paper (E Ink) | C | 1997 | 用电场移动带电颜料微粒显示图像，断电也能保持，像纸一样不刺眼。 | lcd | charge
+image-sensor | 图像传感器 | Image sensor (CCD / CMOS) | B | 1969 | 把光变成电荷再读出成数字的芯片，是相机和手机摄像头的"胶片"。 | digital-camera, cmos, photography | photoelectric, sampling
+mems | 微机电系统 | Microelectromechanical systems (MEMS) | B |  | 用芯片工艺造出微米级的机械结构，如手机里的加速度计、陀螺仪和麦克风。 | sensors, smartphone, inkjet-printing | newton, structure
+sensors | 传感器 | Sensors | B |  | 把温度、压力、光、加速度等物理量变成电信号的器件，是机器的"感官"。 | mems, iot, image-sensor | feedback
+hall-sensor | 霍尔传感器 | Hall-effect sensor | C | 1879 | 磁场让导体中电流偏向一侧形成电压，用来测转速、位置和电流。 | sensors, bldc-motor | lorentz
+piezoelectric-effect | 压电效应 | Piezoelectric effect | C | 1880 | 某些晶体受压会产生电压、加电压会变形，用于点火器、超声和石英钟。 | crystal-oscillator, medical-ultrasound | structure
+thermoelectric-effect | 热电效应 | Thermoelectric effect | C | 1821 | 两种金属接头有温差就产生电压（反之亦然），用于测温和无运动部件的制冷。 | nuclear-rtg | heat
+## 消费电子
+microwave-oven | 微波炉 | Microwave oven | C | 1945 | 用约 2.45 GHz 的微波让食物中的水分子来回转动摩擦生热。 | magnetron | emwave
+magnetron | 磁控管 | Cavity magnetron | C | 1940 | 在磁场中让电子绕圈产生大功率微波的真空管，先用于雷达后用于微波炉。 | radar, microwave-oven | lorentz, wave
+transistor-radio | 晶体管收音机 | Transistor radio | C | 1954 | 第一种大众化的晶体管产品，让收音机变得能装进口袋。 | transistor, radio | band
+electronic-calculator | 电子计算器 | Electronic calculator | C | 1967 | 把计算从机械齿轮搬到芯片上，直接催生了第一款商用微处理器。 | microprocessor, integrated-circuit | boolean
+quartz-watch | 石英表 | Quartz watch | C | 1969 | 用每秒振动 32768 次的石英晶体计时，误差比机械表小一个数量级以上。 | crystal-oscillator | wave
+wearable-device | 可穿戴设备 | Wearable devices | C |  | 手表、手环、耳机等贴身电子设备，持续采集心率、运动、睡眠等数据。 | sensors, continuous-glucose-monitor, smartphone | feedback
+open-hardware | 开源硬件 | Open-source hardware (Arduino, Raspberry Pi) | C | 2005 | 设计公开、价格低廉的开发板，让学生和创客也能做出电子原型。 | embedded-system, open-source | standard
+wireless-charging | 无线充电 | Wireless charging | C |  | 发射线圈的交变磁场在接收线圈中感应出电流，不插线就能充电。 | transformer-electrical, smartphone | induction
+remote-control | 遥控器 | Remote control | C | 1955 | 用看不见的红外光或无线电把按键指令"扔"给电视等设备，让人不用起身就能操作。 | led, television, bluetooth | emwave
+## 家用电器
+home-refrigerator | 家用冰箱 | Domestic refrigerator | C | 1927 | 封闭压缩机让冰箱安静可靠地走进家庭，改变了买菜和饮食方式。 | refrigeration, cold-chain | phase, entropy
+washing-machine | 洗衣机 | Washing machine | C | 1908 | 电动洗衣机把每周最繁重的家务交给电机，是解放家务劳动的标志。 | electric-motor, detergent | leverage
+vacuum-cleaner | 吸尘器 | Vacuum cleaner | C | 1901 | 用电动风机制造负压吸走灰尘，后来发展出能自主导航的扫地机器人。 | electric-motor, mobile-robot | fluid
+induction-cooker | 电磁炉 | Induction cooker | C | 1971 | 线圈产生交变磁场，在铁锅底部感应出涡流直接发热，灶面本身不热。 | transformer-electrical, power-electronics | induction
+rice-cooker | 电饭煲 | Electric rice cooker | C | 1955 | 水烧干后锅底温度超过 100°C，感温元件自动断电——一个巧妙的物理开关。 | thermostat | phase, feedback
+thermostat | 恒温器 | Thermostat | C | 1885 | 感知温度并自动开关加热或制冷，是最常见的负反馈装置；如今的智能温控器还能学习习惯。 | control-theory, smart-home, air-conditioning | feedback

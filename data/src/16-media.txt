@@ -1,0 +1,53 @@
+# media | 光学、成像与媒体 | Optics, Imaging & Media | 记录、复制、传播：把光和声音变成可以保存的东西
+## 摄影与影像
+photography | 摄影 | Photography | A | 1839 | 用透镜成像、感光材料记录光影；达盖尔银版法于 1839 年公开。 | film-roll, digital-camera, image-sensor | optics, photoelectric
+film-roll | 胶卷与平价相机 | Roll film & consumer cameras | C | 1888 | 柯达"你按快门，其余交给我们"，让摄影进入普通家庭。 | photography, celluloid, motion-picture | polymer
+color-photography | 彩色摄影 | Color photography | C | 1935 | 柯达克罗姆等多层彩色胶片让彩色照片普及。 | photography, film-roll | levels
+digital-camera | 数码相机 | Digital camera | B | 1975 | 用图像传感器代替胶片，照片变成数据；发明它的柯达后来被它颠覆。 | image-sensor, jpeg, camera-phone | photoelectric, sampling
+camera-phone | 手机摄影与计算摄影 | Camera phones & computational photography | C | 2000 | 手机摄像头加上多帧合成和 AI 算法，小镜头也能拍出好照片。 | digital-camera, smartphone, image-sensor | sampling, probability
+thermal-imaging | 红外热成像 | Thermal imaging | C |  | 探测物体自身发出的红外辐射，"看见"温度分布，用于测温、夜视和检修。 | night-vision, image-sensor | heat, emwave
+pixel | 像素与数字图像 | Pixel & digital image | C |  | 把图像切成网格，每个格子用几个数字记录颜色；分辨率就是格子的多少。 | image-sensor, jpeg, lcd | sampling
+## 声音
+phonograph | 留声机 | Phonograph | B | 1877 | 爱迪生用针在锡箔上刻下声音振动的轨迹，第一次让声音可以被录下并重放。 | magnetic-recording, digital-audio | wave
+microphone-speaker | 麦克风与扬声器 | Microphone & loudspeaker | C | 1876 | 麦克风把声波变成电信号，扬声器反过来用电流推动纸盆发声。 | telephone, radio-broadcasting | induction, lorentz
+magnetic-recording | 磁性录音 | Magnetic recording | C | 1898 | 用磁化强弱记录声音，后来发展出磁带、录像带和硬盘。 | phonograph, magnetic-tape, vcr | induction
+portable-audio | 随身听与便携音乐 | Walkman & portable music | C | 1979 | 索尼随身听让音乐可以随身携带，后来 MP3 播放器和手机延续了这一路线。 | magnetic-recording, mp3 | scale
+digital-audio | 数字音频与 CD | Digital audio & the CD | C | 1982 | 每秒采样 44100 次、每次 16 位，把音乐变成数字，复制不失真。 | optical-disc, adc, mp3 | sampling
+mp3 | MP3 与音频压缩 | MP3 & audio compression | B | 1993 | 利用人耳听不到被掩蔽的声音这一特点丢掉冗余信息，文件缩小约十倍。 | data-compression, digital-audio, streaming-media | info, sampling
+## 电影与电视
+motion-picture | 电影 | Motion picture | B | 1895 | 每秒连续放映十几到二十几张照片，利用视觉暂留形成动态画面。 | film-roll, sound-film | sampling
+sound-film | 有声电影 | Sound film | C | 1927 | 把声音以光学轨迹印在胶片边缘，与画面同步播放。 | motion-picture, microphone-speaker | sampling
+television | 电视 | Television | A | 1926 | 把画面逐行扫描成电信号、通过无线电发送、在接收端重新扫描还原。 | crt, radio-broadcasting, color-television | emwave, sampling
+color-television | 彩色电视 | Color television | C | 1953 | 用红绿蓝三基色合成所有颜色，并兼容黑白电视。 | television, crt | levels
+vcr | 录像机 | Video tape recorder (VTR / VCR) | C | 1956 | 把电视信号录在磁带上，让人可以在家随时观看节目。 | magnetic-recording, television | induction
+video-codec | 视频编码 | Video compression (H.264 etc.) | C | 2003 | 只记录画面之间的变化和人眼敏感的信息，把视频压缩上百倍。 | data-compression, streaming-media, jpeg | info
+jpeg | JPEG 图像压缩 | JPEG | C | 1992 | 把图像分成小块、去掉人眼不敏感的高频细节，是最常用的照片格式。 | data-compression, digital-camera | info, sampling
+vr-ar | 虚拟现实与增强现实 | Virtual & augmented reality | B | 1968 | 用头戴显示器把人带进虚拟世界（VR）或在现实上叠加信息（AR）。 | computer-graphics, mems, game-engine | optics
+digital-tv | 数字电视 | Digital television | C | 1998 | 把电视信号数字化压缩传输，同一频道可传多套高清节目。 | video-codec, television | sampling, info
+metaverse | 元宇宙 | Metaverse | C | 2021 | 持续存在、多人共享的三维虚拟空间设想，2021 年成为热词，落地远低于预期。 | vr-ar, game-engine | network
+## 印刷与办公
+rotary-printing | 蒸汽印刷与轮转印刷机 | Steam & rotary printing press | C | 1814 | 用蒸汽动力和滚筒连续印刷，每小时数千到数万张，让报纸成为大众媒体。 | paper-machine, typewriter | leverage, scale
+typewriter | 打字机 | Typewriter | C | 1868 | 按键驱动字锤把字母打到纸上，QWERTY 键盘布局沿用至今。 | word-processor, computer-keyboard | standard
+computer-keyboard | 键盘与输入法 | Keyboard & input methods | C |  | 把按键变成字符编码；拼音和五笔等输入法解决了汉字输入难题。 | typewriter, unicode | standard
+photocopier | 复印机 | Photocopier | C | 1959 | 利用静电吸附墨粉复制文件，施乐 914 让复印成为办公日常。 | laser-printer, photography | charge, photoelectric
+laser-printer | 激光与喷墨打印 | Laser & inkjet printing | C | 1971 | 激光在感光鼓上"画"出静电图像吸附墨粉；喷墨则把微小墨滴精确喷到纸上。 | photocopier, laser, 3d-printing | charge, optics
+inkjet-printing | 喷墨打印 | Inkjet printing | C | 1977 | 用热气泡或压电陶瓷把皮升级墨滴精确喷到纸面，也用于 3D 打印和 OLED 制造。 | laser-printer, piezoelectric-effect | fluid
+e-reader | 电子书与阅读器 | E-books & e-readers | C | 2007 | 把书变成可下载的文件，配合电子墨水屏，像读纸一样读屏幕。 | e-ink, world-wide-web | info
+digital-typography | 数字排版与字体 | Digital typesetting & fonts | C | 1978 | 用轮廓字体和排版软件代替铅字，TeX、PostScript 和桌面出版改变了印刷业。 | laser-printer, unicode | abstraction
+## 光学与精密测量
+laser | 激光 | Laser | A | 1960 | 受激辐射让大量原子发出相位一致的光，亮度高、方向集中、颜色纯。 | fiber-optic, optical-disc, lidar | levels, wave
+holography | 全息术 | Holography | C | 1947 | 记录光波的强度和相位，重现物体的立体像；防伪标签就是应用。 | laser | wave
+spectroscopy | 光谱学 | Spectroscopy | B | 1859 | 每种元素都有独特的"光谱指纹"，用分光分析能远程得知物质成分。 | atomic-clock, space-telescope | levels
+x-ray-crystallography | X 射线晶体学 | X-ray crystallography | C | 1912 | X 射线经过晶体会形成衍射图样，由此反推原子排列；解出了 DNA 和许多蛋白质的结构。 | x-ray, dna-double-helix, protein-structure | wave, structure
+electron-microscope | 电子显微镜 | Electron microscope | B | 1931 | 用波长极短的电子代替光，分辨率比光学显微镜高上千倍，能看见病毒和原子排列。 | stm, protein-structure | wave, lorentz
+stm | 扫描隧道显微镜 | Scanning tunneling microscope (STM) | C | 1981 | 用极细针尖和表面之间的隧穿电流"摸"出单个原子的形貌，还能搬动原子。 | electron-microscope, nanotechnology | tunneling
+radio-telescope | 射电望远镜 | Radio telescope | C | 1932 | 接收天体发出的无线电波；中国"天眼"FAST 是最大的单口径射电望远镜。 | antenna, space-telescope | emwave
+adaptive-optics | 自适应光学 | Adaptive optics | C | 1989 | 用可快速变形的镜面实时抵消大气抖动，让地面望远镜拍出清晰图像。 | space-telescope, laser | feedback, optics
+atomic-clock | 原子钟 | Atomic clock | B | 1955 | 以原子能级跃迁的频率作为"钟摆"，最好的原子钟上亿年误差不到一秒，是 GNSS 和互联网授时的基础。 | gnss, si-units | levels, relativity
+si-units | 国际单位制 | International System of Units (SI) | C | 2019 | 从 2019 年起所有基本单位都由物理常数定义，不再依赖实物原器。 | atomic-clock, precision-measurement | standard
+radiocarbon-dating | 放射性碳定年 | Radiocarbon dating | C | 1949 | 生物死后碳-14 按约 5730 年半衰期衰减，测剩余比例即可推算年代。 | spectroscopy | decay
+optical-microscopy | 现代光学显微术 | Modern optical microscopy | C |  | 相差、荧光、共聚焦和超分辨技术让活细胞内部清晰可见，突破了光学衍射极限。 | electron-microscope, laser | optics, wave
+large-optical-telescope | 大型光学望远镜 | Large optical telescopes | C | 1993 | 用拼接镜面和自适应光学造出口径十米以上的地面望远镜。 | adaptive-optics, space-telescope | optics
+geiger-counter | 盖革计数器 | Geiger counter | C | 1928 | 射线让管内气体电离产生电脉冲，"咔咔"声代表探测到的辐射。 | radiocarbon-dating, nuclear-safety | decay, charge
+seismometer | 地震仪 | Seismometer | C | 1880 | 用惯性质量记录地面的微小晃动，测定地震位置和强度，也用于监测核试验。 | seismic-design | newton, wave
+time-standard | 标准时间与时区 | Standard time & time zones | C | 1884 | 铁路和电报需要统一时间，1884 年确立格林尼治本初子午线，今天以原子时为基准。 | atomic-clock, standard-gauge | standard

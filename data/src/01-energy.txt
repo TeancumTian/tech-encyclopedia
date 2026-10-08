@@ -1,0 +1,76 @@
+# energy | 能源与动力 | Energy & Power | 人类从烧木头到驯服原子核：一切机器的力气从哪里来
+## 热机与动力
+steam-engine | 蒸汽机 | Steam engine | A | 1712 | 把烧煤得到的热变成机械功的第一种实用热机，点燃了工业革命。 | steam-turbine, locomotive, industrial-revolution | energy, phase
+steam-turbine | 汽轮机 | Steam turbine | B | 1884 | 让高压蒸汽冲转叶轮连续旋转，至今仍是火电和核电的主力发电机械。 | steam-engine, electric-generator, coal-power | carnot, phase
+internal-combustion-engine | 内燃机 | Internal combustion engine | A | 1876 | 燃料在气缸内部燃烧膨胀推动活塞，体积小、功率大，让汽车和飞机成为可能。 | diesel-engine, automobile, petroleum-refining | bond, carnot
+diesel-engine | 柴油机 | Diesel engine | B | 1897 | 靠高压缩比让空气升温自燃柴油，效率高、扭矩大，驱动卡车、轮船和发电机组。 | internal-combustion-engine, container-shipping, tractor | carnot
+gas-turbine | 燃气轮机 | Gas turbine | B | 1939 | 压气机、燃烧室、涡轮连续工作的旋转热机，用于发电和飞机发动机。 | jet-engine, combined-cycle, natural-gas | carnot, momentum
+stirling-engine | 斯特林发动机 | Stirling engine | C | 1816 | 外部加热、内部气体循环的热机，安静但功率密度低。 | steam-engine, heat-pump | carnot
+water-turbine | 水轮机 | Water turbine | C | 1849 | 把水流的势能变成旋转动能，是水电站的心脏。 | hydropower, electric-generator | energy
+heat-pump | 热泵 | Heat pump | B |  | 用少量电把热从冷处"搬"到热处，供暖效率可达电暖器的 3–4 倍。 | refrigeration, air-conditioning, energy-transition | entropy, phase
+refrigeration | 蒸气压缩制冷 | Vapor-compression refrigeration | A | 1834 | 让制冷剂反复蒸发吸热、压缩放热，把热量从箱内搬到箱外。 | air-conditioning, heat-pump, cold-chain | phase, entropy
+air-conditioning | 空调 | Air conditioning | B | 1902 | 同时控制温度和湿度的制冷系统，让热带城市和数据中心得以运转。 | refrigeration, skyscraper, data-center | phase, heat
+cogeneration | 热电联产 | Cogeneration (CHP) | C |  | 发电时把原本排掉的余热拿去供暖或工业用，总能效可达 80% 左右。 | combined-cycle, steam-turbine | energy, carnot
+## 化石能源
+coal-power | 燃煤发电 | Coal-fired power | B | 1882 | 烧煤产生蒸汽推动汽轮机发电，长期是全球最大电源，也是最大碳排放源。 | steam-turbine, power-grid, carbon-capture | bond, carnot
+oil-drilling | 石油钻探 | Oil drilling | B | 1859 | 打井到地下油层把原油抽出来，现代石油工业由此开始。 | petroleum-refining, hydraulic-fracturing | energydensity
+petroleum-refining | 石油炼制 | Petroleum refining | B |  | 按沸点把原油分馏成汽油、柴油、煤油等，再用裂化把重油"剪短"成轻油。 | catalytic-cracking, petrochemicals, internal-combustion-engine | bond, phase
+hydraulic-fracturing | 水力压裂 | Hydraulic fracturing | B | 1947 | 向页岩高压注水和砂把岩石压裂，配合水平井释放困在里面的油气。 | oil-drilling, natural-gas | fluid
+natural-gas | 天然气 | Natural gas | B |  | 以甲烷为主的化石燃料，燃烧比煤干净，是调峰发电和供暖主力。 | lng, combined-cycle, hydraulic-fracturing | bond
+lng | 液化天然气 | Liquefied natural gas (LNG) | C | 1964 | 把天然气冷到约 −162°C 变成液体，体积缩小约 600 倍，可以装船跨洋运输。 | natural-gas, refrigeration | phase, energydensity
+combined-cycle | 联合循环电厂 | Combined-cycle power plant | B |  | 燃气轮机发电后，再用它的高温排气烧蒸汽带动汽轮机，效率可超过 60%。 | gas-turbine, steam-turbine, natural-gas | carnot
+fossil-fuel | 化石燃料 | Fossil fuels | C |  | 煤、石油、天然气是远古生物遗骸在地下封存亿万年形成的"化学电池"，至今仍提供全球约八成的一次能源。 | coal-power, oil-drilling, natural-gas, carbon-capture | bond, energydensity
+## 电力系统
+power-grid | 电网 | Power grid | A | 1882 | 把发电厂、输电线和千家万户连成一张实时平衡的网，发多少就要用多少。 | war-of-currents, transformer-electrical, smart-grid | ohm, induction
+war-of-currents | 交直流之争 | War of the currents | B | 1888 | 爱迪生的直流电与威斯汀豪斯/特斯拉的交流电之争，交流电因能变压远距离输电而胜出。 | alternating-current, transformer-electrical, power-grid | induction, ohm
+hvdc | 高压直流输电 | High-voltage direct current (HVDC) | B | 1954 | 超远距离或海底输电时改用直流，损耗更小，也能连接频率不同的电网。 | power-grid, power-electronics, uhv-transmission | ohm
+uhv-transmission | 特高压输电 | Ultra-high-voltage transmission | C | 2009 | 用 1000 kV 交流或 ±800 kV 以上直流把西部电力送往东部，电压越高损耗越小。 | hvdc, power-grid | ohm
+smart-grid | 智能电网 | Smart grid | C |  | 给电网加上传感、通信和自动控制，让分布式光伏、电动车和储能能被统一调度。 | power-grid, virtual-power-plant, iot | feedback
+load-balancing | 负荷平衡与调峰 | Load balancing & peaking | C |  | 电网每秒都要让发电等于用电；用快速启停的电源和储能填补高峰低谷。 | power-grid, pumped-storage, grid-storage | energy, feedback
+microgrid | 微电网 | Microgrid | C |  | 可以脱离大电网独立运行的小型电力系统，常用于海岛、园区和应急。 | smart-grid, solar-pv, grid-storage | feedback
+virtual-power-plant | 虚拟电厂 | Virtual power plant (VPP) | C |  | 用软件把成千上万个屋顶光伏、电池、空调聚合起来，像一座电厂一样参与调度。 | smart-grid, grid-storage | network, feedback
+lcoe | 平准化度电成本 | Levelized cost of electricity (LCOE) | B |  | 把电站一生的建设和运行成本摊到每度电上，是比较不同电源便宜程度的通用尺子。 | solar-pv, wind-turbine, nuclear-fission-reactor | scale
+demand-response | 需求响应 | Demand response | C |  | 用电价或补贴引导用户在高峰时少用电、低谷时多用电，把"用电"也变成可调度资源。 | load-balancing, virtual-power-plant, smart-grid | feedback, incentives
+electricity-market | 电力市场 | Electricity market | C |  | 发电企业竞价上网、按边际成本排序调度，价格每小时甚至每 5 分钟变化一次。 | lcoe, demand-response | incentives
+capacity-factor | 容量因子 | Capacity factor | C |  | 电站一年实际发电量占"满功率运行全年"发电量的比例：核电约九成，光伏通常一到两成多。 | lcoe, solar-pv, nuclear-fission-reactor | energy
+eroi | 能源投资回报率 | Energy return on investment (EROI) | C |  | 获取一份能源要先投入多少能源；回报率太低的能源在经济上撑不起社会运转。 | lcoe, biofuel, oil-drilling | energy
+## 核能
+nuclear-fission-reactor | 核裂变反应堆 | Nuclear fission reactor | A | 1942 | 让铀-235 等重核在可控的链式反应中裂变放热，用来烧水发电。 | pwr, uranium-enrichment, nuclear-weapon | massenergy, decay
+pwr | 压水堆 | Pressurized water reactor (PWR) | B | 1957 | 用高压水同时做冷却剂和慢化剂的反应堆，是全球最常见的核电堆型。 | nuclear-fission-reactor, submarine, smr | massenergy, heat
+breeder-reactor | 快中子增殖堆 | Fast breeder reactor | C | 1951 | 用快中子把不能裂变的铀-238 转化为钚-239，"烧"出比消耗更多的燃料。 | nuclear-fuel-cycle, nuclear-fission-reactor | massenergy
+molten-salt-reactor | 熔盐堆与钍基核能 | Molten salt reactor | C | 1965 | 燃料溶在高温熔盐里循环的反应堆，可用钍作燃料，常压运行更安全。 | nuclear-fission-reactor, smr | massenergy
+smr | 小型模块化反应堆 | Small modular reactor (SMR) | B |  | 功率较小、在工厂批量制造再运到现场组装的核电站，想用"量产"降低核电成本。 | pwr, data-center | scale, massenergy
+nuclear-fuel-cycle | 核燃料循环与乏燃料 | Nuclear fuel cycle | B |  | 从采铀、浓缩、制燃料、发电到乏燃料后处理和地质处置的全过程。 | uranium-enrichment, breeder-reactor | decay
+uranium-enrichment | 铀浓缩 | Uranium enrichment | B | 1945 | 用高速离心机把铀-235 的比例从 0.7% 提到约 3–5%（核电）或 90%（武器）。 | nuclear-fuel-cycle, nuclear-weapon | diffusion, massenergy
+nuclear-safety | 核安全与核事故 | Nuclear safety & accidents | C | 1986 | 三里岛、切尔诺贝利、福岛事故推动了多重屏障和非能动安全设计。 | pwr, nuclear-fission-reactor | decay, feedback
+fusion-power | 核聚变发电 | Fusion power | A |  | 把氢的同位素加热到上亿度让原子核聚合放能，燃料几乎无穷但仍未商业化。 | tokamak, inertial-confinement-fusion, superconductivity | massenergy
+tokamak | 托卡马克 | Tokamak | B | 1958 | 用环形强磁场把上亿度的等离子体悬空约束住的聚变装置。 | fusion-power, superconductivity | lorentz
+inertial-confinement-fusion | 惯性约束聚变 | Inertial confinement fusion | C | 2022 | 用强激光瞬间压缩燃料小球引发聚变；美国 NIF 于 2022 年首次实现"点火"。 | fusion-power, laser | massenergy
+## 可再生能源
+hydropower | 水力发电 | Hydropower | B | 1882 | 用水坝蓄水，把高处水的势能经水轮机变成电，可快速调节出力。 | water-turbine, dam, pumped-storage | energy, gravity
+pumped-storage | 抽水蓄能 | Pumped-storage hydropower | B |  | 电多时把水抽上山、电少时放水发电，是目前规模最大的电网储能方式。 | hydropower, grid-storage, load-balancing | energy, gravity
+wind-turbine | 风力发电机 | Wind turbine | A | 1887 | 叶片把风的动能转成旋转再发电；风机越高越大，单位成本越低。 | offshore-wind, power-electronics, lcoe | fluid, squarecube
+offshore-wind | 海上风电 | Offshore wind | C | 1991 | 把风机建到海上，风更大更稳，但安装和运维更贵。 | wind-turbine, hvdc | fluid, scale
+solar-pv | 光伏发电 | Solar photovoltaics | A | 1954 | 阳光照在半导体上直接产生电流；组件成本 40 多年下降超过 99%。 | perovskite-solar, inverter, lcoe | photoelectric, band, scale
+perovskite-solar | 钙钛矿太阳能电池 | Perovskite solar cell | C | 2009 | 用便宜的钙钛矿晶体做吸光层的新型电池，效率提升极快，稳定性仍待解决。 | solar-pv | band, structure
+concentrated-solar-power | 光热发电 | Concentrated solar power (CSP) | C |  | 用大量镜子把阳光聚到一点加热熔盐，再烧蒸汽发电，可储热到夜间。 | solar-pv, steam-turbine | optics, heat
+geothermal | 地热能 | Geothermal energy | C | 1904 | 利用地下热水和热岩发电或供暖，稳定但受地质条件限制。 | heat-pump, hydraulic-fracturing | heat
+ocean-energy | 潮汐与波浪能 | Tidal & wave energy | C | 1966 | 利用潮涨潮落或波浪起伏发电，可预测但设备易受海水侵蚀。 | hydropower | gravity, energy
+biofuel | 生物燃料 | Biofuel | C |  | 用玉米、甘蔗、废油或藻类制成的乙醇和生物柴油，本质是"储存的阳光"。 | sustainable-aviation-fuel, petroleum-refining | photosynthesis, bond
+hydrogen-energy | 氢能 | Hydrogen energy | B |  | 把氢当作能量载体：用电解水制氢，再通过燃料电池或燃烧放能，只排水。 | electrolysis, fuel-cell, green-steel | redox, energydensity
+electrolysis | 电解水制氢 | Water electrolysis | C | 1800 | 用电把水分解成氢和氧；用可再生电制得的叫"绿氢"。 | hydrogen-energy, chlor-alkali | redox
+fuel-cell | 燃料电池 | Fuel cell | B | 1839 | 让氢和氧在电极上"冷燃烧"直接发电，效率高于热机且无噪音。 | hydrogen-energy, battery, apollo | redox
+## 储能
+battery | 电池 | Battery | A | 1800 | 把化学能储存起来、需要时让电子绕外电路做功；伏打电堆是第一块电池。 | lithium-ion, lead-acid-battery, fuel-cell | redox
+lead-acid-battery | 铅酸电池 | Lead–acid battery | C | 1859 | 第一种可充电电池，便宜可靠，至今用于汽车启动和备用电源。 | battery, automobile | redox
+lithium-ion | 锂离子电池 | Lithium-ion battery | A | 1991 | 锂离子在正负极之间来回"摇摆"储能，能量密度高，撑起了手机和电动车。 | lfp-battery, solid-state-battery, electric-vehicle | redox, energydensity, scale
+lfp-battery | 磷酸铁锂电池 | Lithium iron phosphate (LFP) battery | C | 1997 | 用磷酸铁锂做正极，不含钴镍，更便宜更安全，能量密度稍低。 | lithium-ion, electric-vehicle, grid-storage | redox, structure
+solid-state-battery | 固态电池 | Solid-state battery | C |  | 用固体电解质代替易燃液体，有望更安全、能量更高，量产仍在攻关。 | lithium-ion | redox
+sodium-ion-battery | 钠离子电池 | Sodium-ion battery | C |  | 用储量丰富的钠代替锂，成本低、耐低温，适合储能和低价车。 | lithium-ion, grid-storage | redox
+flow-battery | 液流电池 | Flow battery | C |  | 把电解液存在两个大罐里泵送反应，容量只看罐子大小，适合长时储能。 | grid-storage, battery | redox
+grid-storage | 电网级储能 | Grid-scale energy storage | B |  | 在电网里成规模地存电放电，解决风光"看天吃饭"的波动。 | lithium-ion, pumped-storage, load-balancing | energy
+supercapacitor | 超级电容器 | Supercapacitor | C |  | 靠电极表面吸附离子储电，充放电极快、寿命长，但存的电少。 | battery, capacitor-resistor-inductor | charge
+## 照明
+gas-lighting | 煤气灯 | Gas lighting | C | 1807 | 用管道输送煤气点灯，第一次让城市在夜晚普遍明亮。 | incandescent-bulb | bond
+incandescent-bulb | 白炽灯 | Incandescent light bulb | B | 1879 | 电流把灯丝烧到白热发光；爱迪生的关键贡献是可靠的灯泡加配套电力系统。 | power-grid, fluorescent-lamp, led | heat, ohm
+fluorescent-lamp | 荧光灯 | Fluorescent lamp | C | 1938 | 电流激发汞蒸气发出紫外线，再由管壁荧光粉转成可见光，比白炽灯省电数倍。 | incandescent-bulb, led | levels

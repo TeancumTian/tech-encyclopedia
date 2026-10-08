@@ -1,0 +1,53 @@
+# security | 安全与国防 | Security & Defense | 攻与防的赛跑：从机枪到核弹，从密码机到网络战
+## 武器与战争形态
+rifled-firearms | 线膛枪与后装枪 | Rifled & breech-loading firearms | C | 1849 | 枪管内的螺旋膛线让子弹旋转飞得更稳更远，后装和金属弹壳让射速大增。 | machine-gun, interchangeable-parts | momentum
+assault-rifle | 突击步枪 | Assault rifle | C | 1944 | 介于手枪弹和步枪弹之间的中间威力弹配合自动射击，AK-47 成为产量最大的枪。 | rifled-firearms, machine-gun | momentum
+machine-gun | 机枪 | Machine gun | B | 1884 | 马克沁利用后坐力自动装弹击发，一挺机枪的火力抵得上一个连。 | rifled-firearms, tank | momentum, energy
+explosives | 现代炸药 | Modern explosives (dynamite, TNT) | B | 1867 | 诺贝尔把不稳定的硝化甘油吸附在硅藻土中制成安全的达纳炸药，用于采矿和战争。 | mining-technology, smokeless-powder | bond
+smokeless-powder | 无烟火药 | Smokeless powder | C | 1884 | 用硝化纤维代替黑火药，威力更大且不冒浓烟，改变了战场。 | explosives, rifled-firearms | bond
+chemical-weapons | 化学武器 | Chemical weapons | C | 1915 | 一战中首次大规模使用毒气，后被《化学武器公约》禁止。 | explosives | bond
+tank | 坦克 | Tank | B | 1916 | 装甲、履带和火炮的结合，为突破堑壕而生，二战中成为陆战核心。 | machine-gun, internal-combustion-engine | stress, momentum
+aircraft-carrier | 航空母舰 | Aircraft carrier | C | 1918 | 可起降飞机的海上机场，二战后取代战列舰成为海军核心。 | airplane, submarine | scale
+submarine | 潜艇 | Submarine | B | 1900 | 可潜入水下航行的战舰；核动力潜艇几乎可以无限期潜航。 | sonar, pwr, icbm | fluid, gravity
+sonar | 声呐 | Sonar | C | 1918 | 在水下发出声波并接收回声探测目标，因为电磁波在水中衰减很快。 | submarine, medical-ultrasound | wave
+radar | 雷达 | Radar | A | 1935 | 发射无线电波并接收反射回波，测出目标的距离、方位和速度，二战中扭转了不列颠空战。 | magnetron, phased-array, air-traffic-control | emwave, wave
+torpedo | 鱼雷 | Torpedo | C | 1866 | 自航式水下炸弹，让小艇也能击沉巨舰。 | submarine, explosives | fluid
+dreadnought | 铁甲舰与无畏舰 | Ironclads & dreadnoughts | C | 1906 | 钢甲、蒸汽动力和统一大口径主炮的战舰，引发了一战前的海军军备竞赛。 | steel, steamship, aircraft-carrier | stress
+fighter-aircraft | 战斗机 | Fighter aircraft | C | 1915 | 从一战的螺旋桨战机到隐身多用途喷气战斗机，制空权成为现代战争的前提。 | jet-engine, radar, stealth-technology | fluid
+awacs | 预警机 | Airborne early warning (AWACS) | C |  | 把大型雷达装到飞机上，从高空俯视数百公里的空中和海面目标。 | radar, phased-array | emwave
+biological-weapons | 生物武器 | Biological weapons | C | 1972 | 利用病原体或毒素作为武器，1972 年《禁止生物武器公约》予以禁止。 | chemical-weapons, synthetic-biology | germ
+nonproliferation | 核不扩散 | Nuclear non-proliferation | C | 1968 | 《不扩散核武器条约》与核查机制，试图在利用核能的同时阻止核武器扩散。 | nuclear-weapon, uranium-enrichment | incentives
+## 核与导弹
+nuclear-weapon | 核武器 | Nuclear weapon | A | 1945 | 让铀或钚在瞬间发生失控的链式裂变；曼哈顿计划 1945 年 7 月首次试爆。 | hydrogen-bomb, uranium-enrichment, nuclear-fission-reactor | massenergy
+hydrogen-bomb | 氢弹 | Thermonuclear weapon | C | 1952 | 用裂变弹引爆氢同位素聚变，威力可达原子弹的上千倍。 | nuclear-weapon, fusion-power | massenergy
+icbm | 洲际弹道导弹 | Intercontinental ballistic missile (ICBM) | B | 1957 | 射程超过 5500 公里、能把核弹头送到地球另一侧的导弹，也为航天运载火箭打下基础。 | rocket, nuclear-weapon, gyrocompass | momentum, gravity
+cruise-missile | 巡航导弹 | Cruise missile | C | 1944 | 像无人飞机一样贴地飞行、自主导航的导弹。 | gnss, jet-engine | fluid, feedback
+precision-guided-munition | 精确制导武器 | Precision-guided munitions | C | 1972 | 用激光、GPS 或图像制导让炸弹精确命中，"一个目标一枚弹"。 | gnss, laser, cruise-missile | feedback
+missile-defense | 导弹防御 | Missile defense | C |  | 用雷达发现来袭导弹并发射拦截弹在空中摧毁它，难度如同"用子弹打子弹"。 | radar, icbm | feedback, momentum
+hypersonic-weapon | 高超声速武器 | Hypersonic weapons | C |  | 以 5 倍音速以上飞行并能机动变轨的武器，难以预测和拦截。 | icbm, cruise-missile | fluid, heat
+## 新型作战
+stealth-technology | 隐身技术 | Stealth technology | C | 1981 | 用特殊外形和吸波材料让雷达回波极小，F-117 是首款实用隐身飞机。 | radar, metamaterial | emwave, wave
+night-vision | 夜视 | Night vision | C |  | 放大微弱星光或探测物体发出的红外热辐射，让人在黑暗中看见。 | thermal-imaging, image-sensor | photoelectric
+electronic-warfare | 电子战 | Electronic warfare | C |  | 干扰、欺骗或侦察对方的雷达和通信，争夺电磁频谱的控制权。 | radar, spectrum | emwave
+military-drone | 军用无人机 | Military drone | B | 1995 | 从侦察到打击，无人机改变了战争成本结构，廉价无人机群正在重塑战场。 | drone, precision-guided-munition | feedback, scale
+directed-energy-weapon | 定向能武器 | Directed-energy weapon | C |  | 用高能激光或微波直接毁伤目标，单次"射击"成本极低。 | laser, magnetron | emwave
+body-armor | 防弹衣 | Body armor | C | 1975 | 用芳纶纤维或陶瓷板吸收分散子弹的冲击能量。 | kevlar, advanced-ceramics | stress, momentum
+## 密码与网络安全
+enigma-codebreaking | 恩尼格玛与密码破译 | Enigma & codebreaking | B | 1932 | 波兰数学家率先破解德军恩尼格玛密码机，图灵等人在布莱切利园用机电"炸弹"持续破译。 | cryptography, colossus, turing-machine | complexity, probability
+cryptography | 密码学 | Cryptography | A |  | 用数学把信息变成只有持有密钥的人能读懂的形式，并能证明消息未被篡改。 | public-key-crypto, symmetric-encryption, hashing | oneway, complexity
+symmetric-encryption | 对称加密 | Symmetric encryption (AES) | C | 2001 | 加密和解密用同一把钥匙，速度快；AES 是今天最常用的标准。 | cryptography, public-key-crypto | complexity
+public-key-crypto | 公钥密码 | Public-key cryptography | A | 1976 | 每人有一对密钥：公钥公开用来加密，私钥保密用来解密，陌生人之间也能安全通信。 | https-tls, digital-signature, post-quantum-crypto | oneway
+digital-signature | 数字签名与证书 | Digital signatures & certificates | C | 1977 | 用私钥"签名"、任何人用公钥验证，证明消息确实出自某人且未被改动。 | public-key-crypto, https-tls, blockchain | oneway
+authentication | 身份认证 | Authentication (passwords, 2FA, passkeys) | C |  | 证明"你就是你"：从密码到短信验证码，再到无需密码的通行密钥。 | public-key-crypto, biometrics | oneway
+biometrics | 生物识别 | Biometrics | C |  | 用指纹、人脸、虹膜等身体特征识别身份。 | face-recognition, authentication | probability
+cybersecurity | 网络安全 | Cybersecurity | A |  | 保护系统、网络和数据免受攻击；本质是攻防双方的成本竞赛。 | malware, firewall, zero-trust | incentives, complexity
+malware | 恶意软件 | Malware (viruses & worms) | B | 1988 | 病毒、蠕虫、木马等恶意程序；1988 年莫里斯蠕虫让数千台联网计算机瘫痪。 | ransomware, cybersecurity, vulnerability | exponential
+ransomware | 勒索软件 | Ransomware | C | 2017 | 加密受害者数据索要赎金，2017 年 WannaCry 波及 150 多个国家。 | malware, bitcoin | oneway, incentives
+vulnerability | 漏洞与零日攻击 | Vulnerabilities & zero-days | C |  | 软件中可被利用的缺陷；厂商还不知道的漏洞叫"零日"漏洞。 | malware, software-testing | complexity
+firewall | 防火墙 | Firewall | C | 1988 | 按规则检查进出网络的流量，阻挡不该通过的连接。 | cybersecurity, router | abstraction
+zero-trust | 零信任架构 | Zero-trust architecture | C | 2010 | 不再默认相信内网，每次访问都要验证身份和设备。 | cybersecurity, authentication | redundancy
+stuxnet | 震网病毒 | Stuxnet | C | 2010 | 被认为是首个造成物理破坏的网络武器，攻击了伊朗铀浓缩离心机的控制系统。 | scada, malware, uranium-enrichment | feedback
+video-surveillance | 视频监控 | Video surveillance (CCTV) | C |  | 联网摄像头配合 AI 识别，提高治安能力，也引发隐私担忧。 | face-recognition, image-sensor | sampling
+rsa | RSA 算法 | RSA cryptosystem | C | 1977 | 基于"两个大素数相乘容易、分解乘积极难"的公钥算法。 | public-key-crypto, shor-algorithm | oneway
+end-to-end-encryption | 端到端加密 | End-to-end encryption | C |  | 消息只在收发双方的设备上加密和解密，连服务器运营商也看不到内容。 | public-key-crypto, instant-messaging, cryptography | oneway
+phishing | 网络钓鱼与社会工程 | Phishing & social engineering | C | 1995 | 冒充银行、同事或熟人诱骗受害者交出密码或点开恶意链接；攻击的是人，而不是机器。 | authentication, malware, cybersecurity | incentives, probability

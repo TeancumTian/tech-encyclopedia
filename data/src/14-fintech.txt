@@ -1,0 +1,42 @@
+# fintech | 金融与商业科技 | Finance & Commerce Technology | 钱的数字化：从收银机到比特币和扫码支付
+## 商业基础设施
+cash-register | 收银机 | Cash register | C | 1879 | 机械记录每笔交易并锁住钱箱，减少店员舞弊。 | barcode | feedback
+stock-ticker | 股票报价机 | Stock ticker | C | 1867 | 通过电报线实时打印股价的纸带机器，让远方投资者也能跟上市场。 | telegraph, electronic-trading | info
+barcode | 条形码 | Barcode | B | 1974 | 用粗细不同的黑白条表示数字，扫描即可识别商品；1974 年首次在超市使用。 | qr-code, logistics-automation, rfid-nfc | info, standard
+qr-code | 二维码 | QR code | C | 1994 | 日本电装发明的二维矩阵码，容量大、可纠错，是扫码支付的基础。 | barcode, mobile-payment | redundancy, info
+vending-machine | 自动售货机 | Vending machine | C | 1883 | 投币即出货的无人售卖机器，从明信片、饮料到车票，后来接入了扫码支付。 | cash-register, mobile-payment | feedback
+pos-terminal | 刷卡终端 POS | Point-of-sale terminal | C |  | 商店里读取银行卡并联网授权的终端，把收银、支付和库存记录连在一起。 | cash-register, card-network, emv-chip | network
+edi | 电子数据交换 | Electronic data interchange (EDI) | C |  | 企业之间用标准格式的电子报文自动交换订单、发票和发货单，取代纸质单据。 | barcode, erp, logistics-automation | standard
+self-checkout | 自助收银与无人商店 | Self-checkout & cashierless stores | C |  | 顾客自己扫码结账，或由摄像头和传感器自动识别拿走的商品，"拿了就走"。 | barcode, computer-vision, rfid-nfc | feedback, probability
+banknote-security | 钞票防伪技术 | Banknote security features | C | 1988 | 水印、安全线、光变油墨和塑料钞让伪钞越来越难造；1988 年澳大利亚发行首张流通塑料钞。 | holography, cash-register | structure, optics
+## 银行与支付
+credit-card | 信用卡 | Credit card | B | 1950 | 先消费后还款的支付卡，背后是发卡行、收单行和卡组织组成的清算网络。 | card-network, emv-chip, credit-scoring | network
+card-network | 银行卡清算网络 | Card payment networks | C | 1958 | Visa、万事达、银联等在银行之间传递授权和结算信息。 | credit-card, atm | network, standard
+atm | 自动柜员机 | Automated teller machine (ATM) | C | 1967 | 让人不进银行也能取款，后来联网实现跨行取款。 | card-network, credit-card | network
+emv-chip | 芯片卡 | EMV chip card | C | 1994 | 用安全芯片代替磁条，每笔交易生成一次性密码，难以复制。 | credit-card, public-key-crypto | oneway
+swift | SWIFT 与跨境支付 | SWIFT & cross-border payments | C | 1977 | 全球银行间传递支付指令的标准化报文网络。 | card-network, stablecoin | standard, network
+online-banking | 网上银行 | Online banking | C | 1994 | 通过网页或 App 办理转账、查询等银行业务。 | https-tls, mobile-payment | abstraction
+online-payment | 在线支付 | Online payment gateways | C | 1998 | PayPal、支付宝等连接买家、商家和银行的网上支付服务，解决了网购的信任问题。 | e-commerce, mobile-payment | incentives, network
+mobile-payment | 移动支付 | Mobile payment | A | 2011 | 用手机扫码或 NFC 付款；中国的支付宝和微信支付让无现金社会率先成为现实。 | qr-code, smartphone, online-payment | network, scale
+m-pesa | M-Pesa 手机钱包 | M-Pesa | C | 2007 | 肯尼亚用功能机短信转账的移动货币，让数千万没有银行账户的人获得金融服务。 | mobile-payment, sms | network
+real-time-payments | 实时支付系统 | Real-time payment systems | C | 2016 | 7×24 小时秒级到账的银行间支付网络，如印度 UPI 和巴西 Pix。 | mobile-payment, swift | network, standard
+credit-scoring | 信用评分 | Credit scoring | C | 1989 | 用统计模型把一个人的还款记录变成一个分数，决定能否贷款和利率高低。 | machine-learning, fraud-detection | probability
+fraud-detection | 风控与反欺诈 | Fraud detection & risk control | C |  | 用规则和机器学习实时识别可疑交易。 | credit-scoring, machine-learning | probability
+open-banking | 开放银行 | Open banking | C | 2018 | 在用户授权下通过 API 共享银行数据，让第三方开发理财和支付服务。 | api, online-banking | standard
+bank-computerization | 银行电子化与磁墨水字符 | Bank computerization (ERMA & MICR) | C | 1959 | 用磁性墨水把账号印在支票上，计算机就能自动读取和分拣，银行由此率先进入计算机时代。 | mainframe, card-network | standard, induction
+clearing-settlement | 清算与结算系统 | Clearing & settlement systems (ACH, RTGS) | C |  | 银行之间先汇总轧差、再在央行账户上最终划拨资金；ACH 批量处理小额，RTGS 逐笔实时处理大额。 | swift, real-time-payments, card-network | network, standard
+## 交易市场
+electronic-trading | 电子交易 | Electronic trading | B | 1971 | 纳斯达克成为首个电子报价市场，交易从交易大厅喊价转向计算机撮合。 | high-frequency-trading, stock-ticker | network
+quantitative-finance | 量化金融 | Quantitative finance (Black–Scholes) | B | 1973 | 用数学模型给期权等金融衍生品定价，并用程序执行交易策略。 | electronic-trading, high-frequency-trading | probability
+high-frequency-trading | 高频交易 | High-frequency trading | C |  | 用算法在微秒级内大量买卖，靠极小价差和速度优势获利。 | electronic-trading, fiber-optic | locality
+robo-advisor | 智能投顾 | Robo-advisor | C | 2010 | 用算法根据风险偏好自动配置和再平衡指数基金组合，把理财门槛降到很低。 | quantitative-finance, machine-learning | probability, optimization
+crowdfunding | 众筹与网络借贷 | Crowdfunding & peer-to-peer lending | C | 2005 | 通过网络平台向大量普通人小额募资或借款，绕开银行和风投；P2P 网贷因风险失控在多国被整顿。 | online-payment, platform-economy, credit-scoring | network, incentives
+## 加密货币与区块链
+bitcoin | 比特币 | Bitcoin | A | 2009 | 中本聪设计的去中心化数字货币，用工作量证明让陌生人不依赖银行就能就账本达成一致。 | blockchain, proof-of-work, hashing | oneway, incentives
+blockchain | 区块链 | Blockchain | A | 2008 | 用哈希把一个个记账区块串成链，由众多节点共同维护，难以篡改历史。 | bitcoin, smart-contract, consensus-algorithm | oneway, incentives, redundancy
+proof-of-work | 工作量证明与权益证明 | Proof of work & proof of stake | C |  | 记账权给"算力最多"或"押币最多"的人，让作恶的代价高于收益。 | bitcoin, blockchain, asic | incentives, oneway
+smart-contract | 智能合约与以太坊 | Smart contracts & Ethereum | B | 2015 | 部署在区块链上自动执行的程序，以太坊让区块链从记账扩展到通用计算。 | blockchain, defi | incentives, abstraction
+stablecoin | 稳定币 | Stablecoin | C | 2014 | 与美元等法币挂钩的加密货币，用于链上结算和跨境转账。 | blockchain, defi, cbdc | incentives
+defi | 去中心化金融 | Decentralized finance (DeFi) | C | 2020 | 用智能合约实现借贷、交易等金融服务，无需传统中介，但风险和漏洞频发。 | smart-contract, stablecoin | incentives
+nft | 非同质化代币 | Non-fungible token (NFT) | C | 2017 | 在区块链上登记的独一无二的数字凭证，2021 年曾一度炒作火热。 | smart-contract | oneway
+cbdc | 央行数字货币 | Central bank digital currency (CBDC) | C | 2020 | 由中央银行发行的数字形式法定货币，如数字人民币。 | mobile-payment, stablecoin | network
