@@ -1,12 +1,14 @@
 # 维护说明（MAINTAINING）
 
-> 一句话：**改 Markdown → `make check` → `make pdf` 看效果 → commit → 打 tag 发版。**
+> 一句话：**改数据 / Markdown → `make web-check` → 预览网页（改书稿时也检查 PDF）→ commit → 按需发版。**
+
+互动网页的文件组织、课程编辑、浏览器验收及发布边界见 **[网页维护说明](docs/WEB_MAINTENANCE.md)**。网页与 PDF 共用书稿数据，网页新增导学单独维护在 `web/learning.js`。
 
 ## 1. 出书流程一张图
 
 ```mermaid
 flowchart LR
-  A[chapters/*.md<br/>正文 + 内联 SVG] --> B[tools/build_pdf.py]
+  A[domains/*.md<br/>正文 + SVG 引用] --> B[tools/build_pdf.py]
   D[数据 JSON<br/>决定顺序/附录] --> B
   B --> H[build/*.html]
   H --> W[WeasyPrint<br/>+ Noto CJK 字体]

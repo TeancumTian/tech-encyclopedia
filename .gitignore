@@ -3,6 +3,7 @@ build/
 *.pdf
 *.html
 !docs/**/*.html
+!web/index.html
 
 # python / node
 __pycache__/
