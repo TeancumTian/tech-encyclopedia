@@ -2993,5 +2993,7 @@
   "Christian Wolmar，《铁路改变世界》（Blood, Iron and Gold）——全球铁路史。": "Christian Wolmar, Blood, Iron and Gold: a global history of railways.",
   "John D. Anderson，《飞行导论》（Introduction to Flight）——空气动力学与飞机设计的入门教材。": "John D. Anderson, Introduction to Flight: an introductory textbook on aerodynamics and aircraft design.",
   "David McCullough，《莱特兄弟》（The Wright Brothers）。": "David McCullough, The Wright Brothers.",
-  "Vaclav Smil，《Prime Movers of Globalization》——柴油机与燃气轮机如何支撑全球化。": "Vaclav Smil, Prime Movers of Globalization: how diesel engines and gas turbines support globalization."
+  "Vaclav Smil，《Prime Movers of Globalization》——柴油机与燃气轮机如何支撑全球化。": "Vaclav Smil, Prime Movers of Globalization: how diesel engines and gas turbines support globalization.",
+  "1959 年 IBM 的塞缪尔（Arthur Samuel）发表跳棋程序论文，使用了\"机器学习\"一词：程序靠自我对弈越下越好。1990 年代统计学习兴起，[[svm|支持向量机]]、随机森林成为主流；2010 年代深度学习接棒。": "In 1959, Arthur Samuel at IBM published a paper on a checkers program and used the term \"machine learning\": the program improved through self-play. Statistical learning grew in the 1990s, with [[svm|support vector machines]] and random forests becoming mainstream; deep learning took the lead in the 2010s.",
+  "不写规则，而是给机器大量例子，让它自己从数据中总结规律。": "Instead of writing rules, give a machine many examples so it can learn patterns from the data."
 }
