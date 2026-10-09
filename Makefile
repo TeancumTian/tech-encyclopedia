@@ -39,8 +39,9 @@ web:
 	$(PYTHON) scripts/build_web.py
 
 web-serve: web
-	$(PYTHON) -m http.server 4173 --bind 127.0.0.1 --directory build/web
+	$(PYTHON) scripts/serve_web.py
 
 web-check: check web
-	node --check web/app.js
+	@for file in web/*.js; do node --check "$$file" || exit 1; done
+	$(PYTHON) -m unittest discover -s tests -p "test_*.py"
 	node --test tests/*.test.js

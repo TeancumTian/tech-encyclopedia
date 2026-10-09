@@ -35,7 +35,8 @@ test('gradient steps converge, oscillate, or diverge according to learning rate'
   assert.ok(Math.abs(large)>4);
 });
 test('import handles corrupt and stale progress without unknown IDs or non-text notes', () => {
-  assert.deepEqual(normalizeProgress(null,ids),{learned:[],saved:[],passed:[],last:null,notes:{}});
+  assert.equal(normalizeProgress(null,ids).last,null);
+  assert.deepEqual(normalizeProgress(null,ids).notes,{});
   const result=normalizeProgress({learned:['bit-byte','bit-byte','bad-id'],saved:42,last:'bad-id',notes:{'bit-byte':'hello','logic-gate':23,'bad-id':'secret'}},ids);
   assert.deepEqual(result.learned,['bit-byte']);assert.deepEqual(result.saved,[]);assert.equal(result.last,null);assert.deepEqual(result.notes,{'bit-byte':'hello'});
   assert.equal(normalizeProgress({notes:{'bit-byte':'a'.repeat(8000)}},ids).notes['bit-byte'].length,5000);

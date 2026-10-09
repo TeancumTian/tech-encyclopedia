@@ -6,5 +6,7 @@
 - 网页代码在 `web/`，导学在 `web/learning.js`，数学模型在 `web/models.js`；维护细则见 `docs/WEB_MAINTENANCE.md`。
 - 更改网页或网页内容后运行 `make web-check`。行为改动还需在浏览器检查对应流程和至少一种窄屏布局。
 - 新增事实、历史、数字遵守 `PUBLISHING_STANDARD.md`，核实记录放入 `front/sources-*.md`。实验清楚注明单位、公式和简化假设。
-- 保持现有学习进度格式兼容；不要默默清空用户笔记。页面使用语义化控件、可见焦点和文本反馈。
+- 学习记录由 `scripts/serve_web.py` 写入 `learning-data/progress.json`，该目录的 JSON 不提交 Git。保持 v1 浏览器进度与 v2 文件格式兼容；不要默默清空用户笔记，浏览器验收使用临时 `--data-dir` 和独立端口。
+- 书稿全量覆盖 `front/*.md`、`domains/*.md`、原理、年表与中英文索引；修改构建器需维持 coverage 清单和完整性断言。
+- 页面使用语义化控件、可见焦点和文本反馈。
 - 不将本网页任务延伸为 iOS / Apple Watch / TestFlight 项目。

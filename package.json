@@ -1,12 +1,14 @@
 {
   "name": "tech-encyclopedia",
   "private": true,
-  "version": "1.1.0",
+  "version": "1.2.0",
   "type": "module",
   "scripts": {
     "build": "python3 scripts/build_web.py",
     "test": "node --test tests/*.test.js",
-    "start": "python3 -m http.server 4173 --bind 127.0.0.1 --directory build/web"
+    "start": "python3 scripts/serve_web.py"
   },
-  "engines": { "node": ">=20" }
+  "engines": {
+    "node": ">=20"
+  }
 }

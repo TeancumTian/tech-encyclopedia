@@ -2,7 +2,9 @@
 
 > 一句话：**改数据 / Markdown → `make web-check` → 预览网页（改书稿时也检查 PDF）→ commit → 按需发版。**
 
-互动网页的文件组织、课程编辑、浏览器验收及发布边界见 **[网页维护说明](docs/WEB_MAINTENANCE.md)**。网页与 PDF 共用书稿数据，网页新增导学单独维护在 `web/learning.js`。
+互动网页的文件组织、课程编辑、浏览器验收及发布边界见 **[网页维护说明](docs/WEB_MAINTENANCE.md)**。网页与 PDF 共用书稿数据，网页新增导学单独维护在 `web/learning.js`。全书阅读、翻卡复习与项目进度由 `web/book-reader.js`、`web/reading.js`、`web/review.js`、`web/storage.js` 和 `scripts/serve_web.py` 维护。
+
+用 `make web-serve` 启动本机网页及保存服务。学习记录位于 `learning-data/progress.json`，另有上一次版本备份；这些个人数据不提交 Git，`make clean` 也不会删除。验收使用独立临时目录，避免污染真实学习记录。
 
 ## 1. 出书流程一张图
 
