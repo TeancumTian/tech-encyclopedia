@@ -9,4 +9,5 @@
 - 线上静态站由 `web/browser-storage.js` 将记录保存到浏览器，按网站路径隔离；不得上传个人笔记。保留导入导出、存储失败提示与旧版兼容。本机学习记录由 `scripts/serve_web.py` 写入 `learning-data/progress.json`，该目录的 JSON 不提交 Git。保持 v1 浏览器进度与 v2 文件格式兼容；不要默默清空用户笔记，浏览器验收使用临时 `--data-dir` 和独立端口。
 - 书稿全量覆盖 `front/*.md`、`domains/*.md`、原理、年表与中英文索引；修改构建器需维持 coverage 清单和完整性断言。
 - 页面使用语义化控件、可见焦点和文本反馈。
+- 网页支持中文、English 和中英对照。译文在 `translations/`，优先级为 `en.auto.json` → `ui.en.json` → `en.json`；维护方法见该目录 README。不要翻译内容 ID、修改用户笔记或让两种语言产生两份进度。界面源码修改后更新 `ui.source.json`，翻译缺失时不得公开发布。
 - 不将本网页任务延伸为 iOS / Apple Watch / TestFlight 项目。

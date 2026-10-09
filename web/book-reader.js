@@ -1,3 +1,4 @@
+import { paired, parallelFigure, currentLanguage } from './i18n.js';
 // Whole-book navigation. Content comes from the same manuscript as the PDF.
 export function createBookReader({book, entries, principles, domains, progress: getProgress, esc, icon, entryCard, pageTitle}) {
   const documents = new Map(book.documents.map(d => [d.id, d]));
@@ -9,15 +10,15 @@ export function createBookReader({book, entries, principles, domains, progress: 
   function safeLink(url) {
     return /^(?:https?:\/\/|#\/(?:entry|principle|chapter|document|book|sources|timeline|index|master)(?:\/|$))/.test(url) ? esc(url) : '#/book';
   }
-  function inline(text) {
+  function rawInline(text, useEnglish = currentLanguage()==='en') {
     const pattern = /\[\[([^\]|]+)(?:\|([^\]]+))?\]\]|\*\*(.+?)\*\*|`([^`]+)`|\[([^\]]+)\]\(([^\s)]+)\)|(https?:\/\/[^\s<>；，。)]+)|\b((?:[a-z0-9-]+\.)+(?:com|org|net|edu|gov|eu|ai|io|co|cn)\/[a-zA-Z0-9_./?=%&+#-]*)/g;
     let result = '', start = 0;
     for (const m of String(text).matchAll(pattern)) {
       result += esc(String(text).slice(start,m.index));
       if (m[1]) {
         const p = m[1].startsWith('p:'); const item = p ? principles.get(m[1].slice(2)) : entries.get(m[1]);
-        result += item ? `<a href="#/${p ? 'principle/' + m[1].slice(2) : 'entry/' + m[1]}">${esc(m[2] || item.zh)}</a>` : esc(m[2] || m[1]);
-      } else if (m[3]) result += '<strong>' + inline(m[3]) + '</strong>';
+        result += item ? `<a href="#/${p ? 'principle/' + m[1].slice(2) : 'entry/' + m[1]}">${esc(m[2] || (useEnglish ? item.en : item.zh))}</a>` : esc(m[2] || m[1]);
+      } else if (m[3]) result += '<strong>' + rawInline(m[3], useEnglish) + '</strong>';
       else if (m[4]) result += '<code>' + esc(m[4]) + '</code>';
       else {
         const url = m[6] || m[7] || 'https://' + m[8];
@@ -27,11 +28,14 @@ export function createBookReader({book, entries, principles, domains, progress: 
     }
     return result + esc(String(text).slice(start));
   }
+  const inline=text=>paired(text,rawInline);
+  const figurePath=src=>'./'+(currentLanguage()==='en'?'en/':'')+src;
+  const secondaryName=item=>currentLanguage()==='bi' && /[\u3400-\u9fff]/.test(item.zh)?'':currentLanguage()==='en'?item.originalZh||item.en:item.en;
   function blocks(items, {skipTitle = false, prefix = 'block'} = {}) {
     return items.map((b,i) => {
       const id = `${prefix}-${i}`;
       if (b.type === 'heading') return b.level === 1 && skipTitle ? '' : `<h${Math.min(4, Math.max(2,b.level))} id="${id}">${inline(b.text)}</h${Math.min(4, Math.max(2,b.level))}>`;
-      if (b.type === 'figure') return `<figure id="${id}" class="book-figure"><a href="./${b.src}" target="_blank" rel="noopener"><img src="./${b.src}" alt="${esc(b.src.split('/').slice(-2).join(' / '))} 知识图解"></a><figcaption>原书图解 · 点击打开大图</figcaption></figure>`;
+      if (b.type === 'figure') return `<figure id="${id}" class="book-figure"><a href="${figurePath(b.src)}" target="_blank" rel="noopener"><img src="${figurePath(b.src)}" alt="${esc(b.src.split('/').slice(-2).join(' / '))} 知识图解"></a><figcaption>原书图解 · 点击打开大图</figcaption>${parallelFigure(b.src)}</figure>`;
       if (b.type === 'list') { const tag = b.ordered ? 'ol' : 'ul'; return `<${tag} id="${id}">${b.items.map(item=>`<li>${inline(item)}</li>`).join('')}</${tag}>`; }
       if (b.type === 'table') return `<div class="book-table-wrap" id="${id}" tabindex="0" role="region" aria-label="书稿表格，可以左右滚动"><table class="book-table"><thead><tr>${b.rows[0].map(c=>`<th scope="col">${inline(c)}</th>`).join('')}</tr></thead><tbody>${b.rows.slice(1).map(row=>`<tr>${row.map(c=>`<td>${inline(c)}</td>`).join('')}</tr>`).join('')}</tbody></table></div>`;
       if (b.type === 'code') return `<pre id="${id}"><code>${esc(b.text)}</code></pre>`;
@@ -40,7 +44,7 @@ export function createBookReader({book, entries, principles, domains, progress: 
   }
   function bookshelf() {
     const p = getProgress(); const count = Object.values(p.reading).filter(r=>r.finished).length;
-    return `<section class="book-cover"><div><span class="eyebrow">THE COMPLETE EDITION · 1700–2026</span><h1>一整本科技史，<br>随时翻到你这一页。</h1><p>全部 17 篇正文、导读与知识地图，连同年表、来源和中英文索引，完整收在这里。</p><div class="hero-actions"><a class="btn primary" href="${p.lastRead ? href(p.lastRead) + '?resume=1' : '#/document/howto'}">${p.lastRead ? '继续阅读：' + esc(title(p.lastRead)) : '从阅读指南开始'} ${icon('arrow')}</a></div><span class="small muted">${count} / ${book.readingOrder.length} 个阅读小节已读 · ${book.coverage.figures.length} 张原书图解</span></div><img src="./cover.svg" alt="近现代科技百科全书封面"></section>
+    return `<section class="book-cover"><div><span class="eyebrow">THE COMPLETE EDITION · 1700–2026</span><h1>一整本科技史，<br>随时翻到你这一页。</h1><p>全部 17 篇正文、导读与知识地图，连同年表、来源和中英文索引，完整收在这里。</p><div class="hero-actions"><a class="btn primary" href="${p.lastRead ? href(p.lastRead) + '?resume=1' : '#/document/howto'}">${p.lastRead ? '继续阅读：' + esc(title(p.lastRead)) : '从阅读指南开始'} ${icon('arrow')}</a></div><span class="small muted">${count} / ${book.readingOrder.length} 个阅读小节已读 · ${book.coverage.figures.length} 张原书图解</span></div><img src="${figurePath('cover.svg')}" alt="近现代科技百科全书封面"></section>
       <div class="book-quick-links">${[['document/howto','怎么读这本书','先找到适合自己的读法'],['document/map','全书地图','看见 17 个领域之间的联系'],['document/principles-intro','第一性原理','59 条反复出现的规律'],['timeline','大事年表','沿着时间理解技术的变化'],['index/zh','中文拼音索引','从名字找到一个知识'],['index/en','English Index','中英文术语对照'],['sources','资料来源','核实记录与延伸阅读'],['master','词条总表','按领域和子类查阅']].map(([key,name,desc])=>`<a href="${href(key)}"><strong>${name} ${icon('arrow')}</strong><span>${desc}</span></a>`).join('')}</div>
       <div class="section-head"><div><span class="eyebrow">SEVENTEEN CONNECTED CHAPTERS</span><h2>按篇，慢慢读完整本书。</h2></div></div><div class="chapter-grid">${book.domains.map(d=>{const read=book.entries.filter(e=>e.domain===d.id&&p.reading['entry/'+e.id]?.finished).length;return `<a class="chapter-card" href="#/chapter/${d.id}"><span class="chapter-number">${String(d.num).padStart(2,'0')}</span><div><h3>${d.zh}</h3><p>${d.tagline}</p><div class="chapter-card-progress"><progress max="${d.count}" value="${read}" aria-label="${d.zh}阅读进度"></progress><span>${read} / ${d.count} 已读</span></div></div>${icon('arrow')}</a>`;}).join('')}</div><p class="source-note">© 2026 Teancum Tian · 保留所有权利。网页沿用原书稿及其核实时间；阅读小节不是 PDF 页码。</p>`;
   }
@@ -48,7 +52,7 @@ export function createBookReader({book, entries, principles, domains, progress: 
     const d = domains.get(id); if (!d) return null;
     const p = getProgress(); const list = book.entries.filter(e=>e.domain===id);
     const next = list.find(e=>!p.reading['entry/'+e.id]?.finished) || list[0];
-    return `<a class="back-link" href="#/book">← 整本书目录</a>${pageTitle('CHAPTER '+String(d.num).padStart(2,'0')+' / '+d.en, d.zh,d.tagline)}<div class="chapter-actions"><a class="btn primary" href="#/entry/${next.id}?resume=1">${next===list[0]?'开始阅读':'继续本篇'} ${icon('arrow')}</a><a class="btn secondary" href="#/review?domain=${id}">本篇翻卡自测</a><a class="text-link" href="#/document/sources-${id}">资料来源 →</a></div><article class="book-prose reading-unit">${blocks(d.intro,{prefix:'intro'})}${blocks(d.outro,{prefix:'outro'})}</article><section class="chapter-directory"><h2>本篇 ${d.count} 个词条</h2>${d.subcategories.map((sub,i)=>`<details class="chapter-category" ${i===0?'open':''}><summary>${sub}<small>${list.filter(e=>e.subcategory===sub).length} 个词条</small></summary><div class="chapter-entry-list">${list.filter(e=>e.subcategory===sub).map(e=>`<a href="#/entry/${e.id}"><span class="read-dot ${p.reading['entry/'+e.id]?.finished?'done':''}">${p.reading['entry/'+e.id]?.finished?'✓':e.tier==='A'?'★':'·'}</span><span>${e.zh}<small>${esc(e.en)}</small></span>${icon('arrow')}</a>`).join('')}</div></details>`).join('')}</section>`;
+    return `<a class="back-link" href="#/book">← 整本书目录</a>${pageTitle('CHAPTER '+String(d.num).padStart(2,'0')+' / '+d.en, d.zh,d.tagline)}<div class="chapter-actions"><a class="btn primary" href="#/entry/${next.id}?resume=1">${next===list[0]?'开始阅读':'继续本篇'} ${icon('arrow')}</a><a class="btn secondary" href="#/review?domain=${id}">本篇翻卡自测</a><a class="text-link" href="#/document/sources-${id}">资料来源 →</a></div><article class="book-prose reading-unit">${blocks(d.intro,{prefix:'intro'})}${blocks(d.outro,{prefix:'outro'})}</article><section class="chapter-directory"><h2>本篇 ${d.count} 个词条</h2>${d.subcategories.map((sub,i)=>`<details class="chapter-category" ${i===0?'open':''}><summary>${sub}<small>${list.filter(e=>e.subcategory===sub).length} 个词条</small></summary><div class="chapter-entry-list">${list.filter(e=>e.subcategory===sub).map(e=>`<a href="#/entry/${e.id}"><span class="read-dot ${p.reading['entry/'+e.id]?.finished?'done':''}">${p.reading['entry/'+e.id]?.finished?'✓':e.tier==='A'?'★':'·'}</span><span>${e.zh}<small data-no-translate>${esc(secondaryName(e))}</small></span>${icon('arrow')}</a>`).join('')}</div></details>`).join('')}</section>`;
   }
   function documentPage(id) {
     const doc = documents.get(id); if (!doc) return null;
@@ -63,7 +67,7 @@ export function createBookReader({book, entries, principles, domains, progress: 
   }
   function timelineResults(query='',domain='',era='') {
     const [min,max] = era ? era.split(',').map(Number) : [-Infinity,Infinity];
-    const found = dated.filter(e=>(!domain||e.domain===domain)&&e.year>=min&&e.year<=max&&`${e.zh} ${e.en}`.toLowerCase().includes(query.toLowerCase()));
+    const found = dated.filter(e=>(!domain||e.domain===domain)&&e.year>=min&&e.year<=max&&`${e.originalZh || ''} ${e.zh} ${e.en}`.toLowerCase().includes(query.toLowerCase()));
     const years = [...new Set(found.map(e=>e.year))];
     return `<p class="results-label" role="status">${found.length} 项技术 · ${years.length} 个年份</p>${years.map(year=>`<section class="timeline-year" id="year-${year}"><h2>${year}</h2><div>${found.filter(e=>e.year===year).map(e=>`<a class="timeline-event" href="#/entry/${e.id}"><span class="small muted">${domains.get(e.domain).zh}${e.tier==='A'?' · ★ 核心':''}</span><h3>${e.zh}</h3><p>${esc(e.definition)}</p></a>`).join('')}</div></section>`).join('') || '<div class="empty-state">这个范围里没有匹配的词条，试试清空搜索或切换年代。</div>'}`;
   }
@@ -77,12 +81,12 @@ export function createBookReader({book, entries, principles, domains, progress: 
     const letter=e=>en?(/^[a-z]/.test(englishKey(e))?englishKey(e)[0].toUpperCase():'#'):e.index.letter;
     const order=e=>en?englishKey(e):e.index.key;
     const q=query.toLowerCase().trim();
-    const found=book.entries.filter(e=>`${e.zh} ${e.en} ${e.index.key} ${e.index.key.replaceAll(' ','')}`.toLowerCase().includes(q)).sort((a,b)=>letter(a).localeCompare(letter(b),'en') || order(a).localeCompare(order(b),'en'));
+    const found=book.entries.filter(e=>`${e.originalZh || ''} ${e.zh} ${e.en} ${e.index.key} ${e.index.key.replaceAll(' ','')}`.toLowerCase().includes(q)).sort((a,b)=>letter(a).localeCompare(letter(b),'en') || order(a).localeCompare(order(b),'en'));
     const groups=[...new Set(found.map(letter))];
-    return `<p class="results-label" role="status">${found.length} 个词条</p><nav class="alphabet-nav" aria-label="字母导航">${groups.map(l=>`<a href="#letter-${l}" data-jump="letter-${l}">${l==='#'?'0–9':l}</a>`).join('')}</nav>${groups.map(l=>`<section class="index-letter" id="letter-${l}"><h2>${l==='#'?'0–9':l}</h2><div class="index-entries">${found.filter(e=>letter(e)===l).map(e=>`<a href="#/entry/${e.id}"><strong>${esc(en?e.en:e.zh)}</strong><span>${esc(en?e.zh:e.en)}</span></a>`).join('')}</div></section>`).join('') || '<div class="empty-state">没有找到匹配的名称，请换一个关键词。</div>'}`;
+    return `<p class="results-label" role="status">${found.length} 个词条</p><nav class="alphabet-nav" aria-label="字母导航">${groups.map(l=>`<a href="#letter-${l}" data-jump="letter-${l}">${l==='#'?'0–9':l}</a>`).join('')}</nav>${groups.map(l=>`<section class="index-letter" id="letter-${l}"><h2>${l==='#'?'0–9':l}</h2><div class="index-entries" data-no-translate>${found.filter(e=>letter(e)===l).map(e=>`<a href="#/entry/${e.id}"><strong>${esc(en?e.en:e.originalZh||e.zh)}</strong><span>${esc(en?e.originalZh||e.zh:e.en)}</span></a>`).join('')}</div></section>`).join('') || '<div class="empty-state">没有找到匹配的名称，请换一个关键词。</div>'}`;
   }
   function masterPage() {
-    return `${pageTitle('COMPLETE CATALOG','全书词条总表','按领域和子类查阅全部词条。A / B / C 表示原书篇幅等级；关键年份和中英文定义均来自原书数据。')}<article class="reading-unit">${book.domains.map(d=>`<section class="master-domain" id="master-${d.id}"><h2><a href="#/chapter/${d.id}">${String(d.num).padStart(2,'0')} ${d.zh} ↗</a></h2>${d.subcategories.map((sub,i)=>`<details class="chapter-category" ${i===0?'open':''}><summary>${sub}</summary><div class="book-table-wrap" tabindex="0" role="region" aria-label="${sub}词条表"><table class="book-table"><thead><tr><th>名称 / Name</th><th>年份 · 等级</th><th>是什么</th></tr></thead><tbody>${book.entries.filter(e=>e.domain===d.id&&e.subcategory===sub).map(e=>`<tr><td><a href="#/entry/${e.id}">${e.zh}<small>${esc(e.en)}</small></a></td><td>${e.year??'—'} · ${e.tier}</td><td>${esc(e.definition)}</td></tr>`).join('')}</tbody></table></div></details>`).join('')}</section>`).join('')}</article>`;
+    return `${pageTitle('COMPLETE CATALOG','全书词条总表','按领域和子类查阅全部词条。A / B / C 表示原书篇幅等级；关键年份和中英文定义均来自原书数据。')}<article class="reading-unit">${book.domains.map(d=>`<section class="master-domain" id="master-${d.id}"><h2><a href="#/chapter/${d.id}">${String(d.num).padStart(2,'0')} ${d.zh} ↗</a></h2>${d.subcategories.map((sub,i)=>`<details class="chapter-category" ${i===0?'open':''}><summary>${sub}</summary><div class="book-table-wrap" tabindex="0" role="region" aria-label="${sub}词条表"><table class="book-table"><thead><tr><th>名称 / Name</th><th>年份 · 等级</th><th>是什么</th></tr></thead><tbody>${book.entries.filter(e=>e.domain===d.id&&e.subcategory===sub).map(e=>`<tr><td><a href="#/entry/${e.id}">${e.zh}<small data-no-translate>${esc(secondaryName(e))}</small></a></td><td>${e.year??'—'} · ${e.tier}</td><td>${esc(e.definition)}</td></tr>`).join('')}</tbody></table></div></details>`).join('')}</section>`).join('')}</article>`;
   }
   return {bookshelf,chapter,documentPage,sourcesPage,timelinePage,timelineResults,indexPage,indexResults,masterPage,blocks,inline,title};
 }

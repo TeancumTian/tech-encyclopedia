@@ -52,6 +52,13 @@ class ProgressTests(unittest.TestCase):
         self.store.write({}, 1)
         self.assertEqual(self.store.read()['progress']['notes'], {})
         self.assertEqual(json.loads(self.store.backup.read_text())['progress']['notes']['logic-gate'], 'keep a backup')
+    def test_language_preference_survives_disk_reload_without_changing_notes(self):
+        self.store.write({'prefs': {'language': 'bi', 'fontSize': 'large'}, 'notes': {'logic-gate': '中文原话 / English words'}}, 0)
+        record=ProgressStore(self.store.directory, BOOK).read()['progress']
+        self.assertEqual(record['prefs']['language'], 'bi')
+        self.assertEqual(record['notes']['logic-gate'], '中文原话 / English words')
+        self.store.write({'prefs': {'language': 'unknown'}}, 1)
+        self.assertEqual(self.store.read()['progress']['prefs']['language'], 'zh')
 
 
 class HTTPTests(unittest.TestCase):

@@ -6,10 +6,26 @@ import re
 import shutil
 from collections import Counter
 from pathlib import Path
+from localization import validate_catalog, write_english_figures, strings_in, figure_strings
 
 ROOT = Path(__file__).resolve().parents[1]
 OUT = ROOT / 'build' / 'web'
 FIELDS = ['是什么', '原理', '怎么工作', '年份人物', '改变了', '注意', '图注']
+
+
+def version_assets(out):
+    """Keep a release's modules and text together across browser/CDN caches."""
+    assets = sorted(p for p in out.iterdir() if p.suffix in ('.js', '.css', '.json'))
+    digest = hashlib.sha256()
+    for path in assets:
+        digest.update(path.name.encode())
+        digest.update(path.read_bytes())
+    version = digest.hexdigest()[:16]
+    relative = re.compile(r'''(["'])(\./(?:[a-z0-9-]+\.(?:js|css)|book\.json|en\.json))\1''')
+    for path in [out / 'index.html', *out.glob('*.js')]:
+        text = path.read_text(encoding='utf-8')
+        text = relative.sub(lambda m: f'{m[1]}{m[2]}?v={version}{m[1]}', text)
+        path.write_text(text, encoding='utf-8')
 
 
 def figure_ref(ref):
@@ -83,7 +99,7 @@ def parse_body(body):
     return {'fields': fields, 'figures': [figure_ref(f) for f in figures]}
 
 
-def compile_site():
+def compile_site(require_translations=True, inventory_path=None):
     data = json.loads((ROOT / 'data/entries.json').read_text())
     bodies, sources = {}, []
     def source(path):
@@ -148,16 +164,37 @@ def compile_site():
     all_figures = {str(p.relative_to(ROOT / 'assets')) for p in (ROOT / 'assets/figs').rglob('*.svg')}
     assert figures == all_figures, f'Unreachable figures: {all_figures - figures}'
     data['coverage'] = {'sources': sources, 'figures': sorted(figures), 'entries': len(entry_ids), 'principles': len(principle_ids)}
+    if inventory_path is not None:
+        ui=json.loads((ROOT/'translations/ui.source.json').read_text())['strings']
+        inventory=sorted(set(strings_in(data)) | set(figure_strings(ROOT)) | set(ui))
+        target=Path(inventory_path)
+        target.parent.mkdir(parents=True,exist_ok=True)
+        target.write_text(json.dumps(inventory,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
+        print(f'Collected {len(inventory)} translation source segments → {target}; website not rebuilt')
+        return data
+    catalog = {}
+    for name in ['en.auto.json', 'ui.en.json', 'en.json']:
+        path=ROOT/'translations'/name
+        if path.exists():catalog.update(json.loads(path.read_text(encoding='utf-8')))
+    translated_count=validate_catalog(data,ROOT,catalog) if require_translations else 0
     if OUT.exists():
         shutil.rmtree(OUT)
     shutil.copytree(ROOT / 'web', OUT)
     shutil.copytree(ROOT / 'assets/figs', OUT / 'figs')
     shutil.copy(ROOT / 'front/cover.svg', OUT / 'cover.svg')
     (OUT / 'book.json').write_text(json.dumps(data, ensure_ascii=False, separators=(',', ':')), encoding='utf-8')
+    (OUT / 'en.json').write_text(json.dumps(catalog,ensure_ascii=False,separators=(',',':')),encoding='utf-8')
+    write_english_figures(ROOT,OUT,catalog)
+    version_assets(OUT)
     (OUT / '.nojekyll').touch()
-    print(f"Built complete book: {len(entry_ids)} entries, {len(data['documents'])} documents, {len(figures)} figures, {len(data['readingOrder'])} reading sections → build/web")
+    status=f'{translated_count} translated segments verified' if require_translations else 'DRAFT: translation coverage not enforced'
+    print(f"Built complete book: {len(entry_ids)} entries, {len(data['documents'])} documents, {len(figures)} figures, {len(data['readingOrder'])} reading sections; {status} → {OUT}")
     return data
 
 
 if __name__ == '__main__':
-    compile_site()
+    import argparse
+    parser=argparse.ArgumentParser(description=__doc__)
+    parser.add_argument('--inventory',type=Path,help='Write a source inventory without building or publishing a partial website')
+    args=parser.parse_args()
+    compile_site(inventory_path=args.inventory)

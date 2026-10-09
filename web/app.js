@@ -1,9 +1,10 @@
+import { configureLanguage, currentLanguage, english, translateTree, paired, parallelFigure, localizePage, observeTranslations } from './i18n.js';
 import { ProjectProgress } from './storage.js';
 import { BrowserProgress, browserStorageKey } from './browser-storage.js';
 import { createBookReader } from './book-reader.js';
 import { createReadingController } from './reading.js';
 import { createReview } from './review.js';
-import { pathways, lessons, labs, labSources } from './learning.js';
+import { pathways as sourcePathways, lessons as sourceLessons, labs as sourceLabs, labSources } from './learning.js';
 import { gateOutput, binaryValue, circuitCurrent, transmissionLoss, gradientStep, normalizeProgress, mergeProgress } from './models.js';
 
 const $ = (s, root = document) => root.querySelector(s);
@@ -31,10 +32,14 @@ const icons = {
 const icon = (name, cls = '') => `<svg class="icon ${cls}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${icons[name] || icons.compass}</svg>`;
 const repo = 'https://github.com/TeancumTian/tech-encyclopedia';
 const key = 'tech-encyclopedia-learning-v1';
+let sourceBook, englishBook, translations, pathways=sourcePathways, lessons=sourceLessons, labs=sourceLabs;
 let book, entries, principles, domains, progress, filter = { query: '', domain: '', tier: '', page: 1 };
 let storageOK = true, progressMode = 'browser';
 const inBrowser = () => progressMode === 'browser';
 let projectStore, bookReader, readingController, reviewController;
+// Keep the current experiment while translating its labels; navigation starts a fresh experiment.
+const experimentStates = new Map();
+const quizAnswers = new Map();
 
 function save() {
   if (!inBrowser()) {
@@ -66,12 +71,15 @@ function toast(message) {
   $('#toast').textContent = message; $('#toast').classList.add('visible');
   clearTimeout(toastTimer); toastTimer = setTimeout(() => $('#toast').classList.remove('visible'), 3000);
 }
-function inline(text) {
+function rawInline(text, useEnglish = currentLanguage()==='en') {
   return esc(text).replace(/\[\[([^\]|]+)(?:\|([^\]]+))?\]\]/g, (_, id, label) => {
     const p = id.startsWith('p:'); const item = p ? principles.get(id.slice(2)) : entries.get(id);
-    return item ? `<a href="#/${p ? 'principle/' + id.slice(2) : 'entry/' + id}">${label || esc(item.zh)}</a>` : (label || id);
+    return item ? `<a href="#/${p ? 'principle/' + id.slice(2) : 'entry/' + id}">${label || esc(useEnglish ? item.en : item.zh)}</a>` : (label || id);
   }).replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>').replace(/`(.*?)`/g, '<code>$1</code>');
 }
+const inline = text => paired(text, rawInline);
+const secondaryName = item => currentLanguage()==='bi' && /[\u3400-\u9fff]/.test(item.zh) ? '' : currentLanguage()==='en' ? item.originalZh || item.en : item.en;
+const figurePath = src => './' + (currentLanguage()==='en' ? 'en/' : '') + src;
 const prose = text => String(text || '').split('\n').filter(Boolean).map(line => `<p>${inline(line.replace(/^[-*] /, ''))}</p>`).join('');
 const entryLink = (id, path = '') => `#/entry/${id}${path ? '?path=' + path : ''}`;
 const learned = id => progress.learned.includes(id);
@@ -89,15 +97,32 @@ function shell(content, active) {
     <nav aria-label="主导航">${links.map(([i, href, label]) => `<a href="#/${href}" ${active === href ? 'aria-current="page"' : ''}>${icon(i)}<span>${label}</span>${href === 'labs' ? `<span class="nav-pill">${labs.length}</span>` : ''}</a>`).join('')}</nav>
     <div class="sidebar-bottom"><div class="small-quote">世界很复杂，<br>理解可以简单一点。</div><div class="side-progress"><span>你的探索足迹</span><b>${progress.learned.length} <small>/ ${book.entries.length}</small></b><progress value="${progress.learned.length}" max="${book.entries.length}"></progress></div><a class="repo-link" href="${repo}" target="_blank" rel="noopener">${icon('github')} 项目与书稿 ↗</a></div>
   </aside>
-  <div class="workspace"><header class="topbar"><div class="top-caption">近现代科技百科 <span>/</span> 完整阅读版</div><form class="global-search" role="search"><label class="sr-only" for="global-search">搜索科技知识</label>${icon('search')}<input id="global-search" type="search" placeholder="搜索一个好奇的问题…" autocomplete="off"><kbd>/</kbd></form><a class="top-save" href="#/notebook" data-sync-status aria-live="polite"></a><a class="profile" href="#/notebook" aria-label="打开我的学习">好奇</a></header>
-  <main id="main" tabindex="-1">${content}</main><footer>保持好奇，慢慢弄懂。<span>© 2026 Teancum Tian · 基于《近现代科技百科全书》</span></footer></div>`;
+  <div class="workspace"><header class="topbar"><div class="top-caption">近现代科技百科 <span>/</span> 完整阅读版</div><form class="global-search" role="search"><label class="sr-only" for="global-search">搜索科技知识</label>${icon('search')}<input id="global-search" type="search" placeholder="搜索一个好奇的问题…" autocomplete="off"><kbd>/</kbd></form><label class="language-picker" data-no-translate><span class="sr-only">语言 / Language</span><select id="language-select" aria-label="语言 / Language"><option value="zh" ${progress.prefs.language==='zh'?'selected':''}>中文</option><option value="en" ${progress.prefs.language==='en'?'selected':''}>English</option><option value="bi" ${progress.prefs.language==='bi'?'selected':''}>中英对照</option></select></label><a class="top-save" href="#/notebook" data-sync-status aria-live="polite"></a><a class="profile" href="#/notebook" aria-label="打开我的学习">好奇</a></header>
+  <main id="main" tabindex="-1">${content}</main><footer>保持好奇，慢慢弄懂。<span>© 2026 Teancum Tian · 基于《近现代科技百科全书》</span>${currentLanguage()!=='zh'?'<span class="translation-note">英文为机器辅助译本，可切换中英对照阅读。</span>':''}</footer></div>`;
   $('.global-search').onsubmit = event => { event.preventDefault(); location.hash = '#/explore?q=' + encodeURIComponent($('#global-search').value); };
 }
-function render({ keepScroll = false } = {}) {
+function prepareLanguage(reviewState = null) {
+  const selected=progress.prefs.language;
+  configureLanguage(translations,selected);
+  Object.assign(book,selected==='en'?englishBook:sourceBook);
+  for(const [map,key] of [[entries,'entries'],[principles,'principles'],[domains,'domains']]) {map.clear();book[key].forEach(item=>map.set(item.id,item));}
+  pathways=selected==='en'?translateTree(sourcePathways):sourcePathways;
+  lessons=selected==='en'?translateTree(sourceLessons):sourceLessons;
+  labs=selected==='en'?translateTree(sourceLabs):sourceLabs;
+  bookReader=createBookReader({book,entries,principles,domains,progress:()=>progress,esc,icon,entryCard,pageTitle});
+  reviewController=createReview({book,entries,domains,lessons,getProgress:()=>progress,save,esc,icon,pageTitle,initialState:reviewState});
+}
+function render({ keepScroll = false, restoreLanguagePosition = false } = {}) {
   readingController?.capture();
+  if(!restoreLanguagePosition) {experimentStates.clear();quizAnswers.clear();}
+  const reviewState=restoreLanguagePosition ? reviewController?.snapshot() : null;
+  prepareLanguage(reviewState);
+  // The skip link lives outside the replaceable app shell.
+  $('.skip-link').textContent='跳到主要内容';
   const { parts, params } = route();
+  if(restoreLanguagePosition)params.set('resume','1');
   const type = parts[0] || ''; const id = parts[1];
-  if (type === 'explore') filter = { query: params.get('q') || '', domain: params.get('domain') || '', tier: params.get('tier') || '', page: 1 };
+  if (type === 'explore' && !restoreLanguagePosition) filter = { query: params.get('q') || '', domain: params.get('domain') || '', tier: params.get('tier') || '', page: 1 };
   const views = { '': home, paths: () => pathPage(id), explore: explorePage, labs: () => labPage(id), entry: () => entryPage(id, params.get('path')), principle: () => principlePage(id), notebook: notebookPage, book: () => bookReader.bookshelf(), chapter: () => bookReader.chapter(id), document: () => bookReader.documentPage(id), sources: () => bookReader.sourcesPage(), timeline: () => bookReader.timelinePage(), index: () => bookReader.indexPage(id), master: () => bookReader.masterPage(), review: () => reviewController.page(params) };
   const content = (views[type] ? views[type]() : null) || notFound();
   shell(content, ['chapter','document','sources','timeline','index','master'].includes(type) ? 'book' : type === 'entry' || type === 'principle' ? 'explore' : type);
@@ -106,13 +131,17 @@ function render({ keepScroll = false } = {}) {
   if (!keepScroll) { window.scrollTo({top:0,behavior:'instant'}); $('#main').focus({ preventScroll: true }); }
   readingController.mount(parts.join('/'), params, keepScroll);
   syncStatus();
+  localizePage();
 }
 function sectionHead(kicker, title, link = '', label = '') {
   return `<div class="section-head"><div><span class="eyebrow">${kicker}</span><h2>${title}</h2></div>${link ? `<a class="text-link" href="${link}">${label} ${icon('arrow')}</a>` : ''}</div>`;
 }
 function home() {
+  const chineseTitle='把科技，<br>变成你的<span class="underline-word">常识</span>。';
+  const englishTitle='Make technology<br><span class="underline-word">make sense.</span>';
+  const heroTitle=currentLanguage()==='en'?englishTitle:currentLanguage()==='bi'?chineseTitle+'<span class="translation-en" lang="en">Make technology make sense.</span>':chineseTitle;
   const next = progress.lastRead ? {href:'#/' + progress.lastRead + '?resume=1'} : progress.last ? {href:entryLink(progress.last)} : null;
-  return `<section class="hero"><div class="hero-copy"><span class="eyebrow"><span class="tiny-sun">✳</span> 写给每一个好奇的人</span><h1>把科技，<br>变成你的<span class="underline-word">常识</span>。</h1><p>芯片为什么会计算？AI 到底怎么学？<br>从一个小问题开始，动手试一试，复杂的世界就清楚了一点。</p><div class="hero-actions"><a class="btn primary" href="${next ? next.href : '#/paths/computer'}">${next ? '继续上次的探索' : '开启第一段探索'} ${icon('arrow')}</a><a class="text-link" href="#/book">翻开整本书 ↗</a></div><div class="hero-note"><span class="mini-avatars"><i>?</i><i>!</i><i>✳</i></span>不用专业背景，带上好奇心就好。</div></div>
+  return `<section class="hero"><div class="hero-copy"><span class="eyebrow"><span class="tiny-sun">✳</span> 写给每一个好奇的人</span><h1 data-no-translate lang="${currentLanguage()==='en'?'en':'zh-CN'}">${heroTitle}</h1><p>芯片为什么会计算？AI 到底怎么学？<br>从一个小问题开始，动手试一试，复杂的世界就清楚了一点。</p><div class="hero-actions"><a class="btn primary" href="${next ? next.href : '#/paths/computer'}">${next ? '继续上次的探索' : '开启第一段探索'} ${icon('arrow')}</a><a class="text-link" href="#/book">翻开整本书 ↗</a></div><div class="hero-note"><span class="mini-avatars"><i>?</i><i>!</i><i>✳</i></span>不用专业背景，带上好奇心就好。</div></div>
     <div class="hero-lab"><div class="lab-label"><span class="live-dot"></span> 此刻，就能试试 <span>EXPERIMENT 01</span></div><div class="hero-lab-title">电脑的思考，<br>从两个小开关开始。</div><div data-lab="logic" data-compact="true"></div><a class="hero-lab-link" href="#/labs/logic">这是怎么回事？探索逻辑门 ${icon('arrow')}</a></div></section>
     <div class="stats-strip"><div><strong>${book.entries.length}</strong><span>个科技知识，慢慢解锁</span></div><div><strong>${book.domains.length}</strong><span>个领域，看见彼此的联系</span></div><div><strong>${book.principles.length}</strong><span>条底层规律，举一反三</span></div><div><strong>∞</strong><span>个「原来如此」的瞬间</span></div></div>
     <section class="home-section">${sectionHead('FOLLOW YOUR CURIOSITY', '不知道从哪开始？跟着问题走。', '#/paths', '全部学习路线')}<div class="path-grid">${pathways.map(pathCard).join('')}</div></section>
@@ -136,10 +165,10 @@ function pathPage(id) {
 function explorePage() {
   return `${pageTitle('THE KNOWLEDGE ATLAS', '从一个词，走进一个世界。', '搜索中英文名称、生活关键词或正文。点击相关原理，还能发现跨领域的联系。')}<div class="explore-tabs"><button class="chip active" data-explore-tab="entries">${book.entries.length} 个科技词条</button><button class="chip" data-explore-tab="principles">${book.principles.length} 条底层原理</button></div><div id="entry-browser"><div class="filter-bar"><label class="catalog-search">${icon('search')}<input type="search" id="catalog-query" aria-label="搜索词条和正文" placeholder="试试「电池」「AI」「能量」" value="${esc(filter.query)}"></label><select id="domain-filter" aria-label="筛选领域"><option value="">全部领域</option>${book.domains.map(d => `<option value="${d.id}" ${filter.domain === d.id ? 'selected' : ''}>${d.zh}</option>`).join('')}</select><select id="tier-filter" aria-label="筛选词条"><option value="">所有词条</option><option value="A" ${filter.tier === 'A' ? 'selected' : ''}>核心图解</option><option value="lesson" ${filter.tier === 'lesson' ? 'selected' : ''}>入门导学</option></select></div><div id="catalog-results"></div></div><div id="principle-browser" hidden>${book.principle_groups.map(group => `<h2 class="group-heading">${group}</h2><div class="principle-grid">${book.principles.filter(p => p.group === group).map(p => `<a class="principle-card" href="#/principle/${p.id}"><h3>${p.zh} ${icon('arrow')}</h3><p>${esc(p.statement)}</p><span class="small muted">${p.entry_count} 个相关词条</span></a>`).join('')}</div>`).join('')}</div>`;
 }
-function entryCard(e) { return `<a class="entry-card" href="${entryLink(e.id)}"><div class="entry-meta"><span>${domains.get(e.domain).zh}</span>${learned(e.id) ? '<span class="learned-label">✓ 已学</span>' : `<span>${lessons[e.id] ? '入门导学' : e.tier === 'A' ? '核心图解' : '百科词条'}</span>`}</div><h3>${e.zh}</h3><span class="english-name">${esc(e.en)}</span><p>${esc(e.definition)}</p><div class="entry-card-foot"><span>${e.year ?? '—'} <small>· ${e.subcategory}</small></span>${icon('arrow')}</div></a>`; }
+function entryCard(e) { return `<a class="entry-card" href="${entryLink(e.id)}"><div class="entry-meta"><span>${domains.get(e.domain).zh}</span>${learned(e.id) ? '<span class="learned-label">✓ 已学</span>' : `<span>${lessons[e.id] ? '入门导学' : e.tier === 'A' ? '核心图解' : '百科词条'}</span>`}</div><h3>${e.zh}</h3><span class="english-name" data-no-translate lang="${currentLanguage()==='en'?'zh-CN':'en'}">${esc(secondaryName(e))}</span><p>${esc(e.definition)}</p><div class="entry-card-foot"><span>${e.year ?? '—'} <small>· ${e.subcategory}</small></span>${icon('arrow')}</div></a>`; }
 function updateCatalog() {
   const q = filter.query.trim().toLowerCase();
-  const found = book.entries.filter(e => (!filter.domain || e.domain === filter.domain) && (!filter.tier || (filter.tier === 'lesson' ? !!lessons[e.id] : e.tier === filter.tier)) && (!q || `${e.zh} ${e.en} ${e.definition} ${Object.values(e.fields).join(' ')} ${e.principles.map(id => principles.get(id).zh).join(' ')}`.toLowerCase().includes(q)));
+  const found = book.entries.filter(e => (!filter.domain || e.domain === filter.domain) && (!filter.tier || (filter.tier === 'lesson' ? !!lessons[e.id] : e.tier === filter.tier)) && (!q || `${e.searchText || ''} ${e.zh} ${e.en} ${e.definition} ${Object.values(e.fields).join(' ')} ${e.principles.map(id => principles.get(id).zh).join(' ')}`.toLowerCase().includes(q)));
   const count = Math.ceil(found.length / 24); filter.page = Math.min(filter.page, count || 1);
   $('#catalog-results').innerHTML = `<div class="results-label" aria-live="polite">找到 ${found.length} 个词条${filter.domain && domains.has(filter.domain) ? ' · ' + domains.get(filter.domain).tagline : ''}</div>${found.length ? `<div class="entry-grid">${found.slice((filter.page-1)*24, filter.page*24).map(entryCard).join('')}</div><div class="pagination"><button class="btn secondary" data-page="-1" ${filter.page <= 1 ? 'disabled' : ''}>← 上一页</button><span>${filter.page} / ${count}</span><button class="btn secondary" data-page="1" ${filter.page >= count ? 'disabled' : ''}>下一页 →</button></div>` : '<div class="empty-state"><h3>这个问题还没有匹配的词条</h3><p>换一个短一点的词，或清除领域筛选再试试。</p><button class="btn secondary" id="clear-filters">清除筛选</button></div>'}`;
   $$('[data-page]').forEach(button => button.onclick = () => { filter.page += Number(button.dataset.page); updateCatalog(); $('#entry-browser').scrollIntoView({ block: 'start' }); });
@@ -156,7 +185,7 @@ function entryPage(id, pathId) {
   const path = pathways.find(p => p.id === pathId && p.ids.includes(id));
   const next = path?.ids[path.ids.indexOf(id)+1];
   progress.last = id; save();
-  return `<a class="back-link" href="${path ? '#/paths/' + path.id : '#/explore?domain=' + e.domain}">← ${path ? path.name : domains.get(e.domain).zh}</a><div class="article-layout"><article class="article reading-unit"><div class="article-heading"><span class="eyebrow">${path ? `第 ${path.ids.indexOf(id)+1} / ${path.ids.length} 小节` : domains.get(e.domain).zh} · ${lesson ? '零基础导学' : '百科探索'}</span><h1>${e.zh}</h1><div class="article-en">${esc(e.en)}</div><p class="article-definition">${esc(e.definition)}</p></div>${lesson ? `<section class="analogy"><span class="eyebrow">先从生活里理解</span><p>${lesson.analogy}</p></section>` : ''}<section id="why"><h2><span>01</span> 为什么行得通</h2>${prose(e.fields['原理'])}<div class="principle-tags">${e.principles.map(id => `<a href="#/principle/${id}">${icon('spark')}${principles.get(id).zh} ↗</a>`).join('')}</div></section>${lab ? `<section id="experiment"><h2><span>02</span> 自己动手，试一次</h2><p class="muted">${lab.desc}</p><div class="inline-lab" data-lab="${lab.id}"></div></section>` : ''}<section id="how"><h2><span>${lab ? '03' : '02'}</span> 它是怎么工作的</h2>${prose(e.fields['怎么工作'] || e.fields['是什么'] || e.definition)}${e.figures.map(src => `<figure><a href="./${src}" target="_blank" rel="noopener"><img src="./${src}" alt="${e.zh}原理图" loading="lazy"></a><figcaption>${inline(e.fields['图注'] || e.zh + '图解')} · 点击放大</figcaption></figure>`).join('')}</section>${e.fields['注意'] ? `<section class="misconception"><span class="eyebrow">等等，别理解错了</span>${prose(e.fields['注意'])}</section>` : ''}${lesson ? `<section id="quiz"><h2><span>✓</span> 用一个问题，检验理解</h2><div class="quiz" data-quiz="${id}"><h3>${lesson.question}</h3><div class="quiz-options">${lesson.options.map((o,i) => `<button data-answer="${i}"><span>${String.fromCharCode(65+i)}</span>${o}</button>`).join('')}</div><div class="quiz-feedback" role="status">${progress.passed.includes(id) ? '之前已答对。你也可以再练一次。' : '选一个答案，看看你的理解。'}</div></div></section>` : ''}<details class="deep-read" open><summary>再了解一点：历史与影响</summary><h3>关键年份与人物</h3>${prose(e.fields['年份人物'] || '本词条暂无补充说明。')}<h3>改变了什么</h3>${prose(e.fields['改变了'] || '本词条暂无补充说明。')}</details><section id="reflection"><h2>用自己的话，记下一点</h2><label for="entry-note" class="muted">试着回答：它解决了什么问题？生活中哪里会用到它？</label><textarea id="entry-note" data-note="${id}" maxlength="5000" rows="4" placeholder="比如：高压输电是为了减小电流，减少路上的发热损耗…">${esc(progress.notes[id] || '')}</textarea><span class="small muted" id="note-status">输入后自动保存，请留意页面保存状态</span></section><div class="lesson-complete"><button class="btn primary" data-complete="${id}">${learned(id) ? '✓ 已学会 · 点击撤销' : '我理解了，标记学会'} ${icon('check')}</button>${next ? `<a class="text-link" href="${entryLink(next,path.id)}">下一节：${entries.get(next).zh} ${icon('arrow')}</a>` : path ? `<a class="text-link" href="#/paths/${path.id}">查看路线进度 ${icon('arrow')}</a>` : ''}</div><p class="source-note">书稿来源：<a href="#/chapter/${e.domain}">${domains.get(e.domain).zh}导读 ↗</a> · <a href="#/document/sources-${e.domain}">资料来源与核实记录 ↗</a>。原书的历史与数字沿用书稿核实时间；互动数值为教学模型。</p></article><aside class="article-aside"><div class="reading-guide"><span class="eyebrow">这一小节</span><a href="#why" data-scroll="why">为什么行得通</a>${lab ? '<a href="#experiment" data-scroll="experiment">动手试一试</a>' : ''}<a href="#how" data-scroll="how">怎么工作</a>${lesson ? '<a href="#quiz" data-scroll="quiz">检验理解</a>' : ''}<a href="#reflection" data-scroll="reflection">我的笔记</a><button class="btn secondary" data-save="${id}">${icon('bookmark')}${progress.saved.includes(id) ? '已收藏 · 取消' : '留着慢慢看'}</button></div><div class="related-box"><span class="eyebrow">顺着好奇心，继续走</span>${e.related.map(id => `<a href="${entryLink(id)}">${entries.get(id).zh} ${icon('arrow')}</a>`).join('')}</div></aside></div>`;
+  return `<a class="back-link" href="${path ? '#/paths/' + path.id : '#/explore?domain=' + e.domain}">← ${path ? path.name : domains.get(e.domain).zh}</a><div class="article-layout"><article class="article reading-unit"><div class="article-heading"><span class="eyebrow">${path ? `第 ${path.ids.indexOf(id)+1} / ${path.ids.length} 小节` : domains.get(e.domain).zh} · ${lesson ? '零基础导学' : '百科探索'}</span><h1>${e.zh}</h1><div class="article-en" data-no-translate lang="${currentLanguage()==='en'?'zh-CN':'en'}">${esc(secondaryName(e))}</div><p class="article-definition">${esc(e.definition)}</p></div>${lesson ? `<section class="analogy"><span class="eyebrow">先从生活里理解</span><p>${lesson.analogy}</p></section>` : ''}<section id="why"><h2><span>01</span> 为什么行得通</h2>${prose(e.fields['原理'])}<div class="principle-tags">${e.principles.map(id => `<a href="#/principle/${id}">${icon('spark')}${principles.get(id).zh} ↗</a>`).join('')}</div></section>${lab ? `<section id="experiment"><h2><span>02</span> 自己动手，试一次</h2><p class="muted">${lab.desc}</p><div class="inline-lab" data-lab="${lab.id}"></div></section>` : ''}<section id="how"><h2><span>${lab ? '03' : '02'}</span> 它是怎么工作的</h2>${prose(e.fields['怎么工作'] || e.fields['是什么'] || e.definition)}${e.figures.map(src => `<figure><a href="${figurePath(src)}" target="_blank" rel="noopener"><img src="${figurePath(src)}" alt="${e.zh}原理图" loading="lazy"></a><figcaption>${inline(e.fields['图注'] || e.zh + '图解')} · 点击放大</figcaption>${parallelFigure(src)}</figure>`).join('')}</section>${e.fields['注意'] ? `<section class="misconception"><span class="eyebrow">等等，别理解错了</span>${prose(e.fields['注意'])}</section>` : ''}${lesson ? `<section id="quiz"><h2><span>✓</span> 用一个问题，检验理解</h2><div class="quiz" data-quiz="${id}"><h3>${lesson.question}</h3><div class="quiz-options">${lesson.options.map((o,i) => `<button data-answer="${i}"><span>${String.fromCharCode(65+i)}</span>${o}</button>`).join('')}</div><div class="quiz-feedback" role="status">${progress.passed.includes(id) ? '之前已答对。你也可以再练一次。' : '选一个答案，看看你的理解。'}</div></div></section>` : ''}<details class="deep-read" open><summary>再了解一点：历史与影响</summary><h3>关键年份与人物</h3>${prose(e.fields['年份人物'] || '本词条暂无补充说明。')}<h3>改变了什么</h3>${prose(e.fields['改变了'] || '本词条暂无补充说明。')}</details><section id="reflection"><h2>用自己的话，记下一点</h2><label for="entry-note" class="muted">试着回答：它解决了什么问题？生活中哪里会用到它？</label><textarea id="entry-note" data-note="${id}" maxlength="5000" rows="4" placeholder="比如：高压输电是为了减小电流，减少路上的发热损耗…">${esc(progress.notes[id] || '')}</textarea><span class="small muted" id="note-status">输入后自动保存，请留意页面保存状态</span></section><div class="lesson-complete"><button class="btn primary" data-complete="${id}">${learned(id) ? '✓ 已学会 · 点击撤销' : '我理解了，标记学会'} ${icon('check')}</button>${next ? `<a class="text-link" href="${entryLink(next,path.id)}">下一节：${entries.get(next).zh} ${icon('arrow')}</a>` : path ? `<a class="text-link" href="#/paths/${path.id}">查看路线进度 ${icon('arrow')}</a>` : ''}</div><p class="source-note">书稿来源：<a href="#/chapter/${e.domain}">${domains.get(e.domain).zh}导读 ↗</a> · <a href="#/document/sources-${e.domain}">资料来源与核实记录 ↗</a>。原书的历史与数字沿用书稿核实时间；互动数值为教学模型。</p></article><aside class="article-aside"><div class="reading-guide"><span class="eyebrow">这一小节</span><a href="#why" data-scroll="why">为什么行得通</a>${lab ? '<a href="#experiment" data-scroll="experiment">动手试一试</a>' : ''}<a href="#how" data-scroll="how">怎么工作</a>${lesson ? '<a href="#quiz" data-scroll="quiz">检验理解</a>' : ''}<a href="#reflection" data-scroll="reflection">我的笔记</a><button class="btn secondary" data-save="${id}">${icon('bookmark')}${progress.saved.includes(id) ? '已收藏 · 取消' : '留着慢慢看'}</button></div><div class="related-box"><span class="eyebrow">顺着好奇心，继续走</span>${e.related.map(id => `<a href="${entryLink(id)}">${entries.get(id).zh} ${icon('arrow')}</a>`).join('')}</div></aside></div>`;
 }
 function labPage(id) {
   if (!id) return `${pageTitle('THE PLAYGROUND', '让知识，在你手里发生。', '拨一个开关，调一个参数，观察结果怎么改变。这里的实验不需要任何器材。')}<div class="lab-preview-grid">${labs.map(labCard).join('')}</div><div class="callout">${icon('lab')}<p>每个实验都是为了说明一个核心概念而简化的模型。先预测结果，再动手验证，最后试着说出为什么。</p></div>`;
@@ -168,7 +197,7 @@ function notebookPage() {
   const intro = inBrowser() ? '阅读位置、收藏、笔记和复习状态自动保存在当前浏览器。下次用同一个浏览器打开，可以接着读。' : '阅读位置、收藏、笔记和复习状态自动保存到项目。下次启动本机服务，可以接着读。';
   const clearLabel = inBrowser() ? '浏览器' : '项目';
   const clearDescription = inBrowser() ? '这会清空当前浏览器中本站的阅读位置、进度、收藏、笔记和复习记录。请先导出备份。' : '这会清空本项目的阅读位置、进度、收藏、笔记和复习记录。请先导出备份；清空会同步到项目文件。';
-  return `${pageTitle('YOUR FIELD NOTES', '每一个懂了，都算数。', intro)}${projectSummary()}<div class="notebook-stats"><div><strong>${progress.learned.length}</strong>已学会的知识</div><div><strong>${progress.passed.length}</strong>答对的小测</div><div><strong>${progress.saved.length}</strong>收藏的好奇</div><div><strong>${noted.length}</strong>自己的想法</div></div><div class="backup-actions"><button class="btn secondary" id="export-progress">导出学习记录 ↓</button><label class="btn secondary import-button">导入记录 ↑<input id="import-progress" type="file" accept="application/json,.json"></label><span class="small muted">导入会合并记录；同一词条的笔记优先保留本机版本。</span></div>${!inBrowser() && !storageOK ? '<p class="storage-warning" role="alert">浏览器草稿不可用。请确认上方显示「已保存到项目」后再关闭页面；也可导出备份。</p>' : ''}${sectionHead('YOUR JOURNEYS', '正在走的路')}<div class="path-grid">${pathways.map(pathCard).join('')}</div><section class="home-section">${sectionHead('SAVED FOR LATER', '留着慢慢看')}<div class="entry-grid">${progress.saved.length ? progress.saved.map(id => entryCard(entries.get(id))).join('') : '<div class="empty-state compact"><p>在词条里点击「留着慢慢看」，就能在这里找到它。</p><a class="text-link" href="#/explore">去发现一个新问题 →</a></div>'}</div></section><section class="home-section">${sectionHead('IN YOUR OWN WORDS', '我的理解')}<div class="note-list">${noted.length ? noted.map(id => `<a class="note-card" href="${entryLink(id)}"><h3>${entries.get(id).zh} ↗</h3><p>${esc(progress.notes[id])}</p></a>`).join('') : '<p class="muted">读完一节，用自己的话写下理解。笔记会汇集在这里。</p>'}</div></section>${progress.learned.length ? `<section>${sectionHead('WHAT YOU KNOW', '已学会的知识')}<div class="entry-grid">${progress.learned.map(id => entryCard(entries.get(id))).join('')}</div></section>` : ''}<details class="reset-records"><summary>清空${clearLabel}学习记录</summary><p>${clearDescription}</p><button class="btn secondary" id="reset-progress">确认清空${clearLabel}记录</button></details>`;
+  return `${pageTitle('YOUR FIELD NOTES', '每一个懂了，都算数。', intro)}${projectSummary()}<div class="notebook-stats"><div><strong>${progress.learned.length}</strong>已学会的知识</div><div><strong>${progress.passed.length}</strong>答对的小测</div><div><strong>${progress.saved.length}</strong>收藏的好奇</div><div><strong>${noted.length}</strong>自己的想法</div></div><div class="backup-actions"><button class="btn secondary" id="export-progress">导出学习记录 ↓</button><label class="btn secondary import-button">导入记录 ↑<input id="import-progress" type="file" accept="application/json,.json"></label><span class="small muted">导入会合并记录；同一词条的笔记优先保留本机版本。</span></div>${!inBrowser() && !storageOK ? '<p class="storage-warning" role="alert">浏览器草稿不可用。请确认上方显示「已保存到项目」后再关闭页面；也可导出备份。</p>' : ''}${sectionHead('YOUR JOURNEYS', '正在走的路')}<div class="path-grid">${pathways.map(pathCard).join('')}</div><section class="home-section">${sectionHead('SAVED FOR LATER', '留着慢慢看')}<div class="entry-grid">${progress.saved.length ? progress.saved.map(id => entryCard(entries.get(id))).join('') : '<div class="empty-state compact"><p>在词条里点击「留着慢慢看」，就能在这里找到它。</p><a class="text-link" href="#/explore">去发现一个新问题 →</a></div>'}</div></section><section class="home-section">${sectionHead('IN YOUR OWN WORDS', '我的理解')}<div class="note-list">${noted.length ? noted.map(id => `<a class="note-card" href="${entryLink(id)}"><h3>${entries.get(id).zh} ↗</h3><p data-no-translate>${esc(progress.notes[id])}</p></a>`).join('') : '<p class="muted">读完一节，用自己的话写下理解。笔记会汇集在这里。</p>'}</div></section>${progress.learned.length ? `<section>${sectionHead('WHAT YOU KNOW', '已学会的知识')}<div class="entry-grid">${progress.learned.map(id => entryCard(entries.get(id))).join('')}</div></section>` : ''}<details class="reset-records"><summary>清空${clearLabel}学习记录</summary><p>${clearDescription}</p><button class="btn secondary" id="reset-progress">确认清空${clearLabel}记录</button></details>`;
 }
 function projectSummary() {
   const readCount=Object.values(progress.reading).filter(r=>r.finished).length;
@@ -193,7 +222,11 @@ function bindBookPages() {
 }
 
 function notFound() { return `${pageTitle('A LITTLE DETOUR', '这条小路还没有通向知识。', '链接可能有误，回到首页换一个方向继续探索吧。')}<a class="btn primary" href="#/">返回探索首页 ${icon('arrow')}</a>`; }
+function selectLanguage(value) {
+  readingController.capture();progress.prefs.language=value;save();render({restoreLanguagePosition:true});
+}
 function bindPage() {
+  $('#language-select').onchange=event=>selectLanguage(event.target.value);
   $$('[data-lab]').forEach(mountLab);
   bindBookPages();
   reviewController.bind();
@@ -222,22 +255,27 @@ function bindPage() {
   });
   $$('[data-quiz]').forEach(quiz => {
     const lesson = lessons[quiz.dataset.quiz];
-    $$('[data-answer]', quiz).forEach(button => button.onclick = () => {
+    const showAnswer = (button, record = true) => {
       const correct = Number(button.dataset.answer) === lesson.answer;
+      quizAnswers.set(quiz.dataset.quiz,Number(button.dataset.answer));
       $$('[data-answer]', quiz).forEach(b => { b.classList.remove('correct', 'incorrect'); b.setAttribute('aria-pressed', String(b === button)); });
       button.classList.add(correct ? 'correct' : 'incorrect');
       $('.quiz-feedback', quiz).className = `quiz-feedback ${correct ? 'correct' : 'incorrect'}`;
       $('.quiz-feedback', quiz).textContent = (correct ? '✓ 对，就是这样。' : '再想想。') + lesson.explanation;
+      if(!record)return;
       if (correct) { progress.mistakes = progress.mistakes.filter(id => id !== quiz.dataset.quiz); if (!progress.passed.includes(quiz.dataset.quiz)) progress.passed.push(quiz.dataset.quiz); }
       else if (!progress.mistakes.includes(quiz.dataset.quiz)) progress.mistakes.push(quiz.dataset.quiz);
       save();
-    });
+    };
+    $$('[data-answer]', quiz).forEach(button => button.onclick = () => showAnswer(button));
+    const previous=quizAnswers.get(quiz.dataset.quiz);
+    if(Number.isInteger(previous))showAnswer($(`[data-answer="${previous}"]`,quiz),false);
   });
   $('#entry-note')?.addEventListener('input', event => { progress.notes[event.target.dataset.note] = event.target.value; save(); syncStatus(); });
   $('#reset-progress')?.addEventListener('click', () => { progress = normalize(null); if(inBrowser())projectStore.reset(progress);else save(); render(); toast('清空操作已执行，请确认页面保存状态。'); });
   $('#export-progress')?.addEventListener('click', () => {
     const blob = new Blob([JSON.stringify({version:2, exportedAt: new Date().toISOString(), ...progress}, null, 2)], {type:'application/json'});
-    const url = URL.createObjectURL(blob); const a = document.createElement('a'); a.href = url; a.download = '原来如此-学习记录.json'; a.click(); setTimeout(() => URL.revokeObjectURL(url),1000); toast('学习记录已导出');
+    const url = URL.createObjectURL(blob); const a = document.createElement('a'); a.href = url; a.download = currentLanguage()==='en'?'now-i-see-learning-records.json':'原来如此-学习记录.json'; a.click(); setTimeout(() => URL.revokeObjectURL(url),1000); toast('学习记录已导出');
   });
   $('#import-progress')?.addEventListener('change', async event => {
     try {
@@ -253,11 +291,14 @@ function bindPage() {
 }
 function mountLab(root) {
   const id = root.dataset.lab; const compact = root.dataset.compact === 'true';
+  const previous=experimentStates.get(id)||{};
   if (id === 'logic') {
-    let gate = 'AND', a = 0, b = 1;
+    let {gate='AND',a=0,b=1}=previous;
     root.innerHTML = `${compact ? '' : '<p class="lab-instruction">先猜一猜：两个条件里只有一个成立，灯会亮吗？点击 A、B，再切换判断规则。</p>'}<div class="gate-tabs" role="group" aria-label="逻辑门规则">${['AND','OR','XOR'].map((g,i) => `<button data-gate="${g}" aria-pressed="${i === 0}" class="${i===0?'active':''}">${g} <span>${['与','或','异或'][i]}</span></button>`).join('')}</div><div class="logic-machine"><div class="logic-inputs"><div><span>A</span><button data-bit="a" aria-label="输入 A" aria-pressed="false" class="bit-switch"><span>0</span><i></i></button></div><div><span>B</span><button data-bit="b" aria-label="输入 B" aria-pressed="true" class="bit-switch on"><span>1</span><i></i></button></div></div><div class="logic-wires"><i></i><i></i></div><div class="gate-body"><span class="gate-name">AND</span><small>两个都要</small></div><div class="output-wire"></div><div class="bulb-output"><div class="bulb">${icon('bolt')}</div><span class="output-value">输出 0</span></div></div><div class="lab-observation" aria-live="polite"></div>${compact ? '<p class="try-hint">↑ 点一下开关，看看会发生什么</p>' : '<details class="truth-details"><summary>展开真值表，检查所有组合</summary><table><thead><tr><th>A</th><th>B</th><th>输出</th></tr></thead><tbody></tbody></table></details>'}`;
     function update() {
       const out = gateOutput(gate,a,b);
+      experimentStates.set(id,{gate,a,b});
+      $$('[data-gate]',root).forEach(button=>{button.classList.toggle('active',button.dataset.gate===gate);button.setAttribute('aria-pressed',String(button.dataset.gate===gate));});
       for (const [key,v] of [['a',a],['b',b]]) { const button = $(`[data-bit="${key}"]`,root); button.classList.toggle('on',Boolean(v)); button.setAttribute('aria-pressed',String(Boolean(v))); $('span',button).textContent=v; }
       $('.gate-name',root).textContent=gate; $('.gate-body small',root).textContent={AND:'两个都要',OR:'至少一个',XOR:'恰好一个'}[gate];
       $('.bulb',root).classList.toggle('lit',Boolean(out)); $('.output-wire',root).classList.toggle('lit',Boolean(out));
@@ -269,24 +310,27 @@ function mountLab(root) {
     $$('[data-gate]',root).forEach(btn=>btn.onclick=()=>{gate=btn.dataset.gate;$$('[data-gate]',root).forEach(b=>{b.classList.toggle('active',b===btn);b.setAttribute('aria-pressed',String(b===btn));});update();});
     update();
   } else if (id === 'binary') {
-    let bits = [0,0,0,0,0,1,0,1];
+    let bits = previous.bits?[...previous.bits]:[0,0,0,0,0,1,0,1];
     root.innerHTML = `<p class="lab-instruction">把每个开关当成一盏灯。亮的灯贡献上方的数值，灭的灯贡献 0。</p><div class="binary-switches">${bits.map((bit,i)=>`<div><small>${2**(7-i)}</small><button data-binary="${i}" aria-label="数位 ${2**(7-i)}" aria-pressed="${!!bit}">${bit}</button></div>`).join('')}</div><div class="binary-result"><span>十进制数值</span><strong></strong><p></p></div><div class="lab-challenge">小挑战：拨出数字 <b>42</b>。<span role="status"></span></div><button class="btn secondary" data-reset>全部归零</button><p class="model-note">这里演示一个字节的无符号整数：从 0 到 255。</p>`;
-    const update = () => {const n=binaryValue(bits);$$('[data-binary]',root).forEach((btn,i)=>{btn.textContent=bits[i];btn.classList.toggle('on',!!bits[i]);btn.setAttribute('aria-pressed',String(!!bits[i]));});$('.binary-result strong',root).textContent=n;$('.binary-result p',root).textContent=(bits.map((b,i)=>b?2**(7-i):0).filter(Boolean).join(' + ')||'0')+' = '+n;$('.lab-challenge span',root).textContent=n===42?'✓ 做到了！32 + 8 + 2 = 42。':'试着组合上面的数位。';};
+    const update = () => {experimentStates.set(id,{bits:[...bits]});const n=binaryValue(bits);$$('[data-binary]',root).forEach((btn,i)=>{btn.textContent=bits[i];btn.classList.toggle('on',!!bits[i]);btn.setAttribute('aria-pressed',String(!!bits[i]));});$('.binary-result strong',root).textContent=n;$('.binary-result p',root).textContent=(bits.map((b,i)=>b?2**(7-i):0).filter(Boolean).join(' + ')||'0')+' = '+n;$('.lab-challenge span',root).textContent=n===42?'✓ 做到了！32 + 8 + 2 = 42。':'试着组合上面的数位。';};
     $$('[data-binary]',root).forEach(btn=>btn.onclick=()=>{bits[btn.dataset.binary]=1-bits[btn.dataset.binary];update();});$('[data-reset]',root).onclick=()=>{bits.fill(0);update();};update();
   } else if (id === 'circuit' || id === 'grid') {
     const circuit=id==='circuit';
-    root.innerHTML=`<p class="lab-instruction">${circuit?'电压好比推动水流的压力差，电阻好比通道的阻碍。保持一个不变，试着改变另一个。':'保持输送功率 1000 kW、线路电阻 10 Ω 不变。把电压翻倍，预测损耗会变为多少。'}</p><div class="energy-display"><div class="energy-node">${icon('bolt')}<span>${circuit?'电源':'发电端'}</span></div><div class="energy-line"><i></i><span class="energy-flow"></span></div><div class="energy-node receiver">${icon('home')}<span>${circuit?'电阻负载':'用电端'}</span></div></div><div class="slider-control"><label>电压 <output class="voltage-output"></output><input type="range" data-voltage min="${circuit?1:10}" max="${circuit?24:100}" value="${circuit?12:10}" step="1" aria-label="电压"></label>${circuit?'<label>电阻 <output class="resistance-output"></output><input type="range" data-resistance min="1" max="100" value="10" aria-label="电阻"></label>':''}</div><div class="model-metrics"><div><span>电流</span><strong class="current-value"></strong></div><div><span>${circuit?'电阻消耗功率':'线路发热损耗'}</span><strong class="power-value"></strong></div></div><div class="lab-observation" aria-live="polite"></div><p class="model-note">${circuit?'理想直流电路，电阻恒定且忽略温度变化。I = U / R；P = U × I。真实灯泡的电阻可能随温度改变。':'简化教学模型：用 I = P / U 估算电流，线路损耗 = I²R；不模拟完整交流电网、变压器损耗和电压降。'}</p>`;
-    function update(){const v=Number($('[data-voltage]',root).value);const r=circuit?Number($('[data-resistance]',root).value):10;const amps=circuit?circuitCurrent(v,r):transmissionLoss(v).amps;const power=circuit?v*amps:transmissionLoss(v).lossKW;$('.voltage-output',root).textContent=v+(circuit?' V':' kV');if(circuit)$('.resistance-output',root).textContent=r+' Ω';$('.current-value',root).textContent=amps.toFixed(2)+' A';$('.power-value',root).textContent=power.toFixed(2)+(circuit?' W':' kW');$('.energy-flow',root).textContent=amps.toFixed(2)+' A →';$('.energy-line',root).style.setProperty('--flow-speed',Math.max(.3,3/(amps+1))+'s');$('.lab-observation',root).textContent=circuit?`当前电流是 ${v} ÷ ${r} = ${amps.toFixed(2)} A。电阻不变时，提高电压会增大电流。`:`与 10 kV 时的 100 kW 损耗相比，现在的损耗是 ${(power/100*100).toFixed(1)}%。电压变为 ${v/10} 倍，损耗变为原来的 1 / ${(v/10)**2}。`;}
+    root.innerHTML=`<p class="lab-instruction">${circuit?'电压好比推动水流的压力差，电阻好比通道的阻碍。保持一个不变，试着改变另一个。':'保持输送功率 1000 kW、线路电阻 10 Ω 不变。把电压翻倍，预测损耗会变为多少。'}</p><div class="energy-display"><div class="energy-node">${icon('bolt')}<span>${circuit?'电源':'发电端'}</span></div><div class="energy-line"><i></i><span class="energy-flow"></span></div><div class="energy-node receiver">${icon('home')}<span>${circuit?'电阻负载':'用电端'}</span></div></div><div class="slider-control"><label>电压 <output class="voltage-output"></output><input type="range" data-voltage min="${circuit?1:10}" max="${circuit?24:100}" value="${circuit?12:10}" step="1" aria-label="电压"></label>${circuit?'<label>电阻 R <output class="resistance-output"></output><input type="range" data-resistance min="1" max="100" value="10" aria-label="电阻 R"></label>':''}</div><div class="model-metrics"><div><span>电流</span><strong class="current-value"></strong></div><div><span>${circuit?'电阻消耗功率':'线路发热损耗'}</span><strong class="power-value"></strong></div></div><div class="lab-observation" aria-live="polite"></div><p class="model-note">${circuit?'理想直流电路，电阻恒定且忽略温度变化。I = U / R；P = U × I。真实灯泡的电阻可能随温度改变。':'简化教学模型：用 I = P / U 估算电流，线路损耗 = I²R；不模拟完整交流电网、变压器损耗和电压降。'}</p>`;
+    function update(){const v=Number($('[data-voltage]',root).value);const r=circuit?Number($('[data-resistance]',root).value):10;experimentStates.set(id,{v,r});const amps=circuit?circuitCurrent(v,r):transmissionLoss(v).amps;const power=circuit?v*amps:transmissionLoss(v).lossKW;$('.voltage-output',root).textContent=v+(circuit?' V':' kV');if(circuit)$('.resistance-output',root).textContent=r+' Ω';$('.current-value',root).textContent=amps.toFixed(2)+' A';$('.power-value',root).textContent=power.toFixed(2)+(circuit?' W':' kW');$('.energy-flow',root).textContent=amps.toFixed(2)+' A →';$('.energy-line',root).style.setProperty('--flow-speed',Math.max(.3,3/(amps+1))+'s');$('.lab-observation',root).textContent=circuit?`当前电流是 ${v} ÷ ${r} = ${amps.toFixed(2)} A。电阻不变时，提高电压会增大电流。`:`与 10 kV 时的 100 kW 损耗相比，现在的损耗是 ${(power/100*100).toFixed(1)}%。电压变为 ${v/10} 倍，损耗变为原来的 1 / ${(v/10)**2}。`;}
+    if(previous.v!=null)$('[data-voltage]',root).value=previous.v;
+    if(circuit&&previous.r!=null)$('[data-resistance]',root).value=previous.r;
     $$('input',root).forEach(input=>input.oninput=update);update();
   } else if (id === 'gradient') {
-    let x=4, steps=0, history=[4];
+    let x=previous.x??4, steps=previous.steps??0, history=previous.history?[...previous.history]:[4];
     root.innerHTML=`<p class="lab-instruction">把小球横向位置当成模型的一个参数，把高度当成误差。点击「走一步」，观察误差是变小还是变大。</p><div class="gradient-chart"><svg viewBox="0 0 600 280" role="img" aria-label="损失函数 L=x² 的曲线与参数位置"><defs><pattern id="chart-grid" width="50" height="40" patternUnits="userSpaceOnUse"><path d="M 50 0 L 0 0 0 40" fill="none" stroke="#dbe0d5" stroke-width="1"/></pattern></defs><rect x="30" y="20" width="540" height="225" fill="url(#chart-grid)"/><path d="M50 25Q300 465 550 25" fill="none" stroke="#5c7360" stroke-width="3"/><path d="M30 245h540M300 20v230" stroke="#bac4b7"/><text x="35" y="15">误差 L</text><text x="559" y="264">x</text><text x="306" y="262">0</text><polyline class="gradient-trail" fill="none" stroke="#ed825c" stroke-width="2" stroke-dasharray="5 5"/><circle class="gradient-ball" r="10" fill="#e87850" stroke="#fff" stroke-width="3"/></svg></div><label class="rate-control">学习率（步长） <output></output><input type="range" data-rate min="0.05" max="1.2" step="0.05" value="0.15" aria-label="学习率"></label><div class="lab-buttons"><button class="btn primary" data-step>走一步 ${icon('arrow')}</button><button class="btn secondary" data-reset>重新开始</button></div><div class="model-metrics"><div><span>已走步数</span><strong class="step-count"></strong></div><div><span>当前误差 x²</span><strong class="loss-value"></strong></div><div><span>参数 x</span><strong class="x-value"></strong></div></div><div class="lab-observation" aria-live="polite"></div><p class="model-note">一维教学模型：L(x) = x²，梯度是 2x；下一步 x = x − 学习率 × 2x。真实模型通常有很多参数，损失曲面也更复杂。曲线之外的位置会在边缘显示。</p>`;
-    const update=()=>{const rate=Number($('[data-rate]',root).value);$('output',root).textContent=rate.toFixed(2);const plotted=Math.max(-5,Math.min(5,x));$('.gradient-ball',root).setAttribute('cx',300+plotted*50);$('.gradient-ball',root).setAttribute('cy',245-plotted*plotted*8.8);$('.gradient-trail',root).setAttribute('points',history.map(v=>Math.max(-5,Math.min(5,v))).map(v=>`${300+v*50},${245-v*v*8.8}`).join(' '));$('.step-count',root).textContent=steps;$('.loss-value',root).textContent=(x*x).toFixed(4);$('.x-value',root).textContent=x.toFixed(4);$('.lab-observation',root).textContent=Math.abs(x)<.01?'✓ 误差已经很小了。试试重置后把学习率调到 1.1，对比结果。':Math.abs(x)>1000?'参数已经发散，暂停计算。请重新开始，试试更小的学习率。':rate>=1?'当前步长会让参数在两侧振荡；大于 1 时，误差还会增大。':'当前步长能让误差逐渐下降。多走几步，看看会靠近哪里。';$('[data-step]',root).disabled=Math.abs(x)>1000||steps>=100;};
+    const update=()=>{const rate=Number($('[data-rate]',root).value);experimentStates.set(id,{x,steps,history:[...history],rate});$('output',root).textContent=rate.toFixed(2);const plotted=Math.max(-5,Math.min(5,x));$('.gradient-ball',root).setAttribute('cx',300+plotted*50);$('.gradient-ball',root).setAttribute('cy',245-plotted*plotted*8.8);$('.gradient-trail',root).setAttribute('points',history.map(v=>Math.max(-5,Math.min(5,v))).map(v=>`${300+v*50},${245-v*v*8.8}`).join(' '));$('.step-count',root).textContent=steps;$('.loss-value',root).textContent=(x*x).toFixed(4);$('.x-value',root).textContent=x.toFixed(4);$('.lab-observation',root).textContent=Math.abs(x)<.01?'✓ 误差已经很小了。试试重置后把学习率调到 1.1，对比结果。':Math.abs(x)>1000?'参数已经发散，暂停计算。请重新开始，试试更小的学习率。':rate>=1?'当前步长会让参数在两侧振荡；大于 1 时，误差还会增大。':'当前步长能让误差逐渐下降。多走几步，看看会靠近哪里。';$('[data-step]',root).disabled=Math.abs(x)>1000||steps>=100;};
+    if(previous.rate!=null)$('[data-rate]',root).value=previous.rate;
     $('[data-rate]',root).oninput=update;$('[data-step]',root).onclick=()=>{x=gradientStep(x,Number($('[data-rate]',root).value));steps++;history.push(x);update();};$('[data-reset]',root).onclick=()=>{x=4;steps=0;history=[4];update();};update();
   } else if (id === 'packets') {
-    let received=[], step=0;const words=['科技','让','世界','相连'];const order=[2,0,3];
+    let received=previous.received?[...previous.received]:[], step=previous.step??0;const words=currentLanguage()==='en'?['Technology','keeps','the world','connected']:['科技','让','世界','相连'];const order=[2,0,3];
     root.innerHTML=`<p class="lab-instruction">我们发送「科技让世界相连」。先把它拆成四个编号包，模拟第 2 包丢失，其余包乱序到达。</p><div class="packet-sender"><span class="eyebrow">发送端 · 原消息</span><div class="packet-row">${words.map((w,i)=>`<span class="packet"><small>#${i+1}</small>${w}</span>`).join('')}</div></div><div class="network-track"><span>发送端</span><i></i><span>网络转发</span><i></i><span>接收端</span></div><div class="packet-receiver"><span class="eyebrow">接收端 · 到达顺序</span><div class="packet-row received-packets"></div></div><div class="lab-buttons"><button class="btn primary" data-send>接收下一个包</button><button class="btn secondary" data-retry disabled>请求重传缺失包</button><button class="btn secondary" data-reset>重置</button></div><div class="lab-observation" aria-live="polite"></div><p class="model-note">示意分组交换和 TCP 式的编号、重传、重排。IP 本身不保证有序可靠；这里每包用一个词块来帮助理解，真实网络按字节划分数据。</p>`;
-    const update=()=>{$('.received-packets',root).innerHTML=received.length?received.map(i=>`<span class="packet"><small>#${i+1}</small>${words[i]}</span>`).join(''):'<span class="muted">还没有数据包到达</span>';$('[data-send]',root).disabled=step>=3;$('[data-retry]',root).disabled=step<3||received.includes(1);$('.lab-observation',root).textContent=received.length===4?'✓ 按编号重排后：'+[...received].sort().map(i=>words[i]).join('')+'。到达顺序不同，仍能还原消息。':step===3?'第 2 包没有到达，消息还不完整。请求重传后，再按编号拼起来。':`已接收 ${received.length} / 4 个包。顺序可能改变，编号帮助接收端识别位置。`;};
+    const update=()=>{experimentStates.set(id,{received:[...received],step});$('.received-packets',root).innerHTML=received.length?received.map(i=>`<span class="packet"><small>#${i+1}</small>${words[i]}</span>`).join(''):'<span class="muted">还没有数据包到达</span>';$('[data-send]',root).disabled=step>=3;$('[data-retry]',root).disabled=step<3||received.includes(1);$('.lab-observation',root).textContent=received.length===4?'✓ 按编号重排后：'+[...received].sort().map(i=>words[i]).join(currentLanguage()==='en'?' ':'')+'。到达顺序不同，仍能还原消息。':step===3?'第 2 包没有到达，消息还不完整。请求重传后，再按编号拼起来。':`已接收 ${received.length} / 4 个包。顺序可能改变，编号帮助接收端识别位置。`;};
     $('[data-send]',root).onclick=()=>{received.push(order[step++]);update();};$('[data-retry]',root).onclick=()=>{received.push(1);update();};$('[data-reset]',root).onclick=()=>{received=[];step=0;update();};update();
   }
   if (!compact && labSources[id]) root.insertAdjacentHTML('beforeend',`<p class="lab-source">原理参考：<a href="${labSources[id][1]}" target="_blank" rel="noopener">${labSources[id][0]} ↗</a></p>`);
@@ -295,7 +339,19 @@ function mountLab(root) {
 try {
   const response = await fetch('./book.json');
   if (!response.ok) throw new Error('资料加载失败');
-  book = await response.json();
+  sourceBook = await response.json();
+  const translationResponse=await fetch('./en.json');
+  if(!translationResponse.ok)throw new Error('Translations unavailable');
+  translations=await translationResponse.json();
+  configureLanguage(translations);
+  englishBook=translateTree(sourceBook);
+  for(const key of ['entries','principles','domains']) englishBook[key].forEach((item,i)=>{item.originalZh=sourceBook[key][i].zh;item.zh=sourceBook[key][i].en;});
+  sourceBook.entries.forEach((entry,i)=>{
+    const translated=englishBook.entries[i];
+    const searchText=[entry.zh,entry.en,entry.definition,...Object.values(entry.fields),translated.definition,...Object.values(translated.fields)].join(' ').toLowerCase();
+    entry.searchText=searchText;translated.searchText=searchText;
+  });
+  book={...sourceBook};
   entries = new Map(book.entries.map(e => [e.id, e]));
   principles = new Map(book.principles.map(p => [p.id, p]));
   domains = new Map(book.domains.map(d => [d.id, d]));
@@ -312,9 +368,10 @@ try {
   if(inBrowser())window.addEventListener('storage',event=>projectStore.observe(event));
   progress = await projectStore.init(raw);
   bookReader = createBookReader({book,entries,principles,domains,progress:()=>progress,esc,icon,entryCard,pageTitle});
-  readingController = createReadingController({book,getProgress:()=>progress,save,title:bookReader.title,esc,icon});
+  readingController = createReadingController({book,getProgress:()=>progress,save,title:key=>bookReader.title(key),esc,icon,changeLanguage:selectLanguage});
   reviewController = createReview({book,entries,domains,lessons,getProgress:()=>progress,save,esc,icon,pageTitle});
   render();
+  observeTranslations();
   window.addEventListener('pagehide',()=>{readingController.capture();projectStore.flush(true);});
   document.addEventListener('visibilitychange',()=>{if(document.visibilityState==='hidden'){readingController.capture();projectStore.flush(true);}});
   window.addEventListener('beforeunload',event=>{readingController.capture();if(projectStore.pending){projectStore.flush(true);event.preventDefault();event.returnValue='';}});
@@ -326,7 +383,7 @@ try {
     }
   });
 } catch (error) {
-  $('#app').innerHTML = '<div class="error-page"><h1>资料暂时没有打开</h1><p>请检查网络连接后重新加载。若问题持续，请稍后再试。</p><button class="btn primary" id="reload">重新加载</button></div>';
+  $('#app').innerHTML = '<div class="error-page" data-no-translate><h1><span lang="zh-CN">资料暂时没有打开</span><br><span lang="en">Unable to load the book</span></h1><p lang="zh-CN">请检查网络连接后重新加载。若问题持续，请稍后再试。</p><p lang="en">Check your connection and reload. If the problem continues, try again later.</p><button class="btn primary" id="reload">重新加载 / Reload</button></div>';
   $('#reload').onclick = () => location.reload();
   console.error(error);
 }

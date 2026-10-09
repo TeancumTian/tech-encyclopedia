@@ -1,12 +1,13 @@
-export function createReadingController({book, getProgress, save, title, esc, icon}) {
+export function createReadingController({book, getProgress, save, title, esc, icon, changeLanguage}) {
   let active = null, dirty = false, ready = false, generation = 0, timer;
+  const readingTop=()=>Math.max(145,(document.querySelector('.reader-toolbar')?.getBoundingClientRect().height||0)+16);
   function measure() {
     const fraction = Math.min(1, Math.max(0, scrollY / Math.max(1,document.documentElement.scrollHeight-innerHeight)));
     const candidates = [...document.querySelectorAll('.reading-unit [id], .article section[id], .timeline-year[id], .index-letter[id]')];
-    let anchor = '', offset = 0;
+    let anchor = '', offset = 0; const top=readingTop();
     for (const element of candidates) {
       const r = element.getBoundingClientRect();
-      if (r.height && r.top <= 145) { anchor = element.id; offset = Math.max(0,Math.min(1,(145-r.top)/r.height)); }
+      if (r.height && r.top <= top) { anchor = element.id; offset = Math.max(0,Math.min(1,(top-r.top)/r.height)); }
     }
     return {fraction,anchor,offset};
   }
@@ -24,10 +25,10 @@ export function createReadingController({book, getProgress, save, title, esc, ic
   async function restore(record, run) {
     ready=false;
     // Images have intrinsic sizes; waiting for them keeps anchors reliable across browsers.
-    await Promise.all([...document.querySelectorAll('.reading-unit img,.article img')].map(img=>img.complete?Promise.resolve():new Promise(resolve=>{img.addEventListener('load',resolve,{once:true});img.addEventListener('error',resolve,{once:true});setTimeout(resolve,1600);}))); 
+    await Promise.all([...document.querySelectorAll('.reading-unit img,.article img')].filter(img=>!img.closest('details:not([open])')).map(img=>img.complete?Promise.resolve():new Promise(resolve=>{img.addEventListener('load',resolve,{once:true});img.addEventListener('error',resolve,{once:true});setTimeout(resolve,1600);})));
     if(run!==generation)return;
     const node=record.anchor&&document.getElementById(record.anchor);
-    const y=node?scrollY+node.getBoundingClientRect().top+(record.offset||0)*node.getBoundingClientRect().height-145:(record.fraction||0)*Math.max(0,document.documentElement.scrollHeight-innerHeight);
+    const y=node?scrollY+node.getBoundingClientRect().top+(record.offset||0)*node.getBoundingClientRect().height-readingTop():(record.fraction||0)*Math.max(0,document.documentElement.scrollHeight-innerHeight);
     window.scrollTo({top:Math.max(0,y),behavior:'instant'});
     requestAnimationFrame(()=>{if(run===generation){ready=true;dirty=false;}});
   }
@@ -42,6 +43,8 @@ export function createReadingController({book, getProgress, save, title, esc, ic
     const done=saved?.finished===true;
     const html=`<div class="reader-toolbar"><a class="reader-directory" href="#/book">${icon('book')} 全书目录</a><span class="reader-position">${index+1} / ${book.readingOrder.length}</span><span class="reader-save" data-sync-status></span><label class="reader-font">字号<select id="reader-font" aria-label="阅读字号"><option value="normal" ${p.prefs.fontSize==='normal'?'selected':''}>标准</option><option value="large" ${p.prefs.fontSize==='large'?'selected':''}>大字</option></select></label><button class="reader-focus-button" id="reader-focus" aria-pressed="${p.prefs.focus}">${p.prefs.focus?'退出专注':'专注阅读'}</button></div>${saved?.fraction>.03&&!keepScroll?`<div class="resume-position"><span>上次读到本节 <b data-reading-percent>${Math.round(saved.fraction*100)}%</b></span><button id="restore-position">回到上次位置 ↓</button></div>`:''}`;
     document.querySelector('main').insertAdjacentHTML('afterbegin',html);
+    document.querySelector('.reader-toolbar').insertAdjacentHTML('beforeend',`<label class="reader-language language-picker" data-no-translate><span class="sr-only">语言 / Language</span><select id="reader-language" aria-label="语言 / Language">${[['zh','中文'],['en','English'],['bi','中英对照']].map(([value,label])=>`<option value="${value}" ${p.prefs.language===value?'selected':''}>${label}</option>`).join('')}</select></label>`);
+    document.querySelector('#reader-language').onchange=event=>changeLanguage?.(event.target.value);
     document.querySelector('main').insertAdjacentHTML('beforeend',`<div class="reader-end"><div><span class="eyebrow">读完这一节，给自己一个小记号</span><button class="btn ${done?'secondary':'primary'}" id="mark-read" aria-pressed="${done}">${done?'✓ 已读 · 点击撤销':'标记本节已读'} ${icon('check')}</button></div><p>「已读」记录阅读进度；「学会」和复习自测单独记录。</p></div><nav class="book-pagination" aria-label="全书前后节导航">${prev?`<a href="#/${prev}"><small>← 上一节</small><strong>${esc(title(prev))}</strong></a>`:'<span></span>'}${next?`<a href="#/${next}"><small>下一节 →</small><strong>${esc(title(next))}</strong></a>`:'<a href="#/book"><small>全书目录</small><strong>回看你的阅读足迹 →</strong></a>'}</nav>`);
     document.querySelector('#reader-font').onchange=event=>{p.prefs.fontSize=event.target.value;document.body.classList.toggle('reader-large',p.prefs.fontSize==='large');save();};
     document.querySelector('#reader-focus').onclick=event=>{p.prefs.focus=!p.prefs.focus;document.body.classList.toggle('reader-focus',p.prefs.focus);event.currentTarget.textContent=p.prefs.focus?'退出专注':'专注阅读';event.currentTarget.setAttribute('aria-pressed',String(p.prefs.focus));save();};

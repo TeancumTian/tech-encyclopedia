@@ -53,7 +53,8 @@ def normalize_progress(raw, entry_ids, reading_ids):
         'lastRead': raw.get('lastRead') if isinstance(raw.get('lastRead'), str) and raw['lastRead'] in reading_ids else None,
         'notes': {k: v[:5000] for k, v in mapping('notes').items() if k in entry_ids and isinstance(v, str)},
         'reading': reading, 'review': review,
-        'prefs': {'fontSize': 'large' if prefs.get('fontSize') == 'large' else 'normal', 'focus': prefs.get('focus') is True},
+        'prefs': {'fontSize': 'large' if prefs.get('fontSize') == 'large' else 'normal', 'focus': prefs.get('focus') is True,
+                  'language': prefs.get('language') if prefs.get('language') in ('zh', 'en', 'bi') else 'zh'},
     }
 
 

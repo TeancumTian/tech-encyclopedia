@@ -1,0 +1,6 @@
+{
+  "name": "tech-encyclopedia-editorial-tools",
+  "private": true,
+  "description": "Optional source extraction tools; not used by the reader or CI builds",
+  "dependencies": {"acorn": "8.15.0"}
+}

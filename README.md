@@ -20,6 +20,7 @@
 - 997 个词条均可翻卡回想；支持按领域、已读、收藏和到期内容复习，以及 20 节导学的小测错题重练。
 - 在线版把阅读位置、收藏、笔记和复习进度保存在当前浏览器，支持 JSON 导出/导入；本机服务版继续写入 `learning-data/progress.json` 并保留前一版备份。
 - 适配电脑和手机尺寸；无需账户、API 密钥、第三方字体或 npm 依赖。
+- 中文、English、中英对照三种模式：界面、整本书、导学、小测和图解均可切换；语言选择与阅读进度一起保存，个人笔记保持原文。
 
 需要 Python 3.9+。在仓库目录运行：
 
@@ -32,6 +33,12 @@ make web-serve
 在线记录不会上传，手机和电脑也不会自动同步；清除网站数据或隐私浏览可能丢失记录，请定期在「我的学习」导出 JSON。将本机记录带到线上：先在本机网页导出，再到线上网页导入。
 
 本机版的项目文件已从 Git 提交排除，重建网页不会清除；备份与恢复见 [学习数据说明](learning-data/README.md)。
+
+### Read in English
+
+Open [Now I See — The Technology Atlas](https://teancum.me/tech-encyclopedia/) and choose **English** in the language menu. Choose **中英对照** to compare Chinese and English passages. The complete book includes 997 entries, 59 principles, 17 chapters and 183 diagrams, alongside learning paths, experiments and review cards.
+
+Reading position, bookmarks and notes stay in your browser. Use **My learning → Export / Import** to make a backup or move your records to another device. All language modes share the same progress, and your own notes remain exactly as you wrote them. English content is a machine-assisted, edited translation of the Chinese manuscript; the existing PDF remains in Chinese. See [translation maintenance](translations/README.md) for the editing workflow.
 
 网页从现有书稿生成，`build/web/` 是产物，不要直接修改。维护和实验模型说明见 [网页维护说明](docs/WEB_MAINTENANCE.md)。推送 `main` 后，GitHub Actions 先检查并构建，再自动部署 `build/web/` 到 GitHub Pages。仓库与网页均按用户授权公开，个人学习数据不包含在发布产物中。
 

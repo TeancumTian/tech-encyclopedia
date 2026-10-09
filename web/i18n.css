@@ -1,0 +1,48 @@
+.language-picker { flex: 0 0 auto; }
+.reader-language { display: none; }
+.reader-focus .reader-language { display: inline-flex; }
+.language-picker select { max-width: 125px; padding: 9px 26px 9px 11px; border: 1px solid var(--line, #dbe0d5); border-radius: 8px; background: #f5f6ef; color: #2d4235; font: inherit; font-size: 13px; cursor: pointer; }
+.language-picker select:focus-visible { outline: 2px solid #52775b; outline-offset: 3px; }
+.parallel-text { white-space: normal; }
+.english-name:empty, .article-en:empty, small[data-no-translate]:empty { display: none; }
+.parallel-text > span { display: block; }
+.translation-en { margin-top: .35em; color: #56685a; font-size: .9em; line-height: 1.55; font-weight: 400; letter-spacing: 0; }
+.article .translation-en, .book-prose .translation-en { font-family: Georgia, 'Times New Roman', serif; font-size: .96em; line-height: 1.75; }
+.btn .translation-en { color: inherit; opacity: .83; font-size: .78em; line-height: 1.3; }
+.sidebar nav .translation-en { font-size: 10px; line-height: 1.2; margin-top: 3px; }
+.translation-note { margin: 14px 0; color: #657361; font-size: 12px; line-height: 1.6; }
+.parallel-figure { margin-top: 12px; border-top: 1px solid #dbe0d5; padding-top: 12px; }
+.parallel-figure summary { cursor: pointer; color: #345940; font-size: 13px; }
+.parallel-figure img { margin-top: 14px; }
+html[data-language=en] .hero h1 { font-size: clamp(40px, 4.4vw, 67px); line-height: 1.13; }
+html[data-language=en] .article h1 { overflow-wrap: anywhere; }
+html[data-language=en] .page-title h1 { font-size: clamp(30px, 3.8vw, 54px); }
+html[data-language=en] .brand { font-size: 23px; }
+html[data-language=en] .top-caption { font-size: 11px; }
+html[data-language=en] .article-en { font-family: inherit; }
+html[data-language=bi] .reader-toolbar, html[data-language=en] .reader-toolbar { flex-wrap: wrap; }
+html[data-language=bi] .sidebar nav a { padding-top: 9px; padding-bottom: 9px; }
+html[data-language=bi] .top-caption { display: none; }
+html[data-language=bi] .book-quick-links strong { align-items: flex-start; }
+html[data-language=bi] .hero h1 .translation-en { font-size: .45em; }
+html[data-language=bi] .hero h1 > .translation-en { display: block; margin-top: .6em; }
+html[data-language=en] .gate-tabs button > span, html[data-language=bi] .gate-tabs .translation-en { display: none; }
+html[data-language=bi] .reader-end .btn { white-space: normal; }
+html[data-language=en] .gate-body small, html[data-language=bi] .gate-body small { font-size: 10px; }
+html[data-language=en] .packet, html[data-language=bi] .packet { min-width: 60px; width: auto; padding-inline: 10px; }
+@media (max-width: 1200px) { .top-caption { display: none; } .topbar { gap: 12px; } }
+@media (max-width: 680px) {
+  .topbar { flex-wrap: wrap; gap: 10px; padding-bottom: 12px; }
+  .global-search { order: 0; flex: 1 1 calc(100% - 145px); min-width: 120px; }
+  .language-picker { order: 1; }
+  .top-save { order: 2; margin-left: auto; }
+  .profile { display: none; }
+  .language-picker select { max-width: 116px; }
+  .book-quick-links .translation-en { font-size: 11px; }
+  html[data-language=en] .hero h1 { font-size: 42px; }
+  html[data-language=bi] .sidebar nav { align-items: stretch; }
+  html[data-language=bi] .sidebar nav a { min-height: 49px; }
+  html[data-language=en] .sidebar nav a { font-size: 10px; }
+  .reader-toolbar .reader-save { white-space: normal; }
+  .backup-actions { align-items: stretch; }
+}

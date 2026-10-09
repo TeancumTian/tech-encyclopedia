@@ -29,7 +29,7 @@ export function normalizeProgress(raw, validIds, readingIds = []) {
       .map(([id, v]) => [id, {fraction:fraction(v.fraction), maxFraction:fraction(v.maxFraction), anchor:String(v.anchor || '').slice(0,100), offset:fraction(v.offset), finished:v.finished === true, updatedAt:stamp(v.updatedAt)}])),
     review: Object.fromEntries(Object.entries(object(raw?.review)).filter(([id, v]) => allowed.has(id) && v && typeof v === 'object')
       .map(([id, v]) => [id, {due:stamp(v.due), interval:Math.min(30,stamp(v.interval)), count:Math.min(10000,stamp(v.count)), rating:v.rating === 'know' ? 'know' : 'again'}])),
-    prefs: {fontSize:raw?.prefs?.fontSize === 'large' ? 'large' : 'normal', focus:raw?.prefs?.focus === true},
+    prefs: {fontSize:raw?.prefs?.fontSize === 'large' ? 'large' : 'normal', focus:raw?.prefs?.focus === true, language:['zh','en','bi'].includes(raw?.prefs?.language)?raw.prefs.language:'zh'},
   };
 }
 
