@@ -1,6 +1,6 @@
 /* Whole-book reading and review. Keep the existing warm paper / green palette. */
 .top-save { font-size: 10px; color: #687b5b; white-space: nowrap; }
-[data-sync-status][data-state="offline"], [data-sync-status][data-state="conflict"] { color: #a15c32; }
+[data-sync-status][data-state="offline"], [data-sync-status][data-state="conflict"], [data-sync-status][data-state="error"] { color: #a15c32; }
 .book-cover { display:grid; grid-template-columns:1.4fr 1fr; gap:50px; align-items:center; padding:45px 0; }
 .book-cover h1 { font-family:var(--serif); font-size:42px; line-height:1.5; }
 .book-cover p { color:#6b7b61; font-size:13px; margin-top:18px; max-width:530px; }

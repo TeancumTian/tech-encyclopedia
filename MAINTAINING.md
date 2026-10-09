@@ -6,6 +6,8 @@
 
 用 `make web-serve` 启动本机网页及保存服务。学习记录位于 `learning-data/progress.json`，另有上一次版本备份；这些个人数据不提交 Git，`make clean` 也不会删除。验收使用独立临时目录，避免污染真实学习记录。
 
+公开站通过 `.github/workflows/deploy-pages.yml` 从 `main` 自动部署，构建检查通过后才发布 `build/web/`。`web/runtime-config.json` 默认浏览器模式；本机服务动态返回项目模式。不要把个人进度加入构建包或 Git。
+
 ## 1. 出书流程一张图
 
 ```mermaid

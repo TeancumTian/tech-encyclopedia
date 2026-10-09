@@ -2,6 +2,14 @@
 
 「原来如此」面向零基础成年人：从生活问题进入知识，用可操作实验观察因果，再用小测和自己的笔记检查理解。全书内容完整可读：997 词条、59 原理、17 篇导读与地图、20 份前置与来源文稿、726 项年表及中英文索引，共 1098 个连续阅读小节、183 张图解。保留 4 条路线、20 节专门编写的导学与小测、6 个实验；新增覆盖全部词条的翻卡回想和复习安排。
 
+## 在线阅读与浏览器记录
+
+在线入口为 https://teancumtian.github.io/tech-encyclopedia/ 。用户于 2026-10-09 后续明确选择仓库公有、网页公开，线上记录暂存浏览器并保留导入导出，替代此前仅本机/私有的发布约束。
+
+静态构建中的 `runtime-config.json` 使用 `browser` 模式，`web/browser-storage.js` 直接读写 localStorage，不请求 `/api/progress`。存储键按部署路径隔离（`tech-encyclopedia-browser-v2:/tech-encyclopedia/`），刷新保留阅读锚点、已读、笔记、小测与复习。网页更新不会清空记录；清除网站数据、换浏览器或设备不会自动保留原数据。需要跨设备或从本机版迁移时使用 JSON 导出/导入。
+
+保存失败时明确提示并保留页面内数据用于导出。检测到另一页面改动时保留本页草稿并提示先导出再载入已保存记录；损坏存档不会自动覆盖，明确清空后才能重置。本功能没有账户或云同步。
+
 ## 本机启动
 
 ```bash
@@ -15,7 +23,7 @@ make web        # 构建到 build/web
 make web-check  # 书稿检查 + 构建 + JS 语法 + Python 存储/HTTP + Node 测试
 ```
 
-检查需要 Node.js 20+。也支持 `npm run build`、`npm test` 和 `npm start`；首次运行测试或服务前先构建。网页前端是静态文件，本机 Python 服务同时提供项目保存 API；不能直接双击 `index.html` 使用。普通静态服务器只能提供阅读和浏览器草稿，项目存档必须用 `make web-serve`。
+检查需要 Node.js 20+。也支持 `npm run build`、`npm test` 和 `npm start`；首次运行测试或服务前先构建。网页前端是静态文件，本机 Python 服务同时提供项目保存 API；不能直接双击 `index.html` 使用。普通静态服务器提供完整浏览器存档模式；项目存档必须用 `make web-serve`，它动态返回项目模式配置。线上构建文件始终保留浏览器模式。
 
 测试写入功能时，另开端口及独立数据目录，例如 `python3 scripts/serve_web.py --port 4174 --data-dir /tmp/encyclopedia-reader-qa`。不要把验收笔记写入用户的真实进度。
 
@@ -35,6 +43,7 @@ make web-check  # 书稿检查 + 构建 + JS 语法 + Python 存储/HTTP + Node 
 | 连续阅读、锚点恢复、字号与专注模式 | `web/reading.js` |
 | 翻卡回想、到期复习和错题重练 | `web/review.js` |
 | 项目保存客户端、离线草稿、冲突处理 | `web/storage.js` |
+| 线上浏览器存档与路径隔离 | `web/browser-storage.js`、`web/runtime-config.json` |
 | 实验计算与进度数据校验 | `web/models.js` |
 | 样式与响应式布局 | `web/styles.css`、`web/reader.css` |
 | 书稿到网页的转换 | `scripts/build_web.py` |
@@ -76,7 +85,7 @@ make web-check  # 书稿检查 + 构建 + JS 语法 + Python 存储/HTTP + Node 
 - [Google Gradient descent](https://developers.google.com/machine-learning/crash-course/linear-regression/gradient-descent)
 - [Cloudflare Network packets](https://www.cloudflare.com/learning/network-layer/what-is-a-packet/)
 
-## 学习记录
+## 本机项目学习记录
 
 记录自动写入项目 `learning-data/progress.json`，保留上一版 `progress.previous.json`，均不提交 Git。它们位于 `build/` 外，重新构建、`make clean` 和重启服务不会清除。备份与人工恢复方法见 [学习数据说明](../learning-data/README.md)。
 
@@ -107,15 +116,23 @@ make web-check  # 书稿检查 + 构建 + JS 语法 + Python 存储/HTTP + Node 
 
 ## GitHub 与发布
 
-用户于 2026-10-09 选择先在本机使用。仓库保持私有，本次不配置公开网站、账户或定时任务。
+仓库已获用户明确授权改为公有，并使用 GitHub Pages 公开网页。版权保留原有约定；仓库可见性改变不等于添加开源许可证。
 
-`.github/workflows/check-web.yml` 在主分支推送与 PR 上运行检查，并生成 `interactive-encyclopedia` 静态构建包。原 PDF 工作流保留。资源都使用相对路径、页面使用 hash 路由，支持子路径部署；静态托管不具备写入本机项目的能力，未来发布需另行设计进度保存方式和访问权限。
+`.github/workflows/deploy-pages.yml` 在 `main` 推送或手动触发时运行 `make web-check`，将 **仅 `build/web/`** 上传为 Pages artifact，再由依赖构建成功的 deploy job 发布。部署使用 `github-pages` environment 和最小 Pages/OIDC 权限；使用 concurrency 避免并发发布。仓库 Pages 设置选择 GitHub Actions（`build_type=workflow`）。
 
-公开网站会公开所部署的书稿，即使 GitHub 源码仓库仍私有。实际发布前由用户选择访问范围，再配置相应平台，不把「私有源码」等同于「私有网站」。
+`.github/workflows/check-web.yml` 保留 PR/主分支检查，PDF 工作流继续独立运行。发布包不包含 `learning-data/`、Python 服务、Git 历史或私人 JSON。构建测试对这个边界和浏览器模式有断言。
+
+所有资源用相对路径，路由使用 hash；在 `/tech-encyclopedia/` 子路径验收后发布。发布后确认 Actions 部署成功、HTTPS 页面返回 200，并在真实网址检查目录、图解、浏览器存档和窄屏布局。若需回滚，恢复上一个已验证提交的前端源码后重新构建部署，保留个人浏览器数据。
 
 ## 后续迭代顺序
 
 优先根据实际学习反馈改进 20 节导学，再扩充能源、航天等领域实验。不要一次为全部词条机械生成同一种选择题。现有书稿事实沿用原核实记录，并未因为增加交互而重新全面事实审校。
+
+## 2026-10-09 GitHub Pages 版验收记录
+
+- 8 项 Python 与 26 项 Node 测试通过，覆盖浏览器恢复、存储失败重试、多页面冲突、损坏记录保护和发布包无个人数据。
+- 在 `/tech-encyclopedia/` 子路径的独立静态预览中验证图片和全文、笔记保存与刷新恢复、导出 JSON、明确清空测试记录后重新导入恢复。
+- 375 px「我的学习」布局无页面横向溢出；上线后再验收实际 HTTPS 网址和静态资源。
 
 ## 2026-10-09 完整阅读版验收记录
 

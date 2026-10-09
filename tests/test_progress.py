@@ -72,6 +72,7 @@ class HTTPTests(unittest.TestCase):
         connection.request(method,path,body,{**standard,**(headers or {})})
         response=connection.getresponse(); result=(response.status,response.read()); connection.close(); return result
     def test_http_get_put_read_and_conflict(self):
+        self.assertEqual(json.loads(self.request(path='/runtime-config.json')[1]), {'progressMode': 'project'})
         status, body=self.request(); self.assertEqual(status,200); self.assertFalse(json.loads(body)['exists'])
         status,_=self.request('PUT',data={'revision':0,'progress':{'notes':{'bit-byte':'记住了'}}}); self.assertEqual(status,200)
         self.assertEqual(json.loads(self.request()[1])['progress']['notes']['bit-byte'],'记住了')

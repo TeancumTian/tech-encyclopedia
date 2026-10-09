@@ -1,4 +1,5 @@
 import { ProjectProgress } from './storage.js';
+import { BrowserProgress, browserStorageKey } from './browser-storage.js';
 import { createBookReader } from './book-reader.js';
 import { createReadingController } from './reading.js';
 import { createReview } from './review.js';
@@ -31,20 +32,32 @@ const icon = (name, cls = '') => `<svg class="icon ${cls}" viewBox="0 0 24 24" f
 const repo = 'https://github.com/TeancumTian/tech-encyclopedia';
 const key = 'tech-encyclopedia-learning-v1';
 let book, entries, principles, domains, progress, filter = { query: '', domain: '', tier: '', page: 1 };
-let storageOK = true;
+let storageOK = true, progressMode = 'browser';
+const inBrowser = () => progressMode === 'browser';
 let projectStore, bookReader, readingController, reviewController;
 
 function save() {
-  try { localStorage.setItem(key, JSON.stringify(progress)); }
-  catch { storageOK = false; }
+  if (!inBrowser()) {
+    try { localStorage.setItem(key, JSON.stringify(progress)); }
+    catch { storageOK = false; }
+  }
   projectStore?.schedule(progress);
 }
 function syncStatus() {
   const state=projectStore?.state || 'loading';
-  const message={loading:'连接项目…',saving:'正在保存到项目…',saved:'✓ 已保存到项目',offline:'未写入项目 · 草稿待保存',conflict:'记录冲突 · 请处理'}[state];
+  const messages = inBrowser()
+    ? {loading:'读取浏览器存档…',saving:'正在保存…',saved:'✓ 已保存到浏览器',error:'尚未保存 · 请导出备份',conflict:'记录冲突 · 请处理'}
+    : {loading:'连接项目…',saving:'正在保存到项目…',saved:'✓ 已保存到项目',offline:'未写入项目 · 草稿待保存',conflict:'记录冲突 · 请处理'};
+  const message=messages[state] || '请检查保存状态';
   $$('[data-sync-status]').forEach(el=>{el.textContent=message;el.dataset.state=state;});
   const status=$('#note-status');if(status)status.textContent=message;
-  const warning=$('#sync-warning');if(warning){warning.hidden=!['offline','conflict'].includes(state);$('.sync-error',warning).textContent=state==='conflict'?'另一个页面修改了项目记录。请先导出当前草稿，再载入项目版本，避免覆盖笔记。':(projectStore?.message||'本机服务暂时不可用，记录尚未写入项目。请启动 make web-serve 后重试。');}
+  const warning=$('#sync-warning');
+  if(warning){
+    warning.hidden=!['offline','conflict','error'].includes(state);
+    $('.sync-error',warning).textContent=state==='conflict'
+      ? (inBrowser()?'另一个页面修改了浏览器存档。请先导出本页记录，再载入已保存版本，避免覆盖笔记。':'另一个页面修改了项目记录。请先导出当前草稿，再载入项目版本，避免覆盖笔记。')
+      : (projectStore?.message||'保存暂时不可用，请导出备份后重试。');
+  }
 }
 const normalize = raw => normalizeProgress(raw, entries.keys(), book.readingOrder);
 
@@ -118,7 +131,7 @@ function pageTitle(kicker, title, description) { return `<div class="page-title"
 function pathPage(id) {
   if (!id) return `${pageTitle('LEARNING JOURNEYS', '给好奇心，一条小路。', '每条路线从生活中的问题出发。每次学一小节，慢慢把知识连起来。')}<div class="path-grid full">${pathways.map(pathCard).join('')}</div><div class="callout">${icon('leaf')}<p>建议这样学：先看生活例子 → 动手做实验 → 回答小问题 → 用自己的话记下来。路线没有解锁限制，随时可以跳到感兴趣的一节。</p></div>`;
   const p = pathways.find(p => p.id === id); if (!p) return notFound();
-  return `<a class="back-link" href="#/paths">← 所有学习路线</a>${pageTitle('JOURNEY 0' + (pathways.indexOf(p)+1), p.name, p.intro)}<div class="journey-layout"><div class="journey-steps">${p.ids.map((eid, i) => `<a class="journey-step" href="${entryLink(eid, p.id)}"><span class="step-number ${learned(eid) ? 'done' : ''}">${learned(eid) ? icon('check') : String(i+1).padStart(2,'0')}</span><div><span class="small muted">第 ${i+1} 小节 ${labs.some(l => l.entry === eid) ? '· 含互动实验' : ''}</span><h3>${entries.get(eid).zh}</h3><p>${lessons[eid].analogy}</p></div>${icon('arrow')}</a>`).join('')}</div><aside class="journey-note ${p.color}">${icon(p.icon)}<h3>不用一口气学完。</h3><p>每次 5 分钟，让一个问号变小一点。</p><strong>${progressCount(p)} / ${p.ids.length}</strong><progress max="${p.ids.length}" value="${progressCount(p)}" aria-label="路线完成进度"></progress><p class="small">进度自动保存到本项目。完成小测后，记得点击「学会了」。</p><a class="btn primary" href="${entryLink(p.ids.find(id => !learned(id)) || p.ids[0], p.id)}">${progressCount(p) ? '继续学习' : '开始第一节'} ${icon('arrow')}</a></aside></div>`;
+  return `<a class="back-link" href="#/paths">← 所有学习路线</a>${pageTitle('JOURNEY 0' + (pathways.indexOf(p)+1), p.name, p.intro)}<div class="journey-layout"><div class="journey-steps">${p.ids.map((eid, i) => `<a class="journey-step" href="${entryLink(eid, p.id)}"><span class="step-number ${learned(eid) ? 'done' : ''}">${learned(eid) ? icon('check') : String(i+1).padStart(2,'0')}</span><div><span class="small muted">第 ${i+1} 小节 ${labs.some(l => l.entry === eid) ? '· 含互动实验' : ''}</span><h3>${entries.get(eid).zh}</h3><p>${lessons[eid].analogy}</p></div>${icon('arrow')}</a>`).join('')}</div><aside class="journey-note ${p.color}">${icon(p.icon)}<h3>不用一口气学完。</h3><p>每次 5 分钟，让一个问号变小一点。</p><strong>${progressCount(p)} / ${p.ids.length}</strong><progress max="${p.ids.length}" value="${progressCount(p)}" aria-label="路线完成进度"></progress><p class="small">进度自动保存到${inBrowser()?'当前浏览器':'本项目'}。完成小测后，记得点击「学会了」。</p><a class="btn primary" href="${entryLink(p.ids.find(id => !learned(id)) || p.ids[0], p.id)}">${progressCount(p) ? '继续学习' : '开始第一节'} ${icon('arrow')}</a></aside></div>`;
 }
 function explorePage() {
   return `${pageTitle('THE KNOWLEDGE ATLAS', '从一个词，走进一个世界。', '搜索中英文名称、生活关键词或正文。点击相关原理，还能发现跨领域的联系。')}<div class="explore-tabs"><button class="chip active" data-explore-tab="entries">${book.entries.length} 个科技词条</button><button class="chip" data-explore-tab="principles">${book.principles.length} 条底层原理</button></div><div id="entry-browser"><div class="filter-bar"><label class="catalog-search">${icon('search')}<input type="search" id="catalog-query" aria-label="搜索词条和正文" placeholder="试试「电池」「AI」「能量」" value="${esc(filter.query)}"></label><select id="domain-filter" aria-label="筛选领域"><option value="">全部领域</option>${book.domains.map(d => `<option value="${d.id}" ${filter.domain === d.id ? 'selected' : ''}>${d.zh}</option>`).join('')}</select><select id="tier-filter" aria-label="筛选词条"><option value="">所有词条</option><option value="A" ${filter.tier === 'A' ? 'selected' : ''}>核心图解</option><option value="lesson" ${filter.tier === 'lesson' ? 'selected' : ''}>入门导学</option></select></div><div id="catalog-results"></div></div><div id="principle-browser" hidden>${book.principle_groups.map(group => `<h2 class="group-heading">${group}</h2><div class="principle-grid">${book.principles.filter(p => p.group === group).map(p => `<a class="principle-card" href="#/principle/${p.id}"><h3>${p.zh} ${icon('arrow')}</h3><p>${esc(p.statement)}</p><span class="small muted">${p.entry_count} 个相关词条</span></a>`).join('')}</div>`).join('')}</div>`;
@@ -143,7 +156,7 @@ function entryPage(id, pathId) {
   const path = pathways.find(p => p.id === pathId && p.ids.includes(id));
   const next = path?.ids[path.ids.indexOf(id)+1];
   progress.last = id; save();
-  return `<a class="back-link" href="${path ? '#/paths/' + path.id : '#/explore?domain=' + e.domain}">← ${path ? path.name : domains.get(e.domain).zh}</a><div class="article-layout"><article class="article reading-unit"><div class="article-heading"><span class="eyebrow">${path ? `第 ${path.ids.indexOf(id)+1} / ${path.ids.length} 小节` : domains.get(e.domain).zh} · ${lesson ? '零基础导学' : '百科探索'}</span><h1>${e.zh}</h1><div class="article-en">${esc(e.en)}</div><p class="article-definition">${esc(e.definition)}</p></div>${lesson ? `<section class="analogy"><span class="eyebrow">先从生活里理解</span><p>${lesson.analogy}</p></section>` : ''}<section id="why"><h2><span>01</span> 为什么行得通</h2>${prose(e.fields['原理'])}<div class="principle-tags">${e.principles.map(id => `<a href="#/principle/${id}">${icon('spark')}${principles.get(id).zh} ↗</a>`).join('')}</div></section>${lab ? `<section id="experiment"><h2><span>02</span> 自己动手，试一次</h2><p class="muted">${lab.desc}</p><div class="inline-lab" data-lab="${lab.id}"></div></section>` : ''}<section id="how"><h2><span>${lab ? '03' : '02'}</span> 它是怎么工作的</h2>${prose(e.fields['怎么工作'] || e.fields['是什么'] || e.definition)}${e.figures.map(src => `<figure><a href="./${src}" target="_blank" rel="noopener"><img src="./${src}" alt="${e.zh}原理图" loading="lazy"></a><figcaption>${inline(e.fields['图注'] || e.zh + '图解')} · 点击放大</figcaption></figure>`).join('')}</section>${e.fields['注意'] ? `<section class="misconception"><span class="eyebrow">等等，别理解错了</span>${prose(e.fields['注意'])}</section>` : ''}${lesson ? `<section id="quiz"><h2><span>✓</span> 用一个问题，检验理解</h2><div class="quiz" data-quiz="${id}"><h3>${lesson.question}</h3><div class="quiz-options">${lesson.options.map((o,i) => `<button data-answer="${i}"><span>${String.fromCharCode(65+i)}</span>${o}</button>`).join('')}</div><div class="quiz-feedback" role="status">${progress.passed.includes(id) ? '之前已答对。你也可以再练一次。' : '选一个答案，看看你的理解。'}</div></div></section>` : ''}<details class="deep-read" open><summary>再了解一点：历史与影响</summary><h3>关键年份与人物</h3>${prose(e.fields['年份人物'] || '本词条暂无补充说明。')}<h3>改变了什么</h3>${prose(e.fields['改变了'] || '本词条暂无补充说明。')}</details><section id="reflection"><h2>用自己的话，记下一点</h2><label for="entry-note" class="muted">试着回答：它解决了什么问题？生活中哪里会用到它？</label><textarea id="entry-note" data-note="${id}" maxlength="5000" rows="4" placeholder="比如：高压输电是为了减小电流，减少路上的发热损耗…">${esc(progress.notes[id] || '')}</textarea><span class="small muted" id="note-status">${storageOK ? '输入后自动保存到本项目' : '浏览器草稿不可用，请检查项目保存状态'}</span></section><div class="lesson-complete"><button class="btn primary" data-complete="${id}">${learned(id) ? '✓ 已学会 · 点击撤销' : '我理解了，标记学会'} ${icon('check')}</button>${next ? `<a class="text-link" href="${entryLink(next,path.id)}">下一节：${entries.get(next).zh} ${icon('arrow')}</a>` : path ? `<a class="text-link" href="#/paths/${path.id}">查看路线进度 ${icon('arrow')}</a>` : ''}</div><p class="source-note">书稿来源：<a href="#/chapter/${e.domain}">${domains.get(e.domain).zh}导读 ↗</a> · <a href="#/document/sources-${e.domain}">资料来源与核实记录 ↗</a>。原书的历史与数字沿用书稿核实时间；互动数值为教学模型。</p></article><aside class="article-aside"><div class="reading-guide"><span class="eyebrow">这一小节</span><a href="#why" data-scroll="why">为什么行得通</a>${lab ? '<a href="#experiment" data-scroll="experiment">动手试一试</a>' : ''}<a href="#how" data-scroll="how">怎么工作</a>${lesson ? '<a href="#quiz" data-scroll="quiz">检验理解</a>' : ''}<a href="#reflection" data-scroll="reflection">我的笔记</a><button class="btn secondary" data-save="${id}">${icon('bookmark')}${progress.saved.includes(id) ? '已收藏 · 取消' : '留着慢慢看'}</button></div><div class="related-box"><span class="eyebrow">顺着好奇心，继续走</span>${e.related.map(id => `<a href="${entryLink(id)}">${entries.get(id).zh} ${icon('arrow')}</a>`).join('')}</div></aside></div>`;
+  return `<a class="back-link" href="${path ? '#/paths/' + path.id : '#/explore?domain=' + e.domain}">← ${path ? path.name : domains.get(e.domain).zh}</a><div class="article-layout"><article class="article reading-unit"><div class="article-heading"><span class="eyebrow">${path ? `第 ${path.ids.indexOf(id)+1} / ${path.ids.length} 小节` : domains.get(e.domain).zh} · ${lesson ? '零基础导学' : '百科探索'}</span><h1>${e.zh}</h1><div class="article-en">${esc(e.en)}</div><p class="article-definition">${esc(e.definition)}</p></div>${lesson ? `<section class="analogy"><span class="eyebrow">先从生活里理解</span><p>${lesson.analogy}</p></section>` : ''}<section id="why"><h2><span>01</span> 为什么行得通</h2>${prose(e.fields['原理'])}<div class="principle-tags">${e.principles.map(id => `<a href="#/principle/${id}">${icon('spark')}${principles.get(id).zh} ↗</a>`).join('')}</div></section>${lab ? `<section id="experiment"><h2><span>02</span> 自己动手，试一次</h2><p class="muted">${lab.desc}</p><div class="inline-lab" data-lab="${lab.id}"></div></section>` : ''}<section id="how"><h2><span>${lab ? '03' : '02'}</span> 它是怎么工作的</h2>${prose(e.fields['怎么工作'] || e.fields['是什么'] || e.definition)}${e.figures.map(src => `<figure><a href="./${src}" target="_blank" rel="noopener"><img src="./${src}" alt="${e.zh}原理图" loading="lazy"></a><figcaption>${inline(e.fields['图注'] || e.zh + '图解')} · 点击放大</figcaption></figure>`).join('')}</section>${e.fields['注意'] ? `<section class="misconception"><span class="eyebrow">等等，别理解错了</span>${prose(e.fields['注意'])}</section>` : ''}${lesson ? `<section id="quiz"><h2><span>✓</span> 用一个问题，检验理解</h2><div class="quiz" data-quiz="${id}"><h3>${lesson.question}</h3><div class="quiz-options">${lesson.options.map((o,i) => `<button data-answer="${i}"><span>${String.fromCharCode(65+i)}</span>${o}</button>`).join('')}</div><div class="quiz-feedback" role="status">${progress.passed.includes(id) ? '之前已答对。你也可以再练一次。' : '选一个答案，看看你的理解。'}</div></div></section>` : ''}<details class="deep-read" open><summary>再了解一点：历史与影响</summary><h3>关键年份与人物</h3>${prose(e.fields['年份人物'] || '本词条暂无补充说明。')}<h3>改变了什么</h3>${prose(e.fields['改变了'] || '本词条暂无补充说明。')}</details><section id="reflection"><h2>用自己的话，记下一点</h2><label for="entry-note" class="muted">试着回答：它解决了什么问题？生活中哪里会用到它？</label><textarea id="entry-note" data-note="${id}" maxlength="5000" rows="4" placeholder="比如：高压输电是为了减小电流，减少路上的发热损耗…">${esc(progress.notes[id] || '')}</textarea><span class="small muted" id="note-status">输入后自动保存，请留意页面保存状态</span></section><div class="lesson-complete"><button class="btn primary" data-complete="${id}">${learned(id) ? '✓ 已学会 · 点击撤销' : '我理解了，标记学会'} ${icon('check')}</button>${next ? `<a class="text-link" href="${entryLink(next,path.id)}">下一节：${entries.get(next).zh} ${icon('arrow')}</a>` : path ? `<a class="text-link" href="#/paths/${path.id}">查看路线进度 ${icon('arrow')}</a>` : ''}</div><p class="source-note">书稿来源：<a href="#/chapter/${e.domain}">${domains.get(e.domain).zh}导读 ↗</a> · <a href="#/document/sources-${e.domain}">资料来源与核实记录 ↗</a>。原书的历史与数字沿用书稿核实时间；互动数值为教学模型。</p></article><aside class="article-aside"><div class="reading-guide"><span class="eyebrow">这一小节</span><a href="#why" data-scroll="why">为什么行得通</a>${lab ? '<a href="#experiment" data-scroll="experiment">动手试一试</a>' : ''}<a href="#how" data-scroll="how">怎么工作</a>${lesson ? '<a href="#quiz" data-scroll="quiz">检验理解</a>' : ''}<a href="#reflection" data-scroll="reflection">我的笔记</a><button class="btn secondary" data-save="${id}">${icon('bookmark')}${progress.saved.includes(id) ? '已收藏 · 取消' : '留着慢慢看'}</button></div><div class="related-box"><span class="eyebrow">顺着好奇心，继续走</span>${e.related.map(id => `<a href="${entryLink(id)}">${entries.get(id).zh} ${icon('arrow')}</a>`).join('')}</div></aside></div>`;
 }
 function labPage(id) {
   if (!id) return `${pageTitle('THE PLAYGROUND', '让知识，在你手里发生。', '拨一个开关，调一个参数，观察结果怎么改变。这里的实验不需要任何器材。')}<div class="lab-preview-grid">${labs.map(labCard).join('')}</div><div class="callout">${icon('lab')}<p>每个实验都是为了说明一个核心概念而简化的模型。先预测结果，再动手验证，最后试着说出为什么。</p></div>`;
@@ -152,13 +165,19 @@ function labPage(id) {
 }
 function notebookPage() {
   const noted = Object.keys(progress.notes).filter(id => progress.notes[id].trim());
-  return `${pageTitle('YOUR FIELD NOTES', '每一个懂了，都算数。', '阅读位置、收藏、笔记和复习状态自动保存到项目。下次启动本机服务，可以接着读。')}${projectSummary()}<div class="notebook-stats"><div><strong>${progress.learned.length}</strong>已学会的知识</div><div><strong>${progress.passed.length}</strong>答对的小测</div><div><strong>${progress.saved.length}</strong>收藏的好奇</div><div><strong>${noted.length}</strong>自己的想法</div></div><div class="backup-actions"><button class="btn secondary" id="export-progress">导出学习记录 ↓</button><label class="btn secondary import-button">导入记录 ↑<input id="import-progress" type="file" accept="application/json,.json"></label><span class="small muted">导入会合并记录；同一词条的笔记优先保留本机版本。</span></div>${!storageOK ? '<p class="storage-warning" role="alert">浏览器草稿不可用。请确认上方显示「已保存到项目」后再关闭页面；也可导出备份。</p>' : ''}${sectionHead('YOUR JOURNEYS', '正在走的路')}<div class="path-grid">${pathways.map(pathCard).join('')}</div><section class="home-section">${sectionHead('SAVED FOR LATER', '留着慢慢看')}<div class="entry-grid">${progress.saved.length ? progress.saved.map(id => entryCard(entries.get(id))).join('') : '<div class="empty-state compact"><p>在词条里点击「留着慢慢看」，就能在这里找到它。</p><a class="text-link" href="#/explore">去发现一个新问题 →</a></div>'}</div></section><section class="home-section">${sectionHead('IN YOUR OWN WORDS', '我的理解')}<div class="note-list">${noted.length ? noted.map(id => `<a class="note-card" href="${entryLink(id)}"><h3>${entries.get(id).zh} ↗</h3><p>${esc(progress.notes[id])}</p></a>`).join('') : '<p class="muted">读完一节，用自己的话写下理解。笔记会汇集在这里。</p>'}</div></section>${progress.learned.length ? `<section>${sectionHead('WHAT YOU KNOW', '已学会的知识')}<div class="entry-grid">${progress.learned.map(id => entryCard(entries.get(id))).join('')}</div></section>` : ''}<details class="reset-records"><summary>清空项目学习记录</summary><p>这会清空本项目的阅读位置、进度、收藏、笔记和复习记录。请先导出备份；清空会同步到项目文件。</p><button class="btn secondary" id="reset-progress">确认清空项目记录</button></details>`;
+  const intro = inBrowser() ? '阅读位置、收藏、笔记和复习状态自动保存在当前浏览器。下次用同一个浏览器打开，可以接着读。' : '阅读位置、收藏、笔记和复习状态自动保存到项目。下次启动本机服务，可以接着读。';
+  const clearLabel = inBrowser() ? '浏览器' : '项目';
+  const clearDescription = inBrowser() ? '这会清空当前浏览器中本站的阅读位置、进度、收藏、笔记和复习记录。请先导出备份。' : '这会清空本项目的阅读位置、进度、收藏、笔记和复习记录。请先导出备份；清空会同步到项目文件。';
+  return `${pageTitle('YOUR FIELD NOTES', '每一个懂了，都算数。', intro)}${projectSummary()}<div class="notebook-stats"><div><strong>${progress.learned.length}</strong>已学会的知识</div><div><strong>${progress.passed.length}</strong>答对的小测</div><div><strong>${progress.saved.length}</strong>收藏的好奇</div><div><strong>${noted.length}</strong>自己的想法</div></div><div class="backup-actions"><button class="btn secondary" id="export-progress">导出学习记录 ↓</button><label class="btn secondary import-button">导入记录 ↑<input id="import-progress" type="file" accept="application/json,.json"></label><span class="small muted">导入会合并记录；同一词条的笔记优先保留本机版本。</span></div>${!inBrowser() && !storageOK ? '<p class="storage-warning" role="alert">浏览器草稿不可用。请确认上方显示「已保存到项目」后再关闭页面；也可导出备份。</p>' : ''}${sectionHead('YOUR JOURNEYS', '正在走的路')}<div class="path-grid">${pathways.map(pathCard).join('')}</div><section class="home-section">${sectionHead('SAVED FOR LATER', '留着慢慢看')}<div class="entry-grid">${progress.saved.length ? progress.saved.map(id => entryCard(entries.get(id))).join('') : '<div class="empty-state compact"><p>在词条里点击「留着慢慢看」，就能在这里找到它。</p><a class="text-link" href="#/explore">去发现一个新问题 →</a></div>'}</div></section><section class="home-section">${sectionHead('IN YOUR OWN WORDS', '我的理解')}<div class="note-list">${noted.length ? noted.map(id => `<a class="note-card" href="${entryLink(id)}"><h3>${entries.get(id).zh} ↗</h3><p>${esc(progress.notes[id])}</p></a>`).join('') : '<p class="muted">读完一节，用自己的话写下理解。笔记会汇集在这里。</p>'}</div></section>${progress.learned.length ? `<section>${sectionHead('WHAT YOU KNOW', '已学会的知识')}<div class="entry-grid">${progress.learned.map(id => entryCard(entries.get(id))).join('')}</div></section>` : ''}<details class="reset-records"><summary>清空${clearLabel}学习记录</summary><p>${clearDescription}</p><button class="btn secondary" id="reset-progress">确认清空${clearLabel}记录</button></details>`;
 }
 function projectSummary() {
   const readCount=Object.values(progress.reading).filter(r=>r.finished).length;
   const due=Object.values(progress.review).filter(r=>r.due<=Date.now()).length;
   const last=progress.lastRead;
-  return `<section class="project-save-panel"><div><span class="eyebrow">这一页，项目替你记住</span><h2>${last?esc(bookReader.title(last)):'从一个小节开始'}</h2><p>${readCount} / ${book.readingOrder.length} 个小节已读${last&&progress.reading[last]?` · 上次位置 ${Math.round(progress.reading[last].fraction*100)}%`:''}</p>${last?`<a class="btn primary" href="#/${last}?resume=1">接着上次读 ${icon('arrow')}</a>`:'<a class="btn primary" href="#/book">打开整本书 →</a>'}</div><div class="project-save-details"><strong data-sync-status aria-live="polite"></strong><p>文件位置 <code>learning-data/progress.json</code></p><p>保存在本项目中，重建网页与重启服务后仍保留。未加入 Git 提交。</p><div class="review-shortcuts"><a href="#/review?mode=due">${due} 个到期复习 →</a><a href="#/review?mode=mistakes">${progress.mistakes.length} 道待重练错题 →</a></div></div></section><div id="sync-warning" class="sync-warning" hidden><p class="sync-error"></p><div class="lab-buttons"><button class="btn secondary" id="retry-project">重试项目保存</button><button class="btn secondary" id="load-project">载入项目记录</button></div><small>载入会替换当前页面中的草稿，请先使用下方导出按钮备份。</small></div>`;
+  const details=inBrowser()
+    ? '<p>只保存在这台设备的当前浏览器中，学习记录不会上传。</p><p>清除网站数据或使用隐私浏览可能丢失记录。换设备或从本机版迁移时，请先导出 JSON，再在这里导入。</p>'
+    : '<p>文件位置 <code>learning-data/progress.json</code></p><p>保存在本项目中，重建网页与重启服务后仍保留。未加入 Git 提交。</p>';
+  return `<section class="project-save-panel"><div><span class="eyebrow">这一页，${inBrowser()?'浏览器':'项目'}替你记住</span><h2>${last?esc(bookReader.title(last)):'从一个小节开始'}</h2><p>${readCount} / ${book.readingOrder.length} 个小节已读${last&&progress.reading[last]?` · 上次位置 ${Math.round(progress.reading[last].fraction*100)}%`:''}</p>${last?`<a class="btn primary" href="#/${last}?resume=1">接着上次读 ${icon('arrow')}</a>`:'<a class="btn primary" href="#/book">打开整本书 →</a>'}</div><div class="project-save-details"><strong data-sync-status aria-live="polite"></strong>${details}<div class="review-shortcuts"><a href="#/review?mode=due">${due} 个到期复习 →</a><a href="#/review?mode=mistakes">${progress.mistakes.length} 道待重练错题 →</a></div></div></section><div id="sync-warning" class="sync-warning" hidden><p class="sync-error"></p><div class="lab-buttons"><button class="btn secondary" id="retry-project">重试保存</button><button class="btn secondary" id="load-project">载入${inBrowser()?'浏览器':'项目'}存档</button></div><small>载入会替换当前页面中的草稿，请先使用下方导出按钮备份。</small></div>`;
 }
 function bindBookPages() {
   if($('#timeline-results')){
@@ -170,7 +189,7 @@ function bindBookPages() {
     $('#index-query').oninput=update;update();
   }
   $('#retry-project')?.addEventListener('click',async()=>{await projectStore.retry();syncStatus();});
-  $('#load-project')?.addEventListener('click',async()=>{try{progress=await projectStore.useProject();render();toast('已载入项目保存的记录');}catch(error){toast(error.message);}});
+  $('#load-project')?.addEventListener('click',async()=>{try{progress=await projectStore.useProject();render();toast('已载入保存的记录');}catch(error){toast(error.message);}});
 }
 
 function notFound() { return `${pageTitle('A LITTLE DETOUR', '这条小路还没有通向知识。', '链接可能有误，回到首页换一个方向继续探索吧。')}<a class="btn primary" href="#/">返回探索首页 ${icon('arrow')}</a>`; }
@@ -215,7 +234,7 @@ function bindPage() {
     });
   });
   $('#entry-note')?.addEventListener('input', event => { progress.notes[event.target.dataset.note] = event.target.value; save(); syncStatus(); });
-  $('#reset-progress')?.addEventListener('click', () => { progress = normalize(null); save(); render(); toast('清空操作已提交，请确认项目保存状态。'); });
+  $('#reset-progress')?.addEventListener('click', () => { progress = normalize(null); if(inBrowser())projectStore.reset(progress);else save(); render(); toast('清空操作已执行，请确认页面保存状态。'); });
   $('#export-progress')?.addEventListener('click', () => {
     const blob = new Blob([JSON.stringify({version:2, exportedAt: new Date().toISOString(), ...progress}, null, 2)], {type:'application/json'});
     const url = URL.createObjectURL(blob); const a = document.createElement('a'); a.href = url; a.download = '原来如此-学习记录.json'; a.click(); setTimeout(() => URL.revokeObjectURL(url),1000); toast('学习记录已导出');
@@ -283,7 +302,14 @@ try {
   let raw;
   try { raw = JSON.parse(localStorage.getItem(key) || '{}'); } catch { storageOK = false; }
   const safeStorage = (() => { try { return localStorage; } catch { return {getItem:()=>null,setItem:()=>{throw new Error('Browser storage unavailable');}}; } })();
-  projectStore = new ProjectProgress({normalize, onStatus:()=>syncStatus(), storage:safeStorage});
+  const configResponse = await fetch('./runtime-config.json', {cache:'no-store'});
+  if (!configResponse.ok) throw new Error('保存配置加载失败');
+  const runtime = await configResponse.json();
+  progressMode = runtime.progressMode === 'project' && ['127.0.0.1','localhost','[::1]'].includes(location.hostname) ? 'project' : 'browser';
+  projectStore = inBrowser()
+    ? new BrowserProgress({normalize,onStatus:()=>syncStatus(),storage:safeStorage,cacheKey:browserStorageKey(location.href)})
+    : new ProjectProgress({normalize,onStatus:()=>syncStatus(),storage:safeStorage});
+  if(inBrowser())window.addEventListener('storage',event=>projectStore.observe(event));
   progress = await projectStore.init(raw);
   bookReader = createBookReader({book,entries,principles,domains,progress:()=>progress,esc,icon,entryCard,pageTitle});
   readingController = createReadingController({book,getProgress:()=>progress,save,title:bookReader.title,esc,icon});
@@ -300,7 +326,7 @@ try {
     }
   });
 } catch (error) {
-  $('#app').innerHTML = '<div class="error-page"><h1>资料暂时没有打开</h1><p>请确认已运行 make web，并通过 make web-serve 打开网页。</p><button class="btn primary" id="reload">重新加载</button></div>';
+  $('#app').innerHTML = '<div class="error-page"><h1>资料暂时没有打开</h1><p>请检查网络连接后重新加载。若问题持续，请稍后再试。</p><button class="btn primary" id="reload">重新加载</button></div>';
   $('#reload').onclick = () => location.reload();
   console.error(error);
 }

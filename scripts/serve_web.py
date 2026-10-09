@@ -136,6 +136,8 @@ def handler_for(site_dir, store):
         def do_GET(self):
             if not self.trusted():
                 return self.json_response(403, {'error': 'Local host only'})
+            if urlsplit(self.path).path == '/runtime-config.json':
+                return self.json_response(200, {'progressMode': 'project'})
             if urlsplit(self.path).path == '/api/progress':
                 try:
                     return self.json_response(200, {**store.read(), 'storagePath': 'learning-data/progress.json'})
