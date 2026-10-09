@@ -4,7 +4,7 @@
 
 ## 在线阅读与浏览器记录
 
-在线入口为 https://teancumtian.github.io/tech-encyclopedia/ 。用户于 2026-10-09 后续明确选择仓库公有、网页公开，线上记录暂存浏览器并保留导入导出，替代此前仅本机/私有的发布约束。
+在线入口为 https://teancum.me/tech-encyclopedia/ 。GitHub Pages 自动沿用账号已有的 `teancum.me` 域名，已启用强制 HTTPS；`https://teancumtian.github.io/tech-encyclopedia/` 自动跳转到这里。用户于 2026-10-09 后续明确选择仓库公有、网页公开，线上记录暂存浏览器并保留导入导出，替代此前仅本机/私有的发布约束。
 
 静态构建中的 `runtime-config.json` 使用 `browser` 模式，`web/browser-storage.js` 直接读写 localStorage，不请求 `/api/progress`。存储键按部署路径隔离（`tech-encyclopedia-browser-v2:/tech-encyclopedia/`），刷新保留阅读锚点、已读、笔记、小测与复习。网页更新不会清空记录；清除网站数据、换浏览器或设备不会自动保留原数据。需要跨设备或从本机版迁移时使用 JSON 导出/导入。
 
@@ -132,7 +132,9 @@ make web-check  # 书稿检查 + 构建 + JS 语法 + Python 存储/HTTP + Node 
 
 - 8 项 Python 与 26 项 Node 测试通过，覆盖浏览器恢复、存储失败重试、多页面冲突、损坏记录保护和发布包无个人数据。
 - 在 `/tech-encyclopedia/` 子路径的独立静态预览中验证图片和全文、笔记保存与刷新恢复、导出 JSON、明确清空测试记录后重新导入恢复。
-- 375 px「我的学习」布局无页面横向溢出；上线后再验收实际 HTTPS 网址和静态资源。
+- 发布提交 `b2cf03f` 的 [GitHub Pages 部署](https://github.com/TeancumTian/tech-encyclopedia/actions/runs/37989789973)与网页检查成功；仓库 `visibility=public`、Pages `https_enforced=true`。
+- 实际 HTTPS 网页返回 200；15 份公开资源（完整书稿 JSON、全部顶层前端文件和章节图解样本）与本机已测试产物逐字节一致，运行配置为浏览器模式；个人进度与保存 API 路径均返回 404。
+- 线上实测首页逻辑门、整本书目录、能源章节图解、浏览器保存提示及刷新后恢复上次阅读章节；导入导出按钮可见。375 px「我的学习」布局无页面横向溢出；手机检查为视口模拟。
 
 ## 2026-10-09 完整阅读版验收记录
 

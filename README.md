@@ -8,7 +8,9 @@
 
 ## 互动学习网页
 
-**在线阅读：[原来如此 · 完整科技百科](https://teancumtian.github.io/tech-encyclopedia/)**
+**在线阅读：[原来如此 · 完整科技百科](https://teancum.me/tech-encyclopedia/)**
+
+由 GitHub Pages 托管，使用账号已绑定的 `teancum.me` 域名并强制 HTTPS；原 `teancumtian.github.io/tech-encyclopedia/` 地址会跳转到这里。
 
 **「原来如此」** 将书稿变成面向零基础成年人的互动学习网站：
 
