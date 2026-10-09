@@ -6,6 +6,11 @@
 .parallel-text { white-space: normal; }
 .english-name:empty, .article-en:empty, small[data-no-translate]:empty { display: none; }
 .parallel-text > span { display: block; }
+/* Translated option text fills the row; only the A/B/C badge has a fixed size. */
+.quiz-options button > .parallel-text { flex: 1; min-width: 0; overflow-wrap: anywhere; }
+.article h2:has(> .parallel-text) { display: flex; align-items: baseline; gap: 14px; }
+.article h2:has(> .parallel-text) > span:not(.parallel-text) { margin-right: 0; flex-shrink: 0; }
+.article h2 > .parallel-text { min-width: 0; }
 .translation-en { margin-top: .35em; color: #56685a; font-size: .9em; line-height: 1.55; font-weight: 400; letter-spacing: 0; }
 .article .translation-en, .book-prose .translation-en { font-family: Georgia, 'Times New Roman', serif; font-size: .96em; line-height: 1.75; }
 .btn .translation-en { color: inherit; opacity: .83; font-size: .78em; line-height: 1.3; }
