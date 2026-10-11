@@ -27,8 +27,6 @@
 - Lamport 1978 逻辑时钟：见上
 - Doom 1993 引擎：改用 Doom (1993 video game) 与 Doom engine 条目核对通过
 - McCarthy 1961 公用计算：改用 John McCarthy 条目核对通过
-- Wilkes 1965 slave memory：维基百科正文未直接写出年份；1965 年论文《Slave Memories and Dynamic Storage Allocation》为公认出处，保留
-- 微服务 2011/2012：未找到可靠年份 → 正文改为“2010 年代前期开始被广泛使用”
 - Lamport 1978 paper：论文《Time, Clocks, and the Ordering of Events in a Distributed System》发表于 1978 年《ACM 通讯》，已在 Lamport timestamp 条目中核对到论文
 - Unicode 17 字符数：维基百科已更新为 18.0 → 以 unicode.org 官方页面为准，正文改为 Unicode 18.0 的 172,808 个字符
 

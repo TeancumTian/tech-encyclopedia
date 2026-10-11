@@ -25,6 +25,7 @@ sample:
 
 check:
 	$(PYTHON) tools/check_book.py --quiet
+	$(PYTHON) tools/filler_check.py --quiet
 
 entries:
 	$(PYTHON) tools/compile_entries.py

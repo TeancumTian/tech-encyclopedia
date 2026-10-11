@@ -1,0 +1,4 @@
+# Paragraphs that legitimately repeat (one regular expression per line).
+# Each domain opens with the same one-line reading hint before its three threads.
+^本篇有三条主线，读任何一个词条时都可以问"它属于哪一条"：$
+^读任何一个词条，都可以问它在下面三条主线中的哪一条上：$
