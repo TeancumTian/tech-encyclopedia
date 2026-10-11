@@ -8,7 +8,9 @@ Fails (exit 1) when it finds, in the chapter Markdown files:
      one chapter, or in two different chapters;
   3. "template" paragraphs: identical once every number is replaced by '#'
      (catches 「……（补强段 3）」 style counters and number-swapped clones);
-  4. the same section heading (>= 6 characters) twice in one chapter.
+  4. the same section heading (>= 6 characters) twice in one chapter;
+  5. the same sentence (> 20 characters) twice in one chapter, or in two
+     chapters (catches a sentence pasted N times inside one paragraph).
 
 Fenced blocks (```svg, code), tables and very short lines are ignored.
 Paragraphs that are *meant* to repeat (a legal disclaimer, a fixed caption)
@@ -177,6 +179,7 @@ def main() -> int:
     files = chapter_files(dirs)
 
     problems: list[tuple[str, int, str]] = []
+    sents = defaultdict(list)
     exact = defaultdict(list)
     templ = defaultdict(list)
     per_chars = defaultdict(int)
@@ -202,6 +205,10 @@ def main() -> int:
             # citations and worked arithmetic may recur across chapters, never inside one
             ref = in_ref or bool(URL.search(s)) or bool(MATHY.search(s))
             exact[key_exact(s)].append((rel, ln, s, ref))
+            if not ref:
+                for sent in re.findall(r"[^。！？!?；]+[。！？!?；]?", s):
+                    if plen(sent) > 20 and plen(sent) < plen(s) - 2 and not any(a.search(sent.strip()) for a in allow):
+                        sents[key_exact(sent)].append((rel, ln, sent.strip()))
             digits = len(re.findall(r"[0-9]", s))
             if not ref and not MATHY.search(s) and digits < 0.25 * plen(s):
                 templ[key_template(s)].append((rel, ln, s, ref))
@@ -237,6 +244,16 @@ def main() -> int:
                 continue
             per_chars[rel] += len(s)
             problems.append((rel, ln, f"template paragraph (same text with numbers swapped as {occ[0][0]}:{occ[0][1]}): {s[:60]}"))
+
+    para_keys = set(exact)
+    for k, occ in sents.items():
+        if len(occ) < 2 or k in para_keys:
+            continue
+        for rel, ln, sent in occ[1:]:
+            if (rel, ln) in seen_exact_lines:
+                continue
+            per_chars[rel] += len(sent)
+            problems.append((rel, ln, f"repeated sentence (also {occ[0][0]}:{occ[0][1]}): {sent[:60]}"))
 
     problems.sort()
     if not args.quiet or problems:
