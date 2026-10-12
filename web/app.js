@@ -32,7 +32,13 @@ const icons = {
 const icon = (name, cls = '') => `<svg class="icon ${cls}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${icons[name] || icons.compass}</svg>`;
 const repo = 'https://github.com/TeancumTian/tech-encyclopedia';
 const key = 'tech-encyclopedia-learning-v1';
-let sourceBook, englishBook, translations, pathways=sourcePathways, lessons=sourceLessons, labs=sourceLabs;
+let sourceBook, englishBook, englishById=new Map(), translations=null, translationsLoading=null, pathways=sourcePathways, lessons=sourceLessons, labs=sourceLabs;
+// Replaced at build time so chapter bodies and translations always match the release version of these modules.
+const ASSET_VERSION='__ASSET_VERSION__';
+const versioned=path=>ASSET_VERSION.startsWith('__')?path:`${path}?v=${ASSET_VERSION}`;
+// Entry bodies (and their English text) are fetched per chapter, only when a page needs them.
+const loadedBodies=new Set(), bodyLoads=new Map(), searchIndex=new Map();
+let renderGeneration=0, catalogLoading=null;
 let book, entries, principles, domains, progress, filter = { query: '', domain: '', tier: '', page: 1 };
 let storageOK = true, progressMode = 'browser';
 const inBrowser = () => progressMode === 'browser';
@@ -65,6 +71,62 @@ function syncStatus() {
   }
 }
 const normalize = raw => normalizeProgress(raw, entries.keys(), book.readingOrder);
+const allDomainIds = () => sourceBook.domains.map(d => d.id);
+async function fetchJSON(path) {
+  const response = await fetch(versioned(path));
+  if (!response.ok) throw new Error('资料加载失败');
+  return response.json();
+}
+function refreshSearchText(entry) {
+  const translated = englishById.get(entry.id);
+  searchIndex.set(entry.id, [entry.zh, entry.en, entry.definition, ...Object.values(entry.fields || {}), ...(translated ? [translated.definition, ...Object.values(translated.fields || {})] : [])].join(' ').toLowerCase());
+}
+function attachBodies(domain, bodies) {
+  for (const entry of sourceBook.entries) {
+    if (entry.domain !== domain) continue;
+    entry.fields = bodies[entry.id] || {};
+    const translated = englishById.get(entry.id);
+    if (translated) translated.fields = translateTree(entry.fields);
+    refreshSearchText(entry);
+  }
+  loadedBodies.add(domain);
+}
+function ensureBodies(domainIds) {
+  return Promise.all(domainIds.filter(domain => !loadedBodies.has(domain)).map(domain => {
+    if (!bodyLoads.has(domain)) bodyLoads.set(domain, (async () => {
+      if (translationsLoading) await translationsLoading;
+      const [bodies, english] = await Promise.all([fetchJSON(`./bodies/${domain}.json`), translations ? fetchJSON(`./en/bodies/${domain}.json`) : null]);
+      if (english) { Object.assign(translations, english); configureLanguage(translations, progress?.prefs.language || 'zh'); }
+      attachBodies(domain, bodies);
+    })().catch(error => { bodyLoads.delete(domain); throw error; }));
+    return bodyLoads.get(domain);
+  }));
+}
+function ensureTranslations() {
+  if (translations) return Promise.resolve();
+  if (!translationsLoading) translationsLoading = (async () => {
+    const core = await fetchJSON('./en.json');
+    await Promise.allSettled([...bodyLoads.values()]);
+    const parts = await Promise.all([...loadedBodies].map(domain => fetchJSON(`./en/bodies/${domain}.json`)));
+    const merged = Object.assign({}, core, ...parts);
+    configureLanguage(merged, progress?.prefs.language || 'zh');
+    translations = merged;
+    englishBook = translateTree(sourceBook);
+    for (const key of ['entries', 'principles', 'domains']) englishBook[key].forEach((item, i) => { item.originalZh = sourceBook[key][i].zh; item.zh = sourceBook[key][i].en; });
+    englishById = new Map(englishBook.entries.map(e => [e.id, e]));
+    sourceBook.entries.forEach(refreshSearchText);
+  })().catch(error => { translationsLoading = null; throw error; });
+  return translationsLoading;
+}
+function neededDomains({ parts }) {
+  if (parts[0] === 'entry') { const entry = sourceBook.entries.find(e => e.id === parts[1]); return entry ? [entry.domain] : []; }
+  return [];
+}
+function loadFailed(error) {
+  $('#app').innerHTML = '<div class="error-page" data-no-translate><h1><span lang="zh-CN">资料暂时没有打开</span><br><span lang="en">Unable to load the book</span></h1><p lang="zh-CN">请检查网络连接后重新加载。若问题持续，请稍后再试。</p><p lang="en">Check your connection and reload. If the problem continues, try again later.</p><button class="btn primary" id="reload">重新加载 / Reload</button></div>';
+  $('#reload').onclick = () => location.reload();
+  console.error(error);
+}
 
 let toastTimer;
 function toast(message) {
@@ -103,16 +165,30 @@ function shell(content, active) {
 }
 function prepareLanguage(reviewState = null) {
   const selected=progress.prefs.language;
-  configureLanguage(translations,selected);
-  Object.assign(book,selected==='en'?englishBook:sourceBook);
+  configureLanguage(translations||{},selected);
+  Object.assign(book,selected==='en'&&englishBook?englishBook:sourceBook);
   for(const [map,key] of [[entries,'entries'],[principles,'principles'],[domains,'domains']]) {map.clear();book[key].forEach(item=>map.set(item.id,item));}
   pathways=selected==='en'?translateTree(sourcePathways):sourcePathways;
   lessons=selected==='en'?translateTree(sourceLessons):sourceLessons;
   labs=selected==='en'?translateTree(sourceLabs):sourceLabs;
   bookReader=createBookReader({book,entries,principles,domains,progress:()=>progress,esc,icon,entryCard,pageTitle});
-  reviewController=createReview({book,entries,domains,lessons,getProgress:()=>progress,save,esc,icon,pageTitle,initialState:reviewState});
+  reviewController=createReview({book,entries,domains,lessons,getProgress:()=>progress,save,esc,icon,pageTitle,initialState:reviewState,ensureBodies:ids=>ensureBodies(ids||allDomainIds())});
 }
-function render({ keepScroll = false, restoreLanguagePosition = false } = {}) {
+function render(options = {}) {
+  const { keepScroll = false, restoreLanguagePosition = false } = options;
+  // Fetch what this page needs first; the page is drawn once, with complete text.
+  const pending = neededDomains(route()).filter(domain => !loadedBodies.has(domain));
+  const needTranslations = progress.prefs.language !== 'zh' && !translations;
+  if (pending.length || needTranslations) {
+    const generation = ++renderGeneration;
+    document.body.setAttribute('data-loading', '');
+    Promise.all([needTranslations ? ensureTranslations() : null, ensureBodies(pending)])
+      .then(() => { if (generation !== renderGeneration) return; document.body.removeAttribute('data-loading'); render(options); })
+      .catch(error => { if (generation !== renderGeneration) return; document.body.removeAttribute('data-loading'); if ($('#main')) { toast('资料加载失败，请检查网络后重试'); console.error(error); } else loadFailed(error); });
+    return;
+  }
+  renderGeneration++;
+  document.body.removeAttribute('data-loading');
   readingController?.capture();
   if(!restoreLanguagePosition) {experimentStates.clear();quizAnswers.clear();}
   const reviewState=restoreLanguagePosition ? reviewController?.snapshot() : null;
@@ -168,9 +244,12 @@ function explorePage() {
 function entryCard(e) { return `<a class="entry-card" href="${entryLink(e.id)}"><div class="entry-meta"><span>${domains.get(e.domain).zh}</span>${learned(e.id) ? '<span class="learned-label">✓ 已学</span>' : `<span>${lessons[e.id] ? '入门导学' : e.tier === 'A' ? '核心图解' : '百科词条'}</span>`}</div><h3>${e.zh}</h3><span class="english-name" data-no-translate lang="${currentLanguage()==='en'?'zh-CN':'en'}">${esc(secondaryName(e))}</span><p>${esc(e.definition)}</p><div class="entry-card-foot"><span>${e.year ?? '—'} <small>· ${e.subcategory}</small></span>${icon('arrow')}</div></a>`; }
 function updateCatalog() {
   const q = filter.query.trim().toLowerCase();
-  const found = book.entries.filter(e => (!filter.domain || e.domain === filter.domain) && (!filter.tier || (filter.tier === 'lesson' ? !!lessons[e.id] : e.tier === filter.tier)) && (!q || `${e.searchText || ''} ${e.zh} ${e.en} ${e.definition} ${Object.values(e.fields).join(' ')} ${e.principles.map(id => principles.get(id).zh).join(' ')}`.toLowerCase().includes(q)));
+  // Names and definitions match at once; full-text matches arrive after the chapter bodies load.
+  const partial = Boolean(q) && loadedBodies.size < sourceBook.domains.length;
+  if (partial && !catalogLoading) catalogLoading = ensureBodies(allDomainIds()).then(() => { catalogLoading = null; if ($('#catalog-results')) updateCatalog(); }).catch(() => { catalogLoading = null; });
+  const found = book.entries.filter(e => (!filter.domain || e.domain === filter.domain) && (!filter.tier || (filter.tier === 'lesson' ? !!lessons[e.id] : e.tier === filter.tier)) && (!q || `${searchIndex.get(e.id) || ''} ${e.zh} ${e.en} ${e.definition} ${e.principles.map(id => principles.get(id).zh).join(' ')}`.toLowerCase().includes(q)));
   const count = Math.ceil(found.length / 24); filter.page = Math.min(filter.page, count || 1);
-  $('#catalog-results').innerHTML = `<div class="results-label" aria-live="polite">找到 ${found.length} 个词条${filter.domain && domains.has(filter.domain) ? ' · ' + domains.get(filter.domain).tagline : ''}</div>${found.length ? `<div class="entry-grid">${found.slice((filter.page-1)*24, filter.page*24).map(entryCard).join('')}</div><div class="pagination"><button class="btn secondary" data-page="-1" ${filter.page <= 1 ? 'disabled' : ''}>← 上一页</button><span>${filter.page} / ${count}</span><button class="btn secondary" data-page="1" ${filter.page >= count ? 'disabled' : ''}>下一页 →</button></div>` : '<div class="empty-state"><h3>这个问题还没有匹配的词条</h3><p>换一个短一点的词，或清除领域筛选再试试。</p><button class="btn secondary" id="clear-filters">清除筛选</button></div>'}`;
+  $('#catalog-results').innerHTML = `<div class="results-label" aria-live="polite">找到 ${found.length} 个词条${filter.domain && domains.has(filter.domain) ? ' · ' + domains.get(filter.domain).tagline : ''}</div>${partial ? '<p class="small muted catalog-loading" role="status">正在载入全书正文，稍后补充正文中的匹配…</p>' : ''}${found.length ? `<div class="entry-grid">${found.slice((filter.page-1)*24, filter.page*24).map(entryCard).join('')}</div><div class="pagination"><button class="btn secondary" data-page="-1" ${filter.page <= 1 ? 'disabled' : ''}>← 上一页</button><span>${filter.page} / ${count}</span><button class="btn secondary" data-page="1" ${filter.page >= count ? 'disabled' : ''}>下一页 →</button></div>` : '<div class="empty-state"><h3>这个问题还没有匹配的词条</h3><p>换一个短一点的词，或清除领域筛选再试试。</p><button class="btn secondary" id="clear-filters">清除筛选</button></div>'}`;
   $$('[data-page]').forEach(button => button.onclick = () => { filter.page += Number(button.dataset.page); updateCatalog(); $('#entry-browser').scrollIntoView({ block: 'start' }); });
   $('#clear-filters')?.addEventListener('click', () => { filter = { query: '', domain: '', tier: '', page: 1 }; $('#catalog-query').value = ''; $('#domain-filter').value = ''; $('#tier-filter').value = ''; updateCatalog(); });
 }
@@ -223,7 +302,9 @@ function bindBookPages() {
 
 function notFound() { return `${pageTitle('A LITTLE DETOUR', '这条小路还没有通向知识。', '链接可能有误，回到首页换一个方向继续探索吧。')}<a class="btn primary" href="#/">返回探索首页 ${icon('arrow')}</a>`; }
 function selectLanguage(value) {
-  readingController.capture();progress.prefs.language=value;save();render({restoreLanguagePosition:true});
+  readingController.capture();progress.prefs.language=value;save();
+  if(value!=='zh'&&!translations)toast('正在载入英文内容…');
+  render({restoreLanguagePosition:true});
 }
 function bindPage() {
   $('#language-select').onchange=event=>selectLanguage(event.target.value);
@@ -337,20 +418,8 @@ function mountLab(root) {
 }
 
 try {
-  const response = await fetch('./book.json');
-  if (!response.ok) throw new Error('资料加载失败');
-  sourceBook = await response.json();
-  const translationResponse=await fetch('./en.json');
-  if(!translationResponse.ok)throw new Error('Translations unavailable');
-  translations=await translationResponse.json();
-  configureLanguage(translations);
-  englishBook=translateTree(sourceBook);
-  for(const key of ['entries','principles','domains']) englishBook[key].forEach((item,i)=>{item.originalZh=sourceBook[key][i].zh;item.zh=sourceBook[key][i].en;});
-  sourceBook.entries.forEach((entry,i)=>{
-    const translated=englishBook.entries[i];
-    const searchText=[entry.zh,entry.en,entry.definition,...Object.values(entry.fields),translated.definition,...Object.values(translated.fields)].join(' ').toLowerCase();
-    entry.searchText=searchText;translated.searchText=searchText;
-  });
+  sourceBook = await fetchJSON('./book.core.json');
+  for (const entry of sourceBook.entries) { entry.fields = {}; refreshSearchText(entry); }
   book={...sourceBook};
   entries = new Map(book.entries.map(e => [e.id, e]));
   principles = new Map(book.principles.map(p => [p.id, p]));
@@ -367,9 +436,10 @@ try {
     : new ProjectProgress({normalize,onStatus:()=>syncStatus(),storage:safeStorage});
   if(inBrowser())window.addEventListener('storage',event=>projectStore.observe(event));
   progress = await projectStore.init(raw);
+  if (progress.prefs.language !== 'zh') await ensureTranslations();
   bookReader = createBookReader({book,entries,principles,domains,progress:()=>progress,esc,icon,entryCard,pageTitle});
   readingController = createReadingController({book,getProgress:()=>progress,save,title:key=>bookReader.title(key),esc,icon,changeLanguage:selectLanguage});
-  reviewController = createReview({book,entries,domains,lessons,getProgress:()=>progress,save,esc,icon,pageTitle});
+  reviewController = createReview({book,entries,domains,lessons,getProgress:()=>progress,save,esc,icon,pageTitle,ensureBodies:ids=>ensureBodies(ids||allDomainIds())});
   render();
   observeTranslations();
   window.addEventListener('pagehide',()=>{readingController.capture();projectStore.flush(true);});
@@ -383,7 +453,5 @@ try {
     }
   });
 } catch (error) {
-  $('#app').innerHTML = '<div class="error-page" data-no-translate><h1><span lang="zh-CN">资料暂时没有打开</span><br><span lang="en">Unable to load the book</span></h1><p lang="zh-CN">请检查网络连接后重新加载。若问题持续，请稍后再试。</p><p lang="en">Check your connection and reload. If the problem continues, try again later.</p><button class="btn primary" id="reload">重新加载 / Reload</button></div>';
-  $('#reload').onclick = () => location.reload();
-  console.error(error);
+  loadFailed(error);
 }

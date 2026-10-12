@@ -13,3 +13,5 @@
 
 .reset-records{margin-top:45px;padding-top:20px;border-top:1px solid var(--line);font-size:11px;color:#8b9980}.reset-records summary{cursor:pointer;width:max-content}.reset-records p{margin:15px 0}.reset-records .btn{color:#a37053;border-color:#d9c3ab}
 @media(max-width:400px){.sidebar nav>a{justify-content:center;flex:1;font-size:10px;padding:11px 3px}.sidebar nav>a .icon{display:none}.section-head h2{font-size:17px}.section-head>.text-link{font-size:8px}.path-card{padding:15px 11px}.path-card h3{font-size:13px}.card-bottom{font-size:8px;gap:3px}}
+/* Chapter text and translations load on demand; a thin bar shows a fetch in progress. */
+body[data-loading]::after{content:"";position:fixed;top:0;left:0;height:3px;width:28%;background:var(--orange);border-radius:0 2px 2px 0;z-index:30;animation:loading-bar .9s ease-in-out infinite alternate}@keyframes loading-bar{from{left:0}to{left:72%}}

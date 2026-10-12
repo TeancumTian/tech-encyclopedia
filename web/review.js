@@ -1,14 +1,21 @@
 import {paired,currentLanguage} from './i18n.js';
 import {nextReview} from './models.js';
-export function createReview({book, entries, domains, lessons, getProgress, save, esc, icon, pageTitle, initialState = null}) {
+export function createReview({book, entries, domains, lessons, getProgress, save, esc, icon, pageTitle, initialState = null, ensureBodies = null}) {
   const explanation=text=>paired(text,(value,en)=>esc(value.replace(/\[\[([^\]|]+)(?:\|([^\]]+))?\]\]/g,(_,id,label)=>label||(en?entries.get(id)?.en:entries.get(id)?.zh)||(en?book.principles.find(p=>p.id===id.slice(2))?.en:book.principles.find(p=>p.id===id.slice(2))?.zh)||id)));
   let queue=[], position=0, revealed=false, completed=0, answerIndex=null;
   function page(params) {
     const domain=params.get('domain')||'',mode=params.get('mode')||'all';
     return `${pageTitle('ACTIVE RECALL','把「看过」，变成能自己说出来。','先回想，再翻卡核对原文。你可以复习任意词条，也可以专练收藏、错题或到期内容。')}<div class="filter-bar review-filters"><select id="review-domain" aria-label="复习领域"><option value="">全部领域</option>${book.domains.map(d=>`<option value="${d.id}" ${d.id===domain?'selected':''}>${d.zh}</option>`).join('')}</select><select id="review-mode" aria-label="复习范围"><option value="all" ${mode==='all'?'selected':''}>全部词条</option><option value="read" ${mode==='read'?'selected':''}>已经读过</option><option value="saved" ${mode==='saved'?'selected':''}>我的收藏</option><option value="due" ${mode==='due'?'selected':''}>到期复习</option><option value="mistakes" ${mode==='mistakes'?'selected':''}>小测错题</option></select><button class="btn secondary" id="shuffle-review">换一组词条 ↻</button></div><section id="review-session" class="review-session"></section><p class="model-note">翻卡采用自评，不会替你标记「学会」。想起来的词条安排在 1、3、7、15、30 天后再看；需要巩固的词条 10 分钟后再看。这是固定复习规则，不是记忆能力诊断。</p>`;
   }
-  function buildQueue() {
+  async function buildQueue() {
     const p=getProgress(), domain=document.querySelector('#review-domain').value, mode=document.querySelector('#review-mode').value;
+    const root=document.querySelector('#review-session');
+    if(ensureBodies && mode!=='mistakes'){
+      root.innerHTML='<p class="muted review-loading" role="status">正在载入词条原文…</p>';
+      try{ await ensureBodies(domain?[domain]:null); }
+      catch{ if(root===document.querySelector('#review-session'))root.innerHTML='<div class="empty-state"><p>词条原文暂时无法载入，请检查网络后重试。</p></div>'; return; }
+      if(root!==document.querySelector('#review-session'))return;
+    }
     queue=book.entries.filter(e=>(!domain||e.domain===domain)&&(mode==='all'||mode==='read'&&p.reading['entry/'+e.id]?.finished||mode==='saved'&&p.saved.includes(e.id)||mode==='due'&&p.review[e.id]?.due<=Date.now()||mode==='mistakes'&&p.mistakes.includes(e.id)&&lessons[e.id]));
     // Fisher–Yates: sample without duplicates; each session stays short enough to finish.
     for(let i=queue.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[queue[i],queue[j]]=[queue[j],queue[i]];}

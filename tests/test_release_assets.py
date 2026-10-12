@@ -9,11 +9,13 @@ from build_web import version_assets
 
 
 class ReleaseAssetTests(unittest.TestCase):
-    def make_release(self, root, translation='English'):
+    def make_release(self, root, translation='English', body='{"cpu":{}}'):
         root.mkdir()
+        (root / 'bodies').mkdir()
+        (root / 'bodies' / 'computing.json').write_text(body)
         files = {
             'index.html': '<script src="./app.js"></script><link href="./i18n.css">',
-            'app.js': "import './i18n.js'; fetch('./book.json'); fetch('./en.json'); fetch('./runtime-config.json', {cache:'no-store'});",
+            'app.js': "import './i18n.js'; const ASSET_VERSION='__ASSET_VERSION__'; fetch('./book.json'); fetch('./en.json'); fetch('./runtime-config.json', {cache:'no-store'});",
             'i18n.js': 'export const ready=true;',
             'i18n.css': 'body {color: green}',
             'book.json': '{}',
@@ -33,6 +35,15 @@ class ReleaseAssetTests(unittest.TestCase):
         self.assertEqual(len(set(versions)), 1)
         self.assertIn("'./runtime-config.json'", js)
         self.assertIn("'./i18n.js?v=", js)
+        self.assertNotIn('__ASSET_VERSION__', js)
+        self.assertIn(f"const ASSET_VERSION='{versions[0]}'", js)
+
+    def test_chapter_body_edits_change_the_release_version(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            first = self.make_release(root / 'first')
+            changed = self.make_release(root / 'changed', body='{"cpu":{"原理":"x"}}')
+        self.assertNotEqual(first, changed)
 
     def test_translation_edits_invalidate_cached_modules_deterministically(self):
         with tempfile.TemporaryDirectory() as directory:

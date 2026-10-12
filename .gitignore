@@ -23,3 +23,4 @@ node_modules/
 # Personal reading progress stays in the project, outside Git and build outputs.
 learning-data/*.json
 learning-data/.progress-*.tmp
+.claude/

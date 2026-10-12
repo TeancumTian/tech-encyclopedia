@@ -57,7 +57,7 @@ test('all quiz and review feedback translates complete multi-sentence explanatio
 
 test('published translations cover the entire book and retain all wiki reference IDs',()=>{
   const book=JSON.parse(readFileSync(new URL('../build/web/book.json',import.meta.url)));
-  const catalog=JSON.parse(readFileSync(new URL('../build/web/en.json',import.meta.url)));
+  const catalog=Object.assign(JSON.parse(readFileSync(new URL('../build/web/en.json',import.meta.url))),...book.domains.map(d=>JSON.parse(readFileSync(new URL(`../build/web/en/bodies/${d.id}.json`,import.meta.url)))));
   const refs=text=>[...text.matchAll(/\[\[([^\]|]+)(?:\|[^\]]+)?\]\]/g)].map(m=>m[1]).sort();
   const check=text=>{
     for(const line of text.split('\n'))if(/[\u3400-\u9fff]/.test(line)) {

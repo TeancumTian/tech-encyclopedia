@@ -14,18 +14,47 @@ FIELDS = ['是什么', '原理', '怎么工作', '年份人物', '改变了', '�
 
 
 def version_assets(out):
-    """Keep a release's modules and text together across browser/CDN caches."""
-    assets = sorted(p for p in out.iterdir() if p.suffix in ('.js', '.css', '.json'))
+    """Keep a release's modules and text together across browser/CDN caches.
+
+    Every module, stylesheet and JSON file (including per-chapter bodies under
+    bodies/ and en/bodies/) feeds one digest. Static references get ?v=, and the
+    __ASSET_VERSION__ placeholder in the modules lets runtime fetches use it too.
+    """
+    assets = sorted(p for p in out.rglob('*') if p.is_file() and p.suffix in ('.js', '.css', '.json'))
     digest = hashlib.sha256()
     for path in assets:
-        digest.update(path.name.encode())
+        digest.update(str(path.relative_to(out)).encode())
         digest.update(path.read_bytes())
     version = digest.hexdigest()[:16]
-    relative = re.compile(r'''(["'])(\./(?:[a-z0-9-]+\.(?:js|css)|book\.json|en\.json))\1''')
+    relative = re.compile(r'''(["'])(\./(?:[a-z0-9-]+\.(?:js|css)|book\.json|book\.core\.json|en\.json))\1''')
     for path in [out / 'index.html', *out.glob('*.js')]:
         text = path.read_text(encoding='utf-8')
-        text = relative.sub(lambda m: f'{m[1]}{m[2]}?v={version}{m[1]}', text)
+        text = relative.sub(lambda m: f'{m[1]}{m[2]}?v={version}{m[1]}', text).replace('__ASSET_VERSION__', version)
         path.write_text(text, encoding='utf-8')
+    return version
+
+
+def write_split_payloads(out, data, catalog, ui_strings):
+    """book.json and en.json stay complete for tools and tests; the reader fetches
+    book.core.json plus bodies/<domain>.json, and en.json (interface, front matter,
+    definitions, figures) plus en/bodies/<domain>.json, each only when needed."""
+    core = {**data, 'entries': [{k: v for k, v in e.items() if k != 'fields'} for e in data['entries']]}
+    (out / 'book.core.json').write_text(json.dumps(core, ensure_ascii=False, separators=(',', ':')), encoding='utf-8')
+    (out / 'bodies').mkdir(exist_ok=True)
+    (out / 'en' / 'bodies').mkdir(parents=True, exist_ok=True)
+    field_keys = {d['id']: set() for d in data['domains']}
+    for entry in data['entries']:
+        field_keys[entry['domain']].update(strings_in(entry['fields']))
+    shared = set(strings_in(core)) | set(figure_strings(ROOT)) | set(ui_strings) | {k for k in catalog if re.search(r'\{\d+\}', k)}
+    field_only = set().union(*field_keys.values()) - shared
+    core_catalog = {k: v for k, v in catalog.items() if k not in field_only}
+    (out / 'en.json').write_text(json.dumps(core_catalog, ensure_ascii=False, separators=(',', ':')), encoding='utf-8')
+    for domain in data['domains']:
+        bodies = {e['id']: e['fields'] for e in data['entries'] if e['domain'] == domain['id']}
+        (out / 'bodies' / f"{domain['id']}.json").write_text(json.dumps(bodies, ensure_ascii=False, separators=(',', ':')), encoding='utf-8')
+        english = {k: catalog[k] for k in sorted(field_keys[domain['id']]) if k in catalog}
+        (out / 'en' / 'bodies' / f"{domain['id']}.json").write_text(json.dumps(english, ensure_ascii=False, separators=(',', ':')), encoding='utf-8')
+    return len(core_catalog)
 
 
 def figure_ref(ref):
@@ -183,7 +212,8 @@ def compile_site(require_translations=True, inventory_path=None):
     shutil.copytree(ROOT / 'assets/figs', OUT / 'figs')
     shutil.copy(ROOT / 'front/cover.svg', OUT / 'cover.svg')
     (OUT / 'book.json').write_text(json.dumps(data, ensure_ascii=False, separators=(',', ':')), encoding='utf-8')
-    (OUT / 'en.json').write_text(json.dumps(catalog,ensure_ascii=False,separators=(',',':')),encoding='utf-8')
+    ui_strings = json.loads((ROOT / 'translations/ui.source.json').read_text(encoding='utf-8'))['strings']
+    write_split_payloads(OUT, data, catalog, ui_strings)
     write_english_figures(ROOT,OUT,catalog)
     version_assets(OUT)
     (OUT / '.nojekyll').touch()
