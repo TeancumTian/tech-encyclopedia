@@ -40,6 +40,9 @@ test('import handles corrupt and stale progress without unknown IDs or non-text 
   const result=normalizeProgress({learned:['bit-byte','bit-byte','bad-id'],saved:42,last:'bad-id',notes:{'bit-byte':'hello','logic-gate':23,'bad-id':'secret'}},ids);
   assert.deepEqual(result.learned,['bit-byte']);assert.deepEqual(result.saved,[]);assert.equal(result.last,null);assert.deepEqual(result.notes,{'bit-byte':'hello'});
   assert.equal(normalizeProgress({notes:{'bit-byte':'a'.repeat(8000)}},ids).notes['bit-byte'].length,5000);
+  assert.equal(normalizeProgress({prefs:{theme:'dark'}},ids).prefs.theme,'dark');
+  assert.equal(normalizeProgress({prefs:{theme:'neon'}},ids).prefs.theme,'auto');
+  assert.equal(normalizeProgress(null,ids).prefs.theme,'auto');
 });
 test('all guided lessons, routes, lab destinations, answers and assets resolve', () => {
   assert.equal(ids.size,book.meta.total_entries);

@@ -1,0 +1,166 @@
+/* Dark theme. Light stays the original palette; these rules apply only when <html data-theme="dark">.
+   Diagrams and the cover keep a light card: the SVGs draw dark text on a transparent background. */
+:root[data-theme=dark]{--paper:#151916;--white:#1e2420;--ink:#e3e7dd;--muted:#98a393;--line:#2e3731;--green:#3d6a49;--lime:#2a3822;--orange:#e38f68;--peach:#3a2d26;--blue:#223038;--lavender:#2f2a3b;color-scheme:dark}
+[data-theme=dark] .sidebar{background:#121613}
+[data-theme=dark] .brand-symbol{background:#2f4a3c}
+[data-theme=dark] .sidebar-label{color:#6f7a6b}
+[data-theme=dark] .sidebar nav>a{color:#aab4a5}
+[data-theme=dark] .sidebar nav>a[aria-current]{background:#243128;color:#cfe0c4}
+[data-theme=dark] .sidebar nav>a:hover{background:#1e2621}
+[data-theme=dark] .nav-pill{background:#2a3429;border-color:#3a4638;color:#c5d0bd}
+[data-theme=dark] .small-quote{color:#8f9c8a}
+[data-theme=dark] .side-progress{border-color:#2a332c}
+[data-theme=dark] progress,[data-theme=dark] progress::-webkit-progress-bar{background:#2b342d}
+[data-theme=dark] progress::-webkit-progress-value{background:#8fb46a}
+[data-theme=dark] progress::-moz-progress-bar{background:#8fb46a}
+[data-theme=dark] .repo-link{color:#8c968a}
+[data-theme=dark] .top-caption{color:#8c968b}
+[data-theme=dark] .top-caption span{color:#55605a}
+[data-theme=dark] .global-search{background:#1e2521;border-color:#2c352f;color:#8f9a8b}
+[data-theme=dark] .global-search:focus-within{outline-color:#6f8f5e}
+[data-theme=dark] .global-search kbd{border-color:#3a443c}
+[data-theme=dark] .profile{background:#4a3b2e;color:#e5cbb4;box-shadow:0 0 0 1px #3a443c}
+[data-theme=dark] .language-picker select,[data-theme=dark] .reader-font select,[data-theme=dark] .filter-bar select,[data-theme=dark] .catalog-search,[data-theme=dark] textarea{background:#1e2521;color:var(--ink);border-color:#3a443c}
+[data-theme=dark] .catalog-search .icon{color:#8f9a8b}
+[data-theme=dark] footer{color:#7f897d}
+[data-theme=dark] .eyebrow{color:#8d9a85}
+[data-theme=dark] .hero-copy>p{color:#a8b1a3}
+[data-theme=dark] .hero-note{color:#8f998c}
+[data-theme=dark] .underline-word:after{border-color:#b08a5a}
+[data-theme=dark] .hero-lab{background:#1c231e;background-image:radial-gradient(#2f3b31 .65px,transparent .65px);border-color:#2d3730;box-shadow:5px 6px 0 #1a1f1b}
+[data-theme=dark] .lab-label{color:#9fab98}
+[data-theme=dark] .lab-label>span:last-child{color:#7f8d78}
+[data-theme=dark] .hero-lab-link{background:#222a24;border-color:#2f3a32;color:#b7c4ae}
+[data-theme=dark] .stats-strip span{color:#95a090}
+[data-theme=dark] .section-head>.text-link{color:#9aa694}
+[data-theme=dark] .primary:hover{background:#4a7b58}
+[data-theme=dark] .secondary{border-color:#3d4a40;color:#c3cfbb}
+[data-theme=dark] .secondary:hover{background:#263029;color:#dbe7d1}
+[data-theme=dark] .path-card{border-color:#303a33}
+[data-theme=dark] .path-card:hover{box-shadow:0 8px 20px #0006}
+[data-theme=dark] .path-card .muted,[data-theme=dark] .card-bottom{color:#aab4a5}
+[data-theme=dark] .card-bottom{border-color:#ffffff1a}
+[data-theme=dark] .tile-icon{border-color:#ffffff26}
+[data-theme=dark] .lab-card,[data-theme=dark] .entry-card,[data-theme=dark] .principle-card,[data-theme=dark] .note-card,[data-theme=dark] .chapter-card,[data-theme=dark] .timeline-event,[data-theme=dark] .recall-card,[data-theme=dark] .chapter-category,[data-theme=dark] .book-table-wrap{background:var(--white);border-color:var(--line)}
+[data-theme=dark] .lab-art{background-image:radial-gradient(#ffffff22 .7px,transparent .7px)}
+[data-theme=dark] .art-label{background:#00000080;color:#d6dfd0}
+[data-theme=dark] .binary-art{color:#9fb3a3}
+[data-theme=dark] .binary-art span{color:#b9d3d6}
+[data-theme=dark] .curve-art{border-color:#a89bc2}
+[data-theme=dark] .domain-band{background:#1b211c}
+[data-theme=dark] .domain-cloud a{border-color:#2b352e}
+[data-theme=dark] .domain-cloud a>span,[data-theme=dark] .domain-cloud small{color:#8d9888}
+[data-theme=dark] .page-title p{color:#a3ad9d}
+[data-theme=dark] .back-link{color:#9ba597}
+[data-theme=dark] .callout{background:#1e2621;border-color:#2e3831;color:#b3bdac}
+[data-theme=dark] .step-number{border-color:#3a453d;color:#aab5a4}
+[data-theme=dark] .step-number.done{background:#2c3d2c;color:#cfe3c1}
+[data-theme=dark] .journey-step p,[data-theme=dark] .journey-note p{color:#a3ad9d}
+[data-theme=dark] .chip{background:#232b25;color:#b3bfaa}
+[data-theme=dark] .chip.active{background:var(--green);color:#fff}
+[data-theme=dark] .results-label,[data-theme=dark] .pagination{color:#9ba795}
+[data-theme=dark] .entry-card:hover,[data-theme=dark] .chapter-card:hover{border-color:#5e7452}
+[data-theme=dark] .entry-meta{color:#8e9a89}
+[data-theme=dark] .entry-meta .learned-label{color:#9fcf8a}
+[data-theme=dark] .english-name{color:#8a9387}
+[data-theme=dark] .entry-card p,[data-theme=dark] .principle-card p,[data-theme=dark] .lab-card p,[data-theme=dark] .chapter-card p,[data-theme=dark] .timeline-event p{color:#a6b0a1}
+[data-theme=dark] .entry-card-foot{border-color:#2b332d;color:#a1ab9b}
+[data-theme=dark] .entry-card-foot small{color:#8b958a}
+[data-theme=dark] .empty-state{background:#1e2621;color:#a7b2a1}
+[data-theme=dark] .empty-state h3{color:#cfe0c4}
+[data-theme=dark] .empty-state .text-link{color:#b5d3a7}
+[data-theme=dark] .article-en{color:#8d9789}
+[data-theme=dark] .article-definition{color:#b9c4b2}
+[data-theme=dark] .article h2>span:not(.parallel-text){color:#7f8a7c}
+[data-theme=dark] .article p,[data-theme=dark] .book-prose,[data-theme=dark] #recall-answer p{color:#c3cbbc}
+[data-theme=dark] .article p a,[data-theme=dark] .book-prose a{color:#b8d5a4;border-color:#3f5240;text-decoration-color:#4e6246}
+[data-theme=dark] .article strong{color:#dbe7cf}
+[data-theme=dark] .analogy{background:#1f2821;border-color:#5e7a4e}
+[data-theme=dark] .principle-tags a{background:#232b25;border-color:#33402f;color:#b9c7ad}
+[data-theme=dark] .article figure,[data-theme=dark] .book-figure,[data-theme=dark] .book-cover>img{background:#fff;border-color:#3a443c}
+[data-theme=dark] .book-cover>img{box-shadow:6px 8px 0 #1a1f1b}
+[data-theme=dark] .article figcaption,[data-theme=dark] .book-figure figcaption{color:#9aa694}
+[data-theme=dark] .misconception{background:#2e2721}
+[data-theme=dark] .misconception .eyebrow{color:#cdb089}
+[data-theme=dark] .reading-guide>a,[data-theme=dark] .related-box>a,[data-theme=dark] .deep-read{color:#aab8a0}
+[data-theme=dark] .quiz{background:#1e2621;border-color:#30392f}
+[data-theme=dark] .quiz-options button{background:#242c27;border-color:#38433a;color:var(--ink)}
+[data-theme=dark] .quiz-options button>span:not(.parallel-text){border-color:#3d4a40}
+[data-theme=dark] .quiz-options button:hover{border-color:#7b9868}
+[data-theme=dark] .quiz-options button.correct{background:#2a3f2a;border-color:#6f9a5d}
+[data-theme=dark] .quiz-options button.incorrect{background:#3b2d25;border-color:#9b7352}
+[data-theme=dark] .quiz-feedback,[data-theme=dark] .review-feedback{color:#aab7a0}
+[data-theme=dark] .quiz-feedback.correct{color:#a8d48f}
+[data-theme=dark] .quiz-feedback.incorrect{color:#dba17a}
+[data-theme=dark] .article .source-note,[data-theme=dark] .source-note{color:#8f998b}
+[data-theme=dark] .notebook-stats,[data-theme=dark] .project-save-panel,[data-theme=dark] .book-quick-links a,[data-theme=dark] .book-pagination>a,[data-theme=dark] .alphabet-nav a,[data-theme=dark] #recall-answer,[data-theme=dark] .review-finish{background:#1e2621;border-color:#2e3831}
+[data-theme=dark] .notebook-stats>div,[data-theme=dark] .project-save-panel p,[data-theme=dark] .review-finish p,[data-theme=dark] .recall-card>p,[data-theme=dark] .book-cover p{color:#a6b0a1}
+[data-theme=dark] .notebook-stats strong{color:#b7d6a5}
+[data-theme=dark] .note-card p{color:#aab5a4}
+[data-theme=dark] .storage-warning,[data-theme=dark] [data-sync-status][data-state=offline],[data-theme=dark] [data-sync-status][data-state=conflict],[data-theme=dark] [data-sync-status][data-state=error]{color:#e0a07c}
+[data-theme=dark] .reset-records{color:#9ea99a}
+[data-theme=dark] .reset-records .btn{color:#d7a080;border-color:#5a4535}
+[data-theme=dark] .inline-lab,[data-theme=dark] .standalone-lab{background:#1c231e;border-color:#2c362f}
+[data-theme=dark] .lab-instruction,[data-theme=dark] .logic-inputs>div,[data-theme=dark] .output-value,[data-theme=dark] .truth-details,[data-theme=dark] .slider-control>label,[data-theme=dark] .rate-control,[data-theme=dark] .binary-result>span,[data-theme=dark] .binary-result p{color:#aab7a0}
+[data-theme=dark] .gate-tabs{background:#222b25;border-color:#2f3a32}
+[data-theme=dark] .gate-tabs button{color:#aab7a0}
+[data-theme=dark] .gate-tabs button.active{background:#2f3a32;color:#d4e4c6;box-shadow:none}
+[data-theme=dark] .bit-switch{background:#242c27;border-color:#3b463d;color:#aab7a0}
+[data-theme=dark] .bit-switch i{background:#3f4c40}
+[data-theme=dark] .bit-switch.on{background:#2d3d2a;border-color:#6a8b55;color:#cfe3bd}
+[data-theme=dark] .bit-switch.on i{background:#8fb46a}
+[data-theme=dark] .logic-wires i,[data-theme=dark] .output-wire,[data-theme=dark] .energy-line,[data-theme=dark] .network-track i{background:#55654f}
+[data-theme=dark] .output-wire.lit{background:#d8b14a}
+[data-theme=dark] .gate-body{background:#242c27;border-color:#4a5a4c;box-shadow:3px 3px 0 #171c18}
+[data-theme=dark] .gate-name{color:#b9d3a4}
+[data-theme=dark] .gate-body small,[data-theme=dark] .try-hint,[data-theme=dark] .binary-switches small,[data-theme=dark] .packet small,[data-theme=dark] .model-metrics span,[data-theme=dark] .network-track,[data-theme=dark] .lab-next{color:#9fab98}
+[data-theme=dark] .bulb{background:#2a322c;border-color:#4a5a4c;color:#8f9b8c}
+[data-theme=dark] .bulb.lit{background:#f4df8c;color:#8a6a16;border-color:#d7b84a}
+[data-theme=dark] .lab-observation,[data-theme=dark] .hero-lab .lab-observation,[data-theme=dark] .lab-challenge{background:#232b25;color:#b7c4ad}
+[data-theme=dark] .truth-details th,[data-theme=dark] .truth-details td{border-color:#2e3831}
+[data-theme=dark] .truth-details .current{background:#2c3a2c}
+[data-theme=dark] .binary-switches button{background:#242c27;border-color:#3b463d;color:#9fab98}
+[data-theme=dark] .binary-switches button.on{background:#30402a;color:#cfe3bd;border-color:#79985f;box-shadow:none}
+[data-theme=dark] .binary-result strong,[data-theme=dark] .model-metrics strong,[data-theme=dark] .slider-control output,[data-theme=dark] .rate-control output{color:#c4dbb0}
+[data-theme=dark] .model-note,[data-theme=dark] .lab-source{color:#8f9b8c!important}
+[data-theme=dark] .energy-node>.icon{color:#9ab380}
+[data-theme=dark] .energy-node>span,[data-theme=dark] .energy-flow{color:#a5b39c}
+[data-theme=dark] .gradient-chart text{fill:#9fab98}
+[data-theme=dark] .gradient-chart path[stroke="#5c7360"]{stroke:#8fb47a}
+[data-theme=dark] .gradient-chart path[stroke="#bac4b7"]{stroke:#4a5a4c}
+[data-theme=dark] .gradient-chart pattern path{stroke:#2a332c}
+[data-theme=dark] .packet{background:#242c27;border-color:#4a5a4c;color:#c4dbb0}
+[data-theme=dark] .packet-receiver{background:#1f2721}
+[data-theme=dark] input[type=range]{accent-color:#8fb46a}
+[data-theme=dark] #toast{background:#dfe8d6;color:#1b241e;box-shadow:0 5px 20px #0008}
+[data-theme=dark] .loading,[data-theme=dark] .error-page{color:#a7b2a1}
+[data-theme=dark] .top-save,[data-theme=dark] .reader-position,[data-theme=dark] .reader-save,[data-theme=dark] .chapter-number,[data-theme=dark] .chapter-card-progress span,[data-theme=dark] .book-quick-links span,[data-theme=dark] .book-pagination small,[data-theme=dark] .reader-end>p,[data-theme=dark] .index-entries span,[data-theme=dark] .review-counter,[data-theme=dark] .chapter-entry-list>a small,[data-theme=dark] .chapter-category>summary small,[data-theme=dark] .book-table small{color:#9fab98}
+[data-theme=dark] .book-prose h2{color:var(--ink)}
+[data-theme=dark] .book-prose code,[data-theme=dark] .project-save-details code{background:#2a332c}
+[data-theme=dark] .book-table td,[data-theme=dark] .book-table th,[data-theme=dark] .chapter-entry-list{border-color:var(--line)}
+[data-theme=dark] .book-table th{background:#232b25;color:#cfe0c4}
+[data-theme=dark] .chapter-category>summary,[data-theme=dark] .reader-directory,[data-theme=dark] .parallel-figure summary{color:#b9d3a4}
+[data-theme=dark] .chapter-entry-list>a,[data-theme=dark] .index-entries>a{border-color:#262e28}
+[data-theme=dark] .read-dot{color:#6f7d6c}
+[data-theme=dark] .read-dot.done{color:#a0cf86}
+[data-theme=dark] .reader-toolbar{background:#161a17f2;border-color:#2b352e}
+[data-theme=dark] .reader-focus-button{background:#2a352c;color:#cfe0c4}
+[data-theme=dark] .resume-position{background:#33301f;color:#d9c48f}
+[data-theme=dark] .resume-position button{color:#e3cf9a}
+[data-theme=dark] .timeline-year>h2,[data-theme=dark] .index-letter>h2{color:#9ab38a}
+[data-theme=dark] .project-save-details{border-color:#2e3831}
+[data-theme=dark] .sync-warning{background:#332a1e;border-color:#5a4a33;color:#dcc29d}
+[data-theme=dark] .recall-card{box-shadow:0 5px 0 #11150f}
+[data-theme=dark] .translation-en{color:#a7b2a1}
+[data-theme=dark] .translation-note{color:#9aa495}
+[data-theme=dark] .parallel-figure{border-color:#2e3831}
+[data-theme=dark] .skip-link{background:#8fb46a;color:#11150f}
+/* Theme switch: a text button that cycles auto → dark → light. */
+.theme-toggle{display:inline-flex;align-items:center;gap:6px;flex:0 0 auto;padding:8px 10px;border:1px solid var(--line);border-radius:8px;background:transparent;color:var(--ink);font-size:12px;white-space:nowrap}
+.theme-toggle .icon{width:15px;height:15px}
+.theme-toggle:hover{background:#eef1e6}
+[data-theme=dark] .theme-toggle{border-color:#3a443c}
+[data-theme=dark] .theme-toggle:hover{background:#263029}
+.reader-toolbar .theme-toggle{padding:5px 8px;font-size:10px}
+/* Phone: the icon-only switch shares the first row with search and language; the row may grow instead of clipping. */
+@media(max-width:680px){.topbar{height:auto;min-height:60px;padding-top:10px}.global-search{flex:1 1 calc(100% - 195px)}.theme-toggle{order:1;padding:8px 9px}.theme-toggle span{display:none}.reader-toolbar .theme-toggle{padding:5px 7px}}

@@ -57,8 +57,11 @@ class ProgressTests(unittest.TestCase):
         record=ProgressStore(self.store.directory, BOOK).read()['progress']
         self.assertEqual(record['prefs']['language'], 'bi')
         self.assertEqual(record['notes']['logic-gate'], '中文原话 / English words')
-        self.store.write({'prefs': {'language': 'unknown'}}, 1)
+        self.store.write({'prefs': {'language': 'unknown', 'theme': 'dark'}}, 1)
         self.assertEqual(self.store.read()['progress']['prefs']['language'], 'zh')
+        self.assertEqual(self.store.read()['progress']['prefs']['theme'], 'dark')
+        self.store.write({'prefs': {'theme': 'neon'}}, 2)
+        self.assertEqual(self.store.read()['progress']['prefs']['theme'], 'auto')
 
 
 class HTTPTests(unittest.TestCase):

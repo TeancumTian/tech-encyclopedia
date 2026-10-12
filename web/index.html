@@ -4,13 +4,16 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#f7f8f2">
+  <script>(function(){try{var pref='auto',key='tech-encyclopedia-browser-v2:'+new URL('.',location.href).pathname,record=JSON.parse(localStorage.getItem(key)||localStorage.getItem('tech-encyclopedia-project-v2')||'null');if(record&&record.progress&&record.progress.prefs&&record.progress.prefs.theme)pref=record.progress.prefs.theme;var dark=pref==='dark'||(pref==='auto'&&matchMedia('(prefers-color-scheme: dark)').matches);document.documentElement.setAttribute('data-theme',dark?'dark':'light');}catch(e){}})();</script>
   <meta name="description" content="中英文科技百科：997 个词条、全书阅读、互动实验与学习进度。A bilingual technology encyclopedia with 997 entries, interactive experiments and reading progress.">
   <title>科技，原来如此 · 互动科技百科</title>
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='18' fill='%2325342b'/%3E%3Ctext x='32' y='46' text-anchor='middle' font-size='45' fill='%23d9ef83'%3E✳%3C/text%3E%3C/svg%3E">
   <link rel="stylesheet" href="./styles.css">
   <link rel="stylesheet" href="./reader.css">
-  <script type="module" src="./app.js"></script>
+  <script>window.__bootFailed=function(){var app=document.getElementById('app');if(!app||document.getElementById('main'))return;app.innerHTML='<div class="error-page"><h1><span lang="zh-CN">页面没有完整载入</span><br><span lang="en">The page did not finish loading</span></h1><p lang="zh-CN">请检查网络连接后重新加载。</p><p lang="en">Check your connection and reload.</p><button class="btn primary" type="button" onclick="location.reload()">重新加载 / Reload</button></div>';};</script>
+  <script type="module" src="./app.js" onerror="window.__bootFailed()"></script>
   <link rel="stylesheet" href="./i18n.css">
+  <link rel="stylesheet" href="./theme.css">
 </head>
 <body>
   <a class="skip-link" href="#main">跳到主要内容</a>

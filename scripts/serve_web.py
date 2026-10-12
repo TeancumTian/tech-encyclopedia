@@ -54,7 +54,8 @@ def normalize_progress(raw, entry_ids, reading_ids):
         'notes': {k: v[:5000] for k, v in mapping('notes').items() if k in entry_ids and isinstance(v, str)},
         'reading': reading, 'review': review,
         'prefs': {'fontSize': 'large' if prefs.get('fontSize') == 'large' else 'normal', 'focus': prefs.get('focus') is True,
-                  'language': prefs.get('language') if prefs.get('language') in ('zh', 'en', 'bi') else 'zh'},
+                  'language': prefs.get('language') if prefs.get('language') in ('zh', 'en', 'bi') else 'zh',
+                  'theme': prefs.get('theme') if prefs.get('theme') in ('auto', 'dark', 'light') else 'auto'},
     }
 
 

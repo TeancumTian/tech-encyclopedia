@@ -28,6 +28,9 @@ const icons = {
   clock: '<circle cx="12" cy="12" r="9"/><path d="M12 6v6l4 2"/>',
   github: '<path d="M8 21v-4q-4 1-5-3m14 7v-5q5-3 3-9l-1-4-4 2a15 15 0 0 0-6 0L5 3 4 7q-2 6 3 9v5"/>',
   leaf: '<path d="M5 19C-2 7 10 2 21 3c1 12-5 19-14 15M5 21 16 8"/>',
+  sun: '<circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M2 12h2m16 0h2M4.9 4.9l1.4 1.4m11.4 11.4 1.4 1.4M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/>',
+  moon: '<path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5Z"/>',
+  contrast: '<circle cx="12" cy="12" r="9"/><path d="M12 3v18a9 9 0 0 0 0-18Z" fill="currentColor" stroke="none"/>',
 };
 const icon = (name, cls = '') => `<svg class="icon ${cls}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${icons[name] || icons.compass}</svg>`;
 const repo = 'https://github.com/TeancumTian/tech-encyclopedia';
@@ -39,6 +42,26 @@ const versioned=path=>ASSET_VERSION.startsWith('__')?path:`${path}?v=${ASSET_VER
 // Entry bodies (and their English text) are fetched per chapter, only when a page needs them.
 const loadedBodies=new Set(), bodyLoads=new Map(), searchIndex=new Map();
 let renderGeneration=0, catalogLoading=null;
+// Color theme: 'auto' follows the system; the choice is saved with the other reading preferences.
+const THEMES=['auto','dark','light'];
+const themeNames={auto:'自动配色',dark:'深色',light:'浅色'};
+const themeQuery=matchMedia('(prefers-color-scheme: dark)');
+function applyTheme() {
+  const pref=THEMES.includes(progress?.prefs.theme)?progress.prefs.theme:'auto';
+  const dark=pref==='dark'||(pref==='auto'&&themeQuery.matches);
+  document.documentElement.setAttribute('data-theme',dark?'dark':'light');
+  $('meta[name="theme-color"]')?.setAttribute('content',dark?'#151916':'#f7f8f2');
+  for(const button of $$('[data-theme-toggle]')) {
+    button.innerHTML=`${icon(pref==='auto'?'contrast':pref==='dark'?'moon':'sun')}<span>${themeNames[pref]}</span>`;
+    const label=`切换深浅配色，当前：${themeNames[pref]}`;
+    button.setAttribute('aria-label',label);button.title=label;
+  }
+}
+function cycleTheme() {
+  const current=THEMES.includes(progress.prefs.theme)?progress.prefs.theme:'auto';
+  progress.prefs.theme=THEMES[(THEMES.indexOf(current)+1)%THEMES.length];
+  save();applyTheme();
+}
 let book, entries, principles, domains, progress, filter = { query: '', domain: '', tier: '', page: 1 };
 let storageOK = true, progressMode = 'browser';
 const inBrowser = () => progressMode === 'browser';
@@ -159,7 +182,7 @@ function shell(content, active) {
     <nav aria-label="主导航">${links.map(([i, href, label]) => `<a href="#/${href}" ${active === href ? 'aria-current="page"' : ''}>${icon(i)}<span>${label}</span>${href === 'labs' ? `<span class="nav-pill">${labs.length}</span>` : ''}</a>`).join('')}</nav>
     <div class="sidebar-bottom"><div class="small-quote">世界很复杂，<br>理解可以简单一点。</div><div class="side-progress"><span>你的探索足迹</span><b>${progress.learned.length} <small>/ ${book.entries.length}</small></b><progress value="${progress.learned.length}" max="${book.entries.length}"></progress></div><a class="repo-link" href="${repo}" target="_blank" rel="noopener">${icon('github')} 项目与书稿 ↗</a></div>
   </aside>
-  <div class="workspace"><header class="topbar"><div class="top-caption">近现代科技百科 <span>/</span> 完整阅读版</div><form class="global-search" role="search"><label class="sr-only" for="global-search">搜索科技知识</label>${icon('search')}<input id="global-search" type="search" placeholder="搜索一个好奇的问题…" autocomplete="off"><kbd>/</kbd></form><label class="language-picker" data-no-translate><span class="sr-only">语言 / Language</span><select id="language-select" aria-label="语言 / Language"><option value="zh" ${progress.prefs.language==='zh'?'selected':''}>中文</option><option value="en" ${progress.prefs.language==='en'?'selected':''}>English</option><option value="bi" ${progress.prefs.language==='bi'?'selected':''}>中英对照</option></select></label><a class="top-save" href="#/notebook" data-sync-status aria-live="polite"></a><a class="profile" href="#/notebook" aria-label="打开我的学习">好奇</a></header>
+  <div class="workspace"><header class="topbar"><div class="top-caption">近现代科技百科 <span>/</span> 完整阅读版</div><form class="global-search" role="search"><label class="sr-only" for="global-search">搜索科技知识</label>${icon('search')}<input id="global-search" type="search" placeholder="搜索一个好奇的问题…" autocomplete="off"><kbd>/</kbd></form><label class="language-picker" data-no-translate><span class="sr-only">语言 / Language</span><select id="language-select" aria-label="语言 / Language"><option value="zh" ${progress.prefs.language==='zh'?'selected':''}>中文</option><option value="en" ${progress.prefs.language==='en'?'selected':''}>English</option><option value="bi" ${progress.prefs.language==='bi'?'selected':''}>中英对照</option></select></label><button type="button" class="theme-toggle" data-theme-toggle></button><a class="top-save" href="#/notebook" data-sync-status aria-live="polite"></a><a class="profile" href="#/notebook" aria-label="打开我的学习">好奇</a></header>
   <main id="main" tabindex="-1">${content}</main><footer>保持好奇，慢慢弄懂。<span>© 2026 Teancum Tian · 基于《近现代科技百科全书》</span>${currentLanguage()!=='zh'?'<span class="translation-note">英文为机器辅助译本，可切换中英对照阅读。</span>':''}</footer></div>`;
   $('.global-search').onsubmit = event => { event.preventDefault(); location.hash = '#/explore?q=' + encodeURIComponent($('#global-search').value); };
 }
@@ -206,6 +229,8 @@ function render(options = {}) {
   bindPage();
   if (!keepScroll) { window.scrollTo({top:0,behavior:'instant'}); $('#main').focus({ preventScroll: true }); }
   readingController.mount(parts.join('/'), params, keepScroll);
+  $$('[data-theme-toggle]').forEach(button=>button.onclick=cycleTheme);
+  applyTheme();
   syncStatus();
   localizePage();
 }
@@ -436,6 +461,8 @@ try {
     : new ProjectProgress({normalize,onStatus:()=>syncStatus(),storage:safeStorage});
   if(inBrowser())window.addEventListener('storage',event=>projectStore.observe(event));
   progress = await projectStore.init(raw);
+  applyTheme();
+  themeQuery.addEventListener('change',()=>applyTheme());
   if (progress.prefs.language !== 'zh') await ensureTranslations();
   bookReader = createBookReader({book,entries,principles,domains,progress:()=>progress,esc,icon,entryCard,pageTitle});
   readingController = createReadingController({book,getProgress:()=>progress,save,title:key=>bookReader.title(key),esc,icon,changeLanguage:selectLanguage});
