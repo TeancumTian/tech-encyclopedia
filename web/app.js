@@ -5,7 +5,7 @@ import { createBookReader } from './book-reader.js';
 import { createReadingController } from './reading.js';
 import { createReview } from './review.js';
 import { pathways as sourcePathways, lessons as sourceLessons, labs as sourceLabs, labSources } from './learning.js';
-import { gateOutput, binaryValue, circuitCurrent, transmissionLoss, gradientStep, normalizeProgress, mergeProgress } from './models.js';
+import { gateOutput, binaryValue, circuitCurrent, transmissionLoss, gradientStep, normalizeProgress, mergeProgress, LEO_DELTA_V, rocketDeltaV, carnotEfficiency, pcrCopies, caesarShift, scaleLaw, formatCount } from './models.js';
 
 const $ = (s, root = document) => root.querySelector(s);
 const $$ = (s, root = document) => [...root.querySelectorAll(s)];
@@ -31,6 +31,11 @@ const icons = {
   sun: '<circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M2 12h2m16 0h2M4.9 4.9l1.4 1.4m11.4 11.4 1.4 1.4M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/>',
   moon: '<path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5Z"/>',
   contrast: '<circle cx="12" cy="12" r="9"/><path d="M12 3v18a9 9 0 0 0 0-18Z" fill="currentColor" stroke="none"/>',
+  rocket: '<path d="M12 2c3 2.5 4.5 6 4.5 10v4h-9v-4C7.5 8 9 4.5 12 2Z"/><circle cx="12" cy="9.5" r="1.6"/><path d="M7.5 13 5 16v3l2.5-1.5M16.5 13 19 16v3l-2.5-1.5M10.5 19l1.5 3 1.5-3"/>',
+  lock: '<rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/><circle cx="12" cy="16" r="1.2"/>',
+  dna: '<path d="M8 2c0 5 8 5 8 10s-8 5-8 10M16 2c0 5-8 5-8 10s8 5 8 10M9.5 6h5M9.5 18h5M10.5 12h3"/>',
+  flame: '<path d="M12 2c1 4 5 5.5 5 11a5 5 0 0 1-10 0c0-2 1-3.5 2-4.5.3 1.6 1 2.5 2 3C11 9 10.5 5.5 12 2Z"/>',
+  cube: '<path d="m12 2 9 5v10l-9 5-9-5V7Z"/><path d="m3 7 9 5 9-5M12 12v10"/>',
 };
 const icon = (name, cls = '') => `<svg class="icon ${cls}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${icons[name] || icons.compass}</svg>`;
 const repo = 'https://github.com/TeancumTian/tech-encyclopedia';
@@ -225,7 +230,9 @@ function render(options = {}) {
   const views = { '': home, paths: () => pathPage(id), explore: explorePage, labs: () => labPage(id), entry: () => entryPage(id, params.get('path')), principle: () => principlePage(id), notebook: notebookPage, book: () => bookReader.bookshelf(), chapter: () => bookReader.chapter(id), document: () => bookReader.documentPage(id), sources: () => bookReader.sourcesPage(), timeline: () => bookReader.timelinePage(), index: () => bookReader.indexPage(id), master: () => bookReader.masterPage(), review: () => reviewController.page(params) };
   const content = (views[type] ? views[type]() : null) || notFound();
   shell(content, ['chapter','document','sources','timeline','index','master'].includes(type) ? 'book' : type === 'entry' || type === 'principle' ? 'explore' : type);
-  document.title = `${(bookReader.title(parts.join('/')) || entries.get(id)?.zh || principles.get(id)?.zh || ({paths:'学习路线',explore:'知识图谱',labs:'互动实验室',notebook:'我的学习'})[type] || '把科技变成常识')} · 原来如此`;
+  // Experiment and route ids can coincide with entry ids (rocket, pcr), so name those pages from their own lists.
+  const named = type === 'labs' ? labs.find(l => l.id === id)?.title : type === 'paths' ? pathways.find(p => p.id === id)?.name : null;
+  document.title = `${(named || bookReader.title(parts.join('/')) || ({paths:'学习路线',explore:'知识图谱',labs:'互动实验室',notebook:'我的学习'})[type] || '把科技变成常识')} · 原来如此`;
   bindPage();
   if (!keepScroll) { window.scrollTo({top:0,behavior:'instant'}); $('#main').focus({ preventScroll: true }); }
   readingController.mount(parts.join('/'), params, keepScroll);
@@ -246,7 +253,7 @@ function home() {
     <div class="hero-lab"><div class="lab-label"><span class="live-dot"></span> 此刻，就能试试 <span>EXPERIMENT 01</span></div><div class="hero-lab-title">电脑的思考，<br>从两个小开关开始。</div><div data-lab="logic" data-compact="true"></div><a class="hero-lab-link" href="#/labs/logic">这是怎么回事？探索逻辑门 ${icon('arrow')}</a></div></section>
     <div class="stats-strip"><div><strong>${book.entries.length}</strong><span>个科技知识，慢慢解锁</span></div><div><strong>${book.domains.length}</strong><span>个领域，看见彼此的联系</span></div><div><strong>${book.principles.length}</strong><span>条底层规律，举一反三</span></div><div><strong>∞</strong><span>个「原来如此」的瞬间</span></div></div>
     <section class="home-section">${sectionHead('FOLLOW YOUR CURIOSITY', '不知道从哪开始？跟着问题走。', '#/paths', '全部学习路线')}<div class="path-grid">${pathways.map(pathCard).join('')}</div></section>
-    <section class="home-section">${sectionHead('LESS READING, MORE DISCOVERING', '动手之后，理解就不一样了。', '#/labs', '进入实验室')}<div class="lab-preview-grid">${labs.filter(l => ['binary', 'gradient', 'grid'].includes(l.id)).map(labCard).join('')}</div></section>
+    <section class="home-section">${sectionHead('LESS READING, MORE DISCOVERING', '动手之后，理解就不一样了。', '#/labs', '进入实验室')}<div class="lab-preview-grid">${labs.filter(l => ['binary', 'gradient', 'rocket'].includes(l.id)).map(labCard).join('')}</div></section>
     <section class="domain-band"><div><span class="eyebrow">A CONNECTED WORLD</span><h2>知识没有围墙。<br>你想从哪里推开一扇门？</h2><a class="text-link" href="#/explore">探索完整知识图谱 ${icon('arrow')}</a></div><div class="domain-cloud">${book.domains.map((d, i) => `<a href="#/explore?domain=${d.id}"><span>${String(i+1).padStart(2,'0')}</span>${d.zh}<small>${d.count}</small></a>`).join('')}</div></section>`;
 }
 function pathCard(p) {
@@ -438,6 +445,129 @@ function mountLab(root) {
     root.innerHTML=`<p class="lab-instruction">我们发送「科技让世界相连」。先把它拆成四个编号包，模拟第 2 包丢失，其余包乱序到达。</p><div class="packet-sender"><span class="eyebrow">发送端 · 原消息</span><div class="packet-row">${words.map((w,i)=>`<span class="packet"><small>#${i+1}</small>${w}</span>`).join('')}</div></div><div class="network-track"><span>发送端</span><i></i><span>网络转发</span><i></i><span>接收端</span></div><div class="packet-receiver"><span class="eyebrow">接收端 · 到达顺序</span><div class="packet-row received-packets"></div></div><div class="lab-buttons"><button class="btn primary" data-send>接收下一个包</button><button class="btn secondary" data-retry disabled>请求重传缺失包</button><button class="btn secondary" data-reset>重置</button></div><div class="lab-observation" aria-live="polite"></div><p class="model-note">示意分组交换和 TCP 式的编号、重传、重排。IP 本身不保证有序可靠；这里每包用一个词块来帮助理解，真实网络按字节划分数据。</p>`;
     const update=()=>{experimentStates.set(id,{received:[...received],step});$('.received-packets',root).innerHTML=received.length?received.map(i=>`<span class="packet"><small>#${i+1}</small>${words[i]}</span>`).join(''):'<span class="muted">还没有数据包到达</span>';$('[data-send]',root).disabled=step>=3;$('[data-retry]',root).disabled=step<3||received.includes(1);$('.lab-observation',root).textContent=received.length===4?'✓ 按编号重排后：'+[...received].sort().map(i=>words[i]).join(currentLanguage()==='en'?' ':'')+'。到达顺序不同，仍能还原消息。':step===3?'第 2 包没有到达，消息还不完整。请求重传后，再按编号拼起来。':`已接收 ${received.length} / 4 个包。顺序可能改变，编号帮助接收端识别位置。`;};
     $('[data-send]',root).onclick=()=>{received.push(order[step++]);update();};$('[data-retry]',root).onclick=()=>{received.push(1);update();};$('[data-reset]',root).onclick=()=>{received=[];step=0;update();};update();
+  } else if (id === 'rocket') {
+    root.innerHTML = `<p class="lab-instruction">火箭的大部分质量是推进剂。先猜一猜：推进剂从占 80% 加到 90%，速度增量会增加多少？</p>
+      <div class="ratio-bar" role="img" aria-label="起飞质量的构成"><span class="ratio-main"></span><span class="ratio-rest"></span></div>
+      <div class="ratio-legend"><span>推进剂 <b class="propellant-share"></b></span><span>箱体、发动机和载荷 <b class="dry-share"></b></span></div>
+      <div class="slider-control"><label>推进剂占起飞质量的比例 <output class="fraction-output"></output><input type="range" data-fraction min="50" max="95" step="1" value="80" aria-label="推进剂占起飞质量的百分比"></label><label>喷气速度 <output class="exhaust-output"></output><input type="range" data-exhaust min="2" max="4.5" step="0.1" value="3" aria-label="喷气速度"></label></div>
+      <div class="model-metrics"><div><span>质量比（起飞 ÷ 烧完）</span><strong class="ratio-value"></strong></div><div><span>速度增量 Δv</span><strong class="dv-value"></strong></div></div>
+      <div class="target-meter"><progress class="dv-progress" max="12" value="0" aria-label="速度增量与入轨所需的比较"></progress><i class="target-mark" aria-hidden="true"></i><span class="target-label">橙色刻度：进入近地轨道约需 9.4 km/s</span></div>
+      <div class="lab-observation" aria-live="polite"></div>
+      <div class="lab-challenge">小挑战：把喷气速度调到 4.4 km/s（液氢液氧），推进剂至少要占多少，单级火箭才够入轨？<span role="status"></span></div>
+      <p class="model-note">理想火箭方程：Δv = 喷气速度 × ln(起飞质量 ÷ 烧完后的质量)。单级火箭，喷气速度恒定。9.4 km/s 是书中进入近地轨道的估计值，已含空气阻力和重力损失；真实火箭靠分级来达到它。</p>`;
+    const update = () => {
+      const percent = Number($('[data-fraction]', root).value), exhaust = Number($('[data-exhaust]', root).value);
+      experimentStates.set(id, {percent, exhaust});
+      const deltaV = rocketDeltaV(exhaust, percent / 100), ratio = 100 / (100 - percent);
+      $('.ratio-main', root).style.width = percent + '%'; $('.ratio-rest', root).style.width = (100 - percent) + '%';
+      $('.propellant-share', root).textContent = percent + '%'; $('.dry-share', root).textContent = (100 - percent) + '%';
+      $('.fraction-output', root).textContent = percent + '%'; $('.exhaust-output', root).textContent = exhaust.toFixed(1) + ' km/s';
+      $('.ratio-value', root).textContent = ratio.toFixed(2); $('.dv-value', root).textContent = deltaV.toFixed(2) + ' km/s';
+      $('.dv-progress', root).value = Math.min(12, deltaV);
+      $('.lab-observation', root).textContent = deltaV >= LEO_DELTA_V
+        ? `Δv = ${exhaust.toFixed(1)} × ln(${ratio.toFixed(2)}) = ${deltaV.toFixed(2)} km/s，超过了入轨所需的 9.4 km/s。`
+        : `Δv = ${exhaust.toFixed(1)} × ln(${ratio.toFixed(2)}) = ${deltaV.toFixed(2)} km/s，离入轨还差 ${(LEO_DELTA_V - deltaV).toFixed(2)} km/s。`;
+      $('.lab-challenge span', root).textContent = Math.abs(exhaust - 4.4) > .05 ? '先把喷气速度调到 4.4 km/s，再慢慢增加推进剂比例。'
+        : deltaV >= LEO_DELTA_V ? `✓ 推进剂占 ${percent}% 时够了。最少需要 89%，剩下 11% 要装下箱体、发动机和载荷。` : '还不够。继续增加推进剂的比例。';
+    };
+    if (previous.percent != null) $('[data-fraction]', root).value = previous.percent;
+    if (previous.exhaust != null) $('[data-exhaust]', root).value = previous.exhaust;
+    $$('input', root).forEach(input => input.oninput = update); update();
+  } else if (id === 'carnot') {
+    root.innerHTML = `<p class="lab-instruction">热机从高温端吸热，把一部分变成功，剩下的排到低温端。先猜一猜：把高温端从 300 °C 提到 600 °C，效率上限会翻倍吗？</p>
+      <div class="slider-control"><label>高温端 <output class="hot-output"></output><input type="range" data-hot min="100" max="1500" step="10" value="600" aria-label="高温端温度"></label><label>低温端 <output class="cold-output"></output><input type="range" data-cold min="0" max="100" step="5" value="30" aria-label="低温端温度"></label></div>
+      <div class="ratio-bar heat" role="img" aria-label="每 100 份热的去向"><span class="ratio-main"></span><span class="ratio-rest"></span></div>
+      <div class="ratio-legend"><span>最多变成功 <b class="work-share"></b></span><span>至少排出的废热 <b class="waste-share"></b></span></div>
+      <div class="model-metrics"><div><span>高温端</span><strong class="hot-kelvin"></strong></div><div><span>低温端</span><strong class="cold-kelvin"></strong></div><div><span>卡诺效率上限</span><strong class="efficiency-value"></strong></div></div>
+      <div class="lab-observation" aria-live="polite"></div>
+      <p class="model-note">卡诺效率上限 = 1 − 低温端 ÷ 高温端，温度用开尔文（K = °C + 273.15）。这是理想可逆热机的上限；真实机器还有摩擦和散热，效率更低。书中的现代超超临界汽轮机蒸汽超过 600 °C，实际效率约 45%。</p>`;
+    const update = () => {
+      const hot = Number($('[data-hot]', root).value), cold = Number($('[data-cold]', root).value);
+      experimentStates.set(id, {hot, cold});
+      const work = carnotEfficiency(hot, cold) * 100;
+      $('.hot-output', root).textContent = hot + ' °C'; $('.cold-output', root).textContent = cold + ' °C';
+      $('.hot-kelvin', root).textContent = (hot + 273.15).toFixed(0) + ' K'; $('.cold-kelvin', root).textContent = (cold + 273.15).toFixed(0) + ' K';
+      $('.efficiency-value', root).textContent = work.toFixed(1) + '%';
+      $('.ratio-main', root).style.width = work + '%'; $('.ratio-rest', root).style.width = (100 - work) + '%';
+      $('.work-share', root).textContent = work.toFixed(1) + ' / 100'; $('.waste-share', root).textContent = (100 - work).toFixed(1) + ' / 100';
+      $('.lab-observation', root).textContent = `每吸收 100 份热，最多 ${work.toFixed(1)} 份能变成功，至少 ${(100 - work).toFixed(1)} 份要排到低温端。两端温差越大，上限越高。`;
+    };
+    if (previous.hot != null) $('[data-hot]', root).value = previous.hot;
+    if (previous.cold != null) $('[data-cold]', root).value = previous.cold;
+    $$('input', root).forEach(input => input.oninput = update); update();
+  } else if (id === 'pcr') {
+    root.innerHTML = `<p class="lab-instruction">从 1 个 DNA 分子开始，每一轮循环让分子被复制一次。先猜一猜：要超过 10 亿份，需要多少轮？</p>
+      <div class="slider-control"><label>循环轮数 <output class="cycles-output"></output><input type="range" data-cycles min="0" max="40" step="1" value="10" aria-label="循环轮数"></label><label>每轮复制效率 <output class="efficiency-output"></output><input type="range" data-efficiency min="50" max="100" step="5" value="100" aria-label="每轮复制效率"></label></div>
+      <div class="doubling-row" data-no-translate aria-hidden="true"></div>
+      <div class="model-metrics"><div><span>DNA 份数</span><strong class="copies-value" data-no-translate></strong></div><div><span>如果每轮只多 1 份</span><strong class="linear-value"></strong></div></div>
+      <div class="lab-observation" aria-live="polite"></div>
+      <div class="lab-challenge">小挑战：效率 100% 时，找到刚好超过 10⁹（10 亿）份的最少轮数。<span role="status"></span></div>
+      <p class="model-note">理想模型：份数 = (1 + 效率)^轮数，从 1 个分子开始。真实反应的效率低于 100%，后期原料减少时增长会放缓，不会无限翻倍。</p>`;
+    const update = () => {
+      const cycles = Number($('[data-cycles]', root).value), efficiency = Number($('[data-efficiency]', root).value);
+      experimentStates.set(id, {cycles, efficiency});
+      const copies = pcrCopies(cycles, efficiency / 100);
+      $('.cycles-output', root).textContent = cycles; $('.efficiency-output', root).textContent = efficiency + '%';
+      $('.copies-value', root).textContent = formatCount(copies); $('.linear-value', root).textContent = cycles + 1;
+      const shown = Math.min(cycles, 8);
+      $('.doubling-row', root).textContent = Array.from({length: shown + 1}, (_, i) => formatCount(pcrCopies(i, efficiency / 100))).join(' → ') + (cycles > shown ? ' → …' : '');
+      $('.lab-observation', root).textContent = `${cycles} 轮后约有 ${formatCount(copies)} 份。同样的轮数，如果每轮只增加 1 份，只有 ${cycles + 1} 份。`;
+      $('.lab-challenge span', root).textContent = efficiency !== 100 ? '先把效率调回 100%。'
+        : cycles === 30 ? '✓ 就是 30 轮：2³⁰ ≈ 1.07 × 10⁹。'
+        : cycles > 30 ? '已经超过了。往回调，找到最少的轮数。' : '还不到 10⁹，继续增加轮数。';
+    };
+    if (previous.cycles != null) $('[data-cycles]', root).value = previous.cycles;
+    if (previous.efficiency != null) $('[data-efficiency]', root).value = previous.efficiency;
+    $$('input', root).forEach(input => input.oninput = update); update();
+  } else if (id === 'caesar') {
+    const secret = caesarShift('KNOWLEDGE', 11);
+    root.innerHTML = `<p class="lab-instruction">把每个字母在字母表里向后移动固定的格数，移过 Z 就回到 A。移动的格数就是密钥。</p>
+      <label class="cipher-input">明文（英文字母）<input type="text" data-plain maxlength="40" value="HELLO WORLD" aria-label="要加密的英文明文" autocomplete="off" autocapitalize="characters" spellcheck="false" data-no-translate></label>
+      <label class="rate-control">密钥：向后移动的格数 <output class="shift-output"></output><input type="range" data-shift min="0" max="25" step="1" value="3" aria-label="密钥：向后移动的格数"></label>
+      <div class="cipher-panel"><span class="eyebrow">密文</span><div class="cipher-output" data-cipher data-no-translate></div><div class="cipher-step"></div></div>
+      <div class="lab-challenge"><b>破解挑战</b><div>截获了下面这段密文，但不知道密钥。拖动滑块，一个一个试。</div><code data-no-translate>${secret}</code><label class="rate-control">往回移动的格数 <output class="guess-output"></output><input type="range" data-guess min="0" max="25" step="1" value="0" aria-label="尝试的密钥"></label><div class="cipher-output" data-guess-result data-no-translate></div><span role="status"></span></div>
+      <p class="model-note">只处理 26 个英文字母，其余字符保持不变。密文字母序号 = (明文字母序号 + 密钥) mod 26，A 的序号是 0。它只有 25 种有效密钥，用来演示密钥和模运算，不能保护真实信息。</p>`;
+    const update = () => {
+      const text = $('[data-plain]', root).value.toUpperCase(), shift = Number($('[data-shift]', root).value), guess = Number($('[data-guess]', root).value);
+      experimentStates.set(id, {text, shift, guess});
+      $('.shift-output', root).textContent = shift; $('.guess-output', root).textContent = guess;
+      $('[data-cipher]', root).textContent = caesarShift(text, shift) || '—';
+      const first = text.match(/[A-Z]/)?.[0];
+      if (first) {
+        const index = first.charCodeAt(0) - 65, moved = (index + shift) % 26;
+        $('.cipher-step', root).textContent = `第一个字母 ${first} 的序号是 ${index}，加上密钥 ${shift} 得 ${index + shift}，除以 26 的余数是 ${moved}，对应字母 ${String.fromCharCode(65 + moved)}。`;
+      } else $('.cipher-step', root).textContent = '输入至少一个英文字母，看看它怎样移动。';
+      $('[data-guess-result]', root).textContent = caesarShift(secret, -guess);
+      $('.lab-challenge span', root).textContent = guess === 11
+        ? '✓ 往回移动 11 格时出现了有意义的单词。最多试 25 次就能破解，所以它不安全；书中的 AES 密钥有 2¹²⁸ 种可能。'
+        : '还不是有意义的单词。密钥只有 25 种，继续试。';
+    };
+    if (previous.text != null) $('[data-plain]', root).value = previous.text;
+    if (previous.shift != null) $('[data-shift]', root).value = previous.shift;
+    if (previous.guess != null) $('[data-guess]', root).value = previous.guess;
+    $$('input', root).forEach(input => input.oninput = update); update();
+  } else if (id === 'scale') {
+    root.innerHTML = `<p class="lab-instruction">把一个实心方块的长、宽、高都放大同样的倍数，材料不变。先猜一猜：放大 2 倍后，重量是原来的几倍？</p>
+      <div class="scale-figure"><svg viewBox="0 0 320 190" role="img" aria-label="原方块与放大后的方块"><line x1="10" y1="176" x2="310" y2="176"/><rect class="scale-original" x="24" y="160" width="16" height="16"/><rect class="scale-enlarged" x="90" y="160" width="16" height="16"/><text x="32" y="188" text-anchor="middle">1</text><text class="scale-label" x="98" y="188" text-anchor="middle"></text></svg></div>
+      <label class="rate-control">放大倍数 k <output class="scale-output"></output><input type="range" data-scale min="1" max="10" step="0.5" value="2" aria-label="放大倍数 k"></label>
+      <div class="model-metrics"><div><span>底面积（支撑它的面）</span><strong class="area-value"></strong></div><div><span>体积与重量</span><strong class="volume-value"></strong></div><div><span>底面每单位面积的压力</span><strong class="pressure-value"></strong></div></div>
+      <div class="lab-observation" aria-live="polite"></div>
+      <div class="lab-challenge">小挑战：放大多少倍时，底面每单位面积要承受原来 5 倍的压力？<span role="status"></span></div>
+      <p class="model-note">几何相似模型：形状和材料都不变，面积按 k² 增长，体积和重量按 k³ 增长，所以底面压力按 k 增长。真实建筑会改用更强的材料和不同的结构来应对；书中的超高层还要重点对付风。</p>`;
+    const trim = value => String(Math.round(value * 100) / 100);
+    const update = () => {
+      const k = Number($('[data-scale]', root).value), law = scaleLaw(k), side = 16 * k;
+      experimentStates.set(id, {k});
+      $('.scale-output', root).textContent = '× ' + trim(k);
+      const enlarged = $('.scale-enlarged', root); enlarged.setAttribute('width', side); enlarged.setAttribute('height', side); enlarged.setAttribute('y', 176 - side);
+      const label = $('.scale-label', root); label.setAttribute('x', 90 + side / 2); label.textContent = trim(k);
+      $('.area-value', root).textContent = '× ' + trim(law.area); $('.volume-value', root).textContent = '× ' + trim(law.volume); $('.pressure-value', root).textContent = '× ' + trim(law.pressure);
+      $('.lab-observation', root).textContent = k === 1 ? '还没有放大，三个数都是 1 倍。向右拖动滑块。'
+        : `放大 ${trim(k)} 倍：重量变为 ${trim(law.volume)} 倍，支撑它的底面积只变为 ${trim(law.area)} 倍，所以底面每单位面积的压力变为 ${trim(law.pressure)} 倍。`;
+      $('.lab-challenge span', root).textContent = k === 5 ? '✓ 就是 5 倍：重量 125 倍，底面积 25 倍，125 ÷ 25 = 5。' : '拖动滑块，留意第三个数。';
+    };
+    if (previous.k != null) $('[data-scale]', root).value = previous.k;
+    $('[data-scale]', root).oninput = update; update();
   }
   if (!compact && labSources[id]) root.insertAdjacentHTML('beforeend',`<p class="lab-source">原理参考：<a href="${labSources[id][1]}" target="_blank" rel="noopener">${labSources[id][0]} ↗</a></p>`);
 }

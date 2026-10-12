@@ -3,6 +3,9 @@ export const pathways = [
   { id: 'computer', icon: 'chip', color: 'lime', name: '电脑怎么学会计算', subtitle: '从一个开关到一台电脑', intro: '不需要先学编程。拨动几个开关，你就能看见 0 和 1 怎样组成数字、逻辑和程序。', ids: ['bit-byte', 'logic-gate', 'transistor', 'cpu', 'algorithm'], time: 25 },
   { id: 'network', icon: 'globe', color: 'blue', name: '一条消息的环球旅行', subtitle: '按下发送之后发生了什么', intro: '把互联网想成一套协作的快递网络。跟着一条消息，经过地址查询、打包和传输。', ids: ['internet', 'packet-switching', 'tcp-ip', 'dns', 'world-wide-web'], time: 25 },
   { id: 'ai', icon: 'spark', color: 'lavender', name: 'AI 是怎么「学」的', subtitle: '从猜错到逐渐猜对', intro: '机器不会凭空理解世界。先认识例子与误差，再亲手让一个模型沿着山坡找到更好的答案。', ids: ['artificial-intelligence', 'machine-learning', 'neural-network', 'gradient-descent', 'overfitting'], time: 30 },
+  { id: 'life', icon: 'dna', color: 'lime', name: '写在身体里的四个字母', subtitle: '从疫苗到基因编辑', intro: '疫苗、抗生素和基因技术改变了人的寿命。从免疫系统的「记忆」讲起，看四个字母怎样写成生命，又怎样被复制和改写。', ids: ['vaccine', 'antibiotic', 'dna-double-helix', 'pcr', 'crispr'], time: 25 },
+  { id: 'space', icon: 'rocket', color: 'blue', name: '怎样离开地球', subtitle: '从点火到进入轨道', intro: '火箭为什么大部分重量都是燃料？卫星为什么不会掉下来？亲手调一调火箭方程，就能看见航天最根本的限制。', ids: ['rocket', 'rocket-equation', 'orbit', 'reusable-rocket', 'gnss'], time: 25 },
+  { id: 'security', icon: 'lock', color: 'peach', name: '看不见的锁', subtitle: '密码怎样保护一条消息', intro: '网购、聊天和登录都靠密码学保护。从最简单的移位密码出发，认识密钥、公钥和层层设防的思路。', ids: ['cryptography', 'symmetric-encryption', 'public-key-crypto', 'https-tls', 'cybersecurity'], time: 25 },
 ];
 // Each lesson: familiar anchor, one useful question, three choices, answer index, feedback.
 const content = {
@@ -26,6 +29,21 @@ const content = {
   'neural-network': ['把很多可调的小计算单元连成层，前一层的输出交给后一层。训练时调整连接的权重，让整体输出更接近目标。', '神经网络训练通常在调整什么？', ['屏幕亮度', '权重等参数', '电脑外壳'], 1, '网络通过调整权重、偏置等参数改变输入到输出的映射。「神经」是一种启发，并不表示完整复制了人脑。'],
   'gradient-descent': ['蒙着眼在一个光滑山坡上找低处，可以先摸清脚下的坡度，再往下走一小步。梯度下降用类似的方法减小误差。', '步长太大，梯度下降可能发生什么？', ['保证更快到达最低点', '必定原地不动', '越过低点，振荡甚至发散'], 2, '方向合适也不代表步子可以无限大。在实验的平方损失里，学习率过大就会让误差越来越大。'],
   'overfitting': ['背熟一套模拟题，换一道新题却不会做，这像过拟合。我们更想让模型学到能应用到新情境的规律。', '训练表现很好，新数据表现很差，首先要警惕什么？', ['过拟合', '模型必然有意识', '数据越少越好'], 0, '需要检查过拟合，也要检查数据分布变化等原因。验证集可以帮助选择模型和训练方式。'],
+  'vaccine': ['消防演习不会真的着火，却能让大家记住逃生路线。疫苗给免疫系统看一个无害的「假想敌」，让它提前记住真病原体的样子。', '打过疫苗后，身体再遇到同一种病原体时反应更快，主要靠什么？', ['疫苗一直留在血液里杀菌', '免疫系统留下了记忆细胞', '疫苗让病原体无法进入人体'], 1, '演习之后留下的记忆细胞，能在真病原体出现时迅速组织反击。疫苗本身并不直接杀死病原体。'],
+  'antibiotic': ['拆掉帐篷的支架，帐篷会塌，旁边的砖房却没事。青霉素专门破坏细菌的细胞壁，而人体细胞根本没有细胞壁。', '为什么抗生素通常治不了感冒和流感？', ['感冒和流感由病毒引起，抗生素对病毒无效', '抗生素只对儿童有效', '感冒病毒的细胞壁太厚'], 0, '抗生素针对的是细菌特有的结构，例如细胞壁。病毒没有这些结构，所以抗生素对病毒无效。'],
+  'dna-double-helix': ['拉链的两排齿必须一一对应才能拉上。DNA 的两条链也靠碱基配对扣在一起：A 只配 T，G 只配 C。', '已知 DNA 一条链上的一段是 A-T-G-C，对面那条链上对应的是什么？', ['A-T-G-C', 'T-A-C-G', 'C-G-T-A'], 1, 'A 配 T、G 配 C，所以对面是 T-A-C-G。知道一条链就能推出另一条，这正是 DNA 能被精确复制的原因。'],
+  'pcr': ['一张纸对折一次变两层，再对折变四层。PCR 每循环一轮，目标 DNA 片段的数量大约翻一倍。', '理想情况下，从 1 个 DNA 分子开始，循环 10 轮后大约有多少份？', ['10 份', '20 份', '1024 份'], 2, '每轮翻一倍，10 轮就是 2¹⁰ = 1024 份，30 轮约 10 亿份。真实反应的效率通常低于理想值。'],
+  'crispr': ['在一本很长的书里用「查找」功能定位一句话，再在那里动剪刀。CRISPR 用一段向导 RNA 找到匹配的 DNA 序列，由 Cas9 蛋白在那里剪开。', '想让 CRISPR 去剪另一个位置，主要需要更换什么？', ['整个 Cas9 蛋白', '那段向导 RNA', '细胞核'], 1, 'Cas9 像一把通用剪刀，剪哪里由向导 RNA 决定。换一段 RNA 就能换靶点，但仍要防止剪错位置的「脱靶」。'],
+  'rocket': ['站在滑板上向后扔出一个重球，你会向前滑。火箭高速向后喷出燃气，自己就获得向前的动量。', '火箭在没有空气的太空中为什么还能加速？', ['它推的是自己喷出的燃气，不需要空气', '太空中有看不见的空气可以推', '它靠地球的磁场拉动'], 0, '火箭靠动量守恒前进，并且自带氧化剂，所以在真空中照样工作。喷气发动机则需要吸入空气。'],
+  'rocket-equation': ['背包旅行时，带的干粮越多越走不快，而多带的干粮本身也要花力气来背。火箭的燃料同样要靠燃料来加速。', '喷气速度不变，想让火箭的最终速度再提高一截，推进剂需要怎样增加？', ['按同样的比例多带一点', '成倍地增加', '不需要增加'], 1, '速度增量只和质量比的对数成正比，所以每多要一点速度，推进剂就得成倍增加。分级和提高喷气速度是主要对策。'],
+  'orbit': ['水平扔出石头，扔得越快落得越远。快到约每秒 7.9 公里时，地面弯下去的速度正好跟上它下落的速度，它就一直绕着地球转。', '空间站里的航天员为什么会飘起来？', ['那里没有地球引力', '人和飞船一起在自由下落', '飞船里装了反重力装置'], 1, '轨道上仍有引力，正是引力让飞船绕着地球转。人和飞船一起下落，彼此之间没有挤压，所以感觉失重。'],
+  'reusable-rocket': ['如果客机每飞一趟就报废，机票会贵得离谱。火箭最贵的是发动机和箱体，推进剂只占造价的很小一部分。', '让火箭第一级飞回来重复使用，要付出什么代价？', ['必须留出返回用的燃料，运力会减少', '火箭再也不能进入轨道', '每次回收都要换一种燃料'], 0, '返回要减速和着陆，必须留出燃料；以猎鹰 9 号为例，运力比一次性使用少约三成。换来的是最贵的部件可以多次使用。'],
+  'gnss': ['看到闪电后数秒数，再乘以声速，就能估出雷离你多远。导航接收机测量卫星信号走了多久，再乘以光速，算出自己离卫星多远。', '卫星导航定位为什么至少需要 4 颗卫星？', ['3 颗定出位置，再加 1 颗修正接收机的时钟误差', '每颗卫星只负责一个方向', '4 是国际规定的最小数量'], 0, '到三颗卫星的距离能确定一个点，但手机里的钟不够准。多一颗卫星，就能把时间误差也解出来。'],
+  'cryptography': ['同一款锁人人都能买到，安全靠的是你手里那把钥匙。好的密码算法可以完全公开，只要密钥保密。', '按照现代密码学的原则，一套加密方法的安全应该依靠什么？', ['算法本身不让别人知道', '密钥保密', '密文写得足够长'], 1, '这叫柯克霍夫原则：算法公开接受检验，只有密钥需要保密。破解者不知道密钥时，只能逐个尝试。'],
+  'symmetric-encryption': ['家门的钥匙既能锁门也能开门。对称加密里，加密和解密用的是同一把密钥。', '对称加密最大的难题是什么？', ['加密速度太慢', '双方要先安全地拿到同一把密钥', '只能加密数字'], 1, '对称加密速度快，但双方必须先共享同一把密钥。在陌生人之间安全地商定密钥，正是公钥密码要解决的问题。'],
+  'public-key-crypto': ['投信口谁都能往里投信，只有拿着钥匙的人才能打开信箱取信。公钥像投信口，可以公开；私钥像信箱钥匙，只有自己保管。', '别人想给你发一条只有你能读的消息，应该用哪把钥匙加密？', ['你的私钥', '你的公钥', '他自己的私钥'], 1, '用你的公钥加密的消息，只有你的私钥能解开。私钥不需要交给任何人。'],
+  'https-tls': ['寄贵重物品前，先核对对方的证件，再把东西锁进箱子。浏览器先检查网站的数字证书，再和网站商定一把临时密钥来加密通信。', '地址栏里的锁形图标主要说明什么？', ['网站上的内容一定真实可信', '你和网站之间的连接已加密', '这个网站不会有任何漏洞'], 1, '锁形图标表示连接已加密，证书核对的是网站的身份。它并不保证网站上的内容可靠。'],
+  'cybersecurity': ['把几片有孔的奶酪叠在一起，孔恰好连成一条直线的机会很小。安全防护也靠多道防线叠加，每一层都可能有漏洞。', '多数安全事件的原因，更接近下面哪一种？', ['黑客破解了加密算法的数学', '没打补丁、弱密码和被骗点击', '电脑硬件自然老化'], 1, '被攻破的往往不是密码算法，而是没更新的软件、弱密码、配置错误和被骗的人。最有效的防护常常最平凡。'],
 };
 export const lessons = Object.fromEntries(Object.entries(content).map(([id, v]) => [id, { analogy: v[0], question: v[1], options: v[2], answer: v[3], explanation: v[4] }]));
 export const labs = [
@@ -35,10 +53,20 @@ export const labs = [
   { id: 'grid', entry: 'transformer-electrical', icon: 'bolt', title: '电为什么要「高压」旅行？', desc: '升高输电电压，看损耗怎样下降。', tag: '身边的工程', time: '3 分钟', color: 'peach' },
   { id: 'gradient', entry: 'gradient-descent', icon: 'spark', title: '让 AI 一步步走下山', desc: '调整学习率，让小球靠近误差的低点。', tag: '人工智能', time: '3 分钟', color: 'lavender' },
   { id: 'packets', entry: 'packet-switching', icon: 'globe', title: '消息到了，顺序却乱了？', desc: '模拟乱序与丢包，再把一句话拼回来。', tag: '网络通信', time: '3 分钟', color: 'blue' },
+  { id: 'rocket', entry: 'rocket-equation', icon: 'rocket', title: '多带燃料，就能飞得更快吗？', desc: '调整喷气速度和推进剂比例，看速度增量怎样变化。', tag: '航天', time: '3 分钟', color: 'blue' },
+  { id: 'carnot', entry: 'steam-turbine', icon: 'flame', title: '热机的效率为什么有上限？', desc: '改变高温端和低温端的温度，观察效率上限。', tag: '能量与热', time: '2 分钟', color: 'peach' },
+  { id: 'pcr', entry: 'pcr', icon: 'dna', title: '一个分子怎样变成十亿个？', desc: '增加循环轮数，体会指数增长有多快。', tag: '生命科学', time: '2 分钟', color: 'lime' },
+  { id: 'caesar', entry: 'cryptography', icon: 'lock', title: '只有 25 把钥匙的锁', desc: '用移位密码加密一句话，再试着破解它。', tag: '密码与安全', time: '3 分钟', color: 'lavender' },
+  { id: 'scale', entry: 'skyscraper', icon: 'cube', title: '放大十倍，会发生什么？', desc: '把一个方块放大，看重量和支撑面积谁涨得快。', tag: '结构与尺度', time: '2 分钟', color: 'lime' },
 ];
 export const labSources = {
   circuit: ['NASA · Ohm’s Law', 'https://www.nasa.gov/wp-content/uploads/2018/07/x-57-ohms-law-activity-guide.pdf'],
   grid: ['本书：电网', 'https://github.com/TeancumTian/tech-encyclopedia/blob/main/domains/01-energy.md'],
   gradient: ['Google · Gradient descent', 'https://developers.google.com/machine-learning/crash-course/linear-regression/gradient-descent'],
   packets: ['Cloudflare · Network packets', 'https://www.cloudflare.com/learning/network-layer/what-is-a-packet/'],
+  rocket: ['NASA Glenn · Ideal Rocket Equation', 'https://www1.grc.nasa.gov/beginners-guide-to-aeronautics/ideal-rocket-equation/'],
+  carnot: ['OpenStax · The Carnot Cycle', 'https://openstax.org/books/university-physics-volume-2/pages/4-5-the-carnot-cycle'],
+  pcr: ['NHGRI · PCR Fact Sheet', 'https://www.genome.gov/about-genomics/fact-sheets/Polymerase-Chain-Reaction-Fact-Sheet'],
+  caesar: ['Wikipedia · Caesar cipher', 'https://en.wikipedia.org/wiki/Caesar_cipher'],
+  scale: ['本书：建筑与城市', 'https://github.com/TeancumTian/tech-encyclopedia/blob/main/domains/12-building.md'],
 };

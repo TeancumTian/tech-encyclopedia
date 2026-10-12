@@ -12,6 +12,35 @@ export const transmissionLoss = (kv, powerKW = 1000, resistance = 10) => {
   return { amps, lossKW: amps * amps * resistance / 1000 };
 };
 export const gradientStep = (x, rate) => x - rate * 2 * x;
+// Delta-v to reach low Earth orbit in km/s: the manuscript's estimate, drag and gravity losses included.
+export const LEO_DELTA_V = 9.4;
+// Tsiolkovsky equation for a single stage. propellantFraction = propellant mass / liftoff mass.
+export function rocketDeltaV(exhaustKmS, propellantFraction) {
+  if (!(exhaustKmS > 0) || !(propellantFraction >= 0) || !(propellantFraction < 1)) return 0;
+  return exhaustKmS * Math.log(1 / (1 - propellantFraction));
+}
+// Upper limit for an ideal reversible heat engine; inputs in degrees Celsius, computed in kelvin.
+export function carnotEfficiency(hotC, coldC) {
+  const hot = hotC + 273.15, cold = coldC + 273.15;
+  return hot > cold && cold > 0 ? 1 - cold / hot : 0;
+}
+// Ideal amplification: every cycle copies a fraction `efficiency` of the molecules present.
+export const pcrCopies = (cycles, efficiency = 1, start = 1) => start * (1 + Math.max(0, Math.min(1, efficiency))) ** Math.max(0, cycles);
+// Shift cipher over the 26 Latin letters; every other character is returned unchanged.
+export function caesarShift(text, shift) {
+  const k = ((Math.trunc(shift) % 26) + 26) % 26;
+  return String(text).replace(/[A-Za-z]/g, ch => { const base = ch <= 'Z' ? 65 : 97; return String.fromCharCode((ch.charCodeAt(0) - base + k) % 26 + base); });
+}
+// Geometric similarity: lengths x k, areas x k^2, volume and weight x k^3, so load per unit of base area x k.
+export const scaleLaw = k => ({ area: k * k, volume: k ** 3, pressure: k });
+// Language-neutral count: grouped digits below a million, otherwise mantissa x 10^n.
+export function formatCount(n) {
+  if (!Number.isFinite(n)) return '∞';
+  if (n < 1e6) return Math.round(n).toLocaleString('en-US');
+  let exponent = Math.floor(Math.log10(n)), mantissa = Number((n / 10 ** exponent).toFixed(2));
+  if (mantissa >= 10) { mantissa /= 10; exponent++; }
+  return `${mantissa.toFixed(2)} × 10${String(exponent).replace(/\d/g, d => '⁰¹²³⁴⁵⁶⁷⁸⁹'[d])}`;
+}
 export function normalizeProgress(raw, validIds, readingIds = []) {
   const allowed = new Set(validIds), sections = new Set(readingIds);
   const ids = value => Array.isArray(value) ? [...new Set(value.filter(id => allowed.has(id)))] : [];
