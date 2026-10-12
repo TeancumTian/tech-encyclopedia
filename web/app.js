@@ -5,6 +5,7 @@ import { createBookReader } from './book-reader.js';
 import { createReadingController } from './reading.js';
 import { createReview } from './review.js';
 import { createSpeechReader } from './speech.js';
+import { createBookLoader } from './loader.js';
 import { pathways as sourcePathways, lessons as sourceLessons, labs as sourceLabs, labSources } from './learning.js';
 import { gateOutput, binaryValue, circuitCurrent, transmissionLoss, gradientStep, normalizeProgress, mergeProgress, LEO_DELTA_V, rocketDeltaV, carnotEfficiency, pcrCopies, caesarShift, scaleLaw, formatCount } from './models.js';
 
@@ -41,12 +42,11 @@ const icons = {
 const icon = (name, cls = '') => `<svg class="icon ${cls}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${icons[name] || icons.compass}</svg>`;
 const repo = 'https://github.com/TeancumTian/tech-encyclopedia';
 const key = 'tech-encyclopedia-learning-v1';
-let sourceBook, englishBook, englishById=new Map(), translations=null, translationsLoading=null, pathways=sourcePathways, lessons=sourceLessons, labs=sourceLabs;
+let sourceBook, loader, pathways=sourcePathways, lessons=sourceLessons, labs=sourceLabs;
 // Replaced at build time so chapter bodies and translations always match the release version of these modules.
 const ASSET_VERSION='__ASSET_VERSION__';
 const versioned=path=>ASSET_VERSION.startsWith('__')?path:`${path}?v=${ASSET_VERSION}`;
-// Entry bodies (and their English text) are fetched per chapter, only when a page needs them.
-const loadedBodies=new Set(), bodyLoads=new Map(), searchIndex=new Map();
+// Entry bodies and English text are fetched per chapter by loader.js, only when a page needs them.
 let renderGeneration=0, catalogLoading=null;
 // Color theme: 'auto' follows the system; the choice is saved with the other reading preferences.
 const THEMES=['auto','dark','light'];
@@ -100,52 +100,10 @@ function syncStatus() {
   }
 }
 const normalize = raw => normalizeProgress(raw, entries.keys(), book.readingOrder);
-const allDomainIds = () => sourceBook.domains.map(d => d.id);
 async function fetchJSON(path) {
   const response = await fetch(versioned(path));
   if (!response.ok) throw new Error('资料加载失败');
   return response.json();
-}
-function refreshSearchText(entry) {
-  const translated = englishById.get(entry.id);
-  searchIndex.set(entry.id, [entry.zh, entry.en, entry.definition, ...Object.values(entry.fields || {}), ...(translated ? [translated.definition, ...Object.values(translated.fields || {})] : [])].join(' ').toLowerCase());
-}
-function attachBodies(domain, bodies) {
-  for (const entry of sourceBook.entries) {
-    if (entry.domain !== domain) continue;
-    entry.fields = bodies[entry.id] || {};
-    const translated = englishById.get(entry.id);
-    if (translated) translated.fields = translateTree(entry.fields);
-    refreshSearchText(entry);
-  }
-  loadedBodies.add(domain);
-}
-function ensureBodies(domainIds) {
-  return Promise.all(domainIds.filter(domain => !loadedBodies.has(domain)).map(domain => {
-    if (!bodyLoads.has(domain)) bodyLoads.set(domain, (async () => {
-      if (translationsLoading) await translationsLoading;
-      const [bodies, english] = await Promise.all([fetchJSON(`./bodies/${domain}.json`), translations ? fetchJSON(`./en/bodies/${domain}.json`) : null]);
-      if (english) { Object.assign(translations, english); configureLanguage(translations, progress?.prefs.language || 'zh'); }
-      attachBodies(domain, bodies);
-    })().catch(error => { bodyLoads.delete(domain); throw error; }));
-    return bodyLoads.get(domain);
-  }));
-}
-function ensureTranslations() {
-  if (translations) return Promise.resolve();
-  if (!translationsLoading) translationsLoading = (async () => {
-    const core = await fetchJSON('./en.json');
-    await Promise.allSettled([...bodyLoads.values()]);
-    const parts = await Promise.all([...loadedBodies].map(domain => fetchJSON(`./en/bodies/${domain}.json`)));
-    const merged = Object.assign({}, core, ...parts);
-    configureLanguage(merged, progress?.prefs.language || 'zh');
-    translations = merged;
-    englishBook = translateTree(sourceBook);
-    for (const key of ['entries', 'principles', 'domains']) englishBook[key].forEach((item, i) => { item.originalZh = sourceBook[key][i].zh; item.zh = sourceBook[key][i].en; });
-    englishById = new Map(englishBook.entries.map(e => [e.id, e]));
-    sourceBook.entries.forEach(refreshSearchText);
-  })().catch(error => { translationsLoading = null; throw error; });
-  return translationsLoading;
 }
 function neededDomains({ parts }) {
   if (parts[0] === 'entry') { const entry = sourceBook.entries.find(e => e.id === parts[1]); return entry ? [entry.domain] : []; }
@@ -194,24 +152,24 @@ function shell(content, active) {
 }
 function prepareLanguage(reviewState = null) {
   const selected=progress.prefs.language;
-  configureLanguage(translations||{},selected);
-  Object.assign(book,selected==='en'&&englishBook?englishBook:sourceBook);
+  configureLanguage(loader.catalog||{},selected);
+  Object.assign(book,selected==='en'&&loader.englishBook?loader.englishBook:sourceBook);
   for(const [map,key] of [[entries,'entries'],[principles,'principles'],[domains,'domains']]) {map.clear();book[key].forEach(item=>map.set(item.id,item));}
   pathways=selected==='en'?translateTree(sourcePathways):sourcePathways;
   lessons=selected==='en'?translateTree(sourceLessons):sourceLessons;
   labs=selected==='en'?translateTree(sourceLabs):sourceLabs;
   bookReader=createBookReader({book,entries,principles,domains,progress:()=>progress,esc,icon,entryCard,pageTitle});
-  reviewController=createReview({book,entries,domains,lessons,getProgress:()=>progress,save,esc,icon,pageTitle,initialState:reviewState,ensureBodies:ids=>ensureBodies(ids||allDomainIds())});
+  reviewController=createReview({book,entries,domains,lessons,getProgress:()=>progress,save,esc,icon,pageTitle,initialState:reviewState,ensureBodies:ids=>loader.ensureBodies(ids||undefined)});
 }
 function render(options = {}) {
   const { keepScroll = false, restoreLanguagePosition = false } = options;
   // Fetch what this page needs first; the page is drawn once, with complete text.
-  const pending = neededDomains(route()).filter(domain => !loadedBodies.has(domain));
-  const needTranslations = progress.prefs.language !== 'zh' && !translations;
+  const pending = neededDomains(route()).filter(domain => !loader.hasBodies(domain));
+  const needTranslations = progress.prefs.language !== 'zh' && !loader.catalog;
   if (pending.length || needTranslations) {
     const generation = ++renderGeneration;
     document.body.setAttribute('data-loading', '');
-    Promise.all([needTranslations ? ensureTranslations() : null, ensureBodies(pending)])
+    Promise.all([needTranslations ? loader.ensureTranslations() : null, loader.ensureBodies(pending)])
       .then(() => { if (generation !== renderGeneration) return; document.body.removeAttribute('data-loading'); render(options); })
       .catch(error => { if (generation !== renderGeneration) return; document.body.removeAttribute('data-loading'); if ($('#main')) { toast('资料加载失败，请检查网络后重试'); console.error(error); } else loadFailed(error); });
     return;
@@ -279,9 +237,9 @@ function entryCard(e) { return `<a class="entry-card" href="${entryLink(e.id)}">
 function updateCatalog() {
   const q = filter.query.trim().toLowerCase();
   // Names and definitions match at once; full-text matches arrive after the chapter bodies load.
-  const partial = Boolean(q) && loadedBodies.size < sourceBook.domains.length;
-  if (partial && !catalogLoading) catalogLoading = ensureBodies(allDomainIds()).then(() => { catalogLoading = null; if ($('#catalog-results')) updateCatalog(); }).catch(() => { catalogLoading = null; });
-  const found = book.entries.filter(e => (!filter.domain || e.domain === filter.domain) && (!filter.tier || (filter.tier === 'lesson' ? !!lessons[e.id] : e.tier === filter.tier)) && (!q || `${searchIndex.get(e.id) || ''} ${e.zh} ${e.en} ${e.definition} ${e.principles.map(id => principles.get(id).zh).join(' ')}`.toLowerCase().includes(q)));
+  const partial = Boolean(q) && !loader.complete;
+  if (partial && !catalogLoading) catalogLoading = loader.ensureBodies().then(() => { catalogLoading = null; if ($('#catalog-results')) updateCatalog(); }).catch(() => { catalogLoading = null; });
+  const found = book.entries.filter(e => (!filter.domain || e.domain === filter.domain) && (!filter.tier || (filter.tier === 'lesson' ? !!lessons[e.id] : e.tier === filter.tier)) && (!q || `${loader.searchText(e.id)} ${e.zh} ${e.en} ${e.definition} ${e.principles.map(id => principles.get(id).zh).join(' ')}`.toLowerCase().includes(q)));
   const count = Math.ceil(found.length / 24); filter.page = Math.min(filter.page, count || 1);
   $('#catalog-results').innerHTML = `<div class="results-label" aria-live="polite">找到 ${found.length} 个词条${filter.domain && domains.has(filter.domain) ? ' · ' + domains.get(filter.domain).tagline : ''}</div>${partial ? '<p class="small muted catalog-loading" role="status">正在载入全书正文，稍后补充正文中的匹配…</p>' : ''}${found.length ? `<div class="entry-grid">${found.slice((filter.page-1)*24, filter.page*24).map(entryCard).join('')}</div><div class="pagination"><button class="btn secondary" data-page="-1" ${filter.page <= 1 ? 'disabled' : ''}>← 上一页</button><span>${filter.page} / ${count}</span><button class="btn secondary" data-page="1" ${filter.page >= count ? 'disabled' : ''}>下一页 →</button></div>` : '<div class="empty-state"><h3>这个问题还没有匹配的词条</h3><p>换一个短一点的词，或清除领域筛选再试试。</p><button class="btn secondary" id="clear-filters">清除筛选</button></div>'}`;
   $$('[data-page]').forEach(button => button.onclick = () => { filter.page += Number(button.dataset.page); updateCatalog(); $('#entry-browser').scrollIntoView({ block: 'start' }); });
@@ -337,7 +295,7 @@ function bindBookPages() {
 function notFound() { return `${pageTitle('A LITTLE DETOUR', '这条小路还没有通向知识。', '链接可能有误，回到首页换一个方向继续探索吧。')}<a class="btn primary" href="#/">返回探索首页 ${icon('arrow')}</a>`; }
 function selectLanguage(value) {
   readingController.capture();progress.prefs.language=value;save();
-  if(value!=='zh'&&!translations)toast('正在载入英文内容…');
+  if(value!=='zh'&&!loader.catalog)toast('正在载入英文内容…');
   render({restoreLanguagePosition:true});
 }
 function bindPage() {
@@ -576,7 +534,7 @@ function mountLab(root) {
 
 try {
   sourceBook = await fetchJSON('./book.core.json');
-  for (const entry of sourceBook.entries) { entry.fields = {}; refreshSearchText(entry); }
+  loader = createBookLoader({book: sourceBook, fetchJSON, configureLanguage, translateTree, language: () => progress?.prefs.language || 'zh'});
   book={...sourceBook};
   entries = new Map(book.entries.map(e => [e.id, e]));
   principles = new Map(book.principles.map(p => [p.id, p]));
@@ -595,11 +553,11 @@ try {
   progress = await projectStore.init(raw);
   applyTheme();
   themeQuery.addEventListener('change',()=>applyTheme());
-  if (progress.prefs.language !== 'zh') await ensureTranslations();
+  if (progress.prefs.language !== 'zh') await loader.ensureTranslations();
   bookReader = createBookReader({book,entries,principles,domains,progress:()=>progress,esc,icon,entryCard,pageTitle});
   speechReader = createSpeechReader({getLanguage:currentLanguage,notify:toast});
   readingController = createReadingController({book,getProgress:()=>progress,save,title:key=>bookReader.title(key),esc,icon,changeLanguage:selectLanguage,speech:speechReader});
-  reviewController = createReview({book,entries,domains,lessons,getProgress:()=>progress,save,esc,icon,pageTitle,ensureBodies:ids=>ensureBodies(ids||allDomainIds())});
+  reviewController = createReview({book,entries,domains,lessons,getProgress:()=>progress,save,esc,icon,pageTitle,ensureBodies:ids=>loader.ensureBodies(ids||undefined)});
   render();
   observeTranslations();
   window.addEventListener('pagehide',()=>{readingController.capture();projectStore.flush(true);});

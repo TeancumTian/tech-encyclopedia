@@ -1,6 +1,6 @@
 {
   "sources": {
-    "web/app.js": "94b601177bcbebc3b045f4fef538148c35d734102e8747c4d3f310a07e4671c4",
+    "web/app.js": "a91db966e48d3951c60a3130c9eb012077cd6c265cba5b6e945d561b21ee24b4",
     "web/book-reader.js": "aef4d0393f7197f29fb3d1fadd6224829494c2e3bb284deb2f32f1601293c8de",
     "web/reading.js": "ea0f9b3c801b6fdd04c26d74ecdae848fb49d0bdc22fa3939c4c59306d11d3c9",
     "web/review.js": "abd66e72189a66167370fae854dcbb9275073b583503a9d5e379362f704cb1f2",
