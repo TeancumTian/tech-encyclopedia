@@ -4,6 +4,7 @@ import { BrowserProgress, browserStorageKey } from './browser-storage.js';
 import { createBookReader } from './book-reader.js';
 import { createReadingController } from './reading.js';
 import { createReview } from './review.js';
+import { createSpeechReader } from './speech.js';
 import { pathways as sourcePathways, lessons as sourceLessons, labs as sourceLabs, labSources } from './learning.js';
 import { gateOutput, binaryValue, circuitCurrent, transmissionLoss, gradientStep, normalizeProgress, mergeProgress, LEO_DELTA_V, rocketDeltaV, carnotEfficiency, pcrCopies, caesarShift, scaleLaw, formatCount } from './models.js';
 
@@ -70,7 +71,7 @@ function cycleTheme() {
 let book, entries, principles, domains, progress, filter = { query: '', domain: '', tier: '', page: 1 };
 let storageOK = true, progressMode = 'browser';
 const inBrowser = () => progressMode === 'browser';
-let projectStore, bookReader, readingController, reviewController;
+let projectStore, bookReader, readingController, reviewController, speechReader;
 // Keep the current experiment while translating its labels; navigation starts a fresh experiment.
 const experimentStates = new Map();
 const quizAnswers = new Map();
@@ -217,6 +218,7 @@ function render(options = {}) {
   }
   renderGeneration++;
   document.body.removeAttribute('data-loading');
+  speechReader?.stop();
   readingController?.capture();
   if(!restoreLanguagePosition) {experimentStates.clear();quizAnswers.clear();}
   const reviewState=restoreLanguagePosition ? reviewController?.snapshot() : null;
@@ -595,7 +597,8 @@ try {
   themeQuery.addEventListener('change',()=>applyTheme());
   if (progress.prefs.language !== 'zh') await ensureTranslations();
   bookReader = createBookReader({book,entries,principles,domains,progress:()=>progress,esc,icon,entryCard,pageTitle});
-  readingController = createReadingController({book,getProgress:()=>progress,save,title:key=>bookReader.title(key),esc,icon,changeLanguage:selectLanguage});
+  speechReader = createSpeechReader({getLanguage:currentLanguage,notify:toast});
+  readingController = createReadingController({book,getProgress:()=>progress,save,title:key=>bookReader.title(key),esc,icon,changeLanguage:selectLanguage,speech:speechReader});
   reviewController = createReview({book,entries,domains,lessons,getProgress:()=>progress,save,esc,icon,pageTitle,ensureBodies:ids=>ensureBodies(ids||allDomainIds())});
   render();
   observeTranslations();

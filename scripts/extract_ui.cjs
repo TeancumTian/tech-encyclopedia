@@ -3,7 +3,7 @@ const fs = require('node:fs');
 const crypto = require('node:crypto');
 const {spawnSync} = require('node:child_process');
 const acorn = require(process.env.TECH_I18N_PARSER || '../tools/localization/node_modules/acorn');
-const files=['app.js','book-reader.js','reading.js','review.js','learning.js','storage.js','browser-storage.js'];
+const files=['app.js','book-reader.js','reading.js','review.js','learning.js','storage.js','browser-storage.js','speech.js'];
 const strings=new Set(), hashes={};
 function visit(node) {
   if(!node || typeof node!=='object')return;

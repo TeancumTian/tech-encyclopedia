@@ -36,3 +36,7 @@ body[data-loading]::after{content:"";position:fixed;top:0;left:0;height:3px;widt
 .scale-figure rect{fill:#e6efc8;stroke:#7b9868;stroke-width:1.5}.scale-figure rect.scale-original{fill:#f3e5d9;stroke:#c99a78}
 .scale-figure line{stroke:#bac4b7}.scale-figure text{font-family:var(--sans);font-size:11px;fill:#8a9a78}
 @media(max-width:680px){.cipher-output{font-size:17px;letter-spacing:2px}.ratio-legend{font-size:10px}}
+/* Read-aloud controls and the paragraph being spoken. */
+.reader-speech{display:inline-flex;align-items:center;gap:6px;flex-wrap:wrap}
+.reader-speech select{background:#fff;border:1px solid #dbe3d1;border-radius:4px;padding:4px;font-size:11px}
+.speaking{background:#fff3c4;box-shadow:0 0 0 6px #fff3c4;border-radius:3px}

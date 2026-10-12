@@ -1,4 +1,4 @@
-export function createReadingController({book, getProgress, save, title, esc, icon, changeLanguage}) {
+export function createReadingController({book, getProgress, save, title, esc, icon, changeLanguage, speech = null}) {
   let active = null, dirty = false, ready = false, generation = 0, timer;
   const readingTop=()=>Math.max(145,(document.querySelector('.reader-toolbar')?.getBoundingClientRect().height||0)+16);
   function measure() {
@@ -46,6 +46,8 @@ export function createReadingController({book, getProgress, save, title, esc, ic
     document.querySelector('.reader-toolbar').insertAdjacentHTML('beforeend',`<label class="reader-language language-picker" data-no-translate><span class="sr-only">语言 / Language</span><select id="reader-language" aria-label="语言 / Language">${[['zh','中文'],['en','English'],['bi','中英对照']].map(([value,label])=>`<option value="${value}" ${p.prefs.language===value?'selected':''}>${label}</option>`).join('')}</select></label>`);
     document.querySelector('#reader-language').onchange=event=>changeLanguage?.(event.target.value);
     document.querySelector('.reader-toolbar').insertAdjacentHTML('beforeend','<button type="button" class="theme-toggle" data-theme-toggle></button>');
+    // Read-aloud suits prose sections; long lookup lists are left out.
+    if(/^(entry|principle|chapter|document)\//.test(key))speech?.mount(document.querySelector('.reader-toolbar'));
     document.querySelector('main').insertAdjacentHTML('beforeend',`<div class="reader-end"><div><span class="eyebrow">读完这一节，给自己一个小记号</span><button class="btn ${done?'secondary':'primary'}" id="mark-read" aria-pressed="${done}">${done?'✓ 已读 · 点击撤销':'标记本节已读'} ${icon('check')}</button></div><p>「已读」记录阅读进度；「学会」和复习自测单独记录。</p></div><nav class="book-pagination" aria-label="全书前后节导航">${prev?`<a href="#/${prev}"><small>← 上一节</small><strong>${esc(title(prev))}</strong></a>`:'<span></span>'}${next?`<a href="#/${next}"><small>下一节 →</small><strong>${esc(title(next))}</strong></a>`:'<a href="#/book"><small>全书目录</small><strong>回看你的阅读足迹 →</strong></a>'}</nav>`);
     document.querySelector('#reader-font').onchange=event=>{p.prefs.fontSize=event.target.value;document.body.classList.toggle('reader-large',p.prefs.fontSize==='large');save();};
     document.querySelector('#reader-focus').onclick=event=>{p.prefs.focus=!p.prefs.focus;document.body.classList.toggle('reader-focus',p.prefs.focus);event.currentTarget.textContent=p.prefs.focus?'退出专注':'专注阅读';event.currentTarget.setAttribute('aria-pressed',String(p.prefs.focus));save();};
