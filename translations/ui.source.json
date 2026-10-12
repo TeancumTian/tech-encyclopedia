@@ -1,6 +1,6 @@
 {
   "sources": {
-    "web/app.js": "78e04542912411da8b3f58854fd4a55a8d12e3fa5b71c62d894e10025ceb1411",
+    "web/app.js": "94b601177bcbebc3b045f4fef538148c35d734102e8747c4d3f310a07e4671c4",
     "web/book-reader.js": "aef4d0393f7197f29fb3d1fadd6224829494c2e3bb284deb2f32f1601293c8de",
     "web/reading.js": "ea0f9b3c801b6fdd04c26d74ecdae848fb49d0bdc22fa3939c4c59306d11d3c9",
     "web/review.js": "abd66e72189a66167370fae854dcbb9275073b583503a9d5e379362f704cb1f2",
@@ -632,6 +632,7 @@
     "算法复杂度关心问题变大时成本如何增长。机器更快，并不能消除差的增长趋势。",
     "算法本身不让别人知道",
     "箱体、发动机和载荷",
+    "纯文本词条目录 ↗",
     "线路发热损耗",
     "细胞核",
     "经济与系统",

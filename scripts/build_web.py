@@ -2,14 +2,18 @@
 """Compile every book section to an offline-capable, dependency-free web reader."""
 import hashlib
 import json
+import os
 import re
 import shutil
 from collections import Counter
 from pathlib import Path
 from localization import validate_catalog, write_english_figures, strings_in, figure_strings
+from static_pages import write_static_pages
 
 ROOT = Path(__file__).resolve().parents[1]
 OUT = ROOT / 'build' / 'web'
+# Public address of the site, used for canonical links and the sitemap. Override with SITE_URL when hosting elsewhere.
+SITE_URL = os.environ.get('SITE_URL', 'https://teancum.me/tech-encyclopedia/').rstrip('/') + '/'
 FIELDS = ['是什么', '原理', '怎么工作', '年份人物', '改变了', '注意', '图注']
 
 
@@ -215,10 +219,13 @@ def compile_site(require_translations=True, inventory_path=None):
     ui_strings = json.loads((ROOT / 'translations/ui.source.json').read_text(encoding='utf-8'))['strings']
     write_split_payloads(OUT, data, catalog, ui_strings)
     write_english_figures(ROOT,OUT,catalog)
+    static_count = write_static_pages(OUT, data, catalog, SITE_URL)
+    index = OUT / 'index.html'
+    index.write_text(index.read_text(encoding='utf-8').replace('__SITE_URL__', SITE_URL), encoding='utf-8')
     version_assets(OUT)
     (OUT / '.nojekyll').touch()
     status=f'{translated_count} translated segments verified' if require_translations else 'DRAFT: translation coverage not enforced'
-    print(f"Built complete book: {len(entry_ids)} entries, {len(data['documents'])} documents, {len(figures)} figures, {len(data['readingOrder'])} reading sections; {status} → {OUT}")
+    print(f"Built complete book: {len(entry_ids)} entries, {len(data['documents'])} documents, {len(figures)} figures, {len(data['readingOrder'])} reading sections, {static_count} static pages; {status} → {OUT}")
     return data
 
 

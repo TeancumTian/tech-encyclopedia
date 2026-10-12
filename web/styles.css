@@ -40,3 +40,4 @@ body[data-loading]::after{content:"";position:fixed;top:0;left:0;height:3px;widt
 .reader-speech{display:inline-flex;align-items:center;gap:6px;flex-wrap:wrap}
 .reader-speech select{background:#fff;border:1px solid #dbe3d1;border-radius:4px;padding:4px;font-size:11px}
 .speaking{background:#fff3c4;box-shadow:0 0 0 6px #fff3c4;border-radius:3px}
+footer .plain-link{text-decoration:underline;text-underline-offset:3px}
