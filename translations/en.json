@@ -2995,5 +2995,7 @@
   "David McCullough，《莱特兄弟》（The Wright Brothers）。": "David McCullough, The Wright Brothers.",
   "Vaclav Smil，《Prime Movers of Globalization》——柴油机与燃气轮机如何支撑全球化。": "Vaclav Smil, Prime Movers of Globalization: how diesel engines and gas turbines support globalization.",
   "1959 年 IBM 的塞缪尔（Arthur Samuel）发表跳棋程序论文，使用了\"机器学习\"一词：程序靠自我对弈越下越好。1990 年代统计学习兴起，[[svm|支持向量机]]、随机森林成为主流；2010 年代深度学习接棒。": "In 1959, Arthur Samuel at IBM published a paper on a checkers program and used the term \"machine learning\": the program improved through self-play. Statistical learning grew in the 1990s, with [[svm|support vector machines]] and random forests becoming mainstream; deep learning took the lead in the 2010s.",
-  "不写规则，而是给机器大量例子，让它自己从数据中总结规律。": "Instead of writing rules, give a machine many examples so it can learn patterns from the data."
+  "不写规则，而是给机器大量例子，让它自己从数据中总结规律。": "Instead of writing rules, give a machine many examples so it can learn patterns from the data.",
+  "· 2024：2000 多亿个": "· 2024: Over 200 billion",
+  "GNoME 220 万 / 38 万：Google DeepMind 条目确认 GNoME 及“数十万稳定结构”；具体数字出自 Merchant 等 2023 年《自然》论文与 DeepMind 博客，并在正文注明了争议，保留": "GNoME 2.2 million / 380,000: the Google DeepMind entry confirms GNoME and “hundreds of thousands of stable structures”; the specific figures come from Merchant et al., Nature 2023, and the DeepMind blog, and the main text notes the controversy; retained"
 }
