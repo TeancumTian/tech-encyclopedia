@@ -1,6 +1,6 @@
 # 互动学习网页维护说明
 
-「原来如此」面向零基础成年人：从生活问题进入知识，用可操作实验观察因果，再用小测和自己的笔记检查理解。全书内容完整可读：997 词条、59 原理、17 篇导读与地图、20 份前置与来源文稿、726 项年表及中英文索引，共 1098 个连续阅读小节、183 张图解。保留 4 条路线、20 节专门编写的导学与小测、6 个实验；新增覆盖全部词条的翻卡回想和复习安排。
+「原来如此」面向零基础成年人：从生活问题进入知识，用可操作实验观察因果，再用小测和自己的笔记检查理解。全书内容完整可读：997 词条、59 原理、17 篇导读与地图、20 份前置与来源文稿、726 项年表及中英文索引，共 1098 个连续阅读小节、183 张图解。现有 7 条路线、35 节专门编写的导学与小测、11 个实验，以及覆盖全部词条的翻卡回想和复习安排。另有深色模式、朗读、按需加载，以及给搜索引擎和无 JavaScript 读者用的纯文本词条页。
 
 ## 在线阅读与浏览器记录
 
@@ -57,6 +57,10 @@ make web-check  # 书稿检查 + 构建 + JS 语法 + Python 存储/HTTP + Node 
 | 项目保存客户端、离线草稿、冲突处理 | `web/storage.js` |
 | 线上浏览器存档与路径隔离 | `web/browser-storage.js`、`web/runtime-config.json` |
 | 实验计算与进度数据校验 | `web/models.js` |
+| 朗读本节（语音合成、分句、暂停与调速） | `web/speech.js` |
+| 深色模式配色与切换按钮 | `web/theme.css`、`web/app.js` 的 `applyTheme`、`web/index.html` 首屏脚本 |
+| 纯文本词条页、原理页、目录页与 `sitemap.xml` | `scripts/static_pages.py`、`web/static.css` |
+| 按需加载的拆分文件（`book.core.json`、`bodies/`、`en/bodies/`） | `scripts/build_web.py` 的 `write_split_payloads` |
 | 语言切换、段落对照与动态文案 | `web/i18n.js`、`translations/*.json` |
 | 翻译覆盖检查、英文图解生成 | `scripts/localization.py` |
 | 样式与响应式布局 | `web/styles.css`、`web/reader.css`、`web/i18n.css` |
@@ -90,6 +94,11 @@ make web-check  # 书稿检查 + 构建 + JS 语法 + Python 存储/HTTP + Node 
 | 高压输电 | 电压 10–100 kV | 固定 1000 kW 与线路电阻 10 Ω，以 I=P/U、损耗 I²R 演示比例关系；不是完整电网潮流模型 |
 | 梯度下降 | 学习率 0.05–1.2、单步、重置 | L=x²，更新 x←x−α·2x；从 x=4 开始，展示收敛、振荡、发散。超过范围停止计算 |
 | 数据包 | 接收、重传、重置 | 固定示例演示乱序、丢包与 TCP 式重传重排；明确 IP 不保证可靠有序，真实包按字节划分 |
+| 火箭方程 | 推进剂占起飞质量 50–95%、喷气速度 2.0–4.5 km/s | 单级理想火箭，Δv = 喷气速度 × ln(起飞质量 ÷ 烧完质量)；与书中入轨约需 9.4 km/s（含阻力和重力损失）比较。不模拟分级、推力和飞行轨迹 |
+| 卡诺效率 | 高温端 100–1500 °C、低温端 0–100 °C | 理想可逆热机上限 1 − T冷 ÷ T热，温度换算为开尔文；不含摩擦、散热等真实损失 |
+| PCR 倍增 | 循环 0–40 轮、每轮效率 50–100% | 从 1 个分子开始，份数 = (1 + 效率)^轮数；真实反应后期原料减少会放缓，模型不模拟平台期 |
+| 移位密码 | 英文明文、密钥 0–25、破解滑块 | 只移动 26 个英文字母，c = (p + k) mod 26；只有 25 种有效密钥，仅用于演示密钥与模运算 |
+| 平方—立方定律 | 放大倍数 1–10 | 几何相似、材料不变：面积 k²、体积与重量 k³、底面压力 k；不模拟结构形式和材料的改变 |
 
 新增实验时把数学逻辑放进 `models.js`，为边界、规律和反例写测试，界面说明单位与简化假设。按钮与输入控件要有可读名称，反馈用文本呈现，不只靠颜色。
 
@@ -98,6 +107,12 @@ make web-check  # 书稿检查 + 构建 + JS 语法 + Python 存储/HTTP + Node 
 - [NASA Ohm’s Law Activity Guide](https://www.nasa.gov/wp-content/uploads/2018/07/x-57-ohms-law-activity-guide.pdf)
 - [Google Gradient descent](https://developers.google.com/machine-learning/crash-course/linear-regression/gradient-descent)
 - [Cloudflare Network packets](https://www.cloudflare.com/learning/network-layer/what-is-a-packet/)
+- [NASA Glenn Ideal Rocket Equation](https://www1.grc.nasa.gov/beginners-guide-to-aeronautics/ideal-rocket-equation/)（2026-10-12 访问；旧地址 `grc.nasa.gov/www/k-12/rocket/rktpow.html` 已迁移）
+- [OpenStax University Physics, 4.5 The Carnot Cycle](https://openstax.org/books/university-physics-volume-2/pages/4-5-the-carnot-cycle)（2026-10-12 访问；给出 e = 1 − Tc/Th）
+- [NHGRI Polymerase Chain Reaction Fact Sheet](https://www.genome.gov/about-genomics/fact-sheets/Polymerase-Chain-Reaction-Fact-Sheet)（2026-10-12 访问；每轮复制、最终超过十亿份）
+- [Wikipedia Caesar cipher](https://en.wikipedia.org/wiki/Caesar_cipher)（2026-10-12 访问；E(x) = (x + n) mod 26，只有 25 种位移）
+
+新增 15 节导学的类比、题目和反馈只使用对应词条正文里已核实的事实（例如入轨约需 9.4 km/s、液氢液氧喷气速度约 4.4 km/s、猎鹰 9 号复用时运力少约三成、PCR 30 轮约 10 亿倍、AES 密钥 2¹²⁸ 种可能），没有引入新的历史或数字，所以 `front/sources-*.md` 无需新增条目。
 
 ## 本机项目学习记录
 
@@ -120,7 +135,10 @@ make web-check  # 书稿检查 + 构建 + JS 语法 + Python 存储/HTTP + Node 
 - 首页逻辑门可点，路线有实际条目，前后导航有效。
 - 搜索中文、英文、正文关键词；领域、核心图解筛选；零结果及翻页。
 - 原理到词条、词条到原理、相关词条、图解放大和书稿来源。
-- 六个实验的输入、输出、挑战及重置；大步长发散、数据包重传。
+- 十一个实验的输入、输出、挑战及重置；大步长发散、数据包重传；火箭 4.4 km/s 时 88% 不够而 89% 够、PCR 第 30 轮过十亿、移位密码往回 11 格破解、放大 5 倍压力 5 倍。
+- 深色、浅色、自动三种配色切换与刷新后保持；专注阅读工具条里的切换按钮；图解在深色下保持浅色底。
+- 朗读：开始、暂停后从同一句继续、调速、停止；切换页面或语言时停止；对照模式读中文、English 模式读英文。
+- 纯文本页：`e/index.html` 能到达每个词条页，词条页的相关词条、原理、图解和「打开互动学习版」链接有效；`en/` 下为英文。
 - 小测错题解释、正确反馈、标记完成、取消收藏、笔记刷新后持久化。
 - 导出再导入；损坏文件不得覆盖已有进度。
 - 全书前置、篇章导读与图、来源表格、726 项年表、997 条中英文索引与总表，前后节导航有效。
@@ -144,7 +162,51 @@ make web-check  # 书稿检查 + 构建 + JS 语法 + Python 存储/HTTP + Node 
 
 ## 后续迭代顺序
 
-优先根据实际学习反馈改进 20 节导学，再扩充能源、航天等领域实验。不要一次为全部词条机械生成同一种选择题。现有书稿事实沿用原核实记录，并未因为增加交互而重新全面事实审校。
+优先根据实际学习反馈改进 35 节导学，再为材料、制造、交通、农业、建筑、金融、环境、媒体等还没有导学的领域补路线和实验。不要一次为全部词条机械生成同一种选择题。现有书稿事实沿用原核实记录，并未因为增加交互而重新全面事实审校。
+
+## 首屏按需加载
+
+构建同时写出完整的 `book.json`、合并前的翻译目录（供测试和工具使用），以及阅读器实际请求的拆分文件：
+
+- `book.core.json`：全部结构、名称、定义、导读与文稿，不含词条正文字段。首屏只下载它。
+- `bodies/<领域>.json`：一篇的词条正文，打开该篇任一词条、做全文搜索或翻卡时才请求。
+- `en.json`：界面、前置与来源文稿、名称、定义和图解标签的英文；`en/bodies/<领域>.json` 是对应篇的正文英文。两者只在选择 English 或中英对照后请求。
+
+`app.js` 的 `ensureBodies` 和 `ensureTranslations` 负责请求与合并，页面在所需数据到齐后一次绘制；全文搜索先按名称和定义出结果，正文到齐后自动补全。运行时请求带与模块相同的 `?v=` 版本号（构建时替换 `__ASSET_VERSION__`），拆分文件也计入版本摘要。gzip 后中文首屏数据约 232 KB（原来两份共约 1.98 MB）。
+
+## 深色模式
+
+`prefs.theme` 取 `auto`、`dark`、`light`，和字号、语言一起存在 v2 进度里，旧存档默认 `auto`。`index.html` 头部的内联脚本在首屏绘制前读取存档或系统设置并给 `<html>` 加 `data-theme`，避免闪白；`theme.css` 只在 `data-theme=dark` 下覆盖配色。原书 SVG 是深色文字加透明底，所以图解和封面在深色模式下保留浅色卡片。新增界面元素要同时补 `theme.css`。
+
+## 朗读
+
+`speech.js` 使用浏览器的 `speechSynthesis`，不引入任何语音服务。它收集当前小节的标题、段落和列表，跳过小测、实验、笔记、表格和图注，按句群分段朗读并高亮当前段落。暂停是取消后从同一句群重读，在不支持原生暂停的浏览器上也可用。中文与对照模式朗读中文，English 模式朗读英文；优先选设备本地语音。注意：部分浏览器的语音由浏览器厂商在线合成，书稿文字会经由该语音服务处理，个人笔记从不朗读。没有语音合成功能的浏览器不显示按钮。年表、索引、总表等查阅页不提供朗读。
+
+## 纯文本词条页与 sitemap
+
+阅读器是单页应用，地址在 `#` 之后，搜索引擎、分享预览和不开 JavaScript 的读者只能到达首页。构建因此另外生成无脚本的 HTML：
+
+- `e/<id>.html`、`p/<id>.html`、`e/index.html` 为中文；`en/e/`、`en/p/` 为英文。共 2114 页，内容与阅读器同源（书稿加 `translations/`）。
+- 每页有 canonical、zh/en hreflang、Open Graph 和 schema.org `DefinedTerm`，并链接回阅读器的 `#/entry/<id>`。
+- `sitemap.xml` 列出全部页面。站点地址由 `SITE_URL` 环境变量决定，默认 `https://teancum.me/tech-encyclopedia/`；换域名时在构建前设置它。`robots.txt` 只在域名根目录生效，本项目位于子路径，需要时在 Search Console 提交 `sitemap.xml`。
+- 这些页面不读写任何学习记录。修改版式改 `scripts/static_pages.py` 和 `web/static.css`，不要手改产物。
+
+## 英文版 PDF
+
+`make pdf-en` 用 `tools/build_pdf.py --lang en` 排英文版：书稿每一行在 `translations/` 的合并目录里取英文，图解用构建时生成的英文 SVG，附录为年表、来源和 A–Z 索引（索引同时列出中文名）。任何一行缺译都会让构建失败并列出缺译内容。`--lang` 不改变中文输出：重构前后中文全书与样章的排版 HTML 逐字节一致。CI 的 `build-pdf.yml` 同时产出两份 PDF，发版时都挂到 Release。
+
+## 2026-10-12 扩展版验收记录
+
+- `make web-check` 通过：18 项 Python、50 项 Node 测试；严格构建验证 10115 段书稿译文并生成 2114 个纯文本页。
+- 新增 3 条路线、15 节导学、5 个实验，全部在浏览器实测：答错有解释、答对后才能标记学会、下一节可达；五个实验在中文与 English 模式下逐一操作，动态反馈完整翻译，切换语言保留实验参数。
+- 深色模式在 800 px 与 375 px 检查首页、词条、实验、整本书和我的学习；配色切换循环与刷新后保持正常；375 px 无页面横向溢出，顶栏一行排下搜索、语言和配色开关。手机检查为视口模拟。
+- 按需加载：中文首屏只请求 `book.core.json`；打开词条时请求对应篇正文；切换 English 后才请求英文目录与该篇英文正文；全文搜索与翻卡在正文到齐后工作。
+- 朗读：以替身语音接口核对三种语言模式下的朗读文本、顺序与语言标记，未在验收机器上实际出声；暂停、继续、调速、停止状态正确。
+- 纯文本页：2114 页内部链接全部存在，英文页没有残留中文正文；浅色、深色与 375 px 检查通过。
+- 核心词条英文校订：四批共 798 段，423 段更正；每条更正都校验了引用 ID、链接、加粗与代码标记，17 处数字写法变化逐条人工核对。
+- 事实抽查：书中 11 条 2026 年 7–10 月的最新说法（GPT-6、Gemini 4 Argon、Grok 4.7、Unicode 18.0、LineShine、长征十号乙回收、2026 诺贝尔化学奖、隆基 35.5%、星舰第 14 飞、欧盟 AI 法修正案、DevDay 周活）联网核对全部属实。更正了两处英文数量级翻译错误（晶体管数 200 billion、GNoME 2.2 million / 380,000）。
+- 英文版 PDF：样章 152 页本机排版并目检封面、目录、原理索引和词条页；本机缺 Noto 字体，使用系统字体替代，页数以 CI 为准。
+- 本次未推送、未部署；线上站点仍是上一版。
 
 ## 2026-10-09 中英双语版验收记录
 

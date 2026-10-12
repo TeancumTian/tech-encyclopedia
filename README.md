@@ -14,12 +14,16 @@
 
 **「原来如此」** 将书稿变成面向零基础成年人的互动学习网站：
 
-- 4 条学习路线、20 节生活化导学与即时反馈小测；6 个可操作实验。
+- 7 条学习路线、35 节生活化导学与即时反馈小测；11 个可操作实验（逻辑门、二进制、电流、高压输电、梯度下降、数据包、火箭方程、卡诺效率、PCR 倍增、移位密码、平方—立方定律）。
 - 整本书可连续阅读：997 个完整词条、59 条原理、17 篇导读与知识地图、全部前置说明与来源、年表、中英文索引、词条总表；183 张原书图解。
 - 1098 个阅读小节，支持前后节、恢复上次位置、已读标记、大字与专注模式。阅读小节与 PDF 页码不同。
-- 997 个词条均可翻卡回想；支持按领域、已读、收藏和到期内容复习，以及 20 节导学的小测错题重练。
+- 997 个词条均可翻卡回想；支持按领域、已读、收藏和到期内容复习，以及 35 节导学的小测错题重练。
 - 在线版把阅读位置、收藏、笔记和复习进度保存在当前浏览器，支持 JSON 导出/导入；本机服务版继续写入 `learning-data/progress.json` 并保留前一版备份。
 - 适配电脑和手机尺寸；无需账户、API 密钥、第三方字体或 npm 依赖。
+- 深色模式：自动跟随系统，也可手动切换深色或浅色；选择与阅读进度一起保存。
+- 朗读本节：用浏览器自带的语音逐段朗读正文并高亮，可暂停、调速；不朗读个人笔记。
+- 首屏只下载目录和词条摘要，正文按篇加载；英文译文在切换到 English 或中英对照时才下载。
+- 每个词条和原理另有独立的纯文本网页（中文在 `e/`、`p/`，英文在 `en/` 下），附 `sitemap.xml`，不开 JavaScript 也能读，搜索引擎和分享预览可以直达。
 - 中文、English、中英对照三种模式：界面、整本书、导学、小测和图解均可切换；语言选择与阅读进度一起保存，个人笔记保持原文。
 
 需要 Python 3.9+。在仓库目录运行：
@@ -38,7 +42,7 @@ make web-serve
 
 Open [Now I See — The Technology Atlas](https://teancum.me/tech-encyclopedia/) and choose **English** in the language menu. Choose **中英对照** to compare Chinese and English passages. The complete book includes 997 entries, 59 principles, 17 chapters and 183 diagrams, alongside learning paths, experiments and review cards.
 
-Reading position, bookmarks and notes stay in your browser. Use **My learning → Export / Import** to make a backup or move your records to another device. All language modes share the same progress, and your own notes remain exactly as you wrote them. English content is a machine-assisted, edited translation of the Chinese manuscript; the existing PDF remains in Chinese. See [translation maintenance](translations/README.md) for the editing workflow.
+Reading position, bookmarks and notes stay in your browser. Use **My learning → Export / Import** to make a backup or move your records to another device. All language modes share the same progress, and your own notes remain exactly as you wrote them. English content is a machine-assisted, edited translation of the Chinese manuscript; the English of all 105 core entries has been checked line by line against the Chinese. An English edition PDF is built alongside the Chinese one. Dark mode, read-aloud and a plain page for every entry are available in all language modes. See [translation maintenance](translations/README.md) for the editing workflow.
 
 网页从现有书稿生成，`build/web/` 是产物，不要直接修改。维护和实验模型说明见 [网页维护说明](docs/WEB_MAINTENANCE.md)。推送 `main` 后，GitHub Actions 先检查并构建，再自动部署 `build/web/` 到 GitHub Pages。仓库与网页均按用户授权公开，个人学习数据不包含在发布产物中。
 
@@ -52,7 +56,7 @@ Reading position, bookmarks and notes stay in your browser. Use **My learning �
 
 ## 下载 PDF
 
-成书 PDF **不放在 git 里**，在 GitHub **[Releases](../../releases)** 页面下载（每个 `v*` tag 自动生成）。
+成书 PDF **不放在 git 里**，在 GitHub **[Releases](../../releases)** 页面下载（每个 `v*` tag 自动生成），含中文版和英文版（English edition）两份。
 每次推送到 `main`，Actions 也会把最新 PDF 作为 artifact 上传（Actions → Build PDF → Artifacts）。
 
 ## 目录（Table of Contents）
@@ -94,6 +98,8 @@ pip install -r requirements.txt
 
 make pdf      # 全书 → build/近现代科技百科全书-全书.pdf
 make sample   # 样章 → build/样章.pdf
+make pdf-en   # 英文版全书 → build/tech-encyclopedia-en.pdf（另需 Noto Serif / Noto Sans 西文字体，Debian/Ubuntu: fonts-noto-core）
+make sample-en  # 英文样章 → build/sample-en.pdf
 make check    # 检查 SVG、JSON、路径
 ```
 

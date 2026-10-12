@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Typeset 《近现代科技百科全书》 into an A4 Chinese PDF.
+"""Typeset 《近现代科技百科全书》 into an A4 PDF: the Chinese book, or its English edition.
 
 Toolchain inherited from the sister book repo b2b-zero-to-one (tools/build_pdf.py) (WeasyPrint + markdown-it +
 Noto CJK; inline ```svg``` blocks -> <figure>). Entry metadata comes from data/entries.json;
@@ -9,6 +9,10 @@ Usage:
   python3 tools/build_pdf.py --sample computing   # build/样章.pdf
   python3 tools/build_pdf.py                      # build/近现代科技百科全书-全书.pdf（缺稿词条以短条目占位并警告）
   python3 tools/build_pdf.py --list               # 打印阅读顺序（role<TAB>path<TAB>title）
+  python3 tools/build_pdf.py --lang en            # build/tech-encyclopedia-en.pdf（英文版，用 translations/ 里的译文）
+
+The English edition typesets the same manuscript through translations/*.json (the catalogue the
+website uses) and the English diagrams. Chinese output is unchanged by --lang.
 """
 from __future__ import annotations
 
@@ -33,6 +37,88 @@ MD = MarkdownIt("commonmark", {"html": True, "linkify": False, "typographer": Fa
 SVG_STYLE = "<style><![CDATA[text,tspan{font-family:'Noto Sans CJK SC','Noto Sans CJK JP',sans-serif;}]]></style>"
 FIELDS = ["是什么", "原理", "怎么工作", "年份人物", "改变了", "注意", "图注"]
 LABEL = {"怎么工作": "怎么工作", "年份人物": "关键年份与人物", "改变了": "改变了什么", "注意": "常见误解"}
+
+# ---------------- language ----------------
+# "zh" typesets the manuscript as written. "en" looks every manuscript line up in the translation
+# catalogue and takes this file's own labels from EN below (keyed by the Chinese literal).
+LANG = "zh"
+CATALOG: dict[str, str] = {}
+EN_FIGS: Path | None = None
+UNTRANSLATED: set[str] = set()
+HAN = re.compile(r"[\u3400-\u9fff]")
+EN = {
+    "第一性原理": "First principle", "怎么工作": "How it works", "关键年份与人物": "Key dates and people",
+    "改变了什么": "What it changed", "常见误解": "Common misconception", "图：": "Figure: ", "、": ", ",
+    "相关词条": "Related entries", "（正文待写）": "(Text to be written)", "样": "S",
+    "第一性原理索引": "Index of First Principles", "用到它的词条（{n}）：": "Entries that use it ({n}): ",
+    "附录　全书词条总表": "Appendix  Master List of Entries",
+    "{num:02d}　{name}（{count} 条）": "{num:02d}  {name} ({count} entries)", "{name}（{n}）": "{name} ({n})",
+    "合计": "Total", "另有 {n} 条第一性原理": "plus {n} first principles",
+    "附录一　大事年表": "Appendix I  Timeline", "附录二　资料来源与核实记录": "Appendix II  Sources and Verification Records",
+    "附录四　English Index（英文索引）": "Appendix III  Index",
+    "第 {num} 篇　{name}": "Part {num}  {name}", "第 {num} 篇｜{name}": "Part {num} | {name}",
+    "{alt} · {count} 个词条": "{alt} · {count} entries", "目录": "Contents",
+    "怎么读这本书": "How to Read This Book", "全书地图": "Map of the Book",
+    "本篇资料来源与核实记录": "Sources and Verification Records for This Part",
+    "1700–1799　第一次工业革命：蒸汽与机器": "1700–1799  The First Industrial Revolution: steam and machines",
+    "1800–1869　铁路、电报与电的驯服": "1800–1869  Railways, the telegraph and the taming of electricity",
+    "1870–1913　第二次工业革命：电力、内燃机与化工": "1870–1913  The Second Industrial Revolution: electric power, internal combustion and chemicals",
+    "1914–1945　两次世界大战与大众技术": "1914–1945  Two world wars and technology for the masses",
+    "1946–1969　晶体管、原子能与太空竞赛": "1946–1969  The transistor, atomic energy and the space race",
+    "1970–1999　个人电脑、互联网与基因工程": "1970–1999  Personal computers, the internet and genetic engineering",
+    "2000–2026　移动互联网、新能源与人工智能": "2000–2026  The mobile internet, new energy and artificial intelligence",
+    "master-intro": 'Arranged by domain and subcategory. <span class="badge">S</span> marks entries written out in this sample. The year is the key starting year of the technology (invention, first demonstration or first commercial use, as given in the entry); A/B/C is the length tier.',
+    "timeline-intro": 'Ordered by the key starting year in each entry heading (invention, first demonstration or first commercial use), {n} entries in all. Entries without a single starting year, such as umbrella terms like "renewable energy", are not listed. <b>Bold</b> marks ★ core entries, the gray text on the right is the domain, and the number at the end is the page. The year marks only the starting point; see the entry for the full story.',
+    "sources-intro": "The verification records are arranged by part and share one format: 1. the latest data checked against original sources, with access dates; 2. years and people checked in bulk against the text of Wikipedia articles, with every failed item handled one by one; 3. the reference lists used to decide which entries to include; 4. further reading. Data for 2025–2026 carry their dates, and items marked as checked at final proofreading were verified again or corrected during the final proofreading of the whole book in October 2026. These records describe the verification of the Chinese manuscript; the English text is a machine-assisted, edited translation of it.",
+    "index-intro": "Sorted A–Z by English name (ignoring a leading The/A/An), with the Chinese entry name and the page number on the right.",
+    "sample-note": 'Sample edition: contains "How to Read This Book", "Map of the Book", the Index of First Principles ({principles} root principles), the full text and diagrams of all {count} entries of Part {num}, "{name}", and the master list of all {entries} entries in the book. The other parts follow the same standard.',
+    "book-title": "An Illustrated Encyclopedia of Modern Technology", "book-subtitle": "1700–2026 · English edition of 《近现代科技百科全书》",
+    "book-reader": "From the Industrial Revolution to large language models · 17 domains, nearly 1,000 key terms\nEach entry explains what it is, why it works, how it works, who and when, and what it changed",
+    "edition-note": "English edition. The text is a machine-assisted, edited translation of the Chinese manuscript. Dates, people and figures were verified for the Chinese manuscript and carry its verification dates.",
+}
+
+def L(zh: str) -> str:
+    """One of this file's own labels, in the edition language."""
+    return zh if LANG == "zh" else EN[zh]
+
+def tr(s: str) -> str:
+    """One manuscript line, as the website's catalogue translates it."""
+    if LANG == "zh" or not HAN.search(s): return s
+    hit = CATALOG.get(s) or CATALOG.get(s.strip())
+    if not hit:
+        UNTRANSLATED.add(s); return s
+    return hit
+
+def T(text: str) -> str:
+    return text if LANG == "zh" else "\n".join(tr(line) for line in text.split("\n"))
+
+def T_md(text: str) -> str:
+    """Translate a Markdown document block by block, using the same keys as the web builder:
+    heading titles, list items, table cells and stripped paragraph lines."""
+    if LANG == "zh": return text
+    out, fence = [], False
+    for raw in text.split("\n"):
+        line = raw.strip(); indent = raw[:len(raw) - len(raw.lstrip())]
+        if line.startswith("```"):
+            fence = not fence; out.append(raw); continue
+        if fence or not line:
+            out.append(raw); continue
+        m = re.match(r"^(#{1,6} )(.*)$", line)
+        if m:
+            out.append(m.group(1) + tr(m.group(2))); continue
+        if line.startswith("|"):
+            cells = [c.strip() for c in line.strip("|").split("|")]
+            if all(re.fullmatch(r":?-+:?", c.replace(" ", "")) for c in cells):
+                out.append(raw); continue
+            out.append("| " + " | ".join(tr(c).replace("|", "\\|") for c in cells) + " |"); continue
+        m = re.match(r"^([-*] |\d+\. )(.*)$", line)
+        if m:
+            out.append(indent + m.group(1) + tr(m.group(2))); continue
+        out.append(tr(line))
+    return "\n".join(out)
+
+def nm(x) -> str: return x["zh"] if LANG == "zh" else x["en"]
+def alt(x) -> str: return x["en"] if LANG == "zh" else x["zh"]
 
 CSS = r"""
 @page { size: A4; margin: 17mm 16mm 17mm 16mm;
@@ -142,7 +228,7 @@ p.warn { font-family: "Noto Sans CJK SC", sans-serif; font-size: 9pt; color: #9a
 def esc(s): return html.escape(s, quote=True)
 
 def load_svgfile(path: str) -> str:
-    fp = ROOT / "assets" / path.strip()
+    fp = (EN_FIGS if LANG == "en" else ROOT / "assets") / path.strip()
     if not fp.exists():
         print("WARNING missing figure", fp, file=sys.stderr)
         return f'<svg viewBox="0 0 600 60"><text x="300" y="35" text-anchor="middle" fill="#9a3412">[缺图 {html.escape(path.strip())}]</text></svg>'
@@ -157,7 +243,8 @@ def fix_svg(raw: str) -> str:
     if not m:
         return "<pre>" + esc(raw) + "</pre>"
     attrs = re.sub(r'\s(?:width|height)\s*=\s*"[^"]*"', "", m.group(1))
-    return f"<svg{attrs}>{SVG_STYLE}{raw[m.end():]}"
+    style = SVG_STYLE if LANG == "zh" else SVG_STYLE.replace("'Noto Sans CJK SC'", "'Noto Sans','Noto Sans CJK SC'")
+    return f"<svg{attrs}>{style}{raw[m.end():]}"
 
 def md_inline(text: str) -> str:
     text = re.sub(r"\*\*([^\n*]+?)\*\*", "\uE000\\1\uE001", text)
@@ -198,11 +285,11 @@ def link_mentions(h: str) -> str:
         eid, label = m.group(1), m.group(2)
         if eid.startswith("p:"):
             p = PRIN[eid[2:]]
-            return f'<a class="chip" href="#p-{p["id"]}">{esc(label or p["zh"])}</a>'
+            return f'<a class="chip" href="#p-{p["id"]}">{esc(label or nm(p))}</a>'
         if eid not in ENT:
             print("WARNING unknown mention", eid, file=sys.stderr); return esc(label or eid)
         cls = "xr" if eid in INCLUDED else "xr out"
-        return f'<a class="{cls}" href="{href(eid)}">{esc(label or ENT[eid]["zh"])}</a>'
+        return f'<a class="{cls}" href="{href(eid)}">{esc(label or nm(ENT[eid]))}</a>'
     return re.sub(r"\[\[([a-z0-9:\-]+)(?:\|([^\]]+))?\]\]", rep, h)
 
 # ---------------- domain source parsing ----------------
@@ -253,26 +340,26 @@ def render_entry(e, body):
     star = '<span class="star">★</span>' if tier == "A" else ""
     yr = f'<span class="yr">{e["year"]}</span>' if e["year"] else ""
     out = [f'<section class="entry tier-{tier}" id="e-{e["id"]}">',
-           f'<h3 class="eh">{star}{esc(e["zh"])}<span class="en">{esc(e["en"])}</span>{yr}</h3>',
-           f'<p class="def">{md_inline(f.get("是什么", e["definition"]))}</p>']
-    chips = "".join(f'<a class="chip" href="#p-{p}">{esc(PRIN[p]["zh"])}</a>' for p in e["principles"])
+           f'<h3 class="eh">{star}{esc(nm(e))}<span class="en">{esc(alt(e))}</span>{yr}</h3>',
+           f'<p class="def">{md_inline(T(f.get("是什么", e["definition"])))}</p>']
+    chips = "".join(f'<a class="chip" href="#p-{p}">{esc(nm(PRIN[p]))}</a>' for p in e["principles"])
     if f.get("原理"):
-        out.append(f'<div class="fp"><p><span class="lab">第一性原理</span>{md_inline(f["原理"])}{chips}</p></div>')
+        out.append(f'<div class="fp"><p><span class="lab">{L("第一性原理")}</span>{md_inline(T(f["原理"]))}{chips}</p></div>')
     for key in ["怎么工作", "年份人物", "改变了", "注意"]:
         if f.get(key):
-            paras = [x.strip() for x in f[key].split("\n") if x.strip()]
-            first = f'<p><span class="lab">{LABEL[key]}</span>{md_inline(paras[0])}</p>'
+            paras = [x.strip() for x in T(f[key]).split("\n") if x.strip()]
+            first = f'<p><span class="lab">{L(LABEL[key])}</span>{md_inline(paras[0])}</p>'
             out.append(first + "".join(f"<p>{md_inline(p)}</p>" for p in paras[1:]))
     for k, (lang, svg) in enumerate(body["svgs"] if body else []):
         cap = body["captions"][k] if k < len(body["captions"]) else ""
         cls = "diagram" + (" small" if "small" in lang else "")
-        capx = f"<figcaption>图：{md_inline(cap)}</figcaption>" if cap else ""
+        capx = f"<figcaption>{L('图：')}{md_inline(T(cap))}</figcaption>" if cap else ""
         out.append(f'<figure class="{cls}">{fix_svg(svg)}{capx}</figure>')
     rel = list(dict.fromkeys(e["related"] + e["cited_by"][:max(0, 7 - len(e["related"]))]))
-    links = "、".join(f'<a class="xr{"" if r in INCLUDED else " out"}" href="{href(r)}">{esc(ENT[r]["zh"])}</a>' for r in rel)
-    out.append(f'<p class="xref"><span class="lab">相关词条</span>{links}</p>')
+    links = L("、").join(f'<a class="xr{"" if r in INCLUDED else " out"}" href="{href(r)}">{esc(nm(ENT[r]))}</a>' for r in rel)
+    out.append(f'<p class="xref"><span class="lab">{L("相关词条")}</span>{links}</p>')
     if not body:
-        out.insert(3, '<p class="warn">（正文待写）</p>')
+        out.insert(3, f'<p class="warn">{L("（正文待写）")}</p>')
     out.append("</section>")
     return "\n".join(out)
 
@@ -283,31 +370,32 @@ def principles_index_html():
     for e in DATA["entries"]:
         for p in e["principles"]:
             uses[p].append(e["id"])
-    h = ['<section class="front-sec"><h1 class="front" id="principles-index">第一性原理索引</h1>',
-         md_block((ROOT / "front" / "principles-intro.md").read_text(encoding="utf-8")) if (ROOT / "front" / "principles-intro.md").exists() else ""]
+    h = [f'<section class="front-sec"><h1 class="front" id="principles-index">{L("第一性原理索引")}</h1>',
+         md_block(T_md((ROOT / "front" / "principles-intro.md").read_text(encoding="utf-8"))) if (ROOT / "front" / "principles-intro.md").exists() else ""]
     for g in DATA["principle_groups"]:
-        h.append(f'<h2 id="pg-{esc(g)}">{esc(g)}</h2>')
+        h.append(f'<h2 id="pg-{esc(g)}">{esc(T(g))}</h2>')
         for p in DATA["principles"]:
             if p["group"] != g: continue
             ids = uses[p["id"]]
-            lst = "".join(f'<a href="{href(i)}">{esc(ENT[i]["zh"])}</a>' for i in ids)
-            h.append(f'<div class="pr" id="p-{p["id"]}"><h3>{esc(p["zh"])} <span class="en" style="font-weight:400;color:#6b7280;font-size:9pt">{esc(p["en"])}</span></h3>'
-                     f'<p class="st">{esc(p["statement"])}</p><p class="uses">用到它的词条（{len(ids)}）：{lst}</p></div>')
+            lst = ("" if LANG == "zh" else " · ").join(f'<a href="{href(i)}">{esc(nm(ENT[i]))}</a>' for i in ids)  # multi-word English names need a visible separator
+            h.append(f'<div class="pr" id="p-{p["id"]}"><h3>{esc(nm(p))} <span class="en" style="font-weight:400;color:#6b7280;font-size:9pt">{esc(alt(p))}</span></h3>'
+                     f'<p class="st">{esc(T(p["statement"]))}</p><p class="uses">{L("用到它的词条（{n}）：").format(n=len(ids))}{lst}</p></div>')
     h.append("</section>")
     return "\n".join(h)
 
 def master_list_html():
-    h = ['<section class="master"><h1 class="front" id="master-list">附录　全书词条总表</h1>',
-         '<p>按领域与子类排列。<span class="badge">样</span> 表示本样章已写出正文；年份为该技术的关键起点年份（发明、首次演示或首次商用，以词条正文为准）；A/B/C 为篇幅级别。</p>']
+    intro = ('按领域与子类排列。<span class="badge">样</span> 表示本样章已写出正文；年份为该技术的关键起点年份（发明、首次演示或首次商用，以词条正文为准）；A/B/C 为篇幅级别。'
+             if LANG == "zh" else EN["master-intro"])
+    h = [f'<section class="master"><h1 class="front" id="master-list">{L("附录　全书词条总表")}</h1>', f'<p>{intro}</p>']
     for d in DATA["domains"]:
-        h.append(f'<h2 id="m-{d["id"]}">{d["num"]:02d}　{esc(d["zh"])}（{d["count"]} 条）</h2>')
+        h.append(f'<h2 id="m-{d["id"]}">{L("{num:02d}　{name}（{count} 条）").format(num=d["num"], name=esc(nm(d)), count=d["count"])}</h2>')
         for sub in d["subcategories"]:
             rows = [e for e in DATA["entries"] if e["domain"] == d["id"] and e["subcategory"] == sub]
-            h.append(f'<table><thead><tr><th colspan="4">{esc(sub)}（{len(rows)}）</th></tr></thead><tbody>')
+            h.append(f'<table><thead><tr><th colspan="4">{L("{name}（{n}）").format(name=esc(T(sub)), n=len(rows))}</th></tr></thead><tbody>')
             for e in rows:
-                b = ' <span class="badge">样</span>' if e["id"] in INCLUDED else ""
-                h.append(f'<tr id="x-{e["id"]}"><td>{esc(e["zh"])}{b}　<b style="color:#9ca3af">{e["tier"]}</b></td><td>{esc(e["en"])}</td>'
-                         f'<td>{e["year"] or ""}</td><td>{esc(e["definition"])}</td></tr>')
+                b = f' <span class="badge">{L("样")}</span>' if e["id"] in INCLUDED else ""
+                h.append(f'<tr id="x-{e["id"]}"><td>{esc(nm(e))}{b}　<b style="color:#9ca3af">{e["tier"]}</b></td><td>{esc(alt(e))}</td>'
+                         f'<td>{e["year"] or ""}</td><td>{esc(T(e["definition"]))}</td></tr>')
             h.append("</tbody></table>")
     h.append("</section>")
     return "\n".join(h)
@@ -322,12 +410,13 @@ def front_md(name: str, hid: str, title: str):
         from collections import Counter as _C
         tc = _C(e["tier"] for e in DATA["entries"])
         txt = txt.replace("@@STATS@@", f'{len(DATA["domains"])} 个领域、{len(DATA["entries"])} 个词条（★ 核心 {tc["A"]} 条、标准 {tc["B"]} 条、短词条 {tc["C"]} 条）、{len(DATA["principles"])} 条第一性原理')
+    txt = T_md(txt)  # after @@STATS@@ so the line matches the catalogue; the table placeholder has no text to translate
     if "@@DOMAIN_TABLE@@" in txt:
         rows = []
         for d in DATA["domains"]:
             tgt = f"#d-{d['id']}" if d["id"] in {e["domain"] for e in DATA["entries"] if e["id"] in INCLUDED} else f"#m-{d['id']}"
-            rows.append(f'| {d["num"]:02d} | <a class="xr" href="{tgt}">{d["zh"]}</a> | {d["count"]} | {d["tagline"]} |')
-        rows.append(f'| | **合计** | **{len(DATA["entries"])}** | 另有 {len(DATA["principles"])} 条第一性原理 |')
+            rows.append(f'| {d["num"]:02d} | <a class="xr" href="{tgt}">{nm(d)}</a> | {d["count"]} | {T(d["tagline"])} |')
+        rows.append(f'| | **{L("合计")}** | **{len(DATA["entries"])}** | {L("另有 {n} 条第一性原理").format(n=len(DATA["principles"]))} |')
         txt = txt.replace("@@DOMAIN_TABLE@@", "\n".join(rows))
     return f'<section class="front-sec"><h1 class="front" id="{hid}">{esc(title)}</h1>{md_block(txt)}</section>'
 
@@ -338,30 +427,31 @@ ERAS = [(1700, 1799, "1700–1799　第一次工业革命：蒸汽与机器"), (
 
 def timeline_html():
     ents = sorted((e for e in DATA["entries"] if e["year"] and e["id"] in INCLUDED), key=lambda e: (e["year"], DOM[e["domain"]]["num"], e["order"]))
-    h = ['<section class="appendix"><h1 class="front" id="timeline">附录一　大事年表</h1>',
-         f'<p>按词条标题中的"关键起点"年份（发明、首次演示或首次商用）排列，共 {len(ents)} 条；没有单一起点年份的词条（如"可再生能源"这类总称）不列入。'
-         '<b>粗体</b>为 ★ 核心词条，右侧灰字为所属领域，末尾是页码。年份只标起点，完整经过见词条正文。</p>']
+    intro = (f'按词条标题中的"关键起点"年份（发明、首次演示或首次商用）排列，共 {len(ents)} 条；没有单一起点年份的词条（如"可再生能源"这类总称）不列入。'
+             '<b>粗体</b>为 ★ 核心词条，右侧灰字为所属领域，末尾是页码。年份只标起点，完整经过见词条正文。') if LANG == "zh" else EN["timeline-intro"].format(n=len(ents))
+    h = [f'<section class="appendix"><h1 class="front" id="timeline">{L("附录一　大事年表")}</h1>', f'<p>{intro}</p>']
     for lo, hi, name in ERAS:
         rows = [e for e in ents if lo <= e["year"] <= hi]
         if not rows: continue
-        h.append(f'<h2 class="tl-era">{esc(name)}（{len(rows)}）</h2><div class="tl">')
-        h += [f'<a class="{e["tier"]}" href="#e-{e["id"]}"><span class="y">{e["year"]}</span>{esc(e["zh"])}<span class="dm">{esc(DOM[e["domain"]]["zh"])}</span></a>' for e in rows]
+        h.append(f'<h2 class="tl-era">{L("{name}（{n}）").format(name=esc(L(name)), n=len(rows))}</h2><div class="tl">')
+        h += [f'<a class="{e["tier"]}" href="#e-{e["id"]}"><span class="y">{e["year"]}</span>{esc(nm(e))}<span class="dm">{esc(nm(DOM[e["domain"]]))}</span></a>' for e in rows]
         h.append("</div>")
     h.append("</section>")
     return "\n".join(h)
 
 def sources_all_html(doms):
-    h = ['<section class="appendix srcs"><h1 class="front" id="sources">附录二　资料来源与核实记录</h1>',
-         '<p>各篇的核实记录按篇排列，格式相同：一、按原始来源核对的最新数据（附访问时间）；二、用维基百科正文批量核对年份与人物，并逐条处理未通过项；'
-         '三、收词范围的对照来源；四、延伸阅读。2025–2026 年的数据都注明了时间点，标"终校时核对"的条目是 2026 年 10 月全书终校时重新查证或更正过的。</p>']
+    intro = ('各篇的核实记录按篇排列，格式相同：一、按原始来源核对的最新数据（附访问时间）；二、用维基百科正文批量核对年份与人物，并逐条处理未通过项；'
+             '三、收词范围的对照来源；四、延伸阅读。2025–2026 年的数据都注明了时间点，标"终校时核对"的条目是 2026 年 10 月全书终校时重新查证或更正过的。') if LANG == "zh" else EN["sources-intro"]
+    h = [f'<section class="appendix srcs"><h1 class="front" id="sources">{L("附录二　资料来源与核实记录")}</h1>', f'<p>{intro}</p>']
     for d in doms:
         fp = ROOT / "front" / f'sources-{d["id"]}.md'
         if not fp.exists():
             print("WARNING missing", fp, file=sys.stderr); continue
         txt = fp.read_text(encoding="utf-8")
         txt = re.sub(r"^# .*\n", "", txt, count=1)
+        txt = T_md(txt)
         txt = re.sub(r"^(#{2,5}) ", lambda m: "#" + m.group(1) + " ", txt, flags=re.M)
-        h.append(f'<h2 class="src-d" id="src-{d["id"]}">第 {d["num"]} 篇　{esc(d["zh"])}</h2>{md_block(txt)}')
+        h.append(f'<h2 class="src-d" id="src-{d["id"]}">{L("第 {num} 篇　{name}").format(num=d["num"], name=esc(nm(d)))}</h2>{md_block(txt)}')
     h.append("</section>")
     return "\n".join(h)
 
@@ -383,9 +473,9 @@ def pinyin_index_html():
          '想从英文查，请用附录四。</p><div class="kidx">']
     cur = None
     for e in ents:
-        L = keys.get(e["id"], {"letter": "#"})["letter"]
-        if L != cur:
-            h.append(f'<h3 class="lt">{"0–9" if L == "#" else L}</h3>'); cur = L
+        letter = keys.get(e["id"], {"letter": "#"})["letter"]
+        if letter != cur:
+            h.append(f'<h3 class="lt">{"0–9" if letter == "#" else letter}</h3>'); cur = letter
         h.append(f'<a href="#e-{e["id"]}">{esc(e["zh"])}<span class="en2">{esc(e["en"])}</span></a>')
     h.append("</div></section>")
     return "\n".join(h)
@@ -396,34 +486,35 @@ def english_index_html():
         s = re.sub(r"^(the|a|an)\s+", "", e["en"].strip(), flags=re.I)
         return (not s[:1].isalpha(), s.casefold())
     ents.sort(key=k)
-    h = ['<section class="appendix"><h1 class="front" id="en-index">附录四　English Index（英文索引）</h1>',
-         '<p>按英文名 A–Z 排序（忽略开头的 The/A/An），右侧为中文词条名与页码。</p><div class="kidx">']
+    intro = '按英文名 A–Z 排序（忽略开头的 The/A/An），右侧为中文词条名与页码。' if LANG == "zh" else EN["index-intro"]
+    h = [f'<section class="appendix"><h1 class="front" id="en-index">{L("附录四　English Index（英文索引）")}</h1>',
+         f'<p>{intro}</p><div class="kidx">']
     cur = None
     for e in ents:
         s = re.sub(r"^(the|a|an)\s+", "", e["en"].strip(), flags=re.I)
-        L = s[:1].upper() if s[:1].isalpha() else "0–9"
-        if L != cur:
-            h.append(f'<h3 class="lt">{L}</h3>'); cur = L
+        letter = s[:1].upper() if s[:1].isalpha() else "0–9"
+        if letter != cur:
+            h.append(f'<h3 class="lt">{letter}</h3>'); cur = letter
         h.append(f'<a href="#e-{e["id"]}">{esc(e["en"])}<span class="zh2">{esc(e["zh"])}</span></a>')
     h.append("</div></section>")
     return "\n".join(h)
 
 def domain_html(d, intro, bodies, outro):
-    h = [f'<section class="domain" style="string-set: part-name \'第 {d["num"]} 篇｜{esc(d["zh"])}\'">',
-         f'<h1 class="part" id="d-{d["id"]}">第 {d["num"]} 篇　{esc(d["zh"])}</h1>',
-         f'<p class="part-en">{esc(d["en"])} · {d["count"]} 个词条</p>',
-         f'<p class="part-tag">{esc(d["tagline"])}</p>', md_block(intro) if intro else ""]
+    h = [f'<section class="domain" style="string-set: part-name \'{L("第 {num} 篇｜{name}").format(num=d["num"], name=esc(nm(d)))}\'">',
+         f'<h1 class="part" id="d-{d["id"]}">{L("第 {num} 篇　{name}").format(num=d["num"], name=esc(nm(d)))}</h1>',
+         f'<p class="part-en">{L("{alt} · {count} 个词条").format(alt=esc(alt(d)), count=d["count"])}</p>',
+         f'<p class="part-tag">{esc(T(d["tagline"]))}</p>', md_block(T_md(intro)) if intro else ""]
     toc, stats = [], defaultdict(int)
     for sub in d["subcategories"]:
         sid = f's-{d["id"]}-{d["subcategories"].index(sub)}'
-        h.append(f'<h2 class="sub" id="{sid}">{esc(sub)}</h2>')
+        h.append(f'<h2 class="sub" id="{sid}">{esc(T(sub))}</h2>')
         ents = [e for e in DATA["entries"] if e["domain"] == d["id"] and e["subcategory"] == sub]
         toc.append((sub, sid, ents))
         for e in ents:
             b = bodies.get(e["id"])
             if not b: stats["missing"] += 1
             h.append(render_entry(e, b))
-    if outro: h.append(md_block(outro))
+    if outro: h.append(md_block(T_md(outro)))
     h.append("</section>")
     return "\n".join(h), toc, stats
 
@@ -448,50 +539,90 @@ def build(sample: str | None):
             n = cjk_count(" ".join(b["fields"].values())) if b else 0
             svgs = len(b["svgs"]) if b else 0
             report.append((e["id"], e["tier"], n, svgs))
-    toc_html = ['<section class="toc"><div class="toc-title">目录</div>']
+    toc_html = [f'<section class="toc"><div class="toc-title">{L("目录")}</div>']
     pieces = []
-    fronts = [("howto.md", "howto", "怎么读这本书"), ("map.md", "bookmap", "全书地图")]
+    fronts = [("howto.md", "howto", L("怎么读这本书")), ("map.md", "bookmap", L("全书地图"))]
     for name, hid, title in fronts:
         pieces.append(front_md(name, hid, title)); toc_html.append(f'<a class="lv0" href="#{hid}">{title}</a>')
-    pieces.append(principles_index_html()); toc_html.append('<a class="lv0" href="#principles-index">第一性原理索引</a>')
+    pieces.append(principles_index_html()); toc_html.append(f'<a class="lv0" href="#principles-index">{L("第一性原理索引")}</a>')
     for d in doms:
         intro, bodies, outro = parsed[d["id"]]
         dh, toc, stats = domain_html(d, intro, bodies, outro)
         pieces.append(dh)
-        toc_html.append(f'<a class="lv0" href="#d-{d["id"]}">第 {d["num"]} 篇　{esc(d["zh"])}</a>')
+        toc_html.append(f'<a class="lv0" href="#d-{d["id"]}">{L("第 {num} 篇　{name}").format(num=d["num"], name=esc(nm(d)))}</a>')
         for sub, sid, ents in toc:
-            toc_html.append(f'<a class="lv1" href="#{sid}">{esc(sub)}</a>')
+            toc_html.append(f'<a class="lv1" href="#{sid}">{esc(T(sub))}</a>')
             if sample:
                 toc_html.append('<div class="entries">' + "".join(
-                    f'<a class="lv2" href="#e-{e["id"]}">{esc(e["zh"])}</a>' for e in ents) + "</div>")
+                    f'<a class="lv2" href="#e-{e["id"]}">{esc(nm(e))}</a>' for e in ents) + "</div>")
     if sample:
         srcs = ROOT / "front" / f"sources-{sample}.md"
         if srcs.exists():
-            pieces.append(front_md(srcs.name, "sources", "本篇资料来源与核实记录")); toc_html.append('<a class="lv0" href="#sources">本篇资料来源与核实记录</a>')
-        pieces.append(master_list_html()); toc_html.append('<a class="lv0" href="#master-list">附录　全书词条总表</a>')
+            pieces.append(front_md(srcs.name, "sources", L("本篇资料来源与核实记录"))); toc_html.append(f'<a class="lv0" href="#sources">{L("本篇资料来源与核实记录")}</a>')
+        pieces.append(master_list_html()); toc_html.append(f'<a class="lv0" href="#master-list">{L("附录　全书词条总表")}</a>')
     else:
-        for fn, hid, title in [(timeline_html, "timeline", "附录一　大事年表"),
-                               (lambda: sources_all_html(doms), "sources", "附录二　资料来源与核实记录"),
-                               (pinyin_index_html, "kw-index", "附录三　中文关键词索引（按拼音）"),
-                               (english_index_html, "en-index", "附录四　English Index（英文索引）")]:
+        appendices = [(timeline_html, "timeline", "附录一　大事年表"),
+                      (lambda: sources_all_html(doms), "sources", "附录二　资料来源与核实记录"),
+                      (pinyin_index_html, "kw-index", "附录三　中文关键词索引（按拼音）"),
+                      (english_index_html, "en-index", "附录四　English Index（英文索引）")]
+        if LANG == "en":  # one A–Z index serves the English edition; it also lists every Chinese name
+            appendices = [(fn, hid, EN[title]) for fn, hid, title in appendices if hid != "kw-index"]
+        for fn, hid, title in appendices:
             pieces.append(fn()); toc_html.append(f'<a class="lv0" href="#{hid}">{title}</a>')
     toc_html.append("</section>")
-    note = (f'<p class="sample-note">样章版：收录"怎么读这本书""全书地图""第一性原理索引"（{len(DATA["principles"])} 条根原理）、'
-            f'第 {DOM[sample]["num"]} 篇「{DOM[sample]["zh"]}」全部 {DOM[sample]["count"]} 个词条的正文与图解，以及全书 {len(DATA["entries"])} 个词条的总表。'
-            f'其余各篇按同一标准撰写。</p>') if sample else ""
-    cover_art = ROOT / "front" / "cover.svg"
+    if not sample: note = ""
+    elif LANG == "zh":
+        note = (f'<p class="sample-note">样章版：收录"怎么读这本书""全书地图""第一性原理索引"（{len(DATA["principles"])} 条根原理）、'
+                f'第 {DOM[sample]["num"]} 篇「{DOM[sample]["zh"]}」全部 {DOM[sample]["count"]} 个词条的正文与图解，以及全书 {len(DATA["entries"])} 个词条的总表。'
+                f'其余各篇按同一标准撰写。</p>')
+    else:
+        note = '<p class="sample-note">' + esc(EN["sample-note"].format(principles=len(DATA["principles"]), num=DOM[sample]["num"], name=DOM[sample]["en"],
+                                                                           count=DOM[sample]["count"], entries=len(DATA["entries"]))) + '</p>'
+    cover_art = (EN_FIGS / "cover.svg") if LANG == "en" else ROOT / "front" / "cover.svg"
     art = f'<div class="cover-art">{fix_svg(cover_art.read_text(encoding="utf-8"))}</div>' if cover_art.exists() else ""
-    title_page = (f'<section class="title-page"><h1 class="book-title">近现代科技百科全书</h1><hr class="cover-rule"/>'
-                  f'<p class="subtitle">{esc(BOOK_SUBTITLE)}</p><p class="reader">{esc(BOOK_READER).replace(chr(10), "<br/>")}</p>{art}{note}</section>')
-    doc = (f'<!DOCTYPE html><html lang="zh-CN"><head><meta charset="utf-8"/><title>{BOOK_TITLE}</title>'
-           f'<style>{CSS}</style></head><body>{title_page}{"".join(toc_html)}{"".join(pieces)}</body></html>')
+    if LANG == "zh":
+        title_page = (f'<section class="title-page"><h1 class="book-title">近现代科技百科全书</h1><hr class="cover-rule"/>'
+                      f'<p class="subtitle">{esc(BOOK_SUBTITLE)}</p><p class="reader">{esc(BOOK_READER).replace(chr(10), "<br/>")}</p>{art}{note}</section>')
+        doc = (f'<!DOCTYPE html><html lang="zh-CN"><head><meta charset="utf-8"/><title>{BOOK_TITLE}</title>'
+               f'<style>{CSS}</style></head><body>{title_page}{"".join(toc_html)}{"".join(pieces)}</body></html>')
+    else:
+        title_page = (f'<section class="title-page"><h1 class="book-title">{esc(EN["book-title"])}</h1><hr class="cover-rule"/>'
+                      f'<p class="subtitle">{esc(EN["book-subtitle"])}</p><p class="reader">{esc(EN["book-reader"]).replace(chr(10), "<br/>")}</p>'
+                      f'{art}<p class="sample-note">{esc(EN["edition-note"])}</p>{note}</section>')
+        doc = (f'<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"/><title>{esc(EN["book-title"])}</title>'
+               f'<style>{english_css()}</style></head><body>{title_page}{"".join(toc_html)}{"".join(pieces)}</body></html>')
     return doc, report
+
+def english_css() -> str:
+    """Latin faces first, CJK faces as fallback for the Chinese names kept beside each English name."""
+    css = CSS
+    for face in ("Noto Serif", "Noto Sans Mono", "Noto Sans"):
+        css = css.replace(f'"{face} CJK SC"', f'"{face}", "{face} CJK SC"')
+    css = css.replace('string-set: book-title "近现代科技百科全书"', f'string-set: book-title "{EN["book-title"]}"')
+    # English runs longer than Chinese: a slightly smaller body size and a title that fits on two lines.
+    return css + ("\nhtml { font-size: 9.8pt; }\n.title-page { padding-top: 26mm; }\n.book-title { font-size: 24pt; }\n"
+                  ".cover-art { width: 108mm; margin-top: 7mm; }\n.title-page .sample-note { margin-top: 6mm; }\n")
+
+def load_english() -> None:
+    """Read the website's translation catalogue and write the English diagrams for this edition."""
+    global CATALOG, EN_FIGS
+    for name in ("en.auto.json", "ui.en.json", "en.json"):
+        fp = ROOT / "translations" / name
+        if fp.exists(): CATALOG.update(json.loads(fp.read_text(encoding="utf-8")))
+    sys.path.insert(0, str(ROOT / "scripts"))
+    from localization import write_english_figures
+    work = BUILD / "pdf-en"
+    write_english_figures(ROOT, work, CATALOG)
+    figs = work / "en"
+    (figs / "figs").mkdir(parents=True, exist_ok=True)
+    EN_FIGS = figs
 
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--sample", default=None, help="domain id to build as 样章")
     ap.add_argument("--html-only", action="store_true")
     ap.add_argument("--list", action="store_true", help="print reading order and exit")
+    ap.add_argument("--lang", choices=["zh", "en"], default="zh", help="zh: the Chinese book (default); en: the English edition")
     args = ap.parse_args()
     if args.list:
         print("front\tfront/howto.md\t怎么读这本书")
@@ -501,9 +632,24 @@ def main():
             print(f'chapter\tdomains/{d["num"]:02d}-{d["id"]}.md\t第 {d["num"]} 篇　{d["zh"]}（{d["count"]} 条）')
         return 0
     BUILD.mkdir(parents=True, exist_ok=True)
+    global LANG
+    LANG = args.lang
+    if LANG == "en": load_english()
     doc, report = build(args.sample)
-    stem = "样章" if args.sample else "近现代科技百科全书-全书"
+    if LANG == "zh": stem = "样章" if args.sample else "近现代科技百科全书-全书"
+    else: stem = "sample-en" if args.sample else "tech-encyclopedia-en"
     (BUILD / f"{stem}.html").write_text(doc, encoding="utf-8")
+    if LANG == "en":
+        figs = sum(s for *_, s in report)
+        print(f"entries={len(report)} entry_figs={figs} untranslated_lines={len(UNTRANSLATED)}")
+        if UNTRANSLATED:
+            for line in sorted(UNTRANSLATED)[:12]: print("UNTRANSLATED:", line[:90])
+            sys.exit("English edition is incomplete: add the missing lines to translations/ and rebuild.")
+        if args.html_only: return 0
+        out = BUILD / f"{stem}.pdf"
+        HTML(string=doc, base_url=str(ROOT)).write_pdf(str(out))
+        print("PDF:", out.relative_to(ROOT), out.stat().st_size)
+        return 0
     tiers = {"A": (360, 750), "B": (220, 480), "C": (120, 320)}  # 字数, see PUBLISHING_STANDARD.md
     short = [(i, t, n) for i, t, n, s in report if n and not tiers[t][0] <= n <= tiers[t][1]]
     missing = [i for i, t, n, s in report if n == 0]

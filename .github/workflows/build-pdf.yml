@@ -37,14 +37,20 @@ jobs:
       - name: Build full PDF
         run: make pdf PYTHON=python
 
-      - name: Name the PDF
+      - name: Build English edition PDF
+        run: make pdf-en PYTHON=python
+
+      - name: Name the PDFs
         id: name
         run: |
           if [[ "$GITHUB_REF" == refs/tags/* ]]; then VER="${GITHUB_REF_NAME}"; else VER="${GITHUB_SHA::7}"; fi
           mkdir -p dist
           cp "build/近现代科技百科全书-全书.pdf" "dist/tech-encyclopedia-$VER.pdf"
+          cp "build/tech-encyclopedia-en.pdf" "dist/tech-encyclopedia-en-$VER.pdf"
           echo "file=dist/tech-encyclopedia-$VER.pdf" >> "$GITHUB_OUTPUT"
+          echo "file_en=dist/tech-encyclopedia-en-$VER.pdf" >> "$GITHUB_OUTPUT"
           pdfinfo "dist/tech-encyclopedia-$VER.pdf" | grep -E 'Pages|File size'
+          pdfinfo "dist/tech-encyclopedia-en-$VER.pdf" | grep -E 'Pages|File size'
 
       - uses: actions/upload-artifact@v4
         with:
@@ -56,5 +62,7 @@ jobs:
         if: startsWith(github.ref, 'refs/tags/v')
         uses: softprops/action-gh-release@v2
         with:
-          files: ${{ steps.name.outputs.file }}
+          files: |
+            ${{ steps.name.outputs.file }}
+            ${{ steps.name.outputs.file_en }}
           generate_release_notes: true

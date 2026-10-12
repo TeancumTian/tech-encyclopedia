@@ -30,7 +30,7 @@ data/src/*.txt               # 词条总表（唯一源头）：id、中英名�
 data/entries.json            # 由 compile_entries.py 生成（别手改）
 data/index_keys.json         # 拼音索引排序键（make_index_keys.py 生成）
 assets/figs/<领域>/            # SVG 图（由 tools/figs_<领域>.py 生成）
-tools/build_pdf.py           # 排版：entries.json + domains → HTML → PDF，自动生成索引与年表
+tools/build_pdf.py           # 排版：entries.json + domains → HTML → PDF，自动生成索引与年表；--lang en 用 translations/ 出英文版
 tools/compile_entries.py 等   # 词条数据工具：编译、插入、按领域局部更新
 tools/figs_*.py / svgkit.py  # 图解生成脚本与绘图库；preview_figs.py 预览成 PNG
 tools/factcheck.py           # 批量用维基百科正文核对年份/关键词（需联网）
@@ -43,7 +43,7 @@ tools/factcheck.py           # 批量用维基百科正文核对年份/关键词
 1. 打开对应的 `.md` 文件直接改（目录见 README）。
 2. 第一行 `# 标题` 是章标题，会进 PDF 目录；`##` / `###` 是小节。
 3. 段落短一点：**每节第一句写结论**，一段一个意思。
-4. 跑 `make check`（应输出 `errors=0`），再跑 `make sample` 或 `make pdf` 看排版。
+4. 跑 `make check`（应输出 `errors=0`），再跑 `make sample` 或 `make pdf` 看排版。改了中文还要补齐 `translations/` 里的英文，否则网页构建和 `make pdf-en`（英文版 PDF）都会失败并列出缺译的行。
 5. `git commit -m "改：第 N 章 …"`。
 
 ## 4. 加一张图（内联 SVG 约定）
