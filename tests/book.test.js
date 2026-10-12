@@ -35,6 +35,11 @@ test('Markdown text and unsafe URLs never execute as HTML',()=>{
   const html=reader.inline('<img src=x onerror=alert(1)> **bold** [bad](javascript:alert) [[p:energy]] https://example.com');
   assert.ok(!html.includes('<img'));assert.ok(!html.includes('href="javascript:'));assert.ok(html.includes('#/principle/energy'));
   assert.ok(html.includes('<strong>bold</strong>'));assert.ok(html.includes('rel="noopener"'));
+  // Journal titles written as *Title* are italic, as in the PDF; arithmetic and bold are left alone.
+  assert.equal(reader.inline('见 *The Lancet* 2022'),'见 <em>The Lancet</em> 2022');
+  assert.equal(reader.inline('*Nature* 与 **bold**'),'<em>Nature</em> 与 <strong>bold</strong>');
+  assert.equal(reader.inline('2 * 3 * 4 和 a*b*c'),'2 * 3 * 4 和 a*b*c');
+  assert.ok(!reader.inline('*<script>x</script>*').includes('<script'));
 });
 test('v1 records migrate while v2 read anchors, notes and review ratings survive',()=>{
   const old=normalizeProgress({saved:['bit-byte'],notes:{'bit-byte':'my note'}},entries.keys(),book.readingOrder);assert.equal(old.notes['bit-byte'],'my note');assert.deepEqual(old.reading,{});

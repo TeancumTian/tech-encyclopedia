@@ -11,7 +11,7 @@ export function createBookReader({book, entries, principles, domains, progress: 
     return /^(?:https?:\/\/|#\/(?:entry|principle|chapter|document|book|sources|timeline|index|master)(?:\/|$))/.test(url) ? esc(url) : '#/book';
   }
   function rawInline(text, useEnglish = currentLanguage()==='en') {
-    const pattern = /\[\[([^\]|]+)(?:\|([^\]]+))?\]\]|\*\*(.+?)\*\*|`([^`]+)`|\[([^\]]+)\]\(([^\s)]+)\)|(https?:\/\/[^\s<>；，。)]+)|\b((?:[a-z0-9-]+\.)+(?:com|org|net|edu|gov|eu|ai|io|co|cn)\/[a-zA-Z0-9_./?=%&+#-]*)/g;
+    const pattern = /\[\[([^\]|]+)(?:\|([^\]]+))?\]\]|\*\*(.+?)\*\*|`([^`]+)`|\[([^\]]+)\]\(([^\s)]+)\)|(https?:\/\/[^\s<>；，。)]+)|\b((?:[a-z0-9-]+\.)+(?:com|org|net|edu|gov|eu|ai|io|co|cn)\/[a-zA-Z0-9_./?=%&+#-]*)|(^|[^*\w])\*([^*\s][^*]*?)\*(?![*\w])/g;
     let result = '', start = 0;
     for (const m of String(text).matchAll(pattern)) {
       result += esc(String(text).slice(start,m.index));
@@ -20,6 +20,7 @@ export function createBookReader({book, entries, principles, domains, progress: 
         result += item ? `<a href="#/${p ? 'principle/' + m[1].slice(2) : 'entry/' + m[1]}">${esc(m[2] || (useEnglish ? item.en : item.zh))}</a>` : esc(m[2] || m[1]);
       } else if (m[3]) result += '<strong>' + rawInline(m[3], useEnglish) + '</strong>';
       else if (m[4]) result += '<code>' + esc(m[4]) + '</code>';
+      else if (m[10]) result += esc(m[9]) + '<em>' + rawInline(m[10], useEnglish) + '</em>';
       else {
         const url = m[6] || m[7] || 'https://' + m[8];
         result += `<a href="${safeLink(url)}" ${url.startsWith('http') ? 'target="_blank" rel="noopener"' : ''}>${esc(m[5] || m[7] || m[8])}</a>`;

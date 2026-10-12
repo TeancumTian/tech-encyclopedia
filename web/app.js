@@ -165,7 +165,7 @@ function rawInline(text, useEnglish = currentLanguage()==='en') {
   return esc(text).replace(/\[\[([^\]|]+)(?:\|([^\]]+))?\]\]/g, (_, id, label) => {
     const p = id.startsWith('p:'); const item = p ? principles.get(id.slice(2)) : entries.get(id);
     return item ? `<a href="#/${p ? 'principle/' + id.slice(2) : 'entry/' + id}">${label || esc(useEnglish ? item.en : item.zh)}</a>` : (label || id);
-  }).replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>').replace(/`(.*?)`/g, '<code>$1</code>');
+  }).replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>').replace(/(^|[^*\w])\*([^*\s][^*]*?)\*(?![*\w])/g, '$1<em>$2</em>').replace(/`(.*?)`/g, '<code>$1</code>');
 }
 const inline = text => paired(text, rawInline);
 const secondaryName = item => currentLanguage()==='bi' && /[\u3400-\u9fff]/.test(item.zh) ? '' : currentLanguage()==='en' ? item.originalZh || item.en : item.en;
