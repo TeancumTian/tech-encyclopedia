@@ -103,7 +103,7 @@ make sample-en  # 英文样章 → build/sample-en.pdf
 make check    # 检查 SVG、JSON、路径
 ```
 
-全书参考页数：约 549 页（A4）。字体或 WeasyPrint 版本不同，页数会有几页浮动。
+全书参考页数：中文版约 549 页、英文版约 692 页（A4）。字体或 WeasyPrint 版本不同，页数会有几页浮动。
 
 ## 怎么维护
 

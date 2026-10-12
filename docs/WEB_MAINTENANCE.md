@@ -206,8 +206,10 @@ make web-check  # 书稿检查 + 构建 + JS 语法 + Python 存储/HTTP + Node 
 - 纯文本页：2114 页内部链接全部存在，英文页没有残留中文正文；浅色、深色与 375 px 检查通过。
 - 核心词条英文校订：四批共 798 段，423 段更正；每条更正都校验了引用 ID、链接、加粗与代码标记，17 处数字写法变化逐条人工核对。
 - 事实抽查：书中 11 条 2026 年 7–10 月的最新说法（GPT-6、Gemini 4 Argon、Grok 4.7、Unicode 18.0、LineShine、长征十号乙回收、2026 诺贝尔化学奖、隆基 35.5%、星舰第 14 飞、欧盟 AI 法修正案、DevDay 周活）联网核对全部属实。更正了两处英文数量级翻译错误（晶体管数 200 billion、GNoME 2.2 million / 380,000）。
-- 英文版 PDF：样章 152 页本机排版并目检封面、目录、原理索引和词条页；本机缺 Noto 字体，使用系统字体替代，页数以 CI 为准。
-- 本次未推送、未部署；线上站点仍是上一版。
+- 英文版 PDF：样章 152 页本机排版并目检封面、目录、原理索引、词条页、来源附录和索引；本机缺 Noto 字体，使用系统字体替代。CI 用 Noto 字体排出的英文版全书为 692 页，中文版仍为 549 页。
+- 用户确认上线后，提交 `dcb41ef` 推送到 `main`。[Pages 部署](https://github.com/TeancumTian/tech-encyclopedia/actions/runs/38317683122)、[网页检查](https://github.com/TeancumTian/tech-encyclopedia/actions/runs/38317683214)和 [PDF 构建](https://github.com/TeancumTian/tech-encyclopedia/actions/runs/38317683099)全部成功；两份 PDF 在该次运行的 artifact 里，尚未打 tag 发 Release。
+- 线上核对：`https://teancum.me/tech-encyclopedia/` 的 17 个文件（入口、模块、样式、拆分后的书稿与译文、sitemap、中英文纯文本页、英文图解）与本机已测试产物逐字节一致；个人进度与保存 API 路径返回 404。
+- 线上实测：火箭方程实验、生命路线 CRISPR 导学的答错与答对反馈、切换 English 后只请求英文目录和该篇英文正文、深色模式、375 px 下 7 条路线无横向溢出、英文纯文本词条页的 canonical 与返回阅读器的链接。验收产生的浏览器测试记录已删除，未触碰同域名下其他应用的存储。手机检查为视口模拟。
 
 ## 2026-10-09 中英双语版验收记录
 
